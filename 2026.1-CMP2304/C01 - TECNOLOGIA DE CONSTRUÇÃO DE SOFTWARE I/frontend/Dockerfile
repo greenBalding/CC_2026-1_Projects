@@ -2,7 +2,7 @@
 FROM node:lts-alpine
 
 # Etapa 2: Define o diretório de trabalho
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Etapa 3: Copia os arquivos de definição de dependências
 COPY package*.json ./
