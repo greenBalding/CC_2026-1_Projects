@@ -1,4 +1,5 @@
 services:
+  # Serviço 1: Banco de dados PostgreSQL
   postgres:
     build:
       context: ./postgres
@@ -16,6 +17,7 @@ services:
     networks:
       - app-net
 
+  # Serviço 2: Interface web para administração do PostgreSQL
   pgadmin:
     build:
       context: ./pgadmin
@@ -32,6 +34,7 @@ services:
     networks:
       - app-net
 
+  # Serviço 3: API backend (NestJS)
   backend:
     build:
       context: ./backend
@@ -56,6 +59,7 @@ services:
       - app-net
     command: npm run start:dev
 
+  # Serviço 4: Aplicação frontend (React + Vite)
   frontend:
     build:
       context: ./frontend
@@ -75,6 +79,7 @@ services:
       - app-net
     command: npm run dev -- --host 0.0.0.0 --port 5173
 
+  # Serviço 5: Nginx como proxy reverso
   nginx:
     build:
       context: ./nginx
@@ -89,9 +94,11 @@ services:
     networks:
       - app-net
 
+# Volume nomeado para persistência dos dados do PostgreSQL
 volumes:
   postgres_data:
 
+# Rede bridge compartilhada entre os containers
 networks:
   app-net:
     driver: bridge
