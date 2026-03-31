@@ -18,59 +18,55 @@ Esse atributo pode ser, por exemplo:
 - uma função
 - um endereço de memória
 
-Em resumo, quando escrevemos um identificador (nome), a linguagem e o ambiente de execução precisam "ligar" esse nome ao que ele representa.
+Em resumo, quando escrevemos um identificador (nome), a linguagem e o ambiente de execução precisam ligar esse nome ao que ele representa.
 
 **Motivação do uso**
 
 A ligação é usada para:
-- dar significado aos nomes no código
-- permitir reutilização e organização (não precisamos trabalhar só com valores literais)
+- dar significado técnico aos nomes no código
+- permitir organização e reutilização
 - viabilizar verificação de tipos e detecção de erros
-- permitir abstração (nomes para funções, módulos, classes, etc.)
-- facilitar manutenção e leitura do software
+- permitir abstração (funções, módulos, tipos)
+- facilitar manutenção e leitura
 
 Sem ligação, o código ficaria muito mais difícil de escrever, entender e executar.
 
-### Nomeação: papel dos identificadores
+### Nomeação e compilador
 
-#### Ideia central
+Para o compilador, nomes são identificadores formais (sequências de caracteres válidas).
+Ele não interpreta intenção humana do nome; usa tokens e tabela de símbolos.
 
-Para o compilador, nomes são identificadores formais (sequências de caracteres que seguem regras da linguagem).
-Ele não interpreta intenção humana do nome; ele usa tokens e tabela de símbolos.
+Importante:
+- nomes significativos ajudam humanos
+- para o compilador, o essencial é consistência sintática e semântica
 
-#### Motivação da nomeação
-
-- Para humanos: melhorar legibilidade, manutenção e organização.
-- Para o compilador: permitir referência consistente aos elementos do programa.
-
-Importante: nomes "significativos" ajudam pessoas, não mudam o funcionamento semântico do compilador.
-
-### Ligação entre código, tradução e variáveis
-
-O funcionamento coerente do programa depende da ligação entre:
-- o que foi escrito (código fonte)
-- como o sistema processa (compilação/interpretação e análise semântica)
-- como os dados existem em execução (variáveis, valores e memória)
-
-Termo técnico preferível: use compilação/interpretação em vez de "digestão do código".
-
-### Classificação geral de binding
+### Classificação de binding
 
 - Ligação estática: resolvida antes da execução (tipicamente em compilação).
 - Ligação dinâmica: resolvida durante a execução.
 
 Exemplo:
+
+```c
 int idade = 25;
+```
 
 - idade -> identificador
 - int -> tipo
 - 25 -> valor
 
-As ligações podem ocorrer em momentos diferentes do ciclo do programa.
+### Binding time (quando a ligação acontece)
+
+A pergunta central é: em que momento cada ligação é feita?
+
+Momentos clássicos:
+- compilação
+- carregamento
+- execução (runtime)
 
 ### Ligação de nomes, tipos, valores e momentos de execução (binding time)
 
-#### Ideia central
+#### Resumo de prova
 
 Um identificador (por exemplo, uma variável) se relaciona com diferentes atributos ao longo da vida do programa:
 - nome -> tipo
@@ -81,27 +77,14 @@ Por isso, saber apenas o tipo não é suficiente. Também é necessário saber o
 
 #### Exemplo simples em C
 
+```c
 int idade = 20;
+```
 
 Nesse caso, ocorrem ligações de:
 - idade -> tipo int
 - idade -> valor 20
 - idade -> endereço de memória
-
-#### Tipos de ligação mais cobrados
-
-- Ligação de tipo: define que espécie de dado o identificador representa.
-- Ligação de valor: associa um conteúdo ao identificador.
-- Ligação de armazenamento: associa o identificador a uma posição de memória.
-
-#### Binding time (quando a ligação acontece)
-
-A pergunta principal é: em que momento cada ligação é feita?
-
-Momentos clássicos:
-- Tempo de compilação: várias decisões de tipo são definidas aqui.
-- Tempo de carregamento: algumas ligações são ajustadas quando o programa é carregado na memória.
-- Tempo de execução (runtime): valores mudam e alocações efetivas ocorrem durante a execução.
 
 #### Fases úteis para pensar o tema
 
@@ -128,40 +111,6 @@ Exemplos em C:
 - int soma(int a, int b);  -> declaração de função (protótipo)
 - extern int contador;     -> declaração de variável definida em outro arquivo
 
-### Declaração (foco de prova)
-
-Tema recorrente em avaliações: costuma ser muito cobrado.
-Também é considerado difícil por causar confusão conceitual.
-
-Definição essencial:
-- Declaração informa ao compilador o identificador e o tipo.
-
-Exemplo:
-- int x;
-
-No exemplo:
-- x -> nome
-- int -> tipo
-- não há inicialização explícita de valor
-
-Diferença chave:
-- Declaração: int x;
-- Inicialização: int x = 10;
-
-#### Por que esse tema é difícil?
-
-Principal fonte de erro em prova:
-- confundir declaração, inicialização e definição
-
-Exemplo em C:
-- int x;      -> declaração (e, em C, também definição com armazenamento)
-- int x = 10; -> declaração + inicialização (também definição)
-
-Resumo prático:
-- Declaração: apresenta nome/tipo.
-- Inicialização: atribui valor inicial.
-- Definição: cria a entidade de fato no programa.
-
 ### O que é definição?
 
 Definição cria de fato a entidade no programa.
@@ -171,13 +120,26 @@ Exemplos em C:
 - int contador = 0;        -> definição de variável global
 - int soma(int a, int b) { return a + b; }  -> definição de função
 
-### Regra prática para prova
+### Regras de prova (e ponto que mais confunde)
 
 - Declaração: "diz que existe".
 - Definição: "cria/implementa".
+- Inicialização: atribui valor inicial.
 
 Observação importante em C:
 Toda definição também é uma declaração, mas nem toda declaração é uma definição.
+
+Regra contextual útil:
+- `extern int x;` -> declara, não define armazenamento.
+- `int x;` (arquivo/escopo adequado) -> declara e normalmente define armazenamento.
+- `int x = 10;` -> declaração + definição + inicialização.
+
+Exemplo:
+
+```c
+int x;      // declaração (e, em C, normalmente definição)
+int x = 10; // declaração + definição + inicialização
+```
 
 ### Exemplo comparando no mesmo contexto
 
@@ -211,83 +173,97 @@ Resumo:
 
 - Definições de função (corpo)
 - Definições de variáveis globais
-- Implementação interna do modulo
+- Implementação interna do módulo
 
 ### Por que isso existe (compilação separada)
 
 Separar .h e .c permite compilação separada (separate compilation):
-- cada modulo pode ser compilado independentemente
-- melhora organizacao e manutencao
-- reduz recompilacao desnecessaria
+- cada módulo pode ser compilado independentemente
+- melhora organização e manutenção
+- reduz recompilação desnecessária
 
-### Exemplo classico
+### Exemplo clássico
 
-soma.h
-int soma(int a, int b);  // declaracao
+```c
+// soma.h
+int soma(int a, int b);  // declaração
 
-soma.c
-int soma(int a, int b) { // definicao
-	return a + b;
+// soma.c
+int soma(int a, int b) { // definição
+    return a + b;
 }
+```
 
 Frase curta para prova:
-- A declaracao diz "isso existe".
-- A definicao diz "isso e assim".
+- A declaração diz "isso existe".
+- A definição diz "isso é assim".
 
-## Compilacao separada e multiplos arquivos .c
+## Compilação separada e múltiplos arquivos .c
 
 ### Ideia central
 
-Em C, um projeto pode ter varios arquivos .c.
-Cada arquivo .c e compilado separadamente e gera um arquivo objeto (.o), nao um executavel final.
+Em C, um projeto pode ter vários arquivos .c.
+Cada arquivo .c é compilado separadamente e gera um arquivo objeto (.o), não um executável final.
 
-### Problema tipico
+### Problema típico
 
-Se main.c chama uma funcao implementada em soma.c, o compilador de main.c precisa conhecer a declaracao dessa funcao.
+Se `main.c` chama uma função implementada em `soma.c`, o compilador de `main.c` precisa conhecer a declaração dessa função.
 
 Exemplo:
+
+```c
 // main.c
 int main() {
-	 int r = soma(2, 3);
+    int r = soma(2, 3);
 }
+```
 
-Sem declaracao de soma, ocorre erro de compilacao (ou, no minimo, diagnostico de uso sem prototipo, dependendo do padrao/flags).
+Sem declaração de `soma`, ocorre erro de compilação (ou, no mínimo, diagnóstico de uso sem protótipo, dependendo do padrão/flags).
 
-### Solucao
+### Solução
 
-Declarar no cabecalho e incluir no arquivo que usa:
+Declarar no cabeçalho e incluir no arquivo que usa:
 
+```c
 // soma.h
 int soma(int a, int b);
 
 // main.c
 #include "soma.h"
+```
 
 Assim, o compilador conhece:
-- nome da funcao
-- tipos dos parametros
+- nome da função
+- tipos dos parâmetros
 - tipo de retorno
 
 ### Fluxo correto (prova)
 
 1. Compilacao separada:
-	- gcc -c soma.c   -> soma.o
-	- gcc -c main.c   -> main.o
+
+```bash
+gcc -c soma.c   # gera soma.o
+gcc -c main.c   # gera main.o
+```
+
 2. Ligacao (link):
-	- gcc main.o soma.o -> executavel
+
+```bash
+gcc main.o soma.o -o programa
+```
 
 ### Resumo curto
 
 - .h diz o que existe (interface)
-- .c diz como funciona (implementacao)
+- .c diz como funciona (implementação)
 - linker junta os objetos e resolve referencias
 
-## C vs outras linguagens: separacao e bytecode
+## C vs outras linguagens: separação e bytecode
 
 ### Declaracao e definicao em linguagens diferentes
 
-Em algumas linguagens, nao ha separacao explicita entre declaracao e definicao no estilo .h/.c.
-Muitas vezes tudo aparece no mesmo arquivo ou bloco de codigo.
+Em algumas linguagens, não há separação explícita entre declaração e definição no estilo .h/.c.
+Muitas vezes tudo aparece no mesmo arquivo ou bloco de código.
 
 Exemplos comuns:
 - Python
@@ -299,9 +275,9 @@ Em C, a separacao e mais explicita:
 
 ### Sobre "parcode": termo correto
 
-O termo correto, nesse contexto, e bytecode.
+O termo correto, nesse contexto, é bytecode.
 
-Bytecode = codigo intermediario portatil, executado por uma VM ou interpretador.
+Bytecode = código intermediário portátil, executado por uma VM ou interpretador.
 
 Exemplos:
 - Java -> bytecode na JVM
@@ -312,8 +288,8 @@ Vantagem principal:
 
 ### Diferenca central para C
 
-- C: compilacao para codigo de maquina especifico da arquitetura alvo.
-- Linguagens com bytecode: geram representacao intermediaria antes da execucao final.
+- C: compilação para código de máquina específico da arquitetura alvo.
+- Linguagens com bytecode: geram representação intermediária antes da execução final.
 
 ### Resumo de prova
 
@@ -325,8 +301,8 @@ Contraste classico:
 
 ### Distincao essencial
 
-- Escopo: onde o nome pode ser usado no codigo.
-- Tempo de vida: por quanto tempo a variavel existe na memoria.
+- Escopo: onde o nome pode ser usado no código.
+- Tempo de vida: por quanto tempo a variável existe na memória.
 
 Resumo de prova:
 - Escopo responde "onde posso acessar?"
@@ -334,11 +310,13 @@ Resumo de prova:
 
 ### Exemplo em C
 
+```c
 int x = 10; // escopo global, vida durante todo o programa
 
 void f() {
-	int y = 5; // escopo local, vida durante a execucao de f
+    int y = 5; // escopo local, vida durante a execução de f
 }
+```
 
 Leitura do exemplo:
 - x: escopo global; lifetime do programa inteiro.
@@ -346,8 +324,8 @@ Leitura do exemplo:
 
 ### Observacao importante
 
-Escopo e lifetime nao sao a mesma coisa.
-Uma variavel pode existir na memoria e ainda assim nao estar acessivel em certo ponto do codigo.
+Escopo e lifetime não são a mesma coisa.
+Uma variável pode existir na memória e ainda assim não estar acessível em certo ponto do código.
 
 ## Criação de struct dentro de função (stack vs heap)
 
@@ -357,9 +335,12 @@ Uma variavel pode existir na memoria e ainda assim nao estar acessivel em certo 
 Sim. É possível declarar uma variável do tipo struct dentro da função.
 
 Exemplo:
+
+```c
 void f() {
-	struct no n;
+    struct no n;
 }
+```
 
 ### Interpretação correta
 
@@ -370,20 +351,24 @@ void f() {
 
 ### Exemplo com uso local
 
+```c
 void f() {
-	struct no n;
-	n.valor = 10;
-	n.proximo = NULL;
+    struct no n;
+    n.valor = 10;
+    n.proximo = NULL;
 }
+```
 
 ### Quando o nó precisa sobreviver após a função
 
 Use alocação dinâmica:
 
+```c
 struct no* criarNo() {
-	struct no* n = malloc(sizeof(struct no));
-	return n;
+    struct no* n = malloc(sizeof(struct no));
+    return n;
 }
+```
 
 Diferença central:
 - Dentro da função (variável local): stack, temporário.
@@ -429,8 +414,11 @@ A declaração pode existir sem valor útil inicial.
 O valor é ligado quando ocorre atribuição.
 
 Exemplo:
+
+```c
 int x;
 x = 10;
+```
 
 No exemplo acima, a ligação nome -> valor acontece na atribuição.
 
