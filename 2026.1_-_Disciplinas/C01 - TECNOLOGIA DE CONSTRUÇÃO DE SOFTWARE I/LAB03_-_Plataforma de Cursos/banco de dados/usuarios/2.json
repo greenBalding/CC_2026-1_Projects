@@ -1,0 +1,7 @@
+{
+  "ID_Usuario": 2,
+  "NomeCompleto": "Aluno Teste 1",
+  "Email": "alunoteste1@email.com",
+  "SenhaHash": "123456",
+  "DataCadastro": "2026-04-11T23:44:10.767Z"
+}
