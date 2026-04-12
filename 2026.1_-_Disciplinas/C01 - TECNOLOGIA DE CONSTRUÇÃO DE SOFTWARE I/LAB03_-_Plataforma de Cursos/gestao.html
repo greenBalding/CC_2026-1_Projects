@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestao</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+    <div id="navbar-root"></div>
+
+    <main class="container py-4">
+        <h1 id="page-title" class="h3 mb-3">Gestao Academica</h1>
+        <div id="msg-global" class="alert d-none" role="alert"></div>
+
+        <section class="card mb-3">
+            <div class="card-body">
+                <h2 class="h5">Categorias</h2>
+                <form id="form-categoria" class="row g-2 mb-3">
+                    <div class="col-12 col-md-4">
+                        <input id="categoria-nome" class="form-control" placeholder="Nome" required>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <input id="categoria-descricao" class="form-control" placeholder="Descricao">
+                    </div>
+                    <div class="col-12 col-md-2 d-grid">
+                        <button class="btn btn-primary" type="submit">Adicionar</button>
+                    </div>
+                </form>
+                <div id="msg-categoria" class="alert d-none" role="alert"></div>
+                <div class="table-responsive">
+                    <table class="table table-sm table-striped">
+                        <thead><tr><th>ID</th><th>Nome</th><th>Descricao</th><th></th></tr></thead>
+                        <tbody id="table-categorias-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="card mb-3">
+            <div class="card-body">
+                <h2 class="h5">Cursos</h2>
+                <form id="form-curso" class="row g-2 mb-3">
+                    <div class="col-12 col-md-3"><input id="curso-titulo" class="form-control" placeholder="Titulo" required></div>
+                    <div class="col-12 col-md-3"><input id="curso-descricao" class="form-control" placeholder="Descricao" required></div>
+                    <div class="col-12 col-md-2"><select id="curso-categoria" class="form-select" required></select></div>
+                    <div class="col-12 col-md-2">
+                        <select id="curso-nivel" class="form-select" required>
+                            <option value="Iniciante">Iniciante</option>
+                            <option value="Intermediario">Intermediario</option>
+                            <option value="Avancado">Avancado</option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-2 d-grid"><button class="btn btn-primary" type="submit">Adicionar</button></div>
+                </form>
+                <div id="msg-curso" class="alert d-none" role="alert"></div>
+                <div class="table-responsive">
+                    <table class="table table-sm table-striped">
+                        <thead><tr><th>ID</th><th>Titulo</th><th>Categoria</th><th>Nivel</th><th>Aulas</th><th>Horas</th><th></th></tr></thead>
+                        <tbody id="table-cursos-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="card mb-3">
+            <div class="card-body">
+                <h2 class="h5">Trilhas</h2>
+                <form id="form-trilha" class="row g-2 mb-3">
+                    <div class="col-12 col-md-3"><input id="trilha-titulo" class="form-control" placeholder="Titulo" required></div>
+                    <div class="col-12 col-md-4"><input id="trilha-descricao" class="form-control" placeholder="Descricao" required></div>
+                    <div class="col-12 col-md-3"><select id="trilha-categoria" class="form-select" required></select></div>
+                    <div class="col-12 col-md-2 d-grid"><button class="btn btn-primary" type="submit">Adicionar</button></div>
+                </form>
+                <div id="msg-trilha" class="alert d-none" role="alert"></div>
+
+                <h3 class="h6 mt-3">Vincular curso a trilha</h3>
+                <form id="form-trilha-curso" class="row g-2 mb-3">
+                    <div class="col-12 col-md-4"><select id="trilha-curso-trilha" class="form-select" required></select></div>
+                    <div class="col-12 col-md-4"><select id="trilha-curso-curso" class="form-select" required></select></div>
+                    <div class="col-12 col-md-2"><input id="trilha-curso-ordem" type="number" min="1" class="form-control" placeholder="Ordem" required></div>
+                    <div class="col-12 col-md-2 d-grid"><button class="btn btn-outline-primary" type="submit">Vincular</button></div>
+                </form>
+                <div id="msg-trilha-curso" class="alert d-none" role="alert"></div>
+
+                <div class="row g-3" id="list-trilhas"></div>
+            </div>
+        </section>
+
+        <section class="card mb-3">
+            <div class="card-body">
+                <h2 class="h5">Estrutura de Conteudo (Modulos e Aulas)</h2>
+
+                <form id="form-modulo" class="row g-2 mb-3">
+                    <div class="col-12 col-md-4"><select id="modulo-curso" class="form-select" required></select></div>
+                    <div class="col-12 col-md-4"><input id="modulo-titulo" class="form-control" placeholder="Titulo do modulo" required></div>
+                    <div class="col-12 col-md-2"><input id="modulo-ordem" type="number" min="1" class="form-control" placeholder="Ordem" required></div>
+                    <div class="col-12 col-md-2 d-grid"><button class="btn btn-primary" type="submit">Adicionar modulo</button></div>
+                </form>
+                <div id="msg-modulo" class="alert d-none" role="alert"></div>
+
+                <form id="form-aula" class="row g-2 mb-3">
+                    <div class="col-12 col-md-3"><select id="aula-modulo" class="form-select" required></select></div>
+                    <div class="col-12 col-md-3"><input id="aula-titulo" class="form-control" placeholder="Titulo da aula" required></div>
+                    <div class="col-12 col-md-2">
+                        <select id="aula-tipo" class="form-select" required>
+                            <option value="Video">Video</option>
+                            <option value="Texto">Texto</option>
+                            <option value="Quiz">Quiz</option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-2"><input id="aula-url" class="form-control" placeholder="URL" required></div>
+                    <div class="col-6 col-md-1"><input id="aula-duracao" type="number" min="1" class="form-control" placeholder="Min" required></div>
+                    <div class="col-6 col-md-1"><input id="aula-ordem" type="number" min="1" class="form-control" placeholder="Ord" required></div>
+                    <div class="col-12 d-grid"><button class="btn btn-outline-primary" type="submit">Adicionar aula</button></div>
+                </form>
+                <div id="msg-aula" class="alert d-none" role="alert"></div>
+
+                <div class="row g-3" id="list-conteudo"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="./js/app/session.js"></script>
+    <script src="./js/app/db.js"></script>
+    <script src="./js/app/layout.js"></script>
+    <script src="./js/modelo-de-dados/core/Categorias.js"></script>
+    <script src="./js/modelo-de-dados/core/Cursos.js"></script>
+    <script src="./js/modelo-de-dados/curadoria/Trilhas.js"></script>
+    <script src="./js/modelo-de-dados/curadoria/Trilhas_Cursos.js"></script>
+    <script src="./js/modelo-de-dados/conteudo/Modulos.js"></script>
+    <script src="./js/modelo-de-dados/conteudo/Aulas.js"></script>
+    <script src="./js/pages/gestao-view.js"></script>
+    <script src="./js/pages/gestao-actions.js"></script>
+    <script src="./js/pages/gestao.js"></script>
+</body>
+</html>

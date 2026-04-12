@@ -1,0 +1,17 @@
+[
+  {
+    "ID_Categoria": 1,
+    "Nome": "Categoria 1",
+    "Descricao": "Descricao generica"
+  },
+  {
+    "ID_Categoria": 2,
+    "Nome": "Categoria 2",
+    "Descricao": "Descricao generica"
+  },
+  {
+    "ID_Categoria": 3,
+    "Nome": "Categoria 3",
+    "Descricao": "Descricao generica"
+  }
+]

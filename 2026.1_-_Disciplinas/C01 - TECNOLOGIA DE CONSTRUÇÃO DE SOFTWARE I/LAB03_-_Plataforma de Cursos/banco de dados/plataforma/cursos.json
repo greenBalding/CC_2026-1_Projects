@@ -1,0 +1,38 @@
+[
+  {
+    "ID_Curso": 1,
+    "Titulo": "Curso Generico 1",
+    "Descricao": "Descricao generica do curso",
+    "ID_Instrutor": 1,
+    "ID_Categoria": 1,
+    "Nivel": "Iniciante",
+    "DataPublicacao": "2026-01-01",
+    "TotalAulas": 8,
+    "TotalHoras": 4,
+    "Imagem": "./img/react.png"
+  },
+  {
+    "ID_Curso": 2,
+    "Titulo": "Curso Generico 2",
+    "Descricao": "Descricao generica do curso",
+    "ID_Instrutor": 1,
+    "ID_Categoria": 2,
+    "Nivel": "Intermediario",
+    "DataPublicacao": "2026-01-01",
+    "TotalAulas": 8,
+    "TotalHoras": 4,
+    "Imagem": "./img/swift.png"
+  },
+  {
+    "ID_Curso": 3,
+    "Titulo": "Curso Generico 3",
+    "Descricao": "Descricao generica do curso",
+    "ID_Instrutor": 1,
+    "ID_Categoria": 3,
+    "Nivel": "Avancado",
+    "DataPublicacao": "2026-01-01",
+    "TotalAulas": 8,
+    "TotalHoras": 4,
+    "Imagem": "./img/big-data.png"
+  }
+]

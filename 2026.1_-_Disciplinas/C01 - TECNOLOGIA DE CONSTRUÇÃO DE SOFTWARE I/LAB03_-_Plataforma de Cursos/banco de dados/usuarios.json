@@ -5,21 +5,24 @@
       "NomeCompleto": "admin",
       "Email": "admin@email.com",
       "SenhaHash": "123456",
-      "DataCadastro": "2026-04-11T23:41:47.923Z"
+      "DataCadastro": "2026-04-11T23:41:47.923Z",
+      "TipoUsuario": "admin"
     },
     {
       "ID_Usuario": 2,
       "NomeCompleto": "Aluno Teste 1",
       "Email": "alunoteste1@email.com",
       "SenhaHash": "123456",
-      "DataCadastro": "2026-04-11T23:44:10.767Z"
+      "DataCadastro": "2026-04-11T23:44:10.767Z",
+      "TipoUsuario": "aluno"
     },
     {
       "ID_Usuario": 3,
       "NomeCompleto": "Aluno Teste 2",
       "Email": "alunoteste2@email.com",
       "SenhaHash": "123456",
-      "DataCadastro": "2026-04-11T23:46:12.967Z"
+      "DataCadastro": "2026-04-11T23:46:12.967Z",
+      "TipoUsuario": "aluno"
     }
   ]
 }

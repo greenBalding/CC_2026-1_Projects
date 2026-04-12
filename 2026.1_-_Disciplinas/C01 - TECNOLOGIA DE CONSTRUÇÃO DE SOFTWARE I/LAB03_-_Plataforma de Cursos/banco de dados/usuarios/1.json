@@ -3,5 +3,6 @@
   "NomeCompleto": "admin",
   "Email": "admin@email.com",
   "SenhaHash": "123456",
-  "DataCadastro": "2026-04-11T23:41:47.923Z"
+  "DataCadastro": "2026-04-11T23:41:47.923Z",
+  "TipoUsuario": "admin"
 }

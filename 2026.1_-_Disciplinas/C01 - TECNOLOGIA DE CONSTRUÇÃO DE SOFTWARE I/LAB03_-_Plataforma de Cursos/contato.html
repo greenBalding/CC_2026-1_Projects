@@ -1,67 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML, CSS e JavaScript</title>
+    <title>Financeiro</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
 </head>
-<body>
-    
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-body" data-bs-theme="dark">
-        <div class="container-fluid">
-            <a href="" class="navbar-brand">
-                <img src="./img/school.svg" alt="" class="d-inline-block align-text-top" />
-                DevTech-SILVA
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a href="./cursos.html" class="nav-link">Cursos</a></li>
-                    <li class="nav-item"><a href="./trilhas.html" class="nav-link">Trilhas</a></li>
-                    <li class="nav-item"><a href="./projetos.html" class="nav-link">Projetos</a></li>
-                    <li class="nav-item"><a href="./sobre.html" class="nav-link">Sobre</a></li>
-                    <li class="nav-item"><a href="./contato.html" class="nav-link">Contato</a></li>
-                </ul>
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a href="#" class="nav-link" data-logout>Sair</a></li>
-                </ul>
+<body class="bg-light">
+    <div id="navbar-root"></div>
+
+    <main class="container py-4">
+        <h1 id="page-title" class="h3 mb-3">Assinaturas e Pagamentos</h1>
+
+        <div id="msg-financeiro" class="alert d-none" role="alert"></div>
+
+        <section class="mb-4">
+            <h2 class="h5">Planos</h2>
+            <div class="row g-3" id="lista-planos"></div>
+        </section>
+
+        <section class="mb-4">
+            <h2 class="h5">Pagamento</h2>
+            <form id="form-checkout" class="row g-3">
+                <div class="col-12 col-md-4">
+                    <label for="checkout-plano" class="form-label">Plano</label>
+                    <select id="checkout-plano" class="form-select" required></select>
+                </div>
+                <div class="col-12 col-md-4">
+                    <label for="checkout-metodo" class="form-label">Metodo de pagamento</label>
+                    <select id="checkout-metodo" class="form-select" required>
+                        <option value="Cartao de Credito">Cartao de Credito</option>
+                        <option value="PIX">PIX</option>
+                        <option value="Boleto">Boleto</option>
+                    </select>
+                </div>
+                <div class="col-12 col-md-4 d-grid align-content-end">
+                    <button type="submit" class="btn btn-primary">Pagar e Assinar</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="mb-4">
+            <h2 class="h5">Historico de Assinaturas</h2>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>ID Plano</th>
+                            <th>Inicio</th>
+                            <th>Fim</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-assinaturas-body"></tbody>
+                </table>
             </div>
-        </div>
-    </nav>
+        </section>
 
-    <div class="container">
-        <h2>Contato</h2>
-        <hr>
-        <div class="row">
-            <div class="col"></div>
-            <div class="col">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-                    <label for="floatingInput">Celular</label>
-                </div>
-
-                <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInputEmail" placeholder="name@example.com">
-                    <label for="floatingInputEmail">Email address</label>
-                </div>
-
-                <div class="form-floating mb-3">
-                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                    <label for="floatingTextarea">Comments</label>
-                </div>
-
-                <div class="d-grid gap-2">
-                    <button class="btn btn-primary" type="button">Enviar</button>
-                </div>
+        <section>
+            <h2 class="h5">Historico de Pagamentos</h2>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Valor</th>
+                            <th>Metodo</th>
+                            <th>Transacao</th>
+                            <th>Data</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-pagamentos-body"></tbody>
+                </table>
             </div>
-            <div class="col"></div>
-        </div>
-    </div>
-    <script src="js/popper.min.js"></script>
-    <script src="./js/bootstrap.min.js"></script>
-    <script src="./js/logout.js"></script>
+        </section>
+    </main>
+
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="./js/app/session.js"></script>
+    <script src="./js/app/db.js"></script>
+    <script src="./js/app/layout.js"></script>
+    <script src="./js/modelo-de-dados/negocio/Assinaturas.js"></script>
+    <script src="./js/modelo-de-dados/negocio/Pagamentos.js"></script>
+    <script src="./js/pages/financeiro.js"></script>
 </body>
 </html>
