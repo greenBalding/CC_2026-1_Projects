@@ -12,7 +12,7 @@ Clínica de psicologia.
 ### Escopo
 O sistema deve contemplar:
 
-- atendimento;
+- Atividades de atendimento;
 - agendamento e/ou cancelamento de consulta;
 - lembretes e/ou avisos sobre sessões e pagamentos;
 - confirmação de consulta;
@@ -49,8 +49,8 @@ O levantamento de requisitos pode ser feito por meio de:
 - questionário preenchido;
 - síntese dos requisitos dos questionários;
 - síntese dos requisitos do sistema análogo;
-- lista geral de requisitos;
-- matriz de rastreabilidade entre requisitos e suas fontes.
+- lista de requisitos - Geral;
+- matriz de rastreabilidade - requisitos e fontes de requisitos.
 
 ### Observações
 
@@ -65,19 +65,19 @@ O levantamento de requisitos pode ser feito por meio de:
 
 ### Documentos solicitados
 
-- documento de Visão, conforme Capítulo 7 do livro do Larman;
-- Value Proposition Canvas, conforme páginas 38 e 39 do livro Testing Business Ideas;
-- diagrama de casos de uso, conforme Capítulo 6 do livro do Larman;
-- descrição dos casos de uso essenciais, respeitando pelo menos 1 caso de uso completo por integrante do grupo;
-- matriz de rastreabilidade atualizada, na horizontal e na vertical;
-- protótipos das telas em Figma;
-- especificação suplementar para os requisitos não funcionais, com base na ISO/IEC 25010 e no Capítulo 7 do livro do Larman;
-- modelo entidade-relacionamento;
-- dicionário de dados, com termo, definição, informações, formato, tipo, tamanho, unidade, relacionamento com outros elementos e regra de validação, conforme Capítulo 7 do livro do Larman;
-- especificação de requisitos, usando IEEE 830 e/ou EOR (Especificação de Objetivos e Requisitos).
+- Documento Visão – Cap 7 – Livro do Larman
+- Value Proposition Canvas – pg 38 e 39 do livro Testing Business Ideas
+- Diagrama de casos de uso – cap 6 do livro do Larman
+- Descrever os casos de uso essenciais, respeitando pelo menos 1 Caso de Uso completo por integrante do grupo (no mínimo) – cap 6 do livro do Larman
+- Matriz de Rastreabilidade atualizada (horizontal e vertical)
+- Protótipos das telas – figma
+- Especificação suplementar para os requisitos não funcionais (ISO/IEC 25010) – Cap 7 – Livro do Larman
+- Modelo Entidade Relacionamento
+- Dicionário de dados (glossário)- Termo, definição e informações, formato (tipo, tamanho, unidade, relacionamento com outros elementos, regra de validação – Cap 7 – Livro do Larman
+- Especificação de Requisitos – IEEE830 e/ou  EOR – Especificação de Objetivos e Requisitos.
 
 ### Observações
 
-- Todos os artefatos devem estar armazenados no GitHub com controle de versão.
+- Todos os artefatos devem estar armazenados na ferramenta  GitHub com controle de versão.
 - A versão impressa também deve ser entregue.
 - O histórico de evolução deve estar presente no GitHub.
