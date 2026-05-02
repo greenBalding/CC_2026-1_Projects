@@ -1,12 +1,15 @@
 Hoje, 02 de maio de 2026, eu, Matheus, estou fazendo um checkpoint para entender em que ponto está o trabalho e para onde ele pode ir. A intenção, com isso, é tentar responder perguntas que têm surgido na minha cabeça, visto que me sinto perdido no trabalho.
 
-- (a) O que é o trabalho?
-- (b) O que precisa ser entregue?
-- (c) O que foi entregue?
-- (d) O que falta?
-- (e) O que pode ser entregue?
-- (f) O que pode ser melhorado?
-- (g) Estamos no caminho certo?
+## Perguntas do checkpoint
+
+- [x] (a) O que é o trabalho? — respondida em [1º Checkpoint](#1º-checkpoint)
+- [x] (b) O que precisa ser entregue? — respondida em [1º Checkpoint](#1º-checkpoint) e [2º Checkpoint](#2º-checkpoint)
+- [x] (c) O que precisa ser entregue na primeira parte do trabalho? — respondida em [2º Checkpoint](#2º-checkpoint)
+- [ ] (d) O que foi entregue? — em aberto
+- [ ] (e) O que falta? — em aberto
+- [ ] (f) O que pode ser entregue? — parcialmente tratada em [1º Checkpoint](#1º-checkpoint)
+- [ ] (g) O que pode ser melhorado? — em aberto
+- [ ] (h) Estamos no caminho certo? — em aberto
 
 ## 1º Checkpoint
 
@@ -16,7 +19,7 @@ Com base na descrição da atividade "Entrega - Parte I", disponibilizada no Tea
 
 É solicitado também que o sistema de software seja implementado em uma plataforma web, com perspectiva de rodar futuramente em dispositivos móveis, e que esteja em conformidade com a Lei Geral de Proteção de Dados (LGPD). Essa parte me faz pensar em duas situações: a primeira é se existe algum problema em já implementar algo em Swift para a versão mobile, dado que eu tenho uma experiência mínima com desenvolvimento iOS, mas isso me daria uma margem para poder entregar um protótipo mínimo. A outra parte, e provavelmente a mais importante, é sobre como deve ser feita a documentação de conformidade com a LGPD e como, usualmente, essa informação aparece em documentações de sistema de software.
 
-Certo, isso parece responder tanto à pergunta "O que é o trabalho?" quanto à pergunta "O que precisa ser entregue?".
+Certo, isso parece responder tanto à pergunta (a) "O que é o trabalho?" quanto à pergunta (b) "O que precisa ser entregue?".
 
 ## 2º Checkpoint
 
