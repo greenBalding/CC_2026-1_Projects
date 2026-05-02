@@ -84,35 +84,38 @@ Após navegar um pouco na página, o que eu vejo:
 
 3. Página Principal
 
-3.1. Consigo identificar quatorze seções que estão visivelmente destacadas.
+3.1. Consigo identificar 14 sections que estão visivelmente destacadas.
 
-3.1.1. A primeira identifica o App Health como um software de gestão médica para clínicas e hospitais. A mensagem é objetiva e direta, com um link para "Agende uma demonstração" que leva a uma conversa no WhatsApp. Não cheguei a acessar, mas entende-se que seja um link para clientes e não para pacientes; parece direcionado a uma equipe de atendimento do produto App Health e não a atendimentos clínicos. Como é um link para um número de WhatsApp específico, não interagi.
+3.1.1. A primeira identifica o App Health como um software de gestão médico para Clínicas e Hospitais. Com uma oração objetiva e direta, com um link para "Agende uma demonstração" que leva para uma conversa no Whatsapp. Não cheguei a acessar mas entende-se ser um link para clientes e não para pacientes. Parece ser um link para uma equipe de atendimento sobre o produto App Health e não para atendimentos de pacientes. Como é um link para um número de whatsapp específico eu não cheguei a interagir.
 
-3.1.2. A segunda seção apresenta dados sobre os resultados da plataforma até a última atualização do site, por exemplo: quantos pacientes já foram atendidos pela plataforma, número de agendamentos, usuários ativos, etc.
+3.1.2. A segunda é reservada para apresentação de dados sobre os achivements da plataforma até a última atualização do site. Como por exemplo: Quantos pacientes já foram atendidos com a plataforma, a quantidade de agendamentos, de usuários ativos e etc.
 
-3.1.3. A terceira se dedica a apresentar uma nova funcionalidade ao cliente: a IA App Health, que automatiza fluxos de forma natural e integrada. Também há um link para aprofundar sobre a funcionalidade, que redireciona para o submenu "Soluções - Inteligência Artificial".
+3.1.3. A terceira se dedica à apresentar uma nova funcionalidade ao cliente. O IA App health, que automatiza fluxos de forma natural e integrada. É disponibilizado um link também para aprofundar sobre a funcionalidade que redireciona para o submenu "Soluções - Inteligência Artificial".
 
-3.1.4. A quarta parte apresenta a funcionalidade "Agenda Online Inteligente", com três vantagens principais. O link de acesso ao final redireciona para o mesmo número de WhatsApp da primeira seção.
+3.1.4. A quarta parte se dedica a outra funcionalidade "Agenda Online Inteligente" com a apresentação de 3 vantagens principais. O link de acesso ao final redireciona para o mesmo número de whatsapp da 1st section.
 
-Principais vantagens:
-- Agendamento 24h: pacientes marcam consultas a qualquer hora, integrados ao Vizi Saúde.
-- Pagamento e confirmação online: maior praticidade e segurança, mesmo fora do horário comercial.
-- Redução de no-show: diminua as ausências com confirmações automáticas.
+""" 
+Principais Vantagens
 
-3.1.5. A quinta parte apresenta o "Prontuário Eletrônico (PEP)", novamente com três vantagens e o link de acesso que redireciona para o mesmo número de WhatsApp.
+Agendamento 24h: Pacientes marcam consultas a qualquer hora, integrados ao Vizi Saúde.
 
-Prontuário Eletrônico (PEP): histórico completo, acesso rápido e seguro.
-- O fim do papel: acesse todo o histórico do paciente em segundos, de qualquer lugar.
-- Personalização total: anexe fotos, documentos e emita receitas e atestados digitalmente.
-- Garanta agilidade e rapidez no fluxo de atendimento.
+Pagamento e Confirmação Online: Maior praticidade e segurança, mesmo fora do horário comercial.
 
-3.1.6. A sexta parte reúne feedbacks de quem utiliza a plataforma. Observa-se que os depoimentos são de clientes (contratantes) e não de pacientes. A apresentação é feita por meio de cards com avaliação por estrelas (de 1 a 5).
+Redução de No-Show: Diminua as ausências com confirmações automáticas.
+"""
 
-3.1.7. A sétima parte destaca a redução do no-show. Informa ao contratante como será feita a redução e apresenta estimativas de melhoria. Os trechos indicam:
-- Reduza o no-show: confirmação automática de consultas via WhatsApp.
-- Solução imediata: acabe com as ausências com lembretes inteligentes.
-- Reduza sua taxa de no-show em até 70%!
-- Automação total: confirmações de consultas são enviadas automaticamente pelo WhatsApp, liberando a secretária de tarefas manuais.
-- Lembretes eficazes: envie lembretes automáticos que diminuem drasticamente as ausências e evitam gargalos na agenda.
+3.1.5. A quinta parte se dedica à apresentar mais uma funcionalidade. O "Prontuário Eletrônico (PEP), aprensentando novamente 3 vantagens e o link de acesso que redireciona para o mesmo número de Whatsapp.
 
-[Botão/CTA] Quero reduzir o no-show agora
+"""
+Prontuário Eletrônico (PEP): Histórico Completo, Acesso Rápido e Seguro
+
+O Fim do Papel:  Acesse todo o histórico do paciente em segundos, de qualquer lugar.
+
+Personalização Total: Anexe fotos, documentos e emita receitas e atestados digitalmente.
+
+Garanta agilidade e rapidez no fluxo de atendimento.
+"""
+
+3.1.6. A sexta parte se dedica a relatar feedbacks de quem utiliza a plataforma App Health. Nota-se que os feedbacks são de usuários que contratam a plataforma e não de usuários pacientes. A apresentação dos feedbacks é feita via cards com sistema de notas no padrão de estrelas (de 1 à 5).
+
+3.1.7. A setima parte se dedica a apresentar uma vantagem da contratação do sistema que é a reduçao do No-show. Informa ao contratante como será feito, e uma estimativa da redução do No-Show. Ele também direciona ao final o usuário a entrar em contato com o mesmo número do whatsapp. Eu imagino a esse ponto que como cada botão tem uma mensagem imperativa invocando o usuário a interagir com o sistema, esse número seja da equipe de produto da App Health.
