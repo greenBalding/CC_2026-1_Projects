@@ -175,3 +175,4 @@ Observação: não está claro como a conformidade com a LGPD será documentada 
 4.4. Identificação institucional
 - © 2018–2026 App Health — Sistema para clínica e consultório médico.
 - Endereço: Av. Tamandaré, 100, Sobreloja — Zona 01, CEP 87013‑210, Maringá — PR — Brasil
+
