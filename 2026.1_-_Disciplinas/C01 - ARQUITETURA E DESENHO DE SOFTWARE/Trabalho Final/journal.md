@@ -48,51 +48,51 @@ No nosso caso, a escolha foi: https://www.apphealth.com.br/
 
 ## 3º Checkpoint
 
-Com a intenção de dar sequência ao estudo da situação atual do trabalho, eu me deparei com 3 situações distintas, sendo elas: acessar o link do sistema escolhido como exemplo, revisar a parte teórica que serve de base para os entregáveis e ver o que a gente, como grupo, entregou para a professora. E, refletindo minimamente, entendo que eventualmente terei que passar por cada uma dessas etapas. Para isso, estou tomando a decisão de não pensar muito e ir pela primeira pergunta que surgiu: como é construído o nosso sistema análogo?
+Com a intenção de dar sequência ao estudo da situação atual do trabalho, deparei-me com três situações distintas: acessar o link do sistema escolhido como exemplo, revisar a parte teórica que serve de base para os entregáveis e verificar o que nós, como grupo, entregamos à professora. Refletindo minimamente, entendo que precisarei passar por cada uma dessas etapas. Para começar, vou pela primeira pergunta que surgiu: como é construído o nosso sistema análogo?
 
 ### Primeira decisão
 
-Bem, ao acessar o site, o que vejo primeiro é uma predominância das cores branca e verde. É um tom específico de verde, mas a primeira impressão é de um site com duas cores principais, branco e verde. Existe, contudo, um botão de destaque em roxo — chamado Vizi Saúde. Ainda assim, não me dá vontade de clicar em um primeiro momento, mas sim de rolar a página.
+Ao acessar o site, a primeira impressão foi a predominância das cores branca e verde. É um tom específico de verde, mas a página utiliza basicamente branco e verde. Há também um botão de destaque em roxo — chamado Vizi Saúde. Preferi rolar a página em vez de clicar de imediato.
 
 ### Após navegar um pouco na página
 
-Após navegar um pouco na página, o que eu vejo:
+Após navegar, observei:
 
-1. Header
+1. Cabeçalho (header)
 
-1.1. Um header com ícones que levam para redes sociais, no canto superior esquerdo.
+1.1. Ícones para redes sociais, no canto superior esquerdo.
 
-1.2. Um header com um texto que diz que a plataforma está adequada à LGPD, no canto superior direito. Contudo, não existe nenhuma opção de clicar e ser direcionado para alguma página. É apenas um texto.
+1.2. Texto indicando conformidade com a LGPD, no canto superior direito; não há link associado, é apenas informativo.
 
 2. Menu
 
-2.1. O logo do sistema, clicável e que leva à página inicial do site, fica no lado esquerdo.
+2.1. Logo clicável que leva à página inicial, no lado esquerdo.
 
-2.2. Menu com submenus, que ficam no meio:
+2.2. Menu com submenus no centro:
 
-2.2.1. Sobre;
+2.2.1. Sobre
 
-2.2.2. Soluções;
+2.2.2. Soluções
 
-2.2.3. Blog;
+2.2.3. Blog
 
-2.2.4. Planos e Preços;
+2.2.4. Planos e Preços
 
-2.2.5. Contato.
+2.2.5. Contato
 
-2.3. Dois botões que parecem ter dois públicos diferentes. O botão roxo parece oferecer aos donos de clínicas a possibilidade de se conectarem a um ecossistema de rede de pacientes, que permite que a clínica seja exposta a novos pacientes em potencial. Já o botão verde fica responsável por acessar o sistema do App Health, de fato.
+2.3. Dois botões com públicos distintos: o roxo (Vizi Saúde), voltado a donos de clínica interessados na rede de pacientes; e o verde, para acessar o sistema App Health.
 
 3. Página principal
 
-3.1. Consigo identificar 14 seções que estão visivelmente destacadas.
+3.1. Identifiquei 14 seções destacadas.
 
-3.1.1. A primeira identifica o App Health como um software de gestão médica para clínicas e hospitais, com uma oração objetiva e direta e com um link para "Agende uma demonstração" que leva a uma conversa no WhatsApp. Não cheguei a acessar, mas entende-se que seja um link para clientes e não para pacientes. Parece ser um link para uma equipe de atendimento sobre o produto App Health e não para atendimentos de pacientes. Como é um link para um número de WhatsApp específico, eu não cheguei a interagir.
+3.1.1. A primeira apresenta o App Health como software de gestão para clínicas e hospitais, com frase objetiva e link "Agende uma demonstração" que abre conversa no WhatsApp — aparentemente um contato para clientes/equipe de atendimento, não para pacientes.
 
-3.1.2. A segunda é reservada para apresentação de dados sobre os resultados da plataforma até a última atualização do site, como, por exemplo, quantos pacientes já foram atendidos na plataforma, a quantidade de agendamentos, usuários ativos etc.
+3.1.2. A segunda mostra métricas e resultados da plataforma (pacientes atendidos, agendamentos, usuários ativos etc.).
 
-3.1.3. A terceira se dedica a apresentar uma nova funcionalidade ao cliente: a IA App Health, que automatiza fluxos de forma natural e integrada. Há também um link para aprofundar sobre a funcionalidade, que redireciona para o submenu "Soluções - Inteligência Artificial".
+3.1.3. A terceira apresenta a funcionalidade IA App Health, que automatiza fluxos; há link para "Soluções — Inteligência Artificial".
 
-3.1.4. A quarta parte se dedica a outra funcionalidade, "Agenda Online Inteligente", com a apresentação de três vantagens principais. O link de acesso ao final redireciona para o mesmo número de WhatsApp da 1ª seção.
+3.1.4. A quarta trata da "Agenda Online Inteligente", com três vantagens principais; o link final redireciona para o mesmo WhatsApp da 1ª seção.
 
 """
 Principais Vantagens
@@ -104,7 +104,7 @@ Pagamento e Confirmação Online: Maior praticidade e segurança, mesmo fora do 
 Redução de No-Show: Diminua as ausências com confirmações automáticas.
 """
 
-3.1.5. A quinta parte se dedica a apresentar mais uma funcionalidade: o Prontuário Eletrônico (PEP), apresentando novamente três vantagens e com o link de acesso que redireciona para o mesmo número de WhatsApp.
+3.1.5. A quinta apresenta o Prontuário Eletrônico (PEP), com três vantagens, e link que redireciona para o mesmo WhatsApp.
 
 """
 Prontuário Eletrônico (PEP): Histórico Completo, Acesso Rápido e Seguro
@@ -116,6 +116,62 @@ Personalização Total: Anexe fotos, documentos e emita receitas e atestados dig
 Garanta agilidade e rapidez no fluxo de atendimento.
 """
 
-3.1.6. A sexta parte se dedica a relatar feedbacks de quem utiliza a plataforma App Health. Nota-se que os feedbacks são de usuários que contratam a plataforma e não de pacientes. A apresentação dos feedbacks é feita via cards com sistema de notas no padrão de estrelas (de 1 a 5).
+3.1.6. A sexta relata feedbacks de clientes (contratantes), exibidos em cards com sistema de estrelas (1 a 5).
 
-3.1.7. A sétima parte se dedica a apresentar uma vantagem da contratação do sistema, que é a redução do no-show. Informa ao contratante como será feito e traz uma estimativa da redução do no-show. Ao final, também direciona o usuário a entrar em contato com o mesmo número de WhatsApp. Imagino, a esse ponto, que, como cada botão tem uma mensagem imperativa convidando o usuário a interagir com o sistema, esse número seja da equipe de produto da App Health.
+3.1.7. A sétima destaca a redução do no‑show, com estimativa de redução e call‑to‑action para contato via WhatsApp (provavelmente da equipe de vendas).
+
+3.1.8. A oitava apresenta "Gestão Financeira Inteligente", com:
+- Controle de fluxo de caixa, contas e repasses;
+- Emissão de boletos e NF‑e;
+- Controle de repasses para profissionais;
+- Contas a pagar e a receber;
+- Conciliação bancária.
+
+Novamente, há botão que redireciona para o WhatsApp de atendimento/contato.
+
+3.1.9. A nona trata da Telemedicina Integrada: atendimento online, conformidade com a LGPD (armazenamento de dados criptografados) e funcionalidades como pré‑anamnese, envio de receitas e documentos, tudo sem necessidade de apps externos.
+
+Observação: as seções costumam terminar com um botão que leva ao WhatsApp da empresa.
+
+3.1.10. A décima apresenta um quadro comparativo genérico com outras soluções (por exemplo, Conclínica e iClinic).
+
+3.1.11. A décima primeira oferece a opção "Health Partner" — programa de parceria e indicação; há link para uma apresentação mais detalhada do produto.
+
+3.1.12. A décima segunda fornece links para vídeos (depoimentos de médicos) e para o canal do YouTube, que inclui playlists com diversos depoimentos.
+
+3.1.13. A penúltima seção reúne perguntas frequentes (FAQ), por exemplo:
+- Posso migrar os dados de outro sistema?
+- Vocês fazem backup dos meus dados?
+- Quanto tempo leva a implantação?
+- É possível realizar faturamento hospitalar no App Health?
+- Posso acessar pelo celular ou tablet?
+- O App Health atende diferentes especialidades?
+- O sistema é seguro e está em conformidade com a LGPD?
+
+Resposta destacada: sim — dados criptografados, ambiente seguro, autenticação e logs de auditoria; App Health afirma seguir as diretrizes da LGPD.
+
+Observação: não está claro como a conformidade com a LGPD será documentada tecnicamente, apenas que a plataforma afirma estar em conformidade.
+
+3.1.14. Por último, há um carrossel de cards que dá acesso ao blog institucional (≈80 páginas × 3 cards ≈ 240 postagens), sugerindo atualização frequente — a última postagem, na data de acesso, foi em 01 de maio de 2026.
+
+4. Rodapé
+
+4.1. Estrutura geral
+- Logotipo e CTA principal: botão "Contate‑nos".
+- Links de navegação: Início; Seja nosso Parceiro; Planos e Preços; Blog; Vizi; Soluções.
+- Soluções (links): Inteligência Artificial; Clínicas e Policlínicas; Clínicas Multidisciplinares; Redes clínicas, franquias e planos de benefício; Gestão Hospitalar; Gestão para Psicólogos; Gestão Odontológica.
+- Transparência e legal: Termos de Uso; Política de Privacidade; Política Anti‑Spam; Portal da Privacidade.
+- Redes sociais e app: ícones (Instagram, Facebook, YouTube, LinkedIn) e botões para App Store e Google Play.
+
+4.2. Conteúdo e destaques
+- Carrossel do blog: grande volume de postagens e atualização frequente.
+- Vídeos: depoimentos de profissionais no YouTube.
+- FAQ: principais dúvidas respondidas e garantia de segurança/LGPD.
+
+4.3. Observações
+- Os CTAs ao longo do site direcionam para um número de WhatsApp da equipe de vendas/atendimento.
+- O rodapé reforça navegação e contatos voltados a profissionais e clientes, mais do que a pacientes.
+
+4.4. Identificação institucional
+- © 2018–2026 App Health — Sistema para clínica e consultório médico.
+- Endereço: Av. Tamandaré, 100, Sobreloja — Zona 01, CEP 87013‑210, Maringá — PR — Brasil
