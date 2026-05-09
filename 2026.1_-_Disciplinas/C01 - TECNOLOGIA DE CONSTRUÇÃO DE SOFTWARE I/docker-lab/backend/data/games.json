@@ -1,1 +1,31 @@
-[]
+[
+  {
+    "id": 1778328328346,
+    "playerX": "Jogador 1",
+    "playerO": "CPU Minimax",
+    "winner": "O",
+    "moves": [
+      0,
+      4,
+      1,
+      2,
+      5,
+      6
+    ],
+    "createdAt": "2026-05-09T12:05:28.346Z"
+  },
+  {
+    "id": 1778328375851,
+    "playerX": "CPU Minimax",
+    "playerO": "Jogador 1",
+    "winner": "X",
+    "moves": [
+      0,
+      3,
+      1,
+      6,
+      2
+    ],
+    "createdAt": "2026-05-09T12:06:15.851Z"
+  }
+]

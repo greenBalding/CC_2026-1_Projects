@@ -5,7 +5,7 @@ const crypto = require("crypto");
 const Usuario = require("./js/modelo-de-dados/core/Usuarios.js");
 
 const HOST = "127.0.0.1";
-const PORT = 3000;
+const PORT = process.env.PORT ? Number(process.env.PORT) : 3000;
 const ROOT_DIR = __dirname;
 
 const USERS_DIR = path.join(ROOT_DIR, "banco de dados", "usuarios");
