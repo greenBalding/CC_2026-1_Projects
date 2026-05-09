@@ -34,5 +34,16 @@
     "TotalAulas": 8,
     "TotalHoras": 4,
     "Imagem": "./img/big-data.png"
+  },
+  {
+    "ID_Curso": 4,
+    "Titulo": "Fundamentos",
+    "Descricao": "Fundamentos da Computação",
+    "ID_Instrutor": 1,
+    "ID_Categoria": 4,
+    "Nivel": "Iniciante",
+    "DataPublicacao": "2026-05-09T10:55:43.284Z",
+    "TotalAulas": 0,
+    "TotalHoras": 0
   }
 ]

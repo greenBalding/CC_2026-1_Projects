@@ -13,5 +13,10 @@
     "ID_Categoria": 3,
     "Nome": "Categoria 3",
     "Descricao": "Descricao generica"
+  },
+  {
+    "ID_Categoria": 4,
+    "Nome": "Fundamentos da Computação",
+    "Descricao": "Disciplina que irá ensinar sobre matrizes"
   }
 ]
