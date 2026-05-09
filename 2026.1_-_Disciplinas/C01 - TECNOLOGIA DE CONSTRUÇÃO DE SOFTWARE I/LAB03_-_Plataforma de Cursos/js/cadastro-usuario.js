@@ -12,7 +12,7 @@ if (registerForm) {
     const senha = document.getElementById("novaSenha").value;
 
     try {
-      const { response, data } = await window.AppUtils.postJson("/api/usuarios", { nomeCompleto, email, senha });
+      const { response, data } = await window.AppUtils.postJson("/api/usuarios", { nomeCompleto, email, senha }, { withCredentials: true });
 
       if (!response.ok) {
         window.AppUtils.setMessage(registerMessage, data.message || "Erro ao cadastrar usuario", "danger");

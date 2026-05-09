@@ -23,6 +23,14 @@
       "SenhaHash": "123456",
       "DataCadastro": "2026-04-11T23:46:12.967Z",
       "TipoUsuario": "aluno"
+    },
+    {
+      "ID_Usuario": 4,
+      "NomeCompleto": "Teste Novo",
+      "Email": "teste_novo_123@example.com",
+      "SenhaHash": "abc123",
+      "DataCadastro": "2026-05-09T10:42:49.547Z",
+      "TipoUsuario": "aluno"
     }
   ]
 }

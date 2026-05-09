@@ -14,7 +14,7 @@ if (loginForm) {
     const senha = document.getElementById("senha").value;
 
     try {
-      const { response, data } = await window.AppUtils.postJson("/api/login", { email, senha });
+      const { response, data } = await window.AppUtils.postJson("/api/login", { email, senha }, { withCredentials: true });
 
       if (!response.ok) {
         window.AppUtils.setMessage(loginMessage, data.message || "Credenciais invalidas", "danger");

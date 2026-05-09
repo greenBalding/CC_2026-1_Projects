@@ -54,10 +54,12 @@ function sendJson(res, statusCode, payload) {
   res.end(JSON.stringify(payload));
 }
 
-function setApiCorsHeaders(res) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+function setApiCorsHeaders(req, res) {
+  const origin = req.headers.origin || "*";
+  res.setHeader("Access-Control-Allow-Origin", origin);
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
 }
 
 function ensureUsersStorage() {
@@ -541,7 +543,7 @@ const server = http.createServer(async (req, res) => {
     const urlPath = getUrlPath(req);
 
     if (urlPath.startsWith("/api/")) {
-      setApiCorsHeaders(res);
+      setApiCorsHeaders(req, res);
     }
 
     if (req.method === "OPTIONS" && urlPath.startsWith("/api/")) {

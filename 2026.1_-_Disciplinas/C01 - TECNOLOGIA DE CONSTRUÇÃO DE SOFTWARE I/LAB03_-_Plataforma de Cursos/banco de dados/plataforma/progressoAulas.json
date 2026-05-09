@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "ID_Usuario": 4,
+    "ID_Aula": 1,
+    "DataConclusao": null,
+    "Status": "Nao Iniciado"
+  },
+  {
+    "ID_Usuario": 4,
+    "ID_Aula": 2,
+    "DataConclusao": null,
+    "Status": "Nao Iniciado"
+  }
+]
