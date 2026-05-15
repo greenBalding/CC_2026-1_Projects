@@ -1,0 +1,23 @@
+[
+  {
+    "ID_Plano": 1,
+    "Nome": "Plano Generico 1",
+    "Descricao": "Descricao generica",
+    "Preco": 100,
+    "DuracaoMeses": 1
+  },
+  {
+    "ID_Plano": 2,
+    "Nome": "Plano Generico 2",
+    "Descricao": "Descricao generica",
+    "Preco": 200,
+    "DuracaoMeses": 6
+  },
+  {
+    "ID_Plano": 3,
+    "Nome": "Plano Generico 3",
+    "Descricao": "Descricao generica",
+    "Preco": 300,
+    "DuracaoMeses": 12
+  }
+]

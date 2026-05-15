@@ -1,0 +1,17 @@
+[
+  {
+    "ID_Trilha": 1,
+    "ID_Curso": 1,
+    "Ordem": 1
+  },
+  {
+    "ID_Trilha": 1,
+    "ID_Curso": 2,
+    "Ordem": 2
+  },
+  {
+    "ID_Trilha": 2,
+    "ID_Curso": 3,
+    "Ordem": 1
+  }
+]

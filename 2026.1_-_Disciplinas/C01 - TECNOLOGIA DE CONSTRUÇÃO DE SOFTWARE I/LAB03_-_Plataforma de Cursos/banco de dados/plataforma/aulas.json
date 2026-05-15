@@ -1,0 +1,218 @@
+[
+  {
+    "ID_Aula": 1,
+    "ID_Modulo": 1,
+    "Titulo": "Aula 1 - Conteudo generico",
+    "TipoConteudo": "Video",
+    "URL_Conteudo": "https://conteudo-generico.local/1/1/1",
+    "DuracaoMinutos": 30,
+    "Ordem": 1
+  },
+  {
+    "ID_Aula": 2,
+    "ID_Modulo": 1,
+    "Titulo": "Aula 2 - Conteudo generico",
+    "TipoConteudo": "Texto",
+    "URL_Conteudo": "https://conteudo-generico.local/1/1/2",
+    "DuracaoMinutos": 30,
+    "Ordem": 2
+  },
+  {
+    "ID_Aula": 3,
+    "ID_Modulo": 2,
+    "Titulo": "Aula 1 - Conteudo generico",
+    "TipoConteudo": "Video",
+    "URL_Conteudo": "https://conteudo-generico.local/1/2/1",
+    "DuracaoMinutos": 30,
+    "Ordem": 1
+  },
+  {
+    "ID_Aula": 4,
+    "ID_Modulo": 2,
+    "Titulo": "Aula 2 - Conteudo generico",
+    "TipoConteudo": "Texto",
+    "URL_Conteudo": "https://conteudo-generico.local/1/2/2",
+    "DuracaoMinutos": 30,
+    "Ordem": 2
+  },
+  {
+    "ID_Aula": 5,
+    "ID_Modulo": 3,
+    "Titulo": "Aula 1 - Conteudo generico",
+    "TipoConteudo": "Video",
+    "URL_Conteudo": "https://conteudo-generico.local/1/3/1",
+    "DuracaoMinutos": 30,
+    "Ordem": 1
+  },
+  {
+    "ID_Aula": 6,
+    "ID_Modulo": 3,
+    "Titulo": "Aula 2 - Conteudo generico",
+    "TipoConteudo": "Texto",
+    "URL_Conteudo": "https://conteudo-generico.local/1/3/2",
+    "DuracaoMinutos": 30,
+    "Ordem": 2
+  },
+  {
+    "ID_Aula": 7,
+    "ID_Modulo": 4,
+    "Titulo": "Aula 1 - Conteudo generico",
+    "TipoConteudo": "Video",
+    "URL_Conteudo": "https://conteudo-generico.local/1/4/1",
+    "DuracaoMinutos": 30,
+    "Ordem": 1
+  },
+  {
+    "ID_Aula": 8,
+    "ID_Modulo": 4,
+    "Titulo": "Aula 2 - Conteudo generico",
+    "TipoConteudo": "Texto",
+    "URL_Conteudo": "https://conteudo-generico.local/1/4/2",
+    "DuracaoMinutos": 30,
+    "Ordem": 2
+  },
+  {
+    "ID_Aula": 9,
+    "ID_Modulo": 5,
+    "Titulo": "Aula 1 - Conteudo generico",
+    "TipoConteudo": "Video",
+    "URL_Conteudo": "https://conteudo-generico.local/2/1/1",
+    "DuracaoMinutos": 30,
+    "Ordem": 1
+  },
+  {
+    "ID_Aula": 10,
+    "ID_Modulo": 5,
+    "Titulo": "Aula 2 - Conteudo generico",
+    "TipoConteudo": "Texto",
+    "URL_Conteudo": "https://conteudo-generico.local/2/1/2",
+    "DuracaoMinutos": 30,
+    "Ordem": 2
+  },
+  {
+    "ID_Aula": 11,
+    "ID_Modulo": 6,
+    "Titulo": "Aula 1 - Conteudo generico",
+    "TipoConteudo": "Video",
+    "URL_Conteudo": "https://conteudo-generico.local/2/2/1",
+    "DuracaoMinutos": 30,
+    "Ordem": 1
+  },
+  {
+    "ID_Aula": 12,
+    "ID_Modulo": 6,
+    "Titulo": "Aula 2 - Conteudo generico",
+    "TipoConteudo": "Texto",
+    "URL_Conteudo": "https://conteudo-generico.local/2/2/2",
+    "DuracaoMinutos": 30,
+    "Ordem": 2
+  },
+  {
+    "ID_Aula": 13,
+    "ID_Modulo": 7,
+    "Titulo": "Aula 1 - Conteudo generico",
+    "TipoConteudo": "Video",
+    "URL_Conteudo": "https://conteudo-generico.local/2/3/1",
+    "DuracaoMinutos": 30,
+    "Ordem": 1
+  },
+  {
+    "ID_Aula": 14,
+    "ID_Modulo": 7,
+    "Titulo": "Aula 2 - Conteudo generico",
+    "TipoConteudo": "Texto",
+    "URL_Conteudo": "https://conteudo-generico.local/2/3/2",
+    "DuracaoMinutos": 30,
+    "Ordem": 2
+  },
+  {
+    "ID_Aula": 15,
+    "ID_Modulo": 8,
+    "Titulo": "Aula 1 - Conteudo generico",
+    "TipoConteudo": "Video",
+    "URL_Conteudo": "https://conteudo-generico.local/2/4/1",
+    "DuracaoMinutos": 30,
+    "Ordem": 1
+  },
+  {
+    "ID_Aula": 16,
+    "ID_Modulo": 8,
+    "Titulo": "Aula 2 - Conteudo generico",
+    "TipoConteudo": "Texto",
+    "URL_Conteudo": "https://conteudo-generico.local/2/4/2",
+    "DuracaoMinutos": 30,
+    "Ordem": 2
+  },
+  {
+    "ID_Aula": 17,
+    "ID_Modulo": 9,
+    "Titulo": "Aula 1 - Conteudo generico",
+    "TipoConteudo": "Video",
+    "URL_Conteudo": "https://conteudo-generico.local/3/1/1",
+    "DuracaoMinutos": 30,
+    "Ordem": 1
+  },
+  {
+    "ID_Aula": 18,
+    "ID_Modulo": 9,
+    "Titulo": "Aula 2 - Conteudo generico",
+    "TipoConteudo": "Texto",
+    "URL_Conteudo": "https://conteudo-generico.local/3/1/2",
+    "DuracaoMinutos": 30,
+    "Ordem": 2
+  },
+  {
+    "ID_Aula": 19,
+    "ID_Modulo": 10,
+    "Titulo": "Aula 1 - Conteudo generico",
+    "TipoConteudo": "Video",
+    "URL_Conteudo": "https://conteudo-generico.local/3/2/1",
+    "DuracaoMinutos": 30,
+    "Ordem": 1
+  },
+  {
+    "ID_Aula": 20,
+    "ID_Modulo": 10,
+    "Titulo": "Aula 2 - Conteudo generico",
+    "TipoConteudo": "Texto",
+    "URL_Conteudo": "https://conteudo-generico.local/3/2/2",
+    "DuracaoMinutos": 30,
+    "Ordem": 2
+  },
+  {
+    "ID_Aula": 21,
+    "ID_Modulo": 11,
+    "Titulo": "Aula 1 - Conteudo generico",
+    "TipoConteudo": "Video",
+    "URL_Conteudo": "https://conteudo-generico.local/3/3/1",
+    "DuracaoMinutos": 30,
+    "Ordem": 1
+  },
+  {
+    "ID_Aula": 22,
+    "ID_Modulo": 11,
+    "Titulo": "Aula 2 - Conteudo generico",
+    "TipoConteudo": "Texto",
+    "URL_Conteudo": "https://conteudo-generico.local/3/3/2",
+    "DuracaoMinutos": 30,
+    "Ordem": 2
+  },
+  {
+    "ID_Aula": 23,
+    "ID_Modulo": 12,
+    "Titulo": "Aula 1 - Conteudo generico",
+    "TipoConteudo": "Video",
+    "URL_Conteudo": "https://conteudo-generico.local/3/4/1",
+    "DuracaoMinutos": 30,
+    "Ordem": 1
+  },
+  {
+    "ID_Aula": 24,
+    "ID_Modulo": 12,
+    "Titulo": "Aula 2 - Conteudo generico",
+    "TipoConteudo": "Texto",
+    "URL_Conteudo": "https://conteudo-generico.local/3/4/2",
+    "DuracaoMinutos": 30,
+    "Ordem": 2
+  }
+]
