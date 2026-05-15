@@ -22,6 +22,10 @@ Escreva um programa em C que:
 4. Execute a Busca em Largura a partir desse vértice;
 5. ostre a ordem em que os vértices foram visitados.
 
+### Material de Referência (Aulas 10 e 11 - Busca_em_Profundidade_Largura.pdf)
+
+
+
 ## Atividade 2: Implementação da Busca em Profundidade em C
 
 - Objetivo: Implementar o algoritmo de Busca em Profundidade, também conhecido como DFS — Depth-First Search, em um grafo não direcionado.
