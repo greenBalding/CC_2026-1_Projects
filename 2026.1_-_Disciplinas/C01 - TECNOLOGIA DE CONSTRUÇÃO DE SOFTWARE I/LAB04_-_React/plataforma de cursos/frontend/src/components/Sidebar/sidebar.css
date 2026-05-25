@@ -1,0 +1,36 @@
+.pc-sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, rgba(12,12,20,1) 0%, rgba(18,18,24,1) 100%);
+  color: var(--text);
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-sizing: border-box;
+  min-height: calc(100vh - 56px);
+}
+.pc-sidebar .logo {
+  font-weight: 700;
+  font-size: 20px;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.sidebar-nav a {
+  color: var(--text);
+  padding: 8px 10px;
+  border-radius: 8px;
+  margin-bottom: 6px;
+}
+.sidebar-nav a.active,
+.sidebar-nav a:hover {
+  background: rgba(255,255,255,0.04);
+  color: #fff;
+}
+.sidebar-footer {
+  margin-top: auto;
+  color: var(--text);
+}
+.sidebar-footer .profile {
+  font-weight: 600;
+  color: #fff;
+}
