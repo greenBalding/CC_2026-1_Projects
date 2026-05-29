@@ -1,14 +1,6 @@
 # Atividade sobre o cap. Arquitetura de Software SWEBOK
 # Aluno: Matheus Silva Pains - 2024.2.0028.0032-0
 
---- 
-
-Distribuição de resoluções:
-
-Dia 1: Q1 - Q7
-Dia 2: Q8 - Q14
-Dia 3: Q15 - Q20
-
 ---
 
 ## Q1. Segundo o SWEBOK, em quantos e quais sentidos o termo "arquitetura" é empregado na engenharia de software? [página 67 do material de apoio]
@@ -85,24 +77,82 @@ Dia 3: Q15 - Q20
 
     O texto enfatiza a conveniência de documentar explicitamente não apenas as decisões tomadas, mas também as justificativas, as premissas adotadas e as alternativas que foram avaliadas e rejeitadas. Essa prática se mostra valiosa porque previne que o projeto repita erros no futuro por esquecimento dos motivos originais ou permite que os desenvolvedores reavaliem escolhas passadas quando as condições de contorno do ambiente mudarem.
 
-## Q10. Qual a diferença fundamental entre arquitetura e design segundo o SWEBOK? 
+## Q10. Qual a diferença fundamental entre arquitetura e design segundo o SWEBOK?
 
-## Q11. Descreva o modelo geral de design arquitetural proposto no capítulo, incluindo suas 3 atividades principais. 
+    Conforme detalhado no item 1.1 e expandido no subitem 3.1.1, a linha que separa a arquitetura do design de software geral pode parecer sutil, mas guarda distinções conceituais importantes. A arquitetura de software é considerada uma parte integrante do próprio design de software, correspondendo à sua fase inicial e de nível mais alto.
 
-## Q12. O que é architectural technical debt? 
+    Em um primeiro momento, a diferença se manifesta na abordagem dos requisitos: enquanto o design geral costuma focar na implementação de um conjunto já estabelecido e fechado de especificações, a arquitetura assume o papel de ativamente ajudar a moldar esses requisitos por meio de negociações constantes com os stakeholders e análises de viabilidade.
 
-## Q13. O que significa "architecting in the large"? 
+    Em um segundo momento, constata-se que a arquitetura se dedica a reconhecer e resolver uma gama muito mais ampla de preocupações ambientais, organizacionais e de negócio que podem ou não se transformar em requisitos formais do sistema. Assim, compreende-se que a arquitetura se ocupa do que é estritamente fundamental e estrutural, adiando a definição dos detalhes internos e algoritmos dos componentes para as etapas subsequentes do design detalhado.
 
-## Q14. Qual é o papel da análise no processo arquitetural? 
+## Q11. Descreva o modelo geral de design arquitetural proposto no capítulo, incluindo suas 3 atividades principais.
+
+    No item 3.2, o capítulo propõe um modelo geral de design arquitetural que serve como estrutura comum para os diversos métodos práticos utilizados na engenharia de software. Esse modelo é caracterizado por ser um processo iterativo, cujas atividades principais costumam ser executadas de forma concorrente em diferentes níveis de granularidade.
+
+    As três atividades fundamentais que compõem esse modelo são:
+
+        1. Análise da Arquitetura: dedicada a coletar, compreender e formular os Requisitos Arquiteturalmente Significativos (ASRs), baseando-se nas preocupações identificadas, no contexto do software e na negociação de expectativas com os envolvidos.
+        2. Síntese da Arquitetura: focada no desenvolvimento de soluções candidatas para os problemas de design mapeados na análise, realizando o refinamento em componentes e gerenciando as interações e compensações entre as escolhas.
+        3. Avaliação da Arquitetura: etapa que valida se as soluções concebidas de fato satisfazem os ASRs definidos e identifica onde e quando reparações ou retrabalhos são necessários.
+
+## Q12. O que é architectural technical debt?
+
+    Ainda no item 2.4, introduz-se o conceito de Dívida Técnica Arquitetural para ilustrar o impacto econômico e operacional de longo prazo decorrente de decisões de design apressadas, falhas ou adiadas. Esse fenômeno ocorre frequentemente quando restrições de tempo ou de recursos forçam a equipe a adotar soluções de curto prazo, como negligenciar a modularidade para acelerar o primeiro lançamento do produto.
+
+    Nota-se que, embora essa abordagem possa trazer uma vantagem imediata de cronograma, ela gera uma "dívida" que compromete a manutenibilidade e a capacidade de evolução futura do sistema. Esse saldo devedor costuma se manifestar em lançamentos subsequentes mais lentos, aumento na incidência de defeitos e na necessidade de realizar refatorações extensas e onerosas para viabilizar novas funcionalidades, impactando severamente a produtividade das equipes.
+
+## Q13. O que significa "architecting in the large"?
+
+    No item 3.4, o conceito de "arquitetura em larga escala" é apresentado para destacar que o design de um software não ocorre de forma isolada, mas sim inserido em um ambiente complexo governado por outras estruturas arquiteturais preexistentes. Isso significa que a arquitetura de uma aplicação específica deve, por exemplo, alinhar-se perfeitamente a uma arquitetura corporativa maior ou respeitar as diretrizes de uma arquitetura de sistema de sistemas.
+
+    Ademais, o termo abrange um conjunto de práticas de governança que vão além do desenho técnico individual, subdividindo-se em atividades essenciais como: a implementação da arquitetura (garantindo a conformidade do código desenvolvido), a manutenção da arquitetura (gerenciando suas propriedades pós-implantação), o gerenciamento da arquitetura (controlando o portfólio de sistemas interconectados da empresa) e o gerenciamento do conhecimento arquitetural (extraindo e compartilhando ativos reutilizáveis, especificações e lições aprendidas através da organização).
+
+## Q14. Qual é o papel da análise no processo arquitetural?
+
+    Conforme discutido no subitem 3.2.1, a análise desempenha um papel de fundamentação crítica dentro do processo de design arquitetural. Sua função principal consiste em levantar, filtrar e estruturar os Requisitos Arquiteturalmente Significativos (ASRs) que guiarão toda a especificação do sistema de software.
+
+    Esse papel se realiza por meio de uma investigação profunda do contexto do software, buscando compreender as necessidades reais dos stakeholders e as limitações físicas, tecnológicas ou de negócios do ambiente. É por meio da análise que se identificam conflitos entre expectativas e restrições de custos ou prazos, permitindo que o arquiteto utilize técnicas de negociação para ajustar as demandas antes do início da síntese das soluções, minimizando riscos de falhas estruturais no projeto.
 
 ## Q15. O que significa "goodness" (bondade) em arquitetura? Quais critérios são usados para avaliá-la? 
 
+    No item 4.1, o SWEBOK conceitua a "bondade" em arquitetura como o indicador de qualidade, adequação e solidez de uma estrutura de software frente à sua natureza essencialmente multidisciplinar e voltada a múltiplos interesses. Inspirando-se nos princípios clássicos do arquiteto romano Vitrúvio, o texto sugere avaliar o software por meio de três critérios fundamentais traduzidos para o cenário tecnológico:
+
+        - Força/robustez: avalia se a arquitetura se mostra estável, robusta e resiliente ao longo de sua vida útil e diante de eventuais evoluções.
+        - Utilidade: analisa se o arranjo estrutural é adequado, viável e plenamente aderente ao uso planejado.
+        - Beleza/clareza: verifica se a arquitetura é clara, inteligível e passível de ser compreendida por aqueles que precisam construí-la e mantê-la.
+
+    Observa-se que a "bondade" se traduz na capacidade de a arquitetura abordar não apenas as preocupações isoladas de seus stakeholders, mas também gerenciar de forma satisfatória as consequências e conflitos decorrentes da interação entre requisitos concorrentes (como desempenho versus segurança).
+
 ## Q16. Explique brevemente os métodos ATAM, SAAM.
 
-## Q17. Qual é o propósito das revisões de arquitetura e como elas diferem das revisões de código comuns? 
+    Dentro das práticas de avaliação descritas no item 4.1, o texto menciona metodologias estruturadas focadas na análise de atributos de qualidade. O ATAM é caracterizado como uma abordagem metódica para avaliar arquiteturas de software com base em atributos de qualidade organizados em uma "árvore de utilidade" e validados por cenários ilustrativos. O foco central do ATAM reside em expor e analisar os compromissos entre requisitos de qualidade conflitantes e as respectivas abordagens arquiteturais propostas.
+
+    Por outro lado, o SAAM é referenciado como um método precursor focado primordialmente na avaliação da capacidade de modificação e na validação funcional da arquitetura por meio do mapeamento de cenários de uso, permitindo estimar o impacto de mudanças potenciais no ciclo de vida do software.
+
+## Q17. Qual é o propósito das revisões de arquitetura e como elas diferem das revisões de código comuns?
+
+    No item 4.3, as revisões de arquitetura são apontadas como mecanismos estruturados para inspecionar o andamento e a qualidade do design estrutural de um projeto, visando identificar riscos por meio da avaliação das principais preocupações dos envolvidos. Elas costumam ocorrer em marcos estabelecidos do ciclo de vida do software.
+
+    Na diferenciação face às revisões de código comuns, nota-se que estas últimas possuem um escopo focado estritamente na verificação de arquivos de código fonte já implementados, buscando encontrar falhas lógicas localizadas, desvios de sintaxe ou violações de padrões de codificação.
+
+    Inversamente, as revisões de arquitetura avaliam decisões conceituais de alto nível e estruturas abstratas do sistema, muitas vezes antes mesmo que qualquer linha de código tenha sido redigida. Além disso, elas podem se estruturar como "revisões ativas", nas quais os revisores executam tarefas e questionamentos direcionados para extrair informações específicas sobre os atributos de qualidade, indo além da mera leitura passiva de listas de verificação.
 
 ## Q18. Cite 3 métricas arquiteturais mencionadas no capítulo e explique o que cada uma mede. 
 
-## Q19. Explique a Lei de Conway e sua relação com arquitetura de software. 
+    No item 4.4, o capítulo discorre sobre métricas arquiteturais, que consistem em medidas quantitativas aplicadas para avaliar características estruturais ou de processo de um sistema. Três exemplos citados incluem:
 
-## Q20.  O que é uma arquitetura de referência? 
+        1. Acoplamento e Coesão de Módulos: o acoplamento mede o grau de interdependência existente entre diferentes módulos do sistema, indicando o quão conectados eles estão, enquanto a coesão mede a intensidade com que as responsabilidades internas de um único módulo estão focadas em um propósito comum unificado.
+        2. Dependência e Ciclicidade de Componentes: quantifica as relações de dependência existentes entre os componentes principais da arquitetura, monitorando a presença de ciclos de dependência mútua que possam prejudicar a testabilidade e a implantação isolada.
+        3. Complexidade Ciclomática: quando aplicada no nível arquitetural, calcula a quantidade de caminhos linearmente independentes através das estruturas e fluxos do sistema, servindo como um indicador estrutural de quão complexo será o entendimento e a cobertura de testes para aquela composição.
+
+## Q19. Explique a Lei de Conway e sua relação com arquitetura de software.
+
+    No item 1.3, ao discutir os usos e as influências contextuais da arquitetura, o material faz referência à Lei de Conway. Essa máxima postula que as organizações responsáveis pelo design de sistemas técnicos estão limitadas a produzir designs que operam como cópias das estruturas de comunicação internas dessas próprias organizações.
+
+    empíricos observaram que a divisão de módulos, componentes e interfaces de um sistema tende a espelhar a maneira como as equipes de desenvolvimento estão estruturadas e interagem entre si na empresa. O SWEBOK salienta que essa concordância pode atuar como uma força positiva, otimizando o fluxo de comunicação de um time bem alinhado, ou constituir uma fraqueza crítica, caso os silos organizacionais acabem fragmentando ou comprometendo a integridade do design do software.
+
+## Q20.  O que é uma arquitetura de referência?
+
+    Ao tratar dos modelos de reuso e padronização no item 2.2, o SWEBOK define uma Arquitetura de Referência (RA) como uma arquitetura que constringe ou guia o desenvolvimento de outras arquiteturas.
+
+    Documentada por meio de uma descrição de arquitetura de referência, a RA atua estabelecendo uma base de conhecimento padronizada e comum para a criação de sistemas singulares, linhas de produto ou famílias de software dentro de comunidades específicas. Nota-se que o seu objetivo central reside em capturar características e elementos comuns de um setor para facilitar a integração, acelerar o desenvolvimento e assegurar a interoperabilidade, sendo amplamente documentada e adotada em domínios consolidados como a indústria automotiva, a saúde conectada, a computação em nuvem e a Internet das Coisas (IoT).
