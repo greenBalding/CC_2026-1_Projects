@@ -20,11 +20,9 @@ Escreva um programa em C que:
 2. Leia as arestas do grafo;
 3. Leia um vértice inicial;
 4. Execute a Busca em Largura a partir desse vértice;
-5. ostre a ordem em que os vértices foram visitados.
+5. Mostre a ordem em que os vértices foram visitados.
 
 ### Material de Referência (Aulas 10 e 11 - Busca_em_Profundidade_Largura.pdf)
-
-
 
 ## Atividade 2: Implementação da Busca em Profundidade em C
 
