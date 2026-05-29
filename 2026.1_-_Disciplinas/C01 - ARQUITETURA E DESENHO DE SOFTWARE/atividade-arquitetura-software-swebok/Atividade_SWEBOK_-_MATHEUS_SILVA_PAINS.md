@@ -29,17 +29,61 @@ Dia 3: Q15 - Q20
 
 ## Q3. Cite ao menos 4 usos práticos de uma arquitetura de software em uma organização. 
 
+    No Capítulo 2, no item 1.3, o SWEBOK aborda os usos práticos da arquitetura dentro de um contexto organizacional. Em um primeiro momento, aponta-se que a principal utilidade consiste em fornecer a todas as pessoas que trabalham no projeto uma compreensão compartilhada do sistema, servindo como um guia estrutural para o seu design e construção.
+
+    Em um segundo momento, a arquitetura funciona como uma concepção preliminar do sistema de software, o que viabiliza uma base concreta para analisar e avaliar diferentes alternativas e soluções técnicas antes que recursos significativos sejam investidos. Na terceira acepção, ela atua de maneira estratégica ao permitir processos de engenharia reversa (ou retroarquitetura), auxiliando as equipes a compreenderem a fundo sistemas existentes e complexos antes de realizarem manutenções, melhorias ou modificações substanciais.
+
+    Por fim, observa-se que o conhecimento consolidado da arquitetura permite que cada segmento da organização embase suas atividades de planejamento, estimativa de custos e definição de cronogramas. Além disso, ela estabelece as bases para o desenvolvimento de famílias de programas ou linhas de produto de software, permitindo identificar pontos comuns e projetar componentes reutilizáveis e customizáveis que reduzem o esforço de engenharia subsequente.
+
 ## Q4. O que é um Architecturally Significant Requirement (ASR) e como ele se diferencia de um requisito comum? 
+
+    No contexto do processo de design arquitetural, detalhado no item 3.2.1, o SWEBOK define um Requisito Arquiteturalmente Significativo (ASR) como qualquer requisito imposto a um sistema de software que exerça uma influência direcionadora e marcante em sua arquitetura. Eles representam, essencialmente, os problemas técnicos de maior relevância que a estrutura precisa solucionar de forma prioritária.
+
+    Na concepção de sua diferenciação em relação aos requisitos comuns, nota-se uma separação descrita no item 3.1. Enquanto os requisitos comuns ou convencionais costumam tratar de regras de negócio locais ou funcionalidades específicas que podem ser adiadas para estágios posteriores do desenvolvimento — como o design detalhado ou a construção —, os ASRs atuam como os chamados direcionadores arquiteturais. 
+
+    Desse modo, os ASRs moldam as decisões mais críticas e estruturais do sistema, envolvendo frequentemente atributos de qualidade complexos (como escalabilidade, segurança e desempenho) e restrições de infraestrutura que não podem ser alteradas facilmente no futuro sem incorrer em custos proibitivos.
 
 ## Q5. Qual a diferença entre view e viewpoint em arquitetura de software? 
 
-## Q6. O SWEBOK lista vários estilos arquiteturais. Cite 4 deles e dê um contexto em que cada um seria adequado. 
+    No item 2.1 do segundo capítulo, o texto esclarece os conceitos de visões e pontos de vista, mapeando como eles se articulam na descrição de um sistema. Em um primeiro momento, define-se uma visão arquitetural como a representação de um ou mais aspectos específicos da arquitetura, estruturada propositalmente para abordar preocupações delimitadas de determinados stakeholders por meio de modelos e notações apropriadas.
+
+    Por outro lado, um ponto de vista arquitetural funciona como o conjunto de convenções, regras e idiomas que determinam as diretrizes de como uma visão correspondente deve ser construída, interpretada e utilizada. O ponto de vista estabelece, portanto, as linguagens de modelagem e os padrões que guiarão o arquiteto na estruturação daquela visão.
+
+    Em suma, constata-se que a diferença fundamental reside no fato de o viewpoint funcionar como um gabarito, especificação ou padrão reutilizável de documentação, enquanto a view constitui a instância real ou a aplicação prática dessas convenções para mapear a estrutura de um sistema de software específico.
+
+## Q6. O SWEBOK lista vários estilos arquiteturais. Cite 4 deles e dê um contexto em que cada um seria adequado.
+
+    Ao discorrer sobre os padrões e estilos arquiteturais no item 2.2, o material categoriza diversas abordagens consagradas na engenharia de software. Um primeiro exemplo mencionado é o estilo em Camadas, considerado altamente adequado para cenários nos quais existe a necessidade de organizar o sistema em níveis crescentes de abstração, garantindo o desacoplamento e assegurando que as dependências fluam estritamente em uma única direção.
+
+    Um segundo estilo citado é o de Tubos e Filtros, cuja aplicação se mostra ideal em contextos de processamento de fluxos de dados nos quais a informação deve passar por uma sequência disposta de transformações independentes, onde o resultado de uma etapa serve diretamente como entrada para a seguinte.
+
+    No âmbito de sistemas distribuídos, aponta-se o estilo Cliente-Servidor, o qual se apresenta apropriado para cenários nos quais múltiplos clientes independentes ou estações de trabalho necessitam acessar de forma coordenada recursos, dados ou serviços hospedados de maneira centralizada.
+
+    Por fim, pode-se destacar o estilo de Microsserviços, cujo emprego costuma ser recomendado para ecossistemas de software complexos e de grande porte que demandem alta escalabilidade granular, capacidade de implantação isolada de seus componentes e agilidade para que equipes distintas trabalhem e evoluam o código de forma autônoma.
 
 ## Q7. O que diferencia um padrão arquitetural de um estilo arquitetural?
 
+    Ainda sob a perspectiva do item 2.2, o SWEBOK aponta que não há uma linha divisória perfeitamente rígida entre os dois conceitos, uma vez que ambos se propõem a fornecer soluções consolidadas para problemas em contextos determinados. No entanto, é possível extrair nuances que os diferenciam em termos de escopo e nível de abrangência no sistema.
+
+    Em um primeiro momento, o estilo arquitetural é compreendido como uma maneira particular de construção que confere características marcantes à organização global e em grande escala do sistema de software, definindo suas partes estruturais e as formas gerais de interação entre elas.
+
+    Inversamente, um padrão arquitetural expressa uma solução comum e testada para um problema recorrente dentro do contexto do sistema, não necessitando obrigatoriamente se aplicar à totalidade da aplicação. Nota-se que os padrões arquiteturais existem em escalas variadas, podendo ser empregados de maneira pontual em um único elemento ou aplicados repetidamente ao longo de diferentes módulos, inclusive servindo como expressões ou idiomas específicos para materializar as diretrizes de um determinado estilo arquitetural.
+
 ## Q8. O que é uma Architecture Description Language (ADL)? Cite exemplos mencionados no capítulo. 
 
+    No item 2.3, o texto aborda as Linguagens de Descrição de Arquitetura (ADLs), caracterizando-as como linguagens de domínio específico desenvolvidas expressamente para representar e modelar arquiteturas de software. Historicamente, aponta-se que elas evoluíram a partir das linguagens de interconexão de módulos voltadas para a chamada programação em grande escala.
+
+    Com base no texto, nota-se que algumas ADLs possuem focos restritos a um único domínio de aplicação ou estilo específico, enquanto outras apresentam um espectro mais amplo voltado a enquadrar preocupações corporativas globais. Além do papel descritivo, muitas dessas linguagens oferecem recursos automatizados para realizar análises estáticas complexas, simulações ou geração automática de código.
+
+    Como exemplos explícitos de linguagens ou representações citadas no capítulo, o SWEBOK menciona a MetaH, voltada para sistemas aviônicos estruturados em estilo orientado a eventos; a ArchiMate, que possui um espectro amplo para modelagem de arquitetura corporativa; e a Unified Modeling Language (UML), frequentemente empregada com propósitos de ADL devido à sua ampla adoção nas atividades cotidianas de design da indústria.
+
 ## Q9. Explique o conceito de arquitetura como decisões significativas.
+
+    No item 2.4, discorre-se sobre a visão da arquitetura sob a ótica das decisões significativas. Sob essa perspectiva, o design arquitetural deixa de ser compreendido apenas como um arranjo estático de diagramas e passa a ser visto como o resultado de um processo contínuo e encadeado de tomadas de decisão que impactam profundamente o desenvolvimento e o ciclo de vida do software.
+
+    Observa-se que esse processo gera uma rede complexa de decisões, em que escolhas subsequentes derivam logicamente de resoluções anteriores. Essas definições costumam se basear nas preocupações mais proeminentes dos stakeholders, nas restrições de recursos e, principalmente, nos compromissos e compensações entre atributos de qualidade concorrentes.
+
+    O texto enfatiza a conveniência de documentar explicitamente não apenas as decisões tomadas, mas também as justificativas, as premissas adotadas e as alternativas que foram avaliadas e rejeitadas. Essa prática se mostra valiosa porque previne que o projeto repita erros no futuro por esquecimento dos motivos originais ou permite que os desenvolvedores reavaliem escolhas passadas quando as condições de contorno do ambiente mudarem.
 
 ## Q10. Qual a diferença fundamental entre arquitetura e design segundo o SWEBOK? 
 
