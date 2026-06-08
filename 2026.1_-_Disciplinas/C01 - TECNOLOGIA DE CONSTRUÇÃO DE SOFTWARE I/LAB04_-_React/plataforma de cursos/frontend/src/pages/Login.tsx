@@ -16,6 +16,7 @@ export default function Login() {
   const [validated, setValidated] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [loginError, setLoginError] = useState(false);
 
   const handleToggleMode = () => {
     setIsRegistering(!isRegistering);
@@ -25,6 +26,7 @@ export default function Login() {
     setPerfil('aluno');
     setValidated(false);
     setErrorMsg('');
+    setLoginError(false);
   };
 
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -40,6 +42,7 @@ export default function Login() {
     setValidated(true);
     setSubmitting(true);
     setErrorMsg('');
+    setLoginError(false);
 
     try {
       // Refresh list to make sure we have all registered users
@@ -54,11 +57,13 @@ export default function Login() {
         setCurrentUser(user);
       } else {
         setErrorMsg('E-mail ou senha inválidos. Tente novamente.');
+        setLoginError(true);
         setSubmitting(false);
       }
     } catch (err) {
       console.error(err);
       setErrorMsg('Ocorreu um erro ao tentar efetuar login.');
+      setLoginError(true);
       setSubmitting(false);
     }
   };
@@ -165,28 +170,38 @@ export default function Login() {
               <label className="form-label small text-muted mb-1">Endereço de E-mail</label>
               <input
                 type="email"
-                className="form-control bg-dark text-white border-secondary"
+                className={`form-control bg-dark text-white border-secondary ${loginError ? 'is-invalid' : ''}`}
                 required
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setLoginError(false);
+                }}
                 placeholder="exemplo@email.com"
                 disabled={submitting}
               />
-              <div className="invalid-feedback">Por favor, insira um e-mail válido.</div>
+              <div className="invalid-feedback">
+                {loginError ? 'E-mail não cadastrado ou incorreto.' : 'Por favor, insira um e-mail válido.'}
+              </div>
             </div>
 
             <div className="mb-4">
               <label className="form-label small text-muted mb-1">Senha</label>
               <input
                 type="password"
-                className="form-control bg-dark text-white border-secondary"
+                className={`form-control bg-dark text-white border-secondary ${loginError ? 'is-invalid' : ''}`}
                 required
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setLoginError(false);
+                }}
                 placeholder="Sua senha"
                 disabled={submitting}
               />
-              <div className="invalid-feedback">A senha é obrigatória.</div>
+              <div className="invalid-feedback">
+                {loginError ? 'Senha incorreta.' : 'A senha é obrigatória.'}
+              </div>
             </div>
 
             <button type="submit" disabled={submitting} className="btn btn-primary w-100 fw-bold py-2 mb-2">
