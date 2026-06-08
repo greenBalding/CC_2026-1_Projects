@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
-import { StarIcon, PlayIcon } from '../../components/Icons';
+import { StarIcon, PlayIcon, LockIcon } from '../../components/Icons';
 
 export default function Dashboard() {
   const { currentUser, cursos, matriculas, progressoAulas, certificados, usuarios, modulos, aulas } = useApp();
@@ -86,7 +86,7 @@ export default function Dashboard() {
                   className="mx-auto rounded-circle bg-opacity-10 bg-primary d-flex align-items-center justify-content-center"
                   style={{ width: '150px', height: '150px', border: '2px dashed #7c3aed' }}
                 >
-                  <span className="fs-3 text-primary fw-bold">Learnify</span>
+                  <span className="fs-3 text-primary fw-bold">LearnGPT</span>
                 </div>
               </div>
             </div>
@@ -134,7 +134,40 @@ export default function Dashboard() {
                   const instrutorName = usuarios.find((u) => u.idUsuario === c.idInstrutor)?.nome || 'Instrutor';
                   return (
                     <div className="col-md-6" key={m.idMatricula}>
-                      <div className="card bg-black border border-secondary text-white h-100 shadow-sm hover-card">
+                      <div
+                        className="card bg-black border border-secondary text-white h-100 shadow-sm hover-card overflow-hidden"
+                        onClick={(e) => {
+                          if ((e.target as HTMLElement).closest('button, a')) {
+                            return;
+                          }
+                          navigate(`/player/${c.idCurso}`);
+                        }}
+                      >
+                        {c.bannerUrl ? (
+                          <img
+                            src={c.bannerUrl}
+                            alt={c.titulo}
+                            className="w-100"
+                            style={{
+                              aspectRatio: '16 / 9',
+                              borderBottom: '1px solid rgba(255,255,255,0.05)',
+                              objectFit: 'cover',
+                            }}
+                          />
+                        ) : (
+                          <div
+                            className="w-100 d-flex align-items-center justify-content-center text-muted"
+                            style={{
+                              aspectRatio: '16 / 9',
+                              background: 'linear-gradient(135deg, rgba(124,58,237,0.2) 0%, rgba(6,182,212,0.1) 100%)',
+                              borderBottom: '1px solid rgba(255,255,255,0.05)',
+                              fontSize: '14px',
+                              letterSpacing: '0.05em',
+                            }}
+                          >
+                            Em breve...
+                          </div>
+                        )}
                         <div className="card-body p-4 d-flex flex-column justify-content-between">
                           <div>
                             <div className="d-flex justify-content-between align-items-start mb-2">
@@ -186,19 +219,65 @@ export default function Dashboard() {
             <div className="row g-3">
               {recommendedCourses.map((c) => {
                 const instrutorName = usuarios.find((u) => u.idUsuario === c.idInstrutor)?.nome || 'Instrutor';
+                const isEmBreve = !c.bannerUrl;
                 return (
                   <div className="col-md-4" key={c.idCurso}>
-                    <div className="card bg-black border border-secondary text-white h-100 shadow-sm hover-card">
+                    <div
+                      className={`card bg-black text-white h-100 shadow-sm d-flex flex-column justify-content-between position-relative ${
+                        isEmBreve ? '' : 'hover-card'
+                      }`}
+                      onClick={(e) => {
+                        if (isEmBreve) return;
+                        if ((e.target as HTMLElement).closest('button, a')) {
+                          return;
+                        }
+                        navigate(`/course/${c.idCurso}`);
+                      }}
+                      style={{
+                        border: isEmBreve ? '2px dashed rgba(255,255,255,0.18)' : '1px solid rgba(255,255,255,0.15)',
+                        opacity: isEmBreve ? 0.45 : 1,
+                        filter: isEmBreve ? 'grayscale(100%)' : 'none',
+                        cursor: isEmBreve ? 'not-allowed' : 'pointer',
+                      }}
+                    >
+                      {isEmBreve && (
+                        <div
+                          className="position-absolute top-0 end-0 m-2 px-2 py-0.5 rounded bg-dark bg-opacity-75 border border-secondary border-opacity-50 d-flex align-items-center gap-1"
+                          style={{ zIndex: 2, fontSize: '9px', backdropFilter: 'blur(4px)' }}
+                        >
+                          <LockIcon size={10} className="text-secondary" />
+                          <span className="text-muted fw-bold" style={{ letterSpacing: '0.05em' }}>EM BREVE</span>
+                        </div>
+                      )}
+
                       <div className="card-body p-3 d-flex flex-column justify-content-between">
                         <div>
-                          <div
-                            className="w-100 rounded mb-3"
-                            style={{
-                              height: '90px',
-                              background: 'linear-gradient(135deg, rgba(124,58,237,0.2) 0%, rgba(6,182,212,0.1) 100%)',
-                              border: '1px solid rgba(255,255,255,0.05)',
-                            }}
-                          />
+                          {c.bannerUrl ? (
+                            <img
+                              src={c.bannerUrl}
+                              alt={c.titulo}
+                              className="w-100 rounded mb-3"
+                              style={{
+                                aspectRatio: '16 / 9',
+                                border: '1px solid rgba(255,255,255,0.05)',
+                                objectFit: 'cover',
+                              }}
+                            />
+                          ) : (
+                            <div
+                              className="w-100 rounded mb-3 d-flex flex-column align-items-center justify-content-center text-muted"
+                              style={{
+                                aspectRatio: '16 / 9',
+                                background: 'linear-gradient(135deg, rgba(124,58,237,0.2) 0%, rgba(6,182,212,0.1) 100%)',
+                                border: '1px solid rgba(255,255,255,0.05)',
+                                fontSize: '13px',
+                                letterSpacing: '0.05em',
+                              }}
+                            >
+                              <LockIcon size={20} className="mb-1 text-muted" style={{ opacity: 0.6 }} />
+                              <span>Em breve...</span>
+                            </div>
+                          )}
                           <h6 className="fw-bold text-light mb-1 text-truncate-2" style={{ height: '38px', overflow: 'hidden' }}>
                             {c.titulo}
                           </h6>
@@ -213,12 +292,30 @@ export default function Dashboard() {
                             <StarIcon size={12} fill="#ffc107" /> 4.9
                           </span>
                         </div>
-                        <button
-                          onClick={() => navigate(`/course/${c.idCurso}`)}
-                          className="btn btn-sm btn-outline-secondary w-100 text-light mt-3 fw-semibold"
-                        >
-                          Ver Detalhes
-                        </button>
+                        
+                        {currentUser.perfil === 'administrador' ? (
+                          <button
+                            onClick={() => navigate(`/admin?tab=courses&edit=${c.idCurso}`)}
+                            className="btn btn-sm btn-primary w-100 mt-3 fw-semibold"
+                          >
+                            Editar Curso
+                          </button>
+                        ) : isEmBreve ? (
+                          <button
+                            disabled
+                            className="btn btn-sm btn-secondary w-100 mt-3 fw-semibold d-flex align-items-center justify-content-center gap-2"
+                            style={{ cursor: 'not-allowed' }}
+                          >
+                            <LockIcon size={12} /> Em breve
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() => navigate(`/course/${c.idCurso}`)}
+                            className="btn btn-sm btn-outline-secondary w-100 text-light mt-3 fw-semibold"
+                          >
+                            Ver Detalhes
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>

@@ -134,7 +134,7 @@ export default function Login() {
     <div className="d-flex align-items-center justify-content-center min-vh-100 bg-dark text-light p-3">
       <div className="card bg-black border border-secondary text-white shadow-lg p-4" style={{ maxWidth: '440px', width: '100%', borderRadius: '12px' }}>
         <div className="text-center mb-4">
-          <h1 className="h3 fw-bold text-primary mb-1">Learnify</h1>
+          <h1 className="h3 fw-bold text-primary mb-1">LearnGPT</h1>
           <p className="text-muted small">Sua plataforma completa de aprendizado online</p>
         </div>
 

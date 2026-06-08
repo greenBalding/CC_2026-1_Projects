@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import type { ReactNode } from 'react';
 import { useApp } from '../context/AppContext';
-import { HomeIcon, SearchIcon, PlayIcon, MapIcon, UserIcon, StarIcon, TrophyIcon } from './Icons';
+import { HomeIcon, SearchIcon, PlayIcon, MapIcon, UserIcon, StarIcon, CrownIcon } from './Icons';
 
 interface Props {
   children: ReactNode;
@@ -10,20 +11,23 @@ interface Props {
 export default function BootstrapLayout({ children }: Props) {
   const { currentUser, setCurrentUser, assinaturas } = useApp();
   const location = useLocation();
+  const [collapsed, setCollapsed] = useState(false);
 
-  const isPro = currentUser
-    ? assinaturas.some((a) => a.idUsuario === currentUser.idUsuario)
-    : false;
+  const userSubs = currentUser
+    ? assinaturas.filter((a) => a.idUsuario === currentUser.idUsuario)
+    : [];
+  const userSub = userSubs.length > 0 ? userSubs[userSubs.length - 1] : null;
+  const isPro = userSub ? (userSub.idPlano === 'plan2' || userSub.idPlano === 'plan3') : false;
 
-
-
+  const isAdminOrInstructor = currentUser?.perfil === 'administrador' || currentUser?.perfil === 'instrutor';
   const navItems = [
-    { to: '/dashboard', icon: <HomeIcon size={18} className="me-2" />, label: 'Início' },
-    { to: '/explore', icon: <SearchIcon size={18} className="me-2" />, label: 'Explorar' },
-    { to: '/cursos', icon: <PlayIcon size={18} className="me-2" />, label: 'Meus Cursos' },
-    { to: '/trilhas', icon: <MapIcon size={18} className="me-2" />, label: 'Trilhas' },
-    { to: '/checkout', icon: <StarIcon size={18} className="me-2" fill="none" />, label: 'Planos & Premium' },
-    { to: '/profile', icon: <UserIcon size={18} className="me-2" />, label: 'Meu Perfil' },
+    { to: '/dashboard', icon: <HomeIcon size={18} />, label: 'Início' },
+    { to: '/explore', icon: <SearchIcon size={18} />, label: 'Explorar' },
+    { to: '/cursos', icon: <PlayIcon size={18} />, label: 'Meus Cursos' },
+    { to: '/trilhas', icon: <MapIcon size={18} />, label: 'Trilhas' },
+    { to: '/checkout', icon: <StarIcon size={18} fill="none" />, label: 'Planos & Premium' },
+    { to: '/profile', icon: <UserIcon size={18} />, label: 'Meu Perfil' },
+    ...(isAdminOrInstructor ? [{ to: '/admin', icon: <CrownIcon size={18} />, label: 'Painel Admin' }] : []),
   ];
 
   return (
@@ -31,9 +35,29 @@ export default function BootstrapLayout({ children }: Props) {
       {/* Navbar Superior */}
       <nav className="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-secondary sticky-top px-3">
         <div className="container-fluid">
-          <Link className="navbar-brand fw-bold text-primary fs-3 d-flex align-items-center" to="/dashboard">
-            Learnify
-          </Link>
+          <div className="d-flex align-items-center">
+            <button
+              onClick={() => setCollapsed(!collapsed)}
+              className="btn btn-link text-light p-0 me-3 d-flex align-items-center justify-content-center"
+              style={{
+                width: '38px',
+                height: '38px',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: '6px',
+                textDecoration: 'none',
+              }}
+              title={collapsed ? 'Expandir menu' : 'Recolher menu'}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
+            <Link className="navbar-brand fw-bold text-primary fs-3 d-flex align-items-center m-0" to="/dashboard">
+              LearnGPT
+            </Link>
+          </div>
           
           <button
             className="navbar-toggler"
@@ -59,7 +83,7 @@ export default function BootstrapLayout({ children }: Props) {
                     <div className="d-none d-sm-block">
                       <div className="fw-semibold small lh-1 text-light">{currentUser.nome}</div>
                       <div className="text-muted small mt-1" style={{ fontSize: '10px' }}>
-                        {isPro ? 'Assinante Pro' : 'Conta Gratuita'}
+                        {isPro ? (userSub?.idPlano === 'plan3' ? 'Pro Anual' : 'Assinante Pro') : userSub?.idPlano === 'plan1' ? 'Plano Básico' : 'Conta Gratuita'}
                       </div>
                     </div>
                   </div>
@@ -77,63 +101,51 @@ export default function BootstrapLayout({ children }: Props) {
         </div>
       </nav>
 
-      {/* Main Layout Grid */}
-      <div className="container-fluid flex-grow-1">
-        <div className="row min-vh-100">
-          {/* Sidebar Lateral */}
-          <nav className="col-md-3 col-lg-2 d-md-block bg-black sidebar border-end border-secondary p-3">
-            <div className="position-sticky pt-3 d-flex flex-column h-100">
-              <ul className="nav nav-pills flex-column mb-auto gap-2">
-                {navItems.map((item) => {
-                  const isActive =
-                    location.pathname === item.to ||
-                    (item.to !== '/dashboard' && location.pathname.startsWith(item.to));
-                  return (
-                    <li key={item.to} className="nav-item">
-                      <Link
-                        to={item.to}
-                        className={`nav-link text-start d-flex align-items-center ${
-                          isActive ? 'active bg-primary text-white' : 'text-light bg-opacity-10 hover-bg-secondary'
-                        }`}
-                      >
-                        {item.icon}
-                        <span>{item.label}</span>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
+      {/* Main Layout Area */}
+      <div className="d-flex flex-row flex-grow-1">
+        {/* Sidebar Lateral */}
+        <nav
+          className="bg-black border-end border-secondary p-2 p-md-3 d-flex flex-column"
+          style={{
+            width: collapsed ? '70px' : '240px',
+            minWidth: collapsed ? '70px' : '240px',
+            transition: 'width 0.25s ease, min-width 0.25s ease',
+          }}
+        >
+          <div className="position-sticky pt-3 d-flex flex-column h-100 w-100">
+            <ul className="nav nav-pills flex-column mb-auto gap-2">
+              {navItems.map((item) => {
+                const isActive =
+                  location.pathname === item.to ||
+                  (item.to !== '/dashboard' && location.pathname.startsWith(item.to));
+                return (
+                  <li key={item.to} className="nav-item">
+                    <Link
+                      to={item.to}
+                      className={`nav-link d-flex align-items-center ${
+                        collapsed ? 'justify-content-center py-2.5 px-0' : 'text-start py-2 px-3'
+                      } ${
+                        isActive ? 'active bg-primary text-white' : 'text-light bg-opacity-10 hover-bg-secondary'
+                      }`}
+                      style={{ borderRadius: '6px' }}
+                      title={collapsed ? item.label : undefined}
+                    >
+                      {item.icon}
+                      {!collapsed && <span className="ms-2 text-nowrap">{item.label}</span>}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </nav>
 
-              {/* Botão de Painel de Controle Admin */}
-              <div className="mt-auto pt-3 border-top border-secondary">
-                <Link
-                  to="/admin"
-                  className={`btn d-flex align-items-center justify-content-center w-100 ${
-                    location.pathname.startsWith('/admin')
-                      ? 'btn-danger'
-                      : 'btn-outline-danger'
-                  }`}
-                  style={{ gap: '6px' }}
-                >
-                  <TrophyIcon size={16} />
-                  <span>Painel Admin ({currentUser?.perfil === 'aluno' ? 'Bloqueado' : 'Acesso'})</span>
-                </Link>
-                {currentUser?.perfil === 'aluno' && (
-                  <div className="text-center text-muted small mt-2" style={{ fontSize: '10px' }}>
-                    *Troque o perfil no topo para acessar a administração
-                  </div>
-                )}
-              </div>
-            </div>
-          </nav>
-
-          {/* Conteúdo Principal */}
-          <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4 bg-dark">
-            <div className="container-fluid">
-              {children}
-            </div>
-          </main>
-        </div>
+        {/* Conteúdo Principal */}
+        <main className="flex-grow-1 px-md-4 py-4 bg-dark overflow-auto">
+          <div className="container-fluid">
+            {children}
+          </div>
+        </main>
       </div>
     </div>
   );

@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { api } from '../../services/api';
-import { StarIcon, PlayIcon, SearchIcon } from '../../components/Icons';
+import { StarIcon, PlayIcon, SearchIcon, LockIcon } from '../../components/Icons';
 
 export default function Explore() {
-  const { currentUser, cursos, categorias, matriculas, usuarios, refreshData } = useApp();
+  const { currentUser, cursos, categorias, matriculas, usuarios, refreshData, showAlert } = useApp();
   const navigate = useNavigate();
 
   const [activeCategory, setActiveCategory] = useState('Todos');
@@ -52,10 +52,10 @@ export default function Explore() {
       };
       await api.createMatricula(newMatricula);
       await refreshData();
-      alert('Matrícula realizada com sucesso! Bons estudos.');
+      showAlert('Matrícula realizada com sucesso! Bons estudos.', 'success');
     } catch (err) {
       console.error(err);
-      alert('Falha ao realizar matrícula. Tente novamente.');
+      showAlert('Falha ao realizar matrícula. Tente novamente.', 'error');
     } finally {
       setLoadingEnroll(null);
     }
@@ -133,20 +133,70 @@ export default function Explore() {
               (m) => m.idUsuario === currentUser.idUsuario && m.idCurso === c.idCurso
             );
             const instrutorName = usuarios.find((u) => u.idUsuario === c.idInstrutor)?.nome || 'Instrutor';
+            const isEmBreve = !c.bannerUrl;
 
             return (
               <div className="col-md-6 col-lg-4" key={c.idCurso}>
-                <div className="card bg-black border border-secondary text-white h-100 shadow-sm hover-card d-flex flex-column justify-content-between">
+                <div
+                  className={`card bg-black text-white h-100 shadow-sm d-flex flex-column justify-content-between position-relative ${
+                    isEmBreve ? '' : 'hover-card'
+                  }`}
+                  onClick={(e) => {
+                    if (isEmBreve) return;
+                    if ((e.target as HTMLElement).closest('button, a')) {
+                      return;
+                    }
+                    if (isEnrolled) {
+                      navigate(`/player/${c.idCurso}`);
+                    } else {
+                      navigate(`/course/${c.idCurso}`);
+                    }
+                  }}
+                  style={{
+                    border: isEmBreve ? '2px dashed rgba(255,255,255,0.18)' : '1px solid rgba(255,255,255,0.15)',
+                    opacity: isEmBreve ? 0.45 : 1,
+                    filter: isEmBreve ? 'grayscale(100%)' : 'none',
+                    cursor: isEmBreve ? 'not-allowed' : 'pointer',
+                  }}
+                >
+                  {isEmBreve && (
+                    <div
+                      className="position-absolute top-0 end-0 m-3 px-2 py-1 rounded bg-dark bg-opacity-75 border border-secondary border-opacity-50 d-flex align-items-center gap-1"
+                      style={{ zIndex: 2, fontSize: '10px', backdropFilter: 'blur(4px)' }}
+                    >
+                      <LockIcon size={12} className="text-secondary" />
+                      <span className="text-muted fw-bold" style={{ letterSpacing: '0.05em' }}>EM BREVE</span>
+                    </div>
+                  )}
+
                   <div>
                     {/* Header Image box */}
-                    <div
-                      className="w-100 rounded-top"
-                      style={{
-                        height: '130px',
-                        background: bgGradient,
-                        borderBottom: '1px solid rgba(255,255,255,0.05)',
-                      }}
-                    />
+                    {c.bannerUrl ? (
+                      <img
+                        src={c.bannerUrl}
+                        alt={c.titulo}
+                        className="w-100 rounded-top"
+                        style={{
+                          aspectRatio: '16 / 9',
+                          borderBottom: '1px solid rgba(255,255,255,0.05)',
+                          objectFit: 'cover',
+                        }}
+                      />
+                    ) : (
+                      <div
+                        className="w-100 rounded-top d-flex flex-column align-items-center justify-content-center text-muted"
+                        style={{
+                          aspectRatio: '16 / 9',
+                          background: bgGradient,
+                          borderBottom: '1px solid rgba(255,255,255,0.05)',
+                          fontSize: '14px',
+                          letterSpacing: '0.05em',
+                        }}
+                      >
+                        <LockIcon size={24} className="mb-2 text-muted" style={{ opacity: 0.6 }} />
+                        <span>Em breve...</span>
+                      </div>
+                    )}
                     
                     <div className="p-4">
                       <div className="d-flex justify-content-between align-items-center mb-2">
@@ -159,7 +209,7 @@ export default function Explore() {
                       </div>
                       
                       <h5 className="card-title fw-bold text-light mb-2">{c.titulo}</h5>
-                      <p className="text-muted small mb-3 text-truncate-3" style={{ height: '54px', overflow: 'hidden' }}>
+                      <p className="text-muted small mb-3">
                         {c.descricao}
                       </p>
                       <p className="text-muted small mb-0">Instrutor: <strong className="text-light">{instrutorName}</strong></p>
@@ -174,7 +224,22 @@ export default function Explore() {
                       </span>
                     </div>
 
-                    {isEnrolled ? (
+                    {currentUser.perfil === 'administrador' ? (
+                      <button
+                        onClick={() => navigate(`/admin?tab=courses&edit=${c.idCurso}`)}
+                        className="btn btn-primary w-100 fw-semibold"
+                      >
+                        Editar Curso
+                      </button>
+                    ) : isEmBreve ? (
+                      <button
+                        disabled
+                        className="btn btn-secondary w-100 fw-semibold d-flex align-items-center justify-content-center gap-2"
+                        style={{ cursor: 'not-allowed' }}
+                      >
+                        <LockIcon size={14} /> Em breve
+                      </button>
+                    ) : isEnrolled ? (
                       <button
                         onClick={() => navigate(`/player/${c.idCurso}`)}
                         className="btn btn-outline-primary w-100 fw-semibold d-flex align-items-center justify-content-center gap-2"

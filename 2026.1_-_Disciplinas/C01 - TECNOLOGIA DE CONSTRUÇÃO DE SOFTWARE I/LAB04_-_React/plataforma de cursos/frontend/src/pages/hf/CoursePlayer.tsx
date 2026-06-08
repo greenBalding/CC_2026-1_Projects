@@ -6,7 +6,7 @@ import { PlayIcon, QuizIcon, DocumentIcon, VideoIcon, BookIcon, CheckIcon } from
 
 export default function CoursePlayer() {
   const { id } = useParams<{ id: string }>();
-  const { currentUser, cursos, modulos, aulas, progressoAulas, certificados, refreshData } = useApp();
+  const { currentUser, cursos, modulos, aulas, progressoAulas, certificados, refreshData, showAlert } = useApp();
   const [activeLesson, setActiveLesson] = useState<any>(null);
   const [markingProgress, setMarkingProgress] = useState(false);
 
@@ -98,11 +98,11 @@ export default function CoursePlayer() {
         };
         await api.createCertificado(newCertificate);
         await refreshData();
-        alert(`Parabéns! Você concluiu 100% do curso "${curso.titulo}". Seu certificado foi gerado com sucesso!`);
+        showAlert(`Parabéns! Você concluiu 100% do curso "${curso.titulo}". Seu certificado foi gerado com sucesso!`, 'success', 'Parabéns!');
       }
     } catch (err) {
       console.error(err);
-      alert('Erro ao salvar progresso da aula.');
+      showAlert('Erro ao salvar progresso da aula.', 'error');
     } finally {
       setMarkingProgress(false);
     }
@@ -196,7 +196,7 @@ export default function CoursePlayer() {
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
-                      alert('Slides baixados com sucesso!');
+                      showAlert('Slides baixados com sucesso!', 'success', 'Materiais de Apoio');
                     }}
                     className="btn btn-sm btn-secondary bg-opacity-25 border-secondary text-light d-flex align-items-center gap-2"
                   >
@@ -206,7 +206,7 @@ export default function CoursePlayer() {
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
-                      alert('Repositório clonado com o código da aula!');
+                      showAlert('Repositório clonado com o código da aula!', 'success', 'Código-fonte');
                     }}
                     className="btn btn-sm btn-secondary bg-opacity-25 border-secondary text-light d-flex align-items-center gap-2"
                   >

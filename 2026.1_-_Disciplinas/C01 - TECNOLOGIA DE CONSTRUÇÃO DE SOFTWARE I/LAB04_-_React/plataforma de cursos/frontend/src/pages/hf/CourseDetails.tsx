@@ -7,7 +7,7 @@ import { useState } from 'react';
 export default function CourseDetails() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { currentUser, cursos, modulos, aulas, matriculas, avaliacoes, usuarios, refreshData } = useApp();
+  const { currentUser, cursos, modulos, aulas, matriculas, avaliacoes, usuarios, refreshData, showAlert, showConfirm } = useApp();
   const [loadingEnroll, setLoadingEnroll] = useState(false);
 
   const courseId = id || '';
@@ -43,9 +43,10 @@ export default function CourseDetails() {
       ? courseReviews.reduce((sum, r) => sum + Number(r.nota), 0) / courseReviews.length
       : 4.8; // Default fallback
 
-  const isEnrolled = matriculas.some(
+  const userMatricula = matriculas.find(
     (m) => m.idUsuario === currentUser.idUsuario && m.idCurso === courseId
   );
+  const isEnrolled = !!userMatricula;
 
   const handleEnroll = async () => {
     setLoadingEnroll(true);
@@ -59,14 +60,35 @@ export default function CourseDetails() {
       };
       await api.createMatricula(newMatricula);
       await refreshData();
-      alert('Matrícula realizada com sucesso!');
+      showAlert('Matrícula realizada com sucesso!', 'success');
       navigate(`/player/${courseId}`);
     } catch (err) {
       console.error(err);
-      alert('Erro ao realizar matrícula.');
+      showAlert('Erro ao realizar matrícula.', 'error');
     } finally {
       setLoadingEnroll(false);
     }
+  };
+
+  const handleUnenroll = async () => {
+    if (!userMatricula) return;
+    showConfirm(
+      'Tem certeza de que deseja cancelar sua matrícula neste curso? Todo o seu progresso de aulas será perdido.',
+      async () => {
+        setLoadingEnroll(true);
+        try {
+          const targetId = userMatricula.id || userMatricula.idMatricula;
+          await api.deleteMatricula(targetId);
+          await refreshData();
+          showAlert('Matrícula cancelada com sucesso.', 'success');
+        } catch (err) {
+          console.error(err);
+          showAlert('Erro ao cancelar matrícula.', 'error');
+        } finally {
+          setLoadingEnroll(false);
+        }
+      }
+    );
   };
 
   return (
@@ -99,13 +121,29 @@ export default function CourseDetails() {
                 </div>
               </div>
 
-              {isEnrolled ? (
+              {currentUser.perfil === 'administrador' ? (
                 <button
-                  onClick={() => navigate(`/player/${curso.idCurso}`)}
+                  onClick={() => navigate(`/admin?tab=courses&edit=${curso.idCurso}`)}
                   className="btn btn-primary btn-lg px-4 fw-bold"
                 >
-                  Acessar Aulas do Curso
+                  Editar Curso
                 </button>
+              ) : isEnrolled ? (
+                <div className="d-flex align-items-center gap-3 flex-wrap">
+                  <button
+                    onClick={() => navigate(`/player/${curso.idCurso}`)}
+                    className="btn btn-primary btn-lg px-4 fw-bold"
+                  >
+                    Acessar Aulas do Curso
+                  </button>
+                  <button
+                    onClick={handleUnenroll}
+                    disabled={loadingEnroll}
+                    className="btn btn-outline-danger btn-lg px-4 fw-bold"
+                  >
+                    {loadingEnroll ? 'Carregando...' : 'Cancelar Matrícula'}
+                  </button>
+                </div>
               ) : (
                 <button
                   onClick={handleEnroll}
@@ -118,13 +156,29 @@ export default function CourseDetails() {
             </div>
 
             <div className="col-lg-4 text-center">
-              <div
-                className="w-100 rounded mb-3 shadow"
-                style={{
-                  height: '140px',
-                  background: 'linear-gradient(135deg, #7c3aed, #06b6d4)',
-                }}
-              />
+              {curso.bannerUrl ? (
+                <img
+                  src={curso.bannerUrl}
+                  alt={curso.titulo}
+                  className="w-100 rounded mb-3 shadow img-fluid"
+                  style={{
+                    aspectRatio: '16 / 9',
+                    objectFit: 'cover',
+                  }}
+                />
+              ) : (
+                <div
+                  className="w-100 rounded mb-3 shadow d-flex align-items-center justify-content-center text-muted"
+                  style={{
+                    aspectRatio: '16 / 9',
+                    background: 'linear-gradient(135deg, #7c3aed, #06b6d4)',
+                    fontSize: '16px',
+                    letterSpacing: '0.05em',
+                  }}
+                >
+                  Em breve...
+                </div>
+              )}
               <div className="bg-black bg-opacity-40 rounded border border-secondary p-3">
                 <div className="d-flex align-items-center justify-content-center gap-2 mb-1">
                   <span className="fs-3 fw-bold text-light">{averageRating.toFixed(1)}</span>

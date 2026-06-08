@@ -67,7 +67,7 @@ export const usuarios: UsuarioModel[] = [
   {
     idUsuario: 'u-admin',
     nome: 'Admin Sistema',
-    email: 'admin@learnify.com',
+    email: 'admin@learngpt.com',
     perfil: 'administrador',
     senhaHash: '***',
     ativo: true,

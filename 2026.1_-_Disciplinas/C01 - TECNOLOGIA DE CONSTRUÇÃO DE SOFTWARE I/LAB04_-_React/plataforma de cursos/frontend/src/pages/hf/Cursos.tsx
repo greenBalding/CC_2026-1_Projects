@@ -1,10 +1,32 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
+import { api } from '../../services/api';
 import { BookIcon, TrophyIcon } from '../../components/Icons';
 
 export default function Cursos() {
-  const { currentUser, cursos, matriculas, certificados, usuarios, modulos, aulas, progressoAulas } = useApp();
+  const { currentUser, cursos, matriculas, certificados, usuarios, modulos, aulas, progressoAulas, refreshData, showAlert, showConfirm } = useApp();
   const navigate = useNavigate();
+  const [loadingUnenroll, setLoadingUnenroll] = useState<string | null>(null);
+
+  const handleUnenroll = async (enrollId: string) => {
+    showConfirm(
+      'Tem certeza de que deseja cancelar sua matrícula neste curso? Todo o seu progresso de aulas será perdido.',
+      async () => {
+        setLoadingUnenroll(enrollId);
+        try {
+          await api.deleteMatricula(enrollId);
+          await refreshData();
+          showAlert('Matrícula cancelada com sucesso.', 'success');
+        } catch (err) {
+          console.error(err);
+          showAlert('Erro ao cancelar matrícula.', 'error');
+        } finally {
+          setLoadingUnenroll(null);
+        }
+      }
+    );
+  };
 
   if (!currentUser) {
     return (
@@ -68,13 +90,49 @@ export default function Cursos() {
 
               return (
                 <div className="col-md-6 col-lg-4" key={mat.idMatricula}>
-                  <div className="card bg-black border border-secondary text-white h-100 shadow-sm hover-card d-flex flex-column justify-content-between">
-                    <div className="p-4">
-                      <span className="badge bg-secondary text-uppercase mb-2" style={{ fontSize: '8px' }}>
-                        {c.nivel}
-                      </span>
-                      <h5 className="fw-bold text-light mb-2">{c.titulo}</h5>
-                      <p className="text-muted small mb-0">por {instrutorName}</p>
+                  <div
+                    className="card bg-black border border-secondary text-white h-100 shadow-sm hover-card overflow-hidden d-flex flex-column justify-content-between"
+                    onClick={(e) => {
+                      if ((e.target as HTMLElement).closest('button, a')) {
+                        return;
+                      }
+                      navigate(`/player/${c.idCurso}`);
+                    }}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <div>
+                      {c.bannerUrl ? (
+                        <img
+                          src={c.bannerUrl}
+                          alt={c.titulo}
+                          className="w-100"
+                          style={{
+                            aspectRatio: '16 / 9',
+                            borderBottom: '1px solid rgba(255,255,255,0.05)',
+                            objectFit: 'cover',
+                          }}
+                        />
+                      ) : (
+                        <div
+                          className="w-100 d-flex align-items-center justify-content-center text-muted"
+                          style={{
+                            aspectRatio: '16 / 9',
+                            background: 'linear-gradient(135deg, rgba(124,58,237,0.2) 0%, rgba(6,182,212,0.1) 100%)',
+                            borderBottom: '1px solid rgba(255,255,255,0.05)',
+                            fontSize: '14px',
+                            letterSpacing: '0.05em',
+                          }}
+                        >
+                          Em breve...
+                        </div>
+                      )}
+                      <div className="p-4">
+                        <span className="badge bg-secondary text-uppercase mb-2" style={{ fontSize: '8px' }}>
+                          {c.nivel}
+                        </span>
+                        <h5 className="fw-bold text-light mb-2">{c.titulo}</h5>
+                        <p className="text-muted small mb-0">por {instrutorName}</p>
+                      </div>
                     </div>
 
                     <div className="p-4 pt-0 mt-3 border-top border-secondary border-opacity-25 pt-3">
@@ -105,6 +163,13 @@ export default function Cursos() {
                           className="btn btn-sm btn-outline-secondary text-light fw-semibold"
                         >
                           Detalhes
+                        </button>
+                        <button
+                          onClick={() => handleUnenroll(mat.id || mat.idMatricula)}
+                          disabled={loadingUnenroll === (mat.id || mat.idMatricula)}
+                          className="btn btn-sm btn-outline-danger fw-semibold"
+                        >
+                          {loadingUnenroll === (mat.id || mat.idMatricula) ? 'Saindo...' : 'Desmatricular'}
                         </button>
                       </div>
                     </div>
@@ -148,7 +213,10 @@ export default function Cursos() {
                         Emitido em: {new Date(cert.dataEmissao).toLocaleDateString()}
                       </span>
                       <button
-                        onClick={() => alert(`Certificado Autêntico!\nCódigo: ${cert.codigoVerificacao}\nData de Emissão: ${cert.dataEmissao}`)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          showAlert(`Código: ${cert.codigoVerificacao}\nData de Emissão: ${new Date(cert.dataEmissao).toLocaleDateString()}`, 'success', 'Certificado Autêntico');
+                        }}
                         className="btn btn-sm btn-outline-success fw-semibold"
                       >
                         Visualizar

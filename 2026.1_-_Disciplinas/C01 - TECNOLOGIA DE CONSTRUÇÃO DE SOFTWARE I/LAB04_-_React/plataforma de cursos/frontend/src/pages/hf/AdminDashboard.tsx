@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { api } from '../../services/api';
 
@@ -12,7 +13,13 @@ export default function AdminDashboard() {
     aulas,
     trilhas,
     refreshData,
+    showAlert,
+    showConfirm,
   } = useApp();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const editCourseId = searchParams.get('edit');
+  const tabParam = searchParams.get('tab');
 
   const [activeTab, setActiveTab] = useState<'users' | 'categories' | 'courses' | 'modules' | 'trilhas'>('users');
   const [submitting, setSubmitting] = useState(false);
@@ -26,6 +33,8 @@ export default function AdminDashboard() {
   // Categories Form
   const [catNome, setCatNome] = useState('');
   const [catDesc, setCatDesc] = useState('');
+  const [editingCatId, setEditingCatId] = useState<string | null>(null);
+  const [selectedCategoryFilter, setSelectedCategoryFilter] = useState('');
 
   // Courses Form
   const [courseTitle, setCourseTitle] = useState('');
@@ -39,6 +48,7 @@ export default function AdminDashboard() {
   const [modCourseId, setModCourseId] = useState('');
   const [modTitle, setModTitle] = useState('');
   const [modOrder, setModOrder] = useState(1);
+  const [editingModId, setEditingModId] = useState<string | null>(null);
 
   // Lessons Form
   const [lessonCourseId, setLessonCourseId] = useState('');
@@ -47,16 +57,47 @@ export default function AdminDashboard() {
   const [lessonType, setLessonType] = useState<'video' | 'texto' | 'quiz'>('video');
   const [lessonDuration, setLessonDuration] = useState(15);
   const [lessonOrder, setLessonOrder] = useState(1);
+  const [editingLessonId, setEditingLessonId] = useState<string | null>(null);
 
   // Trilhas Form
   const [trilhaTitle, setTrilhaTitle] = useState('');
   const [trilhaDesc, setTrilhaDesc] = useState('');
   const [trilhaCategory, setTrilhaCategory] = useState('');
+  const [editingTrilhaId, setEditingTrilhaId] = useState<string | null>(null);
 
   // Link Course to Trail Form
   const [linkTrilhaId, setLinkTrilhaId] = useState('');
   const [linkCourseId, setLinkCourseId] = useState('');
   const [linkOrder, setLinkOrder] = useState(1);
+
+  // Sync tab from query param
+  useEffect(() => {
+    if (tabParam) {
+      setActiveTab(tabParam as any);
+    }
+  }, [tabParam]);
+
+  // Sync edit course state
+  useEffect(() => {
+    if (editCourseId) {
+      const course = cursos.find((c) => c.idCurso === editCourseId);
+      if (course) {
+        setCourseTitle(course.titulo);
+        setCourseDesc(course.descricao);
+        setCourseInstructor(course.idInstrutor);
+        setCourseCategory(course.idCategoria);
+        setCourseLevel(course.nivel);
+        setCourseHours(course.totalHoras);
+      }
+    } else {
+      setCourseTitle('');
+      setCourseDesc('');
+      setCourseInstructor('');
+      setCourseCategory('');
+      setCourseLevel('iniciante');
+      setCourseHours(10);
+    }
+  }, [editCourseId, cursos]);
 
   if (!currentUser) {
     return (
@@ -89,8 +130,10 @@ export default function AdminDashboard() {
     e.preventDefault();
     setSubmitting(true);
     try {
+      const generatedId = `u-${Date.now()}`;
       const newUser = {
-        idUsuario: `u-${Date.now()}`,
+        id: generatedId,
+        idUsuario: generatedId,
         nome: userNome,
         email: userEmail,
         perfil: userPerfil,
@@ -101,12 +144,12 @@ export default function AdminDashboard() {
       };
       await api.createUsuario(newUser);
       await refreshData();
-      alert('Usuário cadastrado com sucesso!');
+      showAlert('Usuário cadastrado com sucesso!', 'success');
       setUserNome('');
       setUserEmail('');
     } catch (err) {
       console.error(err);
-      alert('Erro ao cadastrar usuário.');
+      showAlert('Erro ao cadastrar usuário.', 'error');
     } finally {
       setSubmitting(false);
     }
@@ -116,161 +159,342 @@ export default function AdminDashboard() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      const newCat = {
-        idCategoria: `cat-${Date.now()}`,
-        nome: catNome,
-        descricao: catDesc,
-        ativa: true,
-      };
-      await api.createCategoria(newCat);
-      await refreshData();
-      alert('Categoria cadastrada com sucesso!');
-      setCatNome('');
-      setCatDesc('');
+      if (editingCatId) {
+        await api.updateCategoria(editingCatId, {
+          nome: catNome,
+          descricao: catDesc,
+        });
+        await refreshData();
+        showAlert('Categoria atualizada com sucesso!', 'success');
+        setEditingCatId(null);
+        setCatNome('');
+        setCatDesc('');
+      } else {
+        const generatedId = `cat-${Date.now()}`;
+        const newCat = {
+          id: generatedId,
+          idCategoria: generatedId,
+          nome: catNome,
+          descricao: catDesc,
+          ativa: true,
+        };
+        await api.createCategoria(newCat);
+        await refreshData();
+        showAlert('Categoria cadastrada com sucesso!', 'success');
+        setCatNome('');
+        setCatDesc('');
+      }
     } catch (err) {
       console.error(err);
-      alert('Erro ao cadastrar categoria.');
+      showAlert('Erro ao salvar categoria.', 'error');
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const handleDeleteCategory = async (catId: string) => {
+    showConfirm(
+      'Tem certeza de que deseja excluir esta categoria?',
+      async () => {
+        try {
+          await api.deleteCategoria(catId);
+          await refreshData();
+          showAlert('Categoria excluída com sucesso!', 'success');
+          if (editingCatId === catId) {
+            setEditingCatId(null);
+            setCatNome('');
+            setCatDesc('');
+          }
+        } catch (err) {
+          console.error(err);
+          showAlert('Erro ao excluir categoria.', 'error');
+        }
+      }
+    );
   };
 
   const handleCreateCourse = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!courseInstructor || !courseCategory) {
-      alert('Selecione um instrutor e uma categoria.');
+      showAlert('Selecione um instrutor e uma categoria.', 'error');
       return;
     }
     setSubmitting(true);
     try {
-      const newCourse = {
-        idCurso: `c-${Date.now()}`,
-        titulo: courseTitle,
-        descricao: courseDesc,
-        idInstrutor: courseInstructor,
-        idCategoria: courseCategory,
-        nivel: courseLevel,
-        dataPublicacao: new Date().toISOString().split('T')[0],
-        totalAulas: 0,
-        totalHoras: Number(courseHours),
-      };
-      await api.createCurso(newCourse);
-      await refreshData();
-      alert('Curso cadastrado com sucesso!');
-      setCourseTitle('');
-      setCourseDesc('');
+      if (editCourseId) {
+        await api.updateCurso(editCourseId, {
+          titulo: courseTitle,
+          descricao: courseDesc,
+          idInstrutor: courseInstructor,
+          idCategoria: courseCategory,
+          nivel: courseLevel,
+          totalHoras: Number(courseHours),
+        });
+        await refreshData();
+        showAlert('Curso atualizado com sucesso!', 'success');
+        const newParams = new URLSearchParams(searchParams);
+        newParams.delete('edit');
+        setSearchParams(newParams);
+      } else {
+        const generatedId = `c-${Date.now()}`;
+        const newCourse = {
+          id: generatedId,
+          idCurso: generatedId,
+          titulo: courseTitle,
+          descricao: courseDesc,
+          idInstrutor: courseInstructor,
+          idCategoria: courseCategory,
+          nivel: courseLevel,
+          dataPublicacao: new Date().toISOString().split('T')[0],
+          totalAulas: 0,
+          totalHoras: Number(courseHours),
+        };
+        await api.createCurso(newCourse);
+        await refreshData();
+        showAlert('Curso cadastrado com sucesso!', 'success');
+        setCourseTitle('');
+        setCourseDesc('');
+      }
     } catch (err) {
       console.error(err);
-      alert('Erro ao cadastrar curso.');
+      showAlert('Erro ao salvar curso.', 'error');
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const handleDeleteCourse = async (courseId: string) => {
+    showConfirm(
+      'Tem certeza de que deseja excluir este curso? O curso e seus dados serão removidos.',
+      async () => {
+        try {
+          await api.deleteCurso(courseId);
+          await refreshData();
+          showAlert('Curso excluído com sucesso!', 'success');
+          if (editCourseId === courseId) {
+            const newParams = new URLSearchParams(searchParams);
+            newParams.delete('edit');
+            setSearchParams(newParams);
+          }
+        } catch (err) {
+          console.error(err);
+          showAlert('Erro ao excluir curso.', 'error');
+        }
+      }
+    );
   };
 
   const handleCreateModule = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!modCourseId) {
-      alert('Selecione um curso.');
+      showAlert('Selecione um curso.', 'error');
       return;
     }
     setSubmitting(true);
     try {
-      const newMod = {
-        idModulo: `m-${Date.now()}`,
-        idCurso: modCourseId,
-        titulo: modTitle,
-        ordem: Number(modOrder),
-      };
-      await api.createModulo(newMod);
-      await refreshData();
-      alert('Módulo cadastrado com sucesso!');
-      setModTitle('');
-      setModOrder((prev) => prev + 1);
+      if (editingModId) {
+        await api.updateModulo(editingModId, {
+          idCurso: modCourseId,
+          titulo: modTitle,
+          ordem: Number(modOrder),
+        });
+        await refreshData();
+        showAlert('Módulo atualizado com sucesso!', 'success');
+        setEditingModId(null);
+        setModTitle('');
+      } else {
+        const generatedId = `m-${Date.now()}`;
+        const newMod = {
+          id: generatedId,
+          idModulo: generatedId,
+          idCurso: modCourseId,
+          titulo: modTitle,
+          ordem: Number(modOrder),
+        };
+        await api.createModulo(newMod);
+        await refreshData();
+        showAlert('Módulo cadastrado com sucesso!', 'success');
+        setModTitle('');
+        setModOrder((prev) => prev + 1);
+      }
     } catch (err) {
       console.error(err);
-      alert('Erro ao cadastrar módulo.');
+      showAlert('Erro ao salvar módulo.', 'error');
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const handleDeleteModule = async (modId: string) => {
+    showConfirm(
+      'Tem certeza de que deseja excluir este módulo?',
+      async () => {
+        try {
+          await api.deleteModulo(modId);
+          await refreshData();
+          showAlert('Módulo excluído com sucesso!', 'success');
+          if (editingModId === modId) {
+            setEditingModId(null);
+            setModTitle('');
+          }
+        } catch (err) {
+          console.error(err);
+          showAlert('Erro ao excluir módulo.', 'error');
+        }
+      }
+    );
   };
 
   const handleCreateLesson = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!lessonModId) {
-      alert('Selecione um módulo.');
+      showAlert('Selecione um módulo.', 'error');
       return;
     }
     setSubmitting(true);
     try {
-      const newLesson = {
-        idAula: `a-${Date.now()}`,
-        idModulo: lessonModId,
-        titulo: lessonTitle,
-        tipoConteudo: lessonType,
-        urlConteudo: '#',
-        duracaoMinutos: Number(lessonDuration),
-        ordem: Number(lessonOrder),
-      };
-      await api.createAula(newLesson);
-      await refreshData();
-      alert('Aula cadastrada com sucesso!');
-      setLessonTitle('');
-      setLessonOrder((prev) => prev + 1);
+      if (editingLessonId) {
+        await api.updateAula(editingLessonId, {
+          idModulo: lessonModId,
+          titulo: lessonTitle,
+          tipoConteudo: lessonType,
+          duracaoMinutos: Number(lessonDuration),
+          ordem: Number(lessonOrder),
+        });
+        await refreshData();
+        showAlert('Aula atualizada com sucesso!', 'success');
+        setEditingLessonId(null);
+        setLessonTitle('');
+      } else {
+        const generatedId = `a-${Date.now()}`;
+        const newLesson = {
+          id: generatedId,
+          idAula: generatedId,
+          idModulo: lessonModId,
+          titulo: lessonTitle,
+          tipoConteudo: lessonType,
+          urlConteudo: '#',
+          duracaoMinutos: Number(lessonDuration),
+          ordem: Number(lessonOrder),
+        };
+        await api.createAula(newLesson);
+        await refreshData();
+        showAlert('Aula cadastrada com sucesso!', 'success');
+        setLessonTitle('');
+        setLessonOrder((prev) => prev + 1);
+      }
     } catch (err) {
       console.error(err);
-      alert('Erro ao cadastrar aula.');
+      showAlert('Erro ao salvar aula.', 'error');
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const handleDeleteLesson = async (lessonId: string) => {
+    showConfirm(
+      'Tem certeza de que deseja excluir esta aula?',
+      async () => {
+        try {
+          await api.deleteAula(lessonId);
+          await refreshData();
+          showAlert('Aula excluída com sucesso!', 'success');
+          if (editingLessonId === lessonId) {
+            setEditingLessonId(null);
+            setLessonTitle('');
+          }
+        } catch (err) {
+          console.error(err);
+          showAlert('Erro ao excluir aula.', 'error');
+        }
+      }
+    );
   };
 
   const handleCreateTrilha = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!trilhaCategory) {
-      alert('Selecione uma categoria.');
+      showAlert('Selecione uma categoria.', 'error');
       return;
     }
     setSubmitting(true);
     try {
-      const newTrilha = {
-        idTrilha: `t-${Date.now()}`,
-        titulo: trilhaTitle,
-        descricao: trilhaDesc,
-        idCategoria: trilhaCategory,
-      };
-      await api.createTrilha(newTrilha);
-      await refreshData();
-      alert('Trilha cadastrada com sucesso!');
-      setTrilhaTitle('');
-      setTrilhaDesc('');
+      if (editingTrilhaId) {
+        await api.updateTrilha(editingTrilhaId, {
+          titulo: trilhaTitle,
+          descricao: trilhaDesc,
+          idCategoria: trilhaCategory,
+        });
+        await refreshData();
+        showAlert('Trilha atualizada com sucesso!', 'success');
+        setEditingTrilhaId(null);
+        setTrilhaTitle('');
+        setTrilhaDesc('');
+      } else {
+        const generatedId = `t-${Date.now()}`;
+        const newTrilha = {
+          id: generatedId,
+          idTrilha: generatedId,
+          titulo: trilhaTitle,
+          descricao: trilhaDesc,
+          idCategoria: trilhaCategory,
+        };
+        await api.createTrilha(newTrilha);
+        await refreshData();
+        showAlert('Trilha cadastrada com sucesso!', 'success');
+        setTrilhaTitle('');
+        setTrilhaDesc('');
+      }
     } catch (err) {
       console.error(err);
-      alert('Erro ao cadastrar trilha.');
+      showAlert('Erro ao salvar trilha.', 'error');
     } finally {
       setSubmitting(false);
     }
   };
 
+  const handleDeleteTrilha = async (trilhaId: string) => {
+    showConfirm(
+      'Tem certeza de que deseja excluir esta trilha?',
+      async () => {
+        try {
+          await api.deleteTrilha(trilhaId);
+          await refreshData();
+          showAlert('Trilha excluída com sucesso!', 'success');
+          if (editingTrilhaId === trilhaId) {
+            setEditingTrilhaId(null);
+            setTrilhaTitle('');
+            setTrilhaDesc('');
+          }
+        } catch (err) {
+          console.error(err);
+          showAlert('Erro ao excluir trilha.', 'error');
+        }
+      }
+    );
+  };
+
   const handleLinkCourseToTrail = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!linkTrilhaId || !linkCourseId) {
-      alert('Selecione a trilha e o curso.');
+      showAlert('Selecione a trilha e o curso.', 'error');
       return;
     }
     setSubmitting(true);
     try {
       const newLink = {
+        id: `tc-${Date.now()}`,
         idTrilha: linkTrilhaId,
         idCurso: linkCourseId,
         ordem: Number(linkOrder),
       };
       await api.createTrilhaCurso(newLink);
       await refreshData();
-      alert('Curso vinculado à trilha com sucesso!');
+      showAlert('Curso vinculado à trilha com sucesso!', 'success');
       setLinkOrder((prev) => prev + 1);
     } catch (err) {
       console.error(err);
-      alert('Erro ao vincular curso à trilha.');
+      showAlert('Erro ao vincular curso à trilha.', 'error');
     } finally {
       setSubmitting(false);
     }
@@ -408,7 +632,7 @@ export default function AdminDashboard() {
           <div className="row g-4">
             <div className="col-lg-5">
               <div className="card bg-black border border-secondary text-white p-4 shadow-sm">
-                <h5 className="fw-bold mb-3">Cadastrar Nova Categoria</h5>
+                <h5 className="fw-bold mb-3">{editingCatId ? 'Editar Categoria' : 'Cadastrar Nova Categoria'}</h5>
                 <form onSubmit={handleCreateCategory}>
                   <div className="mb-3">
                     <label className="form-label small text-muted mb-1">Nome da Categoria</label>
@@ -431,20 +655,34 @@ export default function AdminDashboard() {
                     />
                   </div>
                   <button type="submit" disabled={submitting} className="btn btn-primary w-100 fw-semibold">
-                    Cadastrar Categoria
+                    {editingCatId ? 'Salvar Alterações' : 'Cadastrar Categoria'}
                   </button>
+                  {editingCatId && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditingCatId(null);
+                        setCatNome('');
+                        setCatDesc('');
+                      }}
+                      className="btn btn-outline-secondary w-100 mt-2 fw-semibold text-light"
+                    >
+                      Cancelar Edição
+                    </button>
+                  )}
                 </form>
               </div>
             </div>
             <div className="col-lg-7">
-              <div className="card bg-black border border-secondary text-white p-3 shadow-sm">
+              <div className="card bg-black border border-secondary text-white p-3 shadow-sm mb-4">
                 <h5 className="fw-bold pb-2 mb-3 border-bottom border-secondary">Categorias Cadastradas</h5>
-                <div className="table-responsive" style={{ maxHeight: '400px' }}>
+                <div className="table-responsive" style={{ maxHeight: '300px' }}>
                   <table className="table table-dark table-striped table-hover mb-0 align-middle">
                     <thead>
                       <tr>
                         <th className="border-secondary text-muted small">Nome</th>
                         <th className="border-secondary text-muted small">Descrição</th>
+                        <th className="border-secondary text-muted small text-end">Ações</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -452,11 +690,87 @@ export default function AdminDashboard() {
                         <tr key={cat.idCategoria}>
                           <td className="border-secondary text-light fw-semibold">{cat.nome}</td>
                           <td className="border-secondary text-muted small">{cat.descricao}</td>
+                          <td className="border-secondary text-end small">
+                            <button
+                              onClick={() => {
+                                setEditingCatId(cat.idCategoria);
+                                setCatNome(cat.nome);
+                                setCatDesc(cat.descricao);
+                              }}
+                              className="btn btn-sm btn-outline-primary me-2"
+                            >
+                              Editar
+                            </button>
+                            <button
+                              onClick={() => handleDeleteCategory(cat.idCategoria)}
+                              className="btn btn-sm btn-outline-danger"
+                            >
+                              Excluir
+                            </button>
+                          </td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
                 </div>
+              </div>
+
+              {/* Relação: Listar cursos de uma categoria específica */}
+              <div className="card bg-black border border-secondary text-white p-3 shadow-sm">
+                <h5 className="fw-bold pb-2 mb-3 border-bottom border-secondary">Listar Cursos por Categoria</h5>
+                <div className="mb-3">
+                  <label className="form-label small text-muted mb-1">Selecionar Categoria</label>
+                  <select
+                    className="form-select bg-dark text-light border-secondary"
+                    value={selectedCategoryFilter}
+                    onChange={(e) => setSelectedCategoryFilter(e.target.value)}
+                  >
+                    <option value="">Selecione...</option>
+                    {categorias.map((cat) => (
+                      <option key={cat.idCategoria} value={cat.idCategoria}>{cat.nome}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {selectedCategoryFilter ? (
+                  <div className="table-responsive" style={{ maxHeight: '250px' }}>
+                    <table className="table table-dark table-striped table-hover mb-0 align-middle">
+                      <thead>
+                        <tr>
+                          <th className="border-secondary text-muted small">Curso</th>
+                          <th className="border-secondary text-muted small">Nível</th>
+                          <th className="border-secondary text-muted small text-end">Ações</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {cursos.filter((c) => c.idCategoria === selectedCategoryFilter).length === 0 ? (
+                          <tr>
+                            <td colSpan={3} className="text-center text-muted small py-3">
+                              Nenhum curso cadastrado nesta categoria.
+                            </td>
+                          </tr>
+                        ) : (
+                          cursos.filter((c) => c.idCategoria === selectedCategoryFilter).map((c) => (
+                            <tr key={c.idCurso}>
+                              <td className="border-secondary text-light fw-semibold small">{c.titulo}</td>
+                              <td className="border-secondary text-muted text-capitalize small">{c.nivel}</td>
+                              <td className="border-secondary text-end small">
+                                <button
+                                  onClick={() => setSearchParams({ tab: 'courses', edit: c.idCurso })}
+                                  className="btn btn-sm btn-outline-primary"
+                                >
+                                  Editar Curso
+                                </button>
+                              </td>
+                            </tr>
+                          ))
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : (
+                  <p className="text-muted small mb-0 text-center py-2">Selecione uma categoria para visualizar seus cursos vinculados.</p>
+                )}
               </div>
             </div>
           </div>
@@ -467,7 +781,7 @@ export default function AdminDashboard() {
           <div className="row g-4">
             <div className="col-lg-5">
               <div className="card bg-black border border-secondary text-white p-4 shadow-sm">
-                <h5 className="fw-bold mb-3">Cadastrar Novo Curso</h5>
+                <h5 className="fw-bold mb-3">{editCourseId ? 'Editar Curso' : 'Cadastrar Novo Curso'}</h5>
                 <form onSubmit={handleCreateCourse}>
                   <div className="mb-3">
                     <label className="form-label small text-muted mb-1">Título do Curso</label>
@@ -542,8 +856,21 @@ export default function AdminDashboard() {
                     </div>
                   </div>
                   <button type="submit" disabled={submitting} className="btn btn-primary w-100 fw-semibold">
-                    Cadastrar Curso
+                    {editCourseId ? 'Salvar Alterações' : 'Cadastrar Curso'}
                   </button>
+                  {editCourseId && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const newParams = new URLSearchParams(searchParams);
+                        newParams.delete('edit');
+                        setSearchParams(newParams);
+                      }}
+                      className="btn btn-outline-secondary w-100 mt-2 fw-semibold text-light"
+                    >
+                      Cancelar Edição
+                    </button>
+                  )}
                 </form>
               </div>
             </div>
@@ -557,6 +884,7 @@ export default function AdminDashboard() {
                         <th className="border-secondary text-muted small">Título</th>
                         <th className="border-secondary text-muted small">Categoria</th>
                         <th className="border-secondary text-muted small">Carga</th>
+                        <th className="border-secondary text-muted small text-end">Ações</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -567,6 +895,20 @@ export default function AdminDashboard() {
                             <td className="border-secondary text-light fw-semibold">{c.titulo}</td>
                             <td className="border-secondary text-muted small">{catObj?.nome || 'Tecnologia'}</td>
                             <td className="border-secondary text-muted small">{c.totalHoras}h</td>
+                            <td className="border-secondary text-end small">
+                              <button
+                                onClick={() => setSearchParams({ tab: 'courses', edit: c.idCurso })}
+                                className="btn btn-sm btn-outline-primary me-2"
+                              >
+                                Editar
+                              </button>
+                              <button
+                                onClick={() => handleDeleteCourse(c.idCurso)}
+                                className="btn btn-sm btn-outline-danger"
+                              >
+                                Excluir
+                              </button>
+                            </td>
                           </tr>
                         );
                       })}
@@ -584,7 +926,7 @@ export default function AdminDashboard() {
             {/* Create module */}
             <div className="col-md-6 col-lg-4">
               <div className="card bg-black border border-secondary text-white p-4 shadow-sm">
-                <h5 className="fw-bold mb-3">1. Cadastrar Módulo</h5>
+                <h5 className="fw-bold mb-3">{editingModId ? 'Editar Módulo' : '1. Cadastrar Módulo'}</h5>
                 <form onSubmit={handleCreateModule}>
                   <div className="mb-3">
                     <label className="form-label small text-muted mb-1">Selecionar Curso</label>
@@ -620,8 +962,20 @@ export default function AdminDashboard() {
                     />
                   </div>
                   <button type="submit" disabled={submitting} className="btn btn-primary w-100 fw-semibold">
-                    Cadastrar Módulo
+                    {editingModId ? 'Salvar Alterações' : 'Cadastrar Módulo'}
                   </button>
+                  {editingModId && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditingModId(null);
+                        setModTitle('');
+                      }}
+                      className="btn btn-outline-secondary w-100 mt-2 fw-semibold text-light"
+                    >
+                      Cancelar Edição
+                    </button>
+                  )}
                 </form>
               </div>
             </div>
@@ -629,7 +983,7 @@ export default function AdminDashboard() {
             {/* Create lesson */}
             <div className="col-md-6 col-lg-4">
               <div className="card bg-black border border-secondary text-white p-4 shadow-sm">
-                <h5 className="fw-bold mb-3">2. Cadastrar Aula</h5>
+                <h5 className="fw-bold mb-3">{editingLessonId ? 'Editar Aula' : '2. Cadastrar Aula'}</h5>
                 <form onSubmit={handleCreateLesson}>
                   <div className="row g-2 mb-3">
                     <div className="col-6">
@@ -708,8 +1062,20 @@ export default function AdminDashboard() {
                     </div>
                   </div>
                   <button type="submit" disabled={submitting} className="btn btn-primary w-100 fw-semibold btn-sm">
-                    Cadastrar Aula
+                    {editingLessonId ? 'Salvar Alterações' : 'Cadastrar Aula'}
                   </button>
+                  {editingLessonId && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditingLessonId(null);
+                        setLessonTitle('');
+                      }}
+                      className="btn btn-outline-secondary w-100 mt-2 fw-semibold text-light btn-sm"
+                    >
+                      Cancelar Edição
+                    </button>
+                  )}
                 </form>
               </div>
             </div>
@@ -727,12 +1093,61 @@ export default function AdminDashboard() {
                         {courseMods.map(m => {
                           const mLessons = aulas.filter(a => a.idModulo === m.idModulo).sort((a,b) => a.ordem - b.ordem);
                           return (
-                            <div key={m.idModulo} className="my-1">
-                              <span className="text-muted small d-block">Módulo {m.ordem}: {m.titulo}</span>
+                            <div key={m.idModulo} className="my-2 border-bottom border-secondary border-opacity-25 pb-2">
+                              <div className="d-flex justify-content-between align-items-center mb-1">
+                                <span className="text-light small fw-bold">Mód {m.ordem}: {m.titulo}</span>
+                                <div className="d-flex gap-2">
+                                  <button
+                                    onClick={() => {
+                                      setEditingModId(m.idModulo);
+                                      setModCourseId(m.idCurso);
+                                      setModTitle(m.titulo);
+                                      setModOrder(m.ordem);
+                                    }}
+                                    className="btn btn-link p-0 text-primary small text-decoration-none"
+                                    style={{ fontSize: '10px' }}
+                                  >
+                                    Editar
+                                  </button>
+                                  <button
+                                    onClick={() => handleDeleteModule(m.idModulo)}
+                                    className="btn btn-link p-0 text-danger small text-decoration-none"
+                                    style={{ fontSize: '10px' }}
+                                  >
+                                    Excluir
+                                  </button>
+                                </div>
+                              </div>
                               {mLessons.map(a => (
-                                <span key={a.idAula} className="text-muted small ps-3 d-block" style={{ fontSize: '11px' }}>
-                                  - Aula {a.ordem}: {a.titulo} ({a.duracaoMinutos}m)
-                                </span>
+                                <div key={a.idAula} className="ps-2 d-flex justify-content-between align-items-center py-0.5" style={{ fontSize: '11px' }}>
+                                  <span className="text-muted text-truncate" style={{ maxWidth: '160px' }}>
+                                    - Aula {a.ordem}: {a.titulo} ({a.duracaoMinutos}m)
+                                  </span>
+                                  <div className="d-flex gap-2">
+                                    <button
+                                      onClick={() => {
+                                        setEditingLessonId(a.idAula);
+                                        setLessonCourseId(c.idCurso);
+                                        setLessonModId(a.idModulo);
+                                        setLessonTitle(a.titulo);
+                                        setLessonType(a.tipoConteudo as any);
+                                        setLessonDuration(a.duracaoMinutos);
+                                        setLessonOrder(a.ordem);
+                                      }}
+                                      className="btn btn-link p-0 text-primary text-decoration-none"
+                                      style={{ fontSize: '9px' }}
+                                    >
+                                      Editar
+                                    </button>
+                                    <button
+                                      onClick={() => handleDeleteLesson(a.idAula)}
+                                      className="btn btn-link p-0 text-danger text-decoration-none"
+                                      style={{ fontSize: '9px' }}
+                                    >
+                                      Excluir
+                                    </button>
+                                  </div>
+                                </div>
                               ))}
                             </div>
                           );
@@ -752,7 +1167,7 @@ export default function AdminDashboard() {
             {/* Create Trail */}
             <div className="col-lg-6">
               <div className="card bg-black border border-secondary text-white p-4 shadow-sm mb-4">
-                <h5 className="fw-bold mb-3">Criar Nova Trilha</h5>
+                <h5 className="fw-bold mb-3">{editingTrilhaId ? 'Editar Trilha' : 'Criar Nova Trilha'}</h5>
                 <form onSubmit={handleCreateTrilha}>
                   <div className="row g-2 mb-3">
                     <div className="col-6">
@@ -790,9 +1205,64 @@ export default function AdminDashboard() {
                     />
                   </div>
                   <button type="submit" disabled={submitting} className="btn btn-primary w-100 fw-semibold">
-                    Cadastrar Trilha
+                    {editingTrilhaId ? 'Salvar Alterações' : 'Cadastrar Trilha'}
                   </button>
+                  {editingTrilhaId && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditingTrilhaId(null);
+                        setTrilhaTitle('');
+                        setTrilhaDesc('');
+                        setTrilhaCategory('');
+                      }}
+                      className="btn btn-outline-secondary w-100 mt-2 fw-semibold text-light"
+                    >
+                      Cancelar Edição
+                    </button>
+                  )}
                 </form>
+              </div>
+
+              {/* List of Trails */}
+              <div className="card bg-black border border-secondary text-white p-3 shadow-sm">
+                <h5 className="fw-bold pb-2 mb-3 border-bottom border-secondary">Trilhas Cadastradas</h5>
+                <div className="table-responsive" style={{ maxHeight: '300px' }}>
+                  <table className="table table-dark table-striped table-hover mb-0 align-middle">
+                    <thead>
+                      <tr>
+                        <th className="border-secondary text-muted small">Título</th>
+                        <th className="border-secondary text-muted small text-end">Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {trilhas.map((tr) => (
+                        <tr key={tr.idTrilha}>
+                          <td className="border-secondary text-light fw-semibold small">{tr.titulo}</td>
+                          <td className="border-secondary text-end small">
+                            <button
+                              onClick={() => {
+                                setEditingTrilhaId(tr.idTrilha);
+                                setTrilhaTitle(tr.titulo);
+                                setTrilhaDesc(tr.descricao);
+                                setTrilhaCategory(tr.idCategoria);
+                              }}
+                              className="btn btn-sm btn-outline-primary me-2"
+                            >
+                              Editar
+                            </button>
+                            <button
+                              onClick={() => handleDeleteTrilha(tr.idTrilha)}
+                              className="btn btn-sm btn-outline-danger"
+                            >
+                              Excluir
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
 

@@ -36,11 +36,15 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(data),
     }),
-  updateUsuario: (id: string, data: Partial<UsuarioModel>) =>
-    request<UsuarioModel>(`/usuarios/${id}`, {
+  updateUsuario: async (idUsuario: string, data: Partial<UsuarioModel>) => {
+    const list = await api.getUsuarios();
+    const found = list.find((u) => u.idUsuario === idUsuario);
+    const dbId = found ? ((found as any).id || found.idUsuario) : idUsuario;
+    return request<UsuarioModel>(`/usuarios/${dbId}`, {
       method: 'PATCH',
       body: JSON.stringify(data),
-    }),
+    });
+  },
 
   // ─── CATEGORIAS ────────────────────────────────────────────────
   getCategorias: () => request<CategoriaModel[]>('/categorias'),
@@ -49,6 +53,23 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(data),
     }),
+  updateCategoria: async (idCategoria: string, data: Partial<CategoriaModel>) => {
+    const list = await api.getCategorias();
+    const found = list.find((c) => c.idCategoria === idCategoria);
+    const dbId = found ? ((found as any).id || found.idCategoria) : idCategoria;
+    return request<CategoriaModel>(`/categorias/${dbId}`, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    });
+  },
+  deleteCategoria: async (idCategoria: string) => {
+    const list = await api.getCategorias();
+    const found = list.find((c) => c.idCategoria === idCategoria);
+    const dbId = found ? ((found as any).id || found.idCategoria) : idCategoria;
+    return request<void>(`/categorias/${dbId}`, {
+      method: 'DELETE',
+    });
+  },
 
   // ─── CURSOS ────────────────────────────────────────────────────
   getCursos: () => request<CursoModel[]>('/cursos'),
@@ -57,6 +78,23 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(data),
     }),
+  updateCurso: async (idCurso: string, data: Partial<CursoModel>) => {
+    const list = await api.getCursos();
+    const found = list.find((c) => c.idCurso === idCurso);
+    const dbId = found ? ((found as any).id || found.idCurso) : idCurso;
+    return request<CursoModel>(`/cursos/${dbId}`, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    });
+  },
+  deleteCurso: async (idCurso: string) => {
+    const list = await api.getCursos();
+    const found = list.find((c) => c.idCurso === idCurso);
+    const dbId = found ? ((found as any).id || found.idCurso) : idCurso;
+    return request<void>(`/cursos/${dbId}`, {
+      method: 'DELETE',
+    });
+  },
 
   // ─── MODULOS ───────────────────────────────────────────────────
   getModulos: () => request<ModuloModel[]>('/modulos'),
@@ -65,6 +103,23 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(data),
     }),
+  updateModulo: async (idModulo: string, data: Partial<ModuloModel>) => {
+    const list = await api.getModulos();
+    const found = list.find((m) => m.idModulo === idModulo);
+    const dbId = found ? ((found as any).id || found.idModulo) : idModulo;
+    return request<ModuloModel>(`/modulos/${dbId}`, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    });
+  },
+  deleteModulo: async (idModulo: string) => {
+    const list = await api.getModulos();
+    const found = list.find((m) => m.idModulo === idModulo);
+    const dbId = found ? ((found as any).id || found.idModulo) : idModulo;
+    return request<void>(`/modulos/${dbId}`, {
+      method: 'DELETE',
+    });
+  },
 
   // ─── AULAS ─────────────────────────────────────────────────────
   getAulas: () => request<AulaModel[]>('/aulas'),
@@ -73,6 +128,23 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(data),
     }),
+  updateAula: async (idAula: string, data: Partial<AulaModel>) => {
+    const list = await api.getAulas();
+    const found = list.find((a) => a.idAula === idAula);
+    const dbId = found ? ((found as any).id || found.idAula) : idAula;
+    return request<AulaModel>(`/aulas/${dbId}`, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    });
+  },
+  deleteAula: async (idAula: string) => {
+    const list = await api.getAulas();
+    const found = list.find((a) => a.idAula === idAula);
+    const dbId = found ? ((found as any).id || found.idAula) : idAula;
+    return request<void>(`/aulas/${dbId}`, {
+      method: 'DELETE',
+    });
+  },
 
   // ─── MATRICULAS ────────────────────────────────────────────────
   getMatriculas: () => request<MatriculaModel[]>('/matriculas'),
@@ -80,6 +152,10 @@ export const api = {
     request<MatriculaModel>('/matriculas', {
       method: 'POST',
       body: JSON.stringify(data),
+    }),
+  deleteMatricula: (id: string) =>
+    request<void>(`/matriculas/${id}`, {
+      method: 'DELETE',
     }),
 
   // ─── PROGRESSO AULAS ──────────────────────────────────────────
@@ -129,6 +205,23 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(data),
     }),
+  updateTrilha: async (idTrilha: string, data: Partial<TrilhaModel>) => {
+    const list = await api.getTrilhas();
+    const found = list.find((t) => t.idTrilha === idTrilha);
+    const dbId = found ? ((found as any).id || found.idTrilha) : idTrilha;
+    return request<TrilhaModel>(`/trilhas/${dbId}`, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    });
+  },
+  deleteTrilha: async (idTrilha: string) => {
+    const list = await api.getTrilhas();
+    const found = list.find((t) => t.idTrilha === idTrilha);
+    const dbId = found ? ((found as any).id || found.idTrilha) : idTrilha;
+    return request<void>(`/trilhas/${dbId}`, {
+      method: 'DELETE',
+    });
+  },
 
   // ─── TRILHAS CURSOS ────────────────────────────────────────────
   getTrilhasCursos: () => request<TrilhaCursoModel[]>('/trilhas_cursos'),

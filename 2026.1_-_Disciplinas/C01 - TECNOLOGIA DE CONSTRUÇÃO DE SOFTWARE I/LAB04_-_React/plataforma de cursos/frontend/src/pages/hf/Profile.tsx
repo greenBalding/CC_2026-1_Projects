@@ -1,8 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { CrownIcon, StarIcon, FlameIcon, TargetIcon, HundredIcon, RocketIcon } from '../../components/Icons';
 
 export default function Profile() {
-  const { currentUser, certificados, matriculas, pagamentos } = useApp();
+  const { currentUser, certificados, matriculas, pagamentos, assinaturas, planos } = useApp();
+  const navigate = useNavigate();
 
   if (!currentUser) {
     return (
@@ -16,8 +18,21 @@ export default function Profile() {
   const userMatriculasCount = matriculas.filter((m) => m.idUsuario === currentUser.idUsuario).length;
   const userPayments = pagamentos.filter((p) => p.idUsuario === currentUser.idUsuario);
 
+  const userSubs = assinaturas.filter((s) => s.idUsuario === currentUser.idUsuario);
+  const activeSubscription = userSubs.length > 0 ? userSubs[userSubs.length - 1] : null;
+
+  const activePlan = activeSubscription
+    ? planos.find((p) => p.idPlano === activeSubscription.idPlano)
+    : null;
+
+  const isPro = activePlan ? (activePlan.idPlano === 'plan2' || activePlan.idPlano === 'plan3') : false;
+
   const achievements = [
-    { icon: <CrownIcon size={30} style={{ color: '#ffc107' }} />, name: 'Pro', description: 'Assinatura Ativa' },
+    {
+      icon: <CrownIcon size={30} style={{ color: isPro ? '#ffc107' : '#6c757d' }} />,
+      name: isPro ? (activePlan ? activePlan.nome : 'Pro') : 'Básico',
+      description: isPro ? 'Assinatura Ativa' : 'Assinatura Inativa',
+    },
     { icon: <StarIcon size={30} fill="#7c3aed" style={{ color: '#7c3aed' }} />, name: 'Top Student', description: 'Top 1% da semana' },
     { icon: <FlameIcon size={30} style={{ color: '#dc3545' }} />, name: 'On Fire', description: '7 dias de streak' },
     { icon: <TargetIcon size={30} style={{ color: '#0dcaf0' }} />, name: 'Objetivo', description: 'Primeira meta batida' },
@@ -39,9 +54,14 @@ export default function Profile() {
           <div>
             <h1 className="fw-bold text-light mb-1">{currentUser.nome}</h1>
             <p className="text-muted mb-2">{currentUser.email}</p>
-            <span className="badge bg-primary px-3 py-2 text-uppercase fw-semibold" style={{ fontSize: '10px' }}>
-              Conta {currentUser.perfil}
-            </span>
+            <div className="d-flex gap-2 flex-wrap mt-2 justify-content-center justify-content-sm-start">
+              <span className="badge bg-primary px-3 py-2 text-uppercase fw-semibold" style={{ fontSize: '10px' }}>
+                Conta {currentUser.perfil}
+              </span>
+              <span className={`badge ${isPro ? 'bg-warning text-dark' : 'bg-secondary'} px-3 py-2 text-uppercase fw-semibold`} style={{ fontSize: '10px' }}>
+                Plano: {activePlan ? activePlan.nome : 'Grátis'}
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -131,6 +151,39 @@ export default function Profile() {
 
         {/* Right Side: Goals & Metrics */}
         <div className="col-lg-4">
+          {/* Módulo de Assinatura Ativa */}
+          <div className="card bg-black border border-secondary text-white p-3 mb-4 shadow-sm">
+            <h5 className="fw-bold border-bottom border-secondary pb-3 mb-3">Assinatura Ativa</h5>
+            {activePlan ? (
+              <div>
+                <div className="d-flex justify-content-between align-items-center mb-2">
+                  <span className="text-muted small">Plano</span>
+                  <span className={`badge ${isPro ? 'bg-warning text-dark' : 'bg-secondary'} fw-semibold`}>
+                    {activePlan.nome}
+                  </span>
+                </div>
+                <div className="d-flex justify-content-between align-items-center mb-2">
+                  <span className="text-muted small">Início</span>
+                  <span className="text-light small">{activeSubscription?.dataInicio}</span>
+                </div>
+                <div className="d-flex justify-content-between align-items-center">
+                  <span className="text-muted small">Expira em</span>
+                  <span className="text-light small">{activeSubscription?.dataFim}</span>
+                </div>
+              </div>
+            ) : (
+              <div className="text-center py-2">
+                <span className="text-muted small d-block mb-3">Nenhuma assinatura ativa</span>
+                <button
+                  onClick={() => navigate('/checkout')}
+                  className="btn btn-sm btn-primary w-100 fw-semibold"
+                >
+                  Ver Planos Disponíveis
+                </button>
+              </div>
+            )}
+          </div>
+
           <div className="card bg-black border border-secondary text-white p-3 mb-4 shadow-sm">
             <h5 className="fw-bold border-bottom border-secondary pb-3 mb-3">Meta Diária</h5>
             <span className="text-muted small d-block mb-2">Progresso do objetivo semanal</span>

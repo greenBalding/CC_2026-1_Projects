@@ -27,7 +27,7 @@ export default function HfLayout({ children }: Props) {
     <div className="hf-shell">
       <div className="hf-sidebar">
         <Link to="/dashboard" style={{ textDecoration: 'none' }}>
-          <div className="logo">Learnify</div>
+          <div className="logo">LearnGPT</div>
         </Link>
 
         <nav>

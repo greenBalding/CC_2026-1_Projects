@@ -2,6 +2,7 @@ import type { CursoModel } from './curso.model.tsx';
 import type { UsuarioModel } from './usuario.model.tsx';
 
 export interface MatriculaModel {
+  id?: string;
   idMatricula: string;
   idUsuario: string;
   idCurso: string;

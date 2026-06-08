@@ -13,4 +13,5 @@ export interface CursoModel {
   dataPublicacao: string;
   totalAulas: number;
   totalHoras: number;
+  bannerUrl?: string;
 }

@@ -1,5 +1,39 @@
 {
-  "usuarios": [],
+  "usuarios": [
+    {
+      "idUsuario": "u-1780955778883",
+      "nome": "Aluno Teste 1",
+      "email": "alunoteste1@dbjson.com",
+      "perfil": "aluno",
+      "senhaHash": "123456",
+      "ativo": true,
+      "dataCriacao": "2026-06-08T21:56:18.883Z",
+      "dataAlteracao": "2026-06-08T21:56:18.883Z",
+      "id": "ktsR0xlAxsU"
+    },
+    {
+      "idUsuario": "u-1780958059393",
+      "nome": "Admin",
+      "email": "admin@dbjson.com",
+      "perfil": "administrador",
+      "senhaHash": "123456",
+      "ativo": true,
+      "dataCriacao": "2026-06-08T22:34:19.393Z",
+      "dataAlteracao": "2026-06-08T22:34:19.393Z",
+      "id": "TLH7usHX7x4"
+    },
+    {
+      "idUsuario": "u-1780958747298",
+      "nome": "Gemini 3.5 Flash",
+      "email": "google@google.com",
+      "perfil": "instrutor",
+      "senhaHash": "123456",
+      "ativo": true,
+      "dataCriacao": "2026-06-08T22:45:47.298Z",
+      "dataAlteracao": "2026-06-08T22:45:47.298Z",
+      "id": "yT8BA77G4WM"
+    }
+  ],
   "categorias": [
     {
       "idCategoria": "cat1",
@@ -55,6 +89,7 @@
       "dataPublicacao": "2024-03-15",
       "totalAulas": 21,
       "totalHoras": 48,
+      "bannerUrl": "/banners/react-do-zero-ao-avancado-banner-16x9.png",
       "id": "6ss5l46g5mg"
     },
     {
@@ -62,11 +97,12 @@
       "titulo": "AI para Desenvolvedores",
       "descricao": "Aprenda a integrar inteligência artificial em suas aplicações. Desde conceitos básicos até modelos avançados.",
       "idCategoria": "cat4",
-      "idInstrutor": "u3",
-      "nivel": "intermediario",
+      "idInstrutor": "u-1780958747298",
+      "nivel": "iniciante",
       "dataPublicacao": "2024-06-01",
       "totalAulas": 18,
       "totalHoras": 36,
+      "bannerUrl": "/banners/ai-para-desenvolvedores-banner-16x9.png",
       "id": "lq1TE__hnBY"
     },
     {
@@ -79,6 +115,7 @@
       "dataPublicacao": "2024-04-20",
       "totalAulas": 15,
       "totalHoras": 28,
+      "bannerUrl": "/banners/design-de-interfaces-16x9.png",
       "id": "K1d3e9uOd34"
     },
     {
@@ -91,6 +128,7 @@
       "dataPublicacao": "2024-07-10",
       "totalAulas": 20,
       "totalHoras": 40,
+      "bannerUrl": "/banners/typescript-total-16x9.png",
       "id": "1VIa3T6Jdn0"
     },
     {
@@ -103,6 +141,7 @@
       "dataPublicacao": "2024-09-01",
       "totalAulas": 24,
       "totalHoras": 52,
+      "bannerUrl": "/banners/nextjs-react-banner-16x9.png",
       "id": "TPqR21SmmL0"
     },
     {
@@ -463,6 +502,14 @@
       "dataMatricula": "2024-05-15",
       "dataConclusao": null,
       "id": "sx2r5dvuNeQ"
+    },
+    {
+      "idMatricula": "mat-1780957893339",
+      "idUsuario": "u-1780955778883",
+      "idCurso": "c1",
+      "dataMatricula": "2026-06-08",
+      "dataConclusao": null,
+      "id": "J1UXpQmRHAA"
     }
   ],
   "progresso_aulas": [
@@ -556,6 +603,20 @@
       "status": "EM_PROGRESO",
       "dataConclusao": null,
       "id": "HrwKhZZ1-b0"
+    },
+    {
+      "idUsuario": "u-1780955778883",
+      "idAula": "a1",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-08",
+      "id": "IlQH7Vqsfs8"
+    },
+    {
+      "idUsuario": "u-1780955778883",
+      "idAula": "a2",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-08",
+      "id": "pcZk-XZey_w"
     }
   ],
   "avaliacoes": [
@@ -786,6 +847,54 @@
       "dataInicio": "2026-06-08",
       "dataFim": "2026-07-08",
       "id": "KpBk_T7rovQ"
+    },
+    {
+      "idAssinatura": "sub-1780956918564",
+      "idUsuario": "u-1780955778883",
+      "idPlano": "plan1",
+      "dataInicio": "2026-06-08",
+      "dataFim": "2026-07-08",
+      "id": "_62jFQAQ8y8"
+    },
+    {
+      "idAssinatura": "sub-1780956933116",
+      "idUsuario": "u-1780955778883",
+      "idPlano": "plan2",
+      "dataInicio": "2026-06-08",
+      "dataFim": "2026-07-08",
+      "id": "Nu6x5ebtMfc"
+    },
+    {
+      "idAssinatura": "sub-1780957242701",
+      "idUsuario": "u-1780955778883",
+      "idPlano": "plan2",
+      "dataInicio": "2026-06-08",
+      "dataFim": "2026-07-08",
+      "id": "49KSnXfm4fk"
+    },
+    {
+      "idAssinatura": "sub-1780957253783",
+      "idUsuario": "u-1780955778883",
+      "idPlano": "plan3",
+      "dataInicio": "2026-06-08",
+      "dataFim": "2027-06-08",
+      "id": "5eQaGncfjtA"
+    },
+    {
+      "idAssinatura": "sub-1780957572704",
+      "idUsuario": "u-1780955778883",
+      "idPlano": "plan2",
+      "dataInicio": "2026-06-08",
+      "dataFim": "2026-07-08",
+      "id": "xMMo57iq4XA"
+    },
+    {
+      "idAssinatura": "sub-1780957706238",
+      "idUsuario": "u-1780955778883",
+      "idPlano": "plan3",
+      "dataInicio": "2026-06-08",
+      "dataFim": "2027-06-08",
+      "id": "Z1EiDTLSTP0"
     }
   ],
   "pagamentos": [
@@ -808,6 +917,66 @@
       "metodoPagamento": "pix",
       "transacaoId": "tx-635564114",
       "id": "Y970ySqmyNg"
+    },
+    {
+      "idPagamento": "pag-1780956918574",
+      "idAssinatura": "sub-1780956918564",
+      "idUsuario": "u-1780955778883",
+      "valor": 0,
+      "dataPagamento": "2026-06-08T22:15:18.564Z",
+      "metodoPagamento": "pix",
+      "transacaoId": "tx-767499802",
+      "id": "uYyStaNyqSk"
+    },
+    {
+      "idPagamento": "pag-1780956933125",
+      "idAssinatura": "sub-1780956933116",
+      "idUsuario": "u-1780955778883",
+      "valor": 39.9,
+      "dataPagamento": "2026-06-08T22:15:33.115Z",
+      "metodoPagamento": "pix",
+      "transacaoId": "tx-321775764",
+      "id": "xAe6ASzFWnQ"
+    },
+    {
+      "idPagamento": "pag-1780957242710",
+      "idAssinatura": "sub-1780957242701",
+      "idUsuario": "u-1780955778883",
+      "valor": 39.9,
+      "dataPagamento": "2026-06-08T22:20:42.701Z",
+      "metodoPagamento": "pix",
+      "transacaoId": "tx-208072228",
+      "id": "u_H9GVc2miQ"
+    },
+    {
+      "idPagamento": "pag-1780957253793",
+      "idAssinatura": "sub-1780957253783",
+      "idUsuario": "u-1780955778883",
+      "valor": 399.9,
+      "dataPagamento": "2026-06-08T22:20:53.783Z",
+      "metodoPagamento": "boleto",
+      "transacaoId": "tx-295977874",
+      "id": "aUe-EIe1kTM"
+    },
+    {
+      "idPagamento": "pag-1780957572711",
+      "idAssinatura": "sub-1780957572704",
+      "idUsuario": "u-1780955778883",
+      "valor": 39.9,
+      "dataPagamento": "2026-06-08T22:26:12.704Z",
+      "metodoPagamento": "pix",
+      "transacaoId": "tx-226223913",
+      "id": "HOfS-KGETsE"
+    },
+    {
+      "idPagamento": "pag-1780957706247",
+      "idAssinatura": "sub-1780957706238",
+      "idUsuario": "u-1780955778883",
+      "valor": 399.9,
+      "dataPagamento": "2026-06-08T22:28:26.238Z",
+      "metodoPagamento": "pix",
+      "transacaoId": "tx-728072574",
+      "id": "GrYE3bAT_sg"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

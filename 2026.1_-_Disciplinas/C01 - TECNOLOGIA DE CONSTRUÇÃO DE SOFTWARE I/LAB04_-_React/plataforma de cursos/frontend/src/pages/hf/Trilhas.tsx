@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
+import { LockIcon } from '../../components/Icons';
 
 export default function Trilhas() {
   const { trilhas, trilhasCursos, cursos, categorias, usuarios, modulos, aulas } = useApp();
@@ -86,10 +87,19 @@ export default function Trilhas() {
                       {trCourses.map((c, index) => {
                         const instructorName = usuarios.find((u) => u.idUsuario === c.idInstrutor)?.nome || 'Instrutor';
                         const numAulas = getLessonsCountForCourse(c.idCurso);
+                        const isEmBreve = !c.bannerUrl;
                         return (
                           <div
                             key={c.idCurso}
-                            className="p-3 bg-secondary bg-opacity-5 border border-secondary rounded d-flex justify-content-between align-items-center flex-column flex-sm-row gap-3"
+                            className="p-3 bg-secondary bg-opacity-5 border rounded d-flex justify-content-between align-items-center flex-column flex-sm-row gap-3"
+                            style={{
+                              borderStyle: isEmBreve ? 'dashed' : 'solid',
+                              borderColor: isEmBreve ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.15)',
+                              borderWidth: isEmBreve ? '2px' : '1px',
+                              opacity: isEmBreve ? 0.45 : 1,
+                              filter: isEmBreve ? 'grayscale(100%)' : 'none',
+                              cursor: isEmBreve ? 'not-allowed' : 'default',
+                            }}
                           >
                             <div className="d-flex align-items-center gap-3 w-100">
                               <div
@@ -99,7 +109,14 @@ export default function Trilhas() {
                                 {index + 1}
                               </div>
                               <div className="text-truncate">
-                                <h6 className="fw-bold text-light mb-1 text-truncate">{c.titulo}</h6>
+                                <h6 className="fw-bold text-light mb-1 text-truncate d-flex align-items-center gap-2">
+                                  {c.titulo}
+                                  {isEmBreve && (
+                                    <span className="badge bg-secondary text-uppercase" style={{ fontSize: '8px', opacity: 0.8 }}>
+                                      Em breve
+                                    </span>
+                                  )}
+                                </h6>
                                 <span className="text-muted small">
                                   por {instructorName} • {numAulas} aulas • Nível {c.nivel}
                                 </span>
@@ -108,9 +125,19 @@ export default function Trilhas() {
 
                             <div className="d-flex align-items-center gap-3 justify-content-between w-100 w-sm-auto flex-shrink-0">
                               <span className="text-muted small fw-semibold">{c.totalHoras}h</span>
-                              <Link to={`/course/${c.idCurso}`} className="btn btn-sm btn-outline-primary fw-semibold px-3 text-nowrap">
-                                Ver Curso
-                              </Link>
+                              {isEmBreve ? (
+                                <button
+                                  disabled
+                                  className="btn btn-sm btn-secondary fw-semibold px-3 text-nowrap d-flex align-items-center gap-1"
+                                  style={{ cursor: 'not-allowed' }}
+                                >
+                                  <LockIcon size={12} /> Em breve
+                                </button>
+                              ) : (
+                                <Link to={`/course/${c.idCurso}`} className="btn btn-sm btn-outline-primary fw-semibold px-3 text-nowrap">
+                                  Ver Curso
+                                </Link>
+                              )}
                             </div>
                           </div>
                         );

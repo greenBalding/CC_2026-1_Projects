@@ -8,6 +8,7 @@ export default function CheckoutPlanos() {
   const [selectedPlan, setSelectedPlan] = useState<any>(null);
   const [paymentMethod, setPaymentMethod] = useState<'pix' | 'cartao' | 'boleto'>('pix');
   const [processing, setProcessing] = useState(false);
+  const [successInfo, setSuccessInfo] = useState<string | null>(null);
 
   // Card details form state
   const [cardNumber, setCardNumber] = useState('');
@@ -23,9 +24,8 @@ export default function CheckoutPlanos() {
     );
   }
 
-  const activeSubscription = assinaturas.find(
-    (s) => s.idUsuario === currentUser.idUsuario
-  );
+  const userSubs = assinaturas.filter((s) => s.idUsuario === currentUser.idUsuario);
+  const activeSubscription = userSubs.length > 0 ? userSubs[userSubs.length - 1] : null;
 
   const activePlan = activeSubscription
     ? planos.find((p) => p.idPlano === activeSubscription.idPlano)
@@ -38,6 +38,7 @@ export default function CheckoutPlanos() {
   const handleCloseCheckout = () => {
     setSelectedPlan(null);
     setProcessing(false);
+    setSuccessInfo(null);
     // Reset inputs
     setCardNumber('');
     setCardName('');
@@ -81,8 +82,7 @@ export default function CheckoutPlanos() {
       await api.createPagamento(newPayment);
 
       await refreshData();
-      alert(`Parabéns! Plano "${selectedPlan.nome}" assinado com sucesso.`);
-      handleCloseCheckout();
+      setSuccessInfo(`Parabéns! O plano "${selectedPlan.nome}" foi assinado com sucesso. Seu acesso premium já está ativo e liberado!`);
     } catch (err) {
       console.error(err);
       alert('Erro ao processar checkout do plano.');
@@ -158,7 +158,6 @@ export default function CheckoutPlanos() {
                   ) : (
                     <button
                       onClick={() => handleOpenCheckout(p)}
-                      disabled={p.preco === 0 && activePlan !== null}
                       className="btn btn-primary w-100 fw-bold py-2.5"
                     >
                       {p.preco === 0 ? 'Aderir Grátis' : 'Assinar Plano'}
@@ -175,141 +174,166 @@ export default function CheckoutPlanos() {
       {selectedPlan && (
         <div className="modal fade show d-block" tabIndex={-1} style={{ backgroundColor: 'rgba(0,0,0,0.8)' }}>
           <div className="modal-dialog modal-dialog-centered">
-            <div className="modal-content bg-dark border border-secondary text-white">
-              <div className="modal-header border-secondary">
-                <h5 className="modal-title fw-bold">Checkout: {selectedPlan.nome}</h5>
-                <button type="button" className="btn-close btn-close-white" onClick={handleCloseCheckout}></button>
-              </div>
+            <div className="modal-content bg-dark border border-secondary text-white shadow-lg" style={{ borderRadius: '14px' }}>
+              {!successInfo && (
+                <div className="modal-header border-secondary">
+                  <h5 className="modal-title fw-bold">Checkout: {selectedPlan.nome}</h5>
+                  <button type="button" className="btn-close btn-close-white" onClick={handleCloseCheckout}></button>
+                </div>
+              )}
               <form onSubmit={handleCheckoutSubmit}>
                 <div className="modal-body">
-                  <div className="mb-4">
-                    <span className="text-muted small d-block">Resumo do Pedido:</span>
-                    <div className="d-flex justify-content-between mt-1">
-                      <strong>Plano {selectedPlan.nome} ({selectedPlan.duracaoMeses} {selectedPlan.duracaoMeses === 1 ? 'mês' : 'meses'})</strong>
-                      <span className="text-primary fw-bold">R$ {selectedPlan.preco.toFixed(2)}</span>
+                  {successInfo ? (
+                    <div className="text-center py-4 px-2">
+                      <div className="d-inline-flex align-items-center justify-content-center bg-success bg-opacity-10 border border-success rounded-circle mb-4" style={{ width: '80px', height: '80px', boxShadow: '0 0 24px rgba(25, 135, 84, 0.2)' }}>
+                        <CheckIcon size={36} className="text-success" />
+                      </div>
+                      <h3 className="fw-bold text-light mb-3">Assinatura Confirmada!</h3>
+                      <p className="text-muted mb-4 px-3" style={{ fontSize: '14px', lineHeight: '1.6' }}>
+                        {successInfo}
+                      </p>
+                      <button
+                        type="button"
+                        className="btn btn-primary px-5 fw-bold py-2 rounded-pill shadow-sm"
+                        onClick={handleCloseCheckout}
+                      >
+                        Começar a Estudar
+                      </button>
                     </div>
+                  ) : (
+                    <>
+                      <div className="mb-4">
+                        <span className="text-muted small d-block">Resumo do Pedido:</span>
+                        <div className="d-flex justify-content-between mt-1">
+                          <strong>Plano {selectedPlan.nome} ({selectedPlan.duracaoMeses} {selectedPlan.duracaoMeses === 1 ? 'mês' : 'meses'})</strong>
+                          <span className="text-primary fw-bold">R$ {selectedPlan.preco.toFixed(2)}</span>
+                        </div>
+                      </div>
+
+                      {/* Payment selection */}
+                      {selectedPlan.preco > 0 && (
+                        <div className="mb-4">
+                          <label className="form-label text-muted small">Escolha o Método de Pagamento:</label>
+                          <div className="d-flex gap-2">
+                            <input
+                              type="radio"
+                              className="btn-check"
+                              name="payment"
+                              id="btn-pix"
+                              checked={paymentMethod === 'pix'}
+                              onChange={() => setPaymentMethod('pix')}
+                            />
+                            <label className="btn btn-outline-secondary flex-grow-1" htmlFor="btn-pix">
+                              Pix
+                            </label>
+
+                            <input
+                              type="radio"
+                              className="btn-check"
+                              name="payment"
+                              id="btn-cartao"
+                              checked={paymentMethod === 'cartao'}
+                              onChange={() => setPaymentMethod('cartao')}
+                            />
+                            <label className="btn btn-outline-secondary flex-grow-1" htmlFor="btn-cartao">
+                              Cartão
+                            </label>
+
+                            <input
+                              type="radio"
+                              className="btn-check"
+                              name="payment"
+                              id="btn-boleto"
+                              checked={paymentMethod === 'boleto'}
+                              onChange={() => setPaymentMethod('boleto')}
+                            />
+                            <label className="btn btn-outline-secondary flex-grow-1" htmlFor="btn-boleto">
+                              Boleto
+                            </label>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Form fields based on selection */}
+                      {selectedPlan.preco > 0 && paymentMethod === 'cartao' && (
+                        <div className="row g-2 mb-3">
+                          <div className="col-12">
+                            <label className="form-label small text-muted mb-1">Nome no Cartão</label>
+                            <input
+                              type="text"
+                              className="form-control bg-black text-white border-secondary form-control-sm"
+                              required
+                              value={cardName}
+                              onChange={(e) => setCardName(e.target.value)}
+                            />
+                          </div>
+                          <div className="col-12">
+                            <label className="form-label small text-muted mb-1">Número do Cartão</label>
+                            <input
+                              type="text"
+                              className="form-control bg-black text-white border-secondary form-control-sm"
+                              placeholder="xxxx xxxx xxxx xxxx"
+                              required
+                              value={cardNumber}
+                              onChange={(e) => setCardNumber(e.target.value)}
+                            />
+                          </div>
+                          <div className="col-8">
+                            <label className="form-label small text-muted mb-1">Validade</label>
+                            <input
+                              type="text"
+                              className="form-control bg-black text-white border-secondary form-control-sm"
+                              placeholder="MM/AA"
+                              required
+                              value={cardExpiry}
+                              onChange={(e) => setCardExpiry(e.target.value)}
+                            />
+                          </div>
+                          <div className="col-4">
+                            <label className="form-label small text-muted mb-1">CVV</label>
+                            <input
+                              type="text"
+                              className="form-control bg-black text-white border-secondary form-control-sm"
+                              placeholder="***"
+                              required
+                              value={cardCvv}
+                              onChange={(e) => setCardCvv(e.target.value)}
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                      {selectedPlan.preco > 0 && paymentMethod === 'pix' && (
+                        <div className="alert alert-info border-info bg-info bg-opacity-10 text-info text-center py-3">
+                          Pix selecionado. Um QR Code de pagamento será gerado na confirmação.
+                        </div>
+                      )}
+
+                      {selectedPlan.preco > 0 && paymentMethod === 'boleto' && (
+                        <div className="alert alert-info border-info bg-info bg-opacity-10 text-info text-center py-3">
+                          Boleto selecionado. A compensação pode levar até 2 dias úteis.
+                        </div>
+                      )}
+
+                      {selectedPlan.preco === 0 && (
+                        <div className="alert alert-success border-success bg-success bg-opacity-10 text-success text-center py-3">
+                          Este plano é gratuito. Nenhum pagamento é necessário.
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+
+                {!successInfo && (
+                  <div className="modal-footer border-secondary">
+                    <button type="button" className="btn btn-secondary" onClick={handleCloseCheckout}>
+                      Cancelar
+                    </button>
+                    <button type="submit" disabled={processing} className="btn btn-primary px-4">
+                      {processing ? 'Confirmando...' : 'Confirmar & Finalizar'}
+                    </button>
                   </div>
-
-                  {/* Payment selection */}
-                  {selectedPlan.preco > 0 && (
-                    <div className="mb-4">
-                      <label className="form-label text-muted small">Escolha o Método de Pagamento:</label>
-                      <div className="d-flex gap-2">
-                        <input
-                          type="radio"
-                          className="btn-check"
-                          name="payment"
-                          id="btn-pix"
-                          checked={paymentMethod === 'pix'}
-                          onChange={() => setPaymentMethod('pix')}
-                        />
-                        <label className="btn btn-outline-secondary flex-grow-1" htmlFor="btn-pix">
-                          Pix
-                        </label>
-
-                        <input
-                          type="radio"
-                          className="btn-check"
-                          name="payment"
-                          id="btn-cartao"
-                          checked={paymentMethod === 'cartao'}
-                          onChange={() => setPaymentMethod('cartao')}
-                        />
-                        <label className="btn btn-outline-secondary flex-grow-1" htmlFor="btn-cartao">
-                          Cartão
-                        </label>
-
-                        <input
-                          type="radio"
-                          className="btn-check"
-                          name="payment"
-                          id="btn-boleto"
-                          checked={paymentMethod === 'boleto'}
-                          onChange={() => setPaymentMethod('boleto')}
-                        />
-                        <label className="btn btn-outline-secondary flex-grow-1" htmlFor="btn-boleto">
-                          Boleto
-                        </label>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Form fields based on selection */}
-                  {selectedPlan.preco > 0 && paymentMethod === 'cartao' && (
-                    <div className="row g-2 mb-3">
-                      <div className="col-12">
-                        <label className="form-label small text-muted mb-1">Nome no Cartão</label>
-                        <input
-                          type="text"
-                          className="form-control bg-black text-white border-secondary form-control-sm"
-                          required
-                          value={cardName}
-                          onChange={(e) => setCardName(e.target.value)}
-                        />
-                      </div>
-                      <div className="col-12">
-                        <label className="form-label small text-muted mb-1">Número do Cartão</label>
-                        <input
-                          type="text"
-                          className="form-control bg-black text-white border-secondary form-control-sm"
-                          placeholder="xxxx xxxx xxxx xxxx"
-                          required
-                          value={cardNumber}
-                          onChange={(e) => setCardNumber(e.target.value)}
-                        />
-                      </div>
-                      <div className="col-8">
-                        <label className="form-label small text-muted mb-1">Validade</label>
-                        <input
-                          type="text"
-                          className="form-control bg-black text-white border-secondary form-control-sm"
-                          placeholder="MM/AA"
-                          required
-                          value={cardExpiry}
-                          onChange={(e) => setCardExpiry(e.target.value)}
-                        />
-                      </div>
-                      <div className="col-4">
-                        <label className="form-label small text-muted mb-1">CVV</label>
-                        <input
-                          type="text"
-                          className="form-control bg-black text-white border-secondary form-control-sm"
-                          placeholder="***"
-                          required
-                          value={cardCvv}
-                          onChange={(e) => setCardCvv(e.target.value)}
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  {selectedPlan.preco > 0 && paymentMethod === 'pix' && (
-                    <div className="alert alert-info border-info bg-info bg-opacity-10 text-info text-center py-3">
-                      Pix selecionado. Um QR Code de pagamento será gerado na confirmação.
-                    </div>
-                  )}
-
-                  {selectedPlan.preco > 0 && paymentMethod === 'boleto' && (
-                    <div className="alert alert-info border-info bg-info bg-opacity-10 text-info text-center py-3">
-                      Boleto selecionado. A compensação pode levar até 2 dias úteis.
-                    </div>
-                  )}
-
-                  {selectedPlan.preco === 0 && (
-                    <div className="alert alert-success border-success bg-success bg-opacity-10 text-success text-center py-3">
-                      Este plano é gratuito. Nenhum pagamento é necessário.
-                    </div>
-                  )}
-                </div>
-
-                <div className="modal-footer border-secondary">
-                  <button type="button" className="btn btn-secondary" onClick={handleCloseCheckout}>
-                    Cancelar
-                  </button>
-                  <button type="submit" disabled={processing} className="btn btn-primary px-4">
-                    {processing ? 'Confirmando...' : 'Confirmar & Finalizar'}
-                  </button>
-                </div>
+                )}
               </form>
             </div>
           </div>
