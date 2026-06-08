@@ -8,15 +8,8 @@ interface Props {
 }
 
 export default function BootstrapLayout({ children }: Props) {
-  const { currentUser, setCurrentUser, usuarios, assinaturas } = useApp();
+  const { currentUser, setCurrentUser, assinaturas } = useApp();
   const location = useLocation();
-
-  const handleUserChange = (userId: string) => {
-    const user = usuarios.find((u) => u.idUsuario === userId);
-    if (user) {
-      setCurrentUser(user);
-    }
-  };
 
   const isPro = currentUser
     ? assinaturas.some((a) => a.idUsuario === currentUser.idUsuario)
@@ -53,38 +46,30 @@ export default function BootstrapLayout({ children }: Props) {
 
           <div className="collapse navbar-collapse justify-content-end" id="navbarContent">
             <div className="d-flex align-items-center gap-3 mt-3 mt-lg-0">
-              {/* Seletor de Usuário (Caso de Uso Interativo) */}
-              <div className="d-flex align-items-center gap-2 bg-secondary bg-opacity-25 rounded px-2 py-1">
-                <span className="text-muted small text-nowrap">Simular Usuário:</span>
-                <select
-                  className="form-select form-select-sm bg-dark text-light border-secondary"
-                  value={currentUser?.idUsuario || ''}
-                  onChange={(e) => handleUserChange(e.target.value)}
-                  style={{ width: '180px' }}
-                >
-                  {usuarios.map((u) => (
-                    <option key={u.idUsuario} value={u.idUsuario}>
-                      {u.nome} ({u.perfil})
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Informações do Usuário */}
+              {/* Informações do Usuário & Sair */}
               {currentUser && (
-                <div className="d-flex align-items-center gap-2">
-                  <div
-                    className="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold bg-primary"
-                    style={{ width: '38px', height: '38px', fontSize: '14px' }}
-                  >
-                    {currentUser.nome.split(' ').map((n) => n[0]).join('')}
-                  </div>
-                  <div className="d-none d-sm-block">
-                    <div className="fw-semibold small lh-1 text-light">{currentUser.nome}</div>
-                    <div className="text-muted small mt-1" style={{ fontSize: '10px' }}>
-                      {isPro ? 'Assinante Pro' : 'Conta Gratuita'}
+                <div className="d-flex align-items-center gap-3">
+                  <div className="d-flex align-items-center gap-2">
+                    <div
+                      className="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold bg-primary"
+                      style={{ width: '38px', height: '38px', fontSize: '14px' }}
+                    >
+                      {currentUser.nome.split(' ').map((n) => n[0]).join('')}
+                    </div>
+                    <div className="d-none d-sm-block">
+                      <div className="fw-semibold small lh-1 text-light">{currentUser.nome}</div>
+                      <div className="text-muted small mt-1" style={{ fontSize: '10px' }}>
+                        {isPro ? 'Assinante Pro' : 'Conta Gratuita'}
+                      </div>
                     </div>
                   </div>
+                  <button
+                    onClick={() => setCurrentUser(null)}
+                    className="btn btn-sm btn-outline-danger px-2.5 py-1 fw-semibold text-nowrap"
+                    style={{ fontSize: '12px' }}
+                  >
+                    Sair
+                  </button>
                 </div>
               )}
             </div>

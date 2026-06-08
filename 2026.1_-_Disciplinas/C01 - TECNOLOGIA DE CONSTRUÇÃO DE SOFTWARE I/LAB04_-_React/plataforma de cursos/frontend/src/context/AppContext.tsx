@@ -40,7 +40,14 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [currentUser, setCurrentUserState] = useState<UsuarioModel | null>(null);
+  const [currentUser, setCurrentUserState] = useState<UsuarioModel | null>(() => {
+    const stored = localStorage.getItem('learnify_user');
+    try {
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
+    }
+  });
   const [usuarios, setUsuarios] = useState<UsuarioModel[]>([]);
   const [categorias, setCategorias] = useState<CategoriaModel[]>([]);
   const [cursos, setCursos] = useState<CursoModel[]>([]);
@@ -106,18 +113,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setTrilhasCursos(trilhasCursosList);
       setAvaliacoes(evalsList);
 
-      // Restore active user if still in the list, otherwise default to first user
+      // Restore active user if still in the list, otherwise clear session
       if (currentUser) {
         const found = usersList.find((u) => u.idUsuario === currentUser.idUsuario);
         if (found) {
           setCurrentUserState(found);
+          localStorage.setItem('learnify_user', JSON.stringify(found));
         } else {
-          setCurrentUserState(usersList[0] || null);
+          setCurrentUserState(null);
+          localStorage.removeItem('learnify_user');
         }
-      } else if (usersList.length > 0) {
-        // Set Julia Santos (usually u1) as default active user
-        const julia = usersList.find((u) => u.email === 'julia@email.com');
-        setCurrentUserState(julia || usersList[0]);
       }
     } catch (error) {
       console.error('Failed to load application data:', error);
@@ -131,6 +136,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const setCurrentUser = (user: UsuarioModel | null) => {
+    if (user) {
+      localStorage.setItem('learnify_user', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('learnify_user');
+    }
     setCurrentUserState(user);
   };
 
