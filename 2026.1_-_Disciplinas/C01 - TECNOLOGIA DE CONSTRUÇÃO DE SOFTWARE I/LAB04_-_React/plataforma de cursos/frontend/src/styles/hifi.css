@@ -299,6 +299,54 @@ h2 {
   box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3);
 }
 
+.hf-main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.view-all {
+  font-size: 13px;
+  color: var(--accent-primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.view-all:hover {
+  color: var(--accent-secondary);
+  transform: translateX(4px);
+}
+
+.hf-card-recommended {
+  display: flex;
+  flex-direction: column;
+}
+
+.hf-card-recommended:hover {
+  border-color: var(--accent-primary);
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.15);
+}
+
 .player {
   background: linear-gradient(180deg, var(--glass-light) 0%, var(--glass-lighter) 100%);
   border-radius: 16px;

@@ -1,0 +1,477 @@
+import type { UsuarioModel } from '../models/usuario.model.tsx';
+import type { CategoriaModel } from '../models/categoria.model.tsx';
+import type { CursoModel } from '../models/curso.model.tsx';
+import type { TrilhaModel } from '../models/trilha.model.tsx';
+import type { TrilhaCursoModel } from '../models/trilha-curso.model.tsx';
+import type { ModuloModel } from '../models/modulo.model.tsx';
+import type { AulaModel } from '../models/aula.model.tsx';
+import type { MatriculaModel } from '../models/matricula.model.tsx';
+import type { AvaliacaoModel } from '../models/avaliacao.model.tsx';
+import type { CertificadoModel } from '../models/certificado.model.tsx';
+import type { ProgressoAulaModel } from '../models/progresso-aula.model.tsx';
+import type { PlanoModel } from '../models/plano.model.tsx';
+import type { AssinaturaModel } from '../models/assinatura.model.tsx';
+
+// ─── Usuários ────────────────────────────────────────────────
+export const usuarios: UsuarioModel[] = [
+  {
+    idUsuario: 'u1',
+    nome: 'Julia Santos',
+    email: 'julia@email.com',
+    perfil: 'aluno',
+    senhaHash: '***',
+    ativo: true,
+    dataCriacao: new Date('2024-01-15'),
+    dataAlteracao: new Date('2025-06-01'),
+  },
+  {
+    idUsuario: 'u2',
+    nome: 'Diego Fernandes',
+    email: 'diego@email.com',
+    perfil: 'instrutor',
+    senhaHash: '***',
+    ativo: true,
+    dataCriacao: new Date('2023-03-10'),
+    dataAlteracao: new Date('2025-05-20'),
+  },
+  {
+    idUsuario: 'u3',
+    nome: 'Natália Barros',
+    email: 'natalia@email.com',
+    perfil: 'instrutor',
+    senhaHash: '***',
+    ativo: true,
+    dataCriacao: new Date('2023-06-01'),
+    dataAlteracao: new Date('2025-04-15'),
+  },
+  {
+    idUsuario: 'u4',
+    nome: 'Mayk Brito',
+    email: 'mayk@email.com',
+    perfil: 'instrutor',
+    senhaHash: '***',
+    ativo: true,
+    dataCriacao: new Date('2023-08-20'),
+    dataAlteracao: new Date('2025-06-05'),
+  },
+  {
+    idUsuario: 'u5',
+    nome: 'Marina Lima',
+    email: 'marina@email.com',
+    perfil: 'instrutor',
+    senhaHash: '***',
+    ativo: true,
+    dataCriacao: new Date('2024-02-10'),
+    dataAlteracao: new Date('2025-05-30'),
+  },
+  {
+    idUsuario: 'u-admin',
+    nome: 'Admin Sistema',
+    email: 'admin@learnify.com',
+    perfil: 'administrador',
+    senhaHash: '***',
+    ativo: true,
+    dataCriacao: new Date('2023-01-01'),
+    dataAlteracao: new Date('2025-06-07'),
+  },
+];
+
+// ─── Categorias ──────────────────────────────────────────────
+export const categorias: CategoriaModel[] = [
+  { idCategoria: 'cat1', nome: 'Frontend', descricao: 'Desenvolvimento de interfaces web', ativa: true },
+  { idCategoria: 'cat2', nome: 'Backend', descricao: 'Servidores, APIs e banco de dados', ativa: true },
+  { idCategoria: 'cat3', nome: 'Design', descricao: 'UI/UX, prototipação e design visual', ativa: true },
+  { idCategoria: 'cat4', nome: 'Inteligência Artificial', descricao: 'Machine learning, deep learning e IA generativa', ativa: true },
+  { idCategoria: 'cat5', nome: 'DevOps', descricao: 'CI/CD, containers e infraestrutura', ativa: true },
+  { idCategoria: 'cat6', nome: 'Segurança', descricao: 'Cibersegurança e boas práticas', ativa: true },
+];
+
+// ─── Cursos ──────────────────────────────────────────────────
+export const cursos: CursoModel[] = [
+  {
+    idCurso: 'c1',
+    titulo: 'React do Zero ao Avançado',
+    descricao: 'Domine React do básico ao avançado com projetos reais, hooks, context API, performance optimization e muito mais.',
+    idCategoria: 'cat1',
+    idInstrutor: 'u2',
+    categoria: categorias[0],
+    instrutor: usuarios[1],
+    nivel: 'intermediario',
+    dataPublicacao: '2024-03-15',
+    totalAulas: 21,
+    totalHoras: 48,
+  },
+  {
+    idCurso: 'c2',
+    titulo: 'AI para Desenvolvedores',
+    descricao: 'Aprenda a integrar inteligência artificial em suas aplicações. Desde conceitos básicos até modelos avançados.',
+    idCategoria: 'cat4',
+    idInstrutor: 'u3',
+    categoria: categorias[3],
+    instrutor: usuarios[2],
+    nivel: 'intermediario',
+    dataPublicacao: '2024-06-01',
+    totalAulas: 18,
+    totalHoras: 36,
+  },
+  {
+    idCurso: 'c3',
+    titulo: 'Design de Interfaces',
+    descricao: 'Crie interfaces modernas e acessíveis com Figma. Aprenda princípios de UX, sistemas de design e prototipação.',
+    idCategoria: 'cat3',
+    idInstrutor: 'u5',
+    categoria: categorias[2],
+    instrutor: usuarios[4],
+    nivel: 'iniciante',
+    dataPublicacao: '2024-04-20',
+    totalAulas: 15,
+    totalHoras: 28,
+  },
+  {
+    idCurso: 'c4',
+    titulo: 'TypeScript Total',
+    descricao: 'Domine TypeScript com tipagem avançada, generics, utility types e integração com React e Node.js.',
+    idCategoria: 'cat1',
+    idInstrutor: 'u4',
+    categoria: categorias[0],
+    instrutor: usuarios[3],
+    nivel: 'intermediario',
+    dataPublicacao: '2024-07-10',
+    totalAulas: 20,
+    totalHoras: 40,
+  },
+  {
+    idCurso: 'c5',
+    titulo: 'Next.js & React',
+    descricao: 'Construa aplicações full-stack com Next.js, SSR, ISR, API Routes e deploy na Vercel.',
+    idCategoria: 'cat1',
+    idInstrutor: 'u3',
+    categoria: categorias[0],
+    instrutor: usuarios[2],
+    nivel: 'avancado',
+    dataPublicacao: '2024-09-01',
+    totalAulas: 24,
+    totalHoras: 52,
+  },
+  {
+    idCurso: 'c6',
+    titulo: 'Tailwind CSS',
+    descricao: 'Domine Tailwind CSS e crie interfaces responsivas e bonitas rapidamente com utility-first CSS.',
+    idCategoria: 'cat1',
+    idInstrutor: 'u4',
+    categoria: categorias[0],
+    instrutor: usuarios[3],
+    nivel: 'iniciante',
+    dataPublicacao: '2024-05-15',
+    totalAulas: 12,
+    totalHoras: 20,
+  },
+  {
+    idCurso: 'c7',
+    titulo: 'Node.js do Básico ao Avançado',
+    descricao: 'Aprenda a construir APIs RESTful, autenticação, WebSockets e microsserviços com Node.js.',
+    idCategoria: 'cat2',
+    idInstrutor: 'u2',
+    categoria: categorias[1],
+    instrutor: usuarios[1],
+    nivel: 'intermediario',
+    dataPublicacao: '2024-02-01',
+    totalAulas: 22,
+    totalHoras: 44,
+  },
+  {
+    idCurso: 'c8',
+    titulo: 'Python para Data Science',
+    descricao: 'Análise de dados, visualização e machine learning com Python, Pandas, NumPy e Scikit-learn.',
+    idCategoria: 'cat4',
+    idInstrutor: 'u3',
+    categoria: categorias[3],
+    instrutor: usuarios[2],
+    nivel: 'iniciante',
+    dataPublicacao: '2024-08-20',
+    totalAulas: 16,
+    totalHoras: 32,
+  },
+  {
+    idCurso: 'c9',
+    titulo: 'Docker & Kubernetes',
+    descricao: 'Containerize suas aplicações e orquestre com Kubernetes. Deploy, scaling e monitoramento.',
+    idCategoria: 'cat5',
+    idInstrutor: 'u4',
+    categoria: categorias[4],
+    instrutor: usuarios[3],
+    nivel: 'avancado',
+    dataPublicacao: '2024-10-01',
+    totalAulas: 14,
+    totalHoras: 30,
+  },
+  {
+    idCurso: 'c10',
+    titulo: 'Segurança Web',
+    descricao: 'Proteja suas aplicações contra XSS, SQL Injection, CSRF e outras vulnerabilidades comuns.',
+    idCategoria: 'cat6',
+    idInstrutor: 'u5',
+    categoria: categorias[5],
+    instrutor: usuarios[4],
+    nivel: 'intermediario',
+    dataPublicacao: '2024-11-15',
+    totalAulas: 10,
+    totalHoras: 22,
+  },
+  {
+    idCurso: 'c11',
+    titulo: 'JavaScript Completo',
+    descricao: 'Domine JavaScript moderno: ES6+, async/await, closures, prototypes e padrões de projeto.',
+    idCategoria: 'cat1',
+    idInstrutor: 'u2',
+    categoria: categorias[0],
+    instrutor: usuarios[1],
+    nivel: 'iniciante',
+    dataPublicacao: '2024-01-10',
+    totalAulas: 25,
+    totalHoras: 50,
+  },
+  {
+    idCurso: 'c12',
+    titulo: 'UI/UX Design com Figma',
+    descricao: 'Do wireframe ao protótipo interativo. Aprenda pesquisa com usuários, design systems e handoff.',
+    idCategoria: 'cat3',
+    idInstrutor: 'u5',
+    categoria: categorias[2],
+    instrutor: usuarios[4],
+    nivel: 'iniciante',
+    dataPublicacao: '2024-04-01',
+    totalAulas: 18,
+    totalHoras: 34,
+  },
+];
+
+// ─── Trilhas ─────────────────────────────────────────────────
+export const trilhas: TrilhaModel[] = [
+  {
+    idTrilha: 't1',
+    titulo: 'Desenvolvimento Frontend',
+    descricao: 'Do HTML básico ao React avançado. Domine todas as tecnologias para construir interfaces web modernas.',
+    idCategoria: 'cat1',
+    categoria: categorias[0],
+  },
+  {
+    idTrilha: 't2',
+    titulo: 'Full Stack JavaScript',
+    descricao: 'Frontend com React + Backend com Node.js. Torne-se um desenvolvedor completo.',
+    idCategoria: 'cat1',
+    categoria: categorias[0],
+  },
+  {
+    idTrilha: 't3',
+    titulo: 'Data Science & AI',
+    descricao: 'De Python básico a modelos de machine learning. Domine a ciência de dados.',
+    idCategoria: 'cat4',
+    categoria: categorias[3],
+  },
+  {
+    idTrilha: 't4',
+    titulo: 'Design Digital',
+    descricao: 'Aprenda a criar experiências digitais incríveis, do conceito à implementação.',
+    idCategoria: 'cat3',
+    categoria: categorias[2],
+  },
+];
+
+export const trilhaCursos: TrilhaCursoModel[] = [
+  { idTrilha: 't1', idCurso: 'c11', ordem: 1 },
+  { idTrilha: 't1', idCurso: 'c4',  ordem: 2 },
+  { idTrilha: 't1', idCurso: 'c6',  ordem: 3 },
+  { idTrilha: 't1', idCurso: 'c1',  ordem: 4 },
+  { idTrilha: 't1', idCurso: 'c5',  ordem: 5 },
+  { idTrilha: 't2', idCurso: 'c11', ordem: 1 },
+  { idTrilha: 't2', idCurso: 'c1',  ordem: 2 },
+  { idTrilha: 't2', idCurso: 'c7',  ordem: 3 },
+  { idTrilha: 't2', idCurso: 'c5',  ordem: 4 },
+  { idTrilha: 't3', idCurso: 'c8',  ordem: 1 },
+  { idTrilha: 't3', idCurso: 'c2',  ordem: 2 },
+  { idTrilha: 't4', idCurso: 'c3',  ordem: 1 },
+  { idTrilha: 't4', idCurso: 'c12', ordem: 2 },
+];
+
+// ─── Módulos ─────────────────────────────────────────────────
+export const modulos: ModuloModel[] = [
+  { idModulo: 'm1', idCurso: 'c1', titulo: 'Introdução ao React', ordem: 1 },
+  { idModulo: 'm2', idCurso: 'c1', titulo: 'Componentes e Props', ordem: 2 },
+  { idModulo: 'm3', idCurso: 'c1', titulo: 'Estado e Hooks', ordem: 3 },
+  { idModulo: 'm4', idCurso: 'c1', titulo: 'Context API', ordem: 4 },
+  { idModulo: 'm5', idCurso: 'c1', titulo: 'Performance e Memoização', ordem: 5 },
+];
+
+// ─── Aulas ───────────────────────────────────────────────────
+export const aulas: AulaModel[] = [
+  { idAula: 'a1', idModulo: 'm1', titulo: 'O que é React?', tipoConteudo: 'video', urlConteudo: '#', duracaoMinutos: 12, ordem: 1 },
+  { idAula: 'a2', idModulo: 'm1', titulo: 'Configurando o ambiente', tipoConteudo: 'video', urlConteudo: '#', duracaoMinutos: 18, ordem: 2 },
+  { idAula: 'a3', idModulo: 'm1', titulo: 'Primeiro componente', tipoConteudo: 'video', urlConteudo: '#', duracaoMinutos: 15, ordem: 3 },
+  { idAula: 'a4', idModulo: 'm2', titulo: 'Entendendo componentes', tipoConteudo: 'video', urlConteudo: '#', duracaoMinutos: 22, ordem: 1 },
+  { idAula: 'a5', idModulo: 'm2', titulo: 'Props e tipagem', tipoConteudo: 'video', urlConteudo: '#', duracaoMinutos: 20, ordem: 2 },
+  { idAula: 'a6', idModulo: 'm2', titulo: 'Composição de componentes', tipoConteudo: 'video', urlConteudo: '#', duracaoMinutos: 25, ordem: 3 },
+  { idAula: 'a7', idModulo: 'm2', titulo: 'Quiz: Componentes', tipoConteudo: 'quiz', urlConteudo: '#', duracaoMinutos: 10, ordem: 4 },
+  { idAula: 'a8', idModulo: 'm3', titulo: 'useState na prática', tipoConteudo: 'video', urlConteudo: '#', duracaoMinutos: 28, ordem: 1 },
+  { idAula: 'a9', idModulo: 'm3', titulo: 'useEffect e ciclo de vida', tipoConteudo: 'video', urlConteudo: '#', duracaoMinutos: 30, ordem: 2 },
+  { idAula: 'a10', idModulo: 'm3', titulo: 'useRef e DOM', tipoConteudo: 'video', urlConteudo: '#', duracaoMinutos: 18, ordem: 3 },
+  { idAula: 'a11', idModulo: 'm3', titulo: 'Custom Hooks', tipoConteudo: 'video', urlConteudo: '#', duracaoMinutos: 25, ordem: 4 },
+  { idAula: 'a12', idModulo: 'm3', titulo: 'Exercícios práticos', tipoConteudo: 'texto', urlConteudo: '#', duracaoMinutos: 20, ordem: 5 },
+  { idAula: 'a13', idModulo: 'm4', titulo: 'Problema de prop drilling', tipoConteudo: 'video', urlConteudo: '#', duracaoMinutos: 15, ordem: 1 },
+  { idAula: 'a14', idModulo: 'm4', titulo: 'Criando contexts', tipoConteudo: 'video', urlConteudo: '#', duracaoMinutos: 22, ordem: 2 },
+  { idAula: 'a15', idModulo: 'm4', titulo: 'useContext avançado', tipoConteudo: 'video', urlConteudo: '#', duracaoMinutos: 19, ordem: 3 },
+  { idAula: 'a16', idModulo: 'm5', titulo: 'React.memo', tipoConteudo: 'video', urlConteudo: '#', duracaoMinutos: 20, ordem: 1 },
+  { idAula: 'a17', idModulo: 'm5', titulo: 'useMemo e useCallback', tipoConteudo: 'video', urlConteudo: '#', duracaoMinutos: 25, ordem: 2 },
+  { idAula: 'a18', idModulo: 'm5', titulo: 'Lazy loading e Suspense', tipoConteudo: 'video', urlConteudo: '#', duracaoMinutos: 18, ordem: 3 },
+  { idAula: 'a19', idModulo: 'm5', titulo: 'Profiler e DevTools', tipoConteudo: 'video', urlConteudo: '#', duracaoMinutos: 15, ordem: 4 },
+  { idAula: 'a20', idModulo: 'm5', titulo: 'Projeto final do módulo', tipoConteudo: 'texto', urlConteudo: '#', duracaoMinutos: 30, ordem: 5 },
+  { idAula: 'a21', idModulo: 'm5', titulo: 'Quiz final', tipoConteudo: 'quiz', urlConteudo: '#', duracaoMinutos: 15, ordem: 6 },
+];
+
+// ─── Matrículas (Julia inscrita em 3 cursos) ─────────────────
+export const matriculas: MatriculaModel[] = [
+  { idMatricula: 'mat1', idUsuario: 'u1', idCurso: 'c1', dataMatricula: '2024-04-01', dataConclusao: null },
+  { idMatricula: 'mat2', idUsuario: 'u1', idCurso: 'c2', dataMatricula: '2024-07-10', dataConclusao: null },
+  { idMatricula: 'mat3', idUsuario: 'u1', idCurso: 'c3', dataMatricula: '2024-05-15', dataConclusao: null },
+];
+
+// ─── Progresso das Aulas (Julia) ─────────────────────────────
+export const progressoAulas: ProgressoAulaModel[] = [
+  { idUsuario: 'u1', idAula: 'a1', status: 'CONCLUIDO', dataConclusao: '2024-04-02' },
+  { idUsuario: 'u1', idAula: 'a2', status: 'CONCLUIDO', dataConclusao: '2024-04-03' },
+  { idUsuario: 'u1', idAula: 'a3', status: 'CONCLUIDO', dataConclusao: '2024-04-04' },
+  { idUsuario: 'u1', idAula: 'a4', status: 'CONCLUIDO', dataConclusao: '2024-04-06' },
+  { idUsuario: 'u1', idAula: 'a5', status: 'CONCLUIDO', dataConclusao: '2024-04-07' },
+  { idUsuario: 'u1', idAula: 'a6', status: 'CONCLUIDO', dataConclusao: '2024-04-09' },
+  { idUsuario: 'u1', idAula: 'a7', status: 'CONCLUIDO', dataConclusao: '2024-04-10' },
+  { idUsuario: 'u1', idAula: 'a8', status: 'CONCLUIDO', dataConclusao: '2024-04-12' },
+  { idUsuario: 'u1', idAula: 'a9', status: 'CONCLUIDO', dataConclusao: '2024-04-14' },
+  { idUsuario: 'u1', idAula: 'a10', status: 'CONCLUIDO', dataConclusao: '2024-04-16' },
+  { idUsuario: 'u1', idAula: 'a11', status: 'CONCLUIDO', dataConclusao: '2024-04-18' },
+  { idUsuario: 'u1', idAula: 'a12', status: 'CONCLUIDO', dataConclusao: '2024-04-19' },
+  { idUsuario: 'u1', idAula: 'a13', status: 'EM_PROGRESO', dataConclusao: null },
+  { idUsuario: 'u1', idAula: 'a14', status: 'NAO_INICIADO', dataConclusao: null },
+  { idUsuario: 'u1', idAula: 'a15', status: 'NAO_INICIADO', dataConclusao: null },
+];
+
+// ─── Avaliações ──────────────────────────────────────────────
+export const avaliacoes: AvaliacaoModel[] = [
+  { idAvaliacao: 'av1', idUsuario: 'u1', idCurso: 'c1', nota: '5', comentario: 'Curso excelente! Muito bem estruturado e didático.', dataAvaliacao: '2024-05-01' },
+  { idAvaliacao: 'av2', idUsuario: 'u1', idCurso: 'c7', nota: '5', comentario: 'Instrutor é ótimo! Aprendi muito sobre Node.js.', dataAvaliacao: '2024-04-10' },
+  { idAvaliacao: 'av3', idUsuario: 'u1', idCurso: 'c11', nota: '4', comentario: 'Bom conteúdo, mas poderia ter mais exemplos práticos.', dataAvaliacao: '2024-03-20' },
+];
+
+// ─── Certificados ────────────────────────────────────────────
+export const certificados: CertificadoModel[] = [
+  { idCertificado: 'cert1', idUsuario: 'u1', idCurso: 'c11', idTrilha: null, codigoVerificacao: 'LEARN-2024-JS-001', dataEmissao: '2024-03-30' },
+  { idCertificado: 'cert2', idUsuario: 'u1', idCurso: 'c7', idTrilha: null, codigoVerificacao: 'LEARN-2024-NODE-001', dataEmissao: '2024-04-15' },
+  { idCertificado: 'cert3', idUsuario: 'u1', idCurso: 'c6', idTrilha: null, codigoVerificacao: 'LEARN-2024-TW-001', dataEmissao: '2024-06-20' },
+  { idCertificado: 'cert4', idUsuario: 'u1', idCurso: 'c12', idTrilha: null, codigoVerificacao: 'LEARN-2024-UX-001', dataEmissao: '2024-07-05' },
+  { idCertificado: 'cert5', idUsuario: 'u1', idCurso: 'c10', idTrilha: null, codigoVerificacao: 'LEARN-2024-SEC-001', dataEmissao: '2024-12-01' },
+];
+
+// ─── Planos ──────────────────────────────────────────────────
+export const planos: PlanoModel[] = [
+  { idPlano: 'plan1', nome: 'Básico', descricao: 'Acesso a cursos gratuitos', preco: 0, duracaoMeses: 1 },
+  { idPlano: 'plan2', nome: 'Pro', descricao: 'Acesso completo a todos os cursos e certificados', preco: 39.90, duracaoMeses: 1 },
+  { idPlano: 'plan3', nome: 'Pro Anual', descricao: 'Plano Pro com desconto anual', preco: 399.90, duracaoMeses: 12 },
+];
+
+// ─── Assinatura (Julia é Pro) ────────────────────────────────
+export const assinaturas: AssinaturaModel[] = [
+  {
+    idAssinatura: 'sub1',
+    idUsuario: 'u1',
+    idPlano: 'plan2',
+    dataInicio: '2024-01-15',
+    dataFim: '2025-01-15',
+    usuario: usuarios[0],
+    plano: planos[1],
+  },
+];
+
+// ─── Helpers ─────────────────────────────────────────────────
+
+/** Usuário logado (mock) */
+export const currentUser = usuarios[0];
+
+/** Busca curso por ID */
+export function getCursoById(id: string): CursoModel | undefined {
+  return cursos.find((c) => c.idCurso === id);
+}
+
+/** Busca módulos de um curso */
+export function getModulosByCurso(idCurso: string): ModuloModel[] {
+  return modulos.filter((m) => m.idCurso === idCurso);
+}
+
+/** Busca aulas de um módulo */
+export function getAulasByModulo(idModulo: string): AulaModel[] {
+  return aulas.filter((a) => a.idModulo === idModulo);
+}
+
+/** Progresso do usuário em um curso (percentual) */
+export function getProgressoCurso(idUsuario: string, idCurso: string): number {
+  const mods = getModulosByCurso(idCurso);
+  const aulasDoCurso = mods.flatMap((m) => getAulasByModulo(m.idModulo));
+  if (aulasDoCurso.length === 0) return 0;
+  const concluidas = aulasDoCurso.filter((a) =>
+    progressoAulas.some(
+      (p) => p.idUsuario === idUsuario && p.idAula === a.idAula && p.status === 'CONCLUIDO'
+    )
+  ).length;
+  return Math.round((concluidas / aulasDoCurso.length) * 100);
+}
+
+/** Matrículas do usuário com progresso */
+export function getMatriculasComProgresso(idUsuario: string) {
+  return matriculas
+    .filter((m) => m.idUsuario === idUsuario)
+    .map((m) => {
+      const curso = getCursoById(m.idCurso);
+      return {
+        ...m,
+        curso,
+        progresso: getProgressoCurso(idUsuario, m.idCurso),
+      };
+    });
+}
+
+/** Cursos de uma trilha, ordenados */
+export function getCursosDaTrilha(idTrilha: string) {
+  return trilhaCursos
+    .filter((tc) => tc.idTrilha === idTrilha)
+    .sort((a, b) => a.ordem - b.ordem)
+    .map((tc) => getCursoById(tc.idCurso))
+    .filter(Boolean) as CursoModel[];
+}
+
+/** Cursos por categoria */
+export function getCursosPorCategoria(nomeCategoria: string): CursoModel[] {
+  if (nomeCategoria === 'Todos') return cursos;
+  const cat = categorias.find((c) => c.nome === nomeCategoria);
+  if (!cat) return cursos;
+  return cursos.filter((c) => c.idCategoria === cat.idCategoria);
+}
+
+/** Avaliações de um curso */
+export function getAvaliacoesDoCurso(idCurso: string): AvaliacaoModel[] {
+  return avaliacoes.filter((a) => a.idCurso === idCurso);
+}
+
+/** Média de nota de um curso */
+export function getMediaNotaCurso(idCurso: string): number {
+  const avs = getAvaliacoesDoCurso(idCurso);
+  if (avs.length === 0) return 4.8; // default
+  return avs.reduce((sum, a) => sum + Number(a.nota), 0) / avs.length;
+}
+
+/** Nível formatado */
+export function formatNivel(nivel: string): string {
+  const map: Record<string, string> = {
+    iniciante: 'Iniciante',
+    intermediario: 'Intermediário',
+    avancado: 'Avançado',
+  };
+  return map[nivel] || nivel;
+}
