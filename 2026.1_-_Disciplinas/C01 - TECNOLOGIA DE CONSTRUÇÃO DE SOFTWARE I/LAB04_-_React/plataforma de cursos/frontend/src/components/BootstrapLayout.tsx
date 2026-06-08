@@ -39,7 +39,7 @@ export default function BootstrapLayout({ children }: Props) {
       <nav className="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-secondary sticky-top px-3">
         <div className="container-fluid">
           <Link className="navbar-brand fw-bold text-primary fs-3 d-flex align-items-center" to="/dashboard">
-            <span className="me-2">⚡</span>Learnify
+            Learnify
           </Link>
           
           <button
@@ -82,7 +82,7 @@ export default function BootstrapLayout({ children }: Props) {
                   <div className="d-none d-sm-block">
                     <div className="fw-semibold small lh-1 text-light">{currentUser.nome}</div>
                     <div className="text-muted small mt-1" style={{ fontSize: '10px' }}>
-                      {isPro ? '⭐ Assinante Pro' : 'Conta Gratuita'}
+                      {isPro ? 'Assinante Pro' : 'Conta Gratuita'}
                     </div>
                   </div>
                 </div>

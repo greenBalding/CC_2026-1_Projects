@@ -81,7 +81,7 @@ export default function CheckoutPlanos() {
       await api.createPagamento(newPayment);
 
       await refreshData();
-      alert(`🎉 Parabéns! Plano "${selectedPlan.nome}" assinado com sucesso.`);
+      alert(`Parabéns! Plano "${selectedPlan.nome}" assinado com sucesso.`);
       handleCloseCheckout();
     } catch (err) {
       console.error(err);
@@ -101,7 +101,7 @@ export default function CheckoutPlanos() {
 
         {activePlan && (
           <div className="alert alert-success border-success bg-success bg-opacity-10 text-success d-inline-block mt-3 px-4 py-2">
-            🚀 Plano Ativo Atualmente: <strong>{activePlan.nome}</strong> (Expira em: {activeSubscription?.dataFim})
+            Plano Ativo Atualmente: <strong>{activePlan.nome}</strong> (Expira em: {activeSubscription?.dataFim})
           </div>
         )}
       </div>
@@ -144,7 +144,7 @@ export default function CheckoutPlanos() {
                       </>
                     ) : (
                       <li className="d-flex align-items-center gap-2 text-muted">
-                        <span>✖ Sem acesso a Trilhas e suporte</span>
+                        <span>Sem acesso a Trilhas e suporte</span>
                       </li>
                     )}
                   </ul>
@@ -204,7 +204,7 @@ export default function CheckoutPlanos() {
                           onChange={() => setPaymentMethod('pix')}
                         />
                         <label className="btn btn-outline-secondary flex-grow-1" htmlFor="btn-pix">
-                          ⚡ Pix
+                          Pix
                         </label>
 
                         <input
@@ -216,7 +216,7 @@ export default function CheckoutPlanos() {
                           onChange={() => setPaymentMethod('cartao')}
                         />
                         <label className="btn btn-outline-secondary flex-grow-1" htmlFor="btn-cartao">
-                          💳 Cartão
+                          Cartão
                         </label>
 
                         <input
@@ -228,7 +228,7 @@ export default function CheckoutPlanos() {
                           onChange={() => setPaymentMethod('boleto')}
                         />
                         <label className="btn btn-outline-secondary flex-grow-1" htmlFor="btn-boleto">
-                          📄 Boleto
+                          Boleto
                         </label>
                       </div>
                     </div>

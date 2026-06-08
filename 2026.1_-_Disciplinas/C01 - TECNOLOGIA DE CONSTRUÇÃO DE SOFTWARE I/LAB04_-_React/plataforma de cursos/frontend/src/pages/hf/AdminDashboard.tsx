@@ -78,7 +78,7 @@ export default function AdminDashboard() {
           Somente Administradores ou Instrutores podem acessar o painel administrativo.
         </p>
         <div className="alert alert-info d-inline-block px-4 py-2 border-info bg-info bg-opacity-10 text-info">
-          💡 <strong>Dica:</strong> Altere o usuário na barra superior para <strong>Diego Fernandes</strong> ou <strong>Admin Sistema</strong> para testar.
+          <strong>Dica:</strong> Altere o usuário na barra superior para <strong>Diego Fernandes</strong> ou <strong>Admin Sistema</strong> para testar.
         </div>
       </div>
     );
@@ -291,7 +291,7 @@ export default function AdminDashboard() {
             onClick={() => setActiveTab('users')}
             className={`nav-link border-0 fw-semibold text-light ${activeTab === 'users' ? 'active bg-primary' : 'bg-transparent'}`}
           >
-            👥 Usuários
+            Usuários
           </button>
         </li>
         <li className="nav-item">
@@ -299,7 +299,7 @@ export default function AdminDashboard() {
             onClick={() => setActiveTab('categories')}
             className={`nav-link border-0 fw-semibold text-light ${activeTab === 'categories' ? 'active bg-primary' : 'bg-transparent'}`}
           >
-            📁 Categorias
+            Categorias
           </button>
         </li>
         <li className="nav-item">
@@ -307,7 +307,7 @@ export default function AdminDashboard() {
             onClick={() => setActiveTab('courses')}
             className={`nav-link border-0 fw-semibold text-light ${activeTab === 'courses' ? 'active bg-primary' : 'bg-transparent'}`}
           >
-            📚 Cursos
+            Cursos
           </button>
         </li>
         <li className="nav-item">
@@ -315,7 +315,7 @@ export default function AdminDashboard() {
             onClick={() => setActiveTab('modules')}
             className={`nav-link border-0 fw-semibold text-light ${activeTab === 'modules' ? 'active bg-primary' : 'bg-transparent'}`}
           >
-            ⚙️ Módulos & Aulas
+            Módulos & Aulas
           </button>
         </li>
         <li className="nav-item">
@@ -323,7 +323,7 @@ export default function AdminDashboard() {
             onClick={() => setActiveTab('trilhas')}
             className={`nav-link border-0 fw-semibold text-light ${activeTab === 'trilhas' ? 'active bg-primary' : 'bg-transparent'}`}
           >
-            🧭 Trilhas
+            Trilhas
           </button>
         </li>
       </ul>

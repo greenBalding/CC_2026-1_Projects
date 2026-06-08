@@ -98,7 +98,7 @@ export default function CoursePlayer() {
         };
         await api.createCertificado(newCertificate);
         await refreshData();
-        alert(`🎉 Parabéns! Você concluiu 100% do curso "${curso.titulo}". Seu certificado foi gerado com sucesso!`);
+        alert(`Parabéns! Você concluiu 100% do curso "${curso.titulo}". Seu certificado foi gerado com sucesso!`);
       }
     } catch (err) {
       console.error(err);
@@ -241,7 +241,7 @@ export default function CoursePlayer() {
             </div>
             {hasCertificate && (
               <div className="alert alert-success border-success bg-success bg-opacity-10 text-success text-center py-2 px-3 mb-0 small fw-bold">
-                🏆 Certificado disponível no Perfil!
+                Certificado disponível no Perfil!
               </div>
             )}
           </div>

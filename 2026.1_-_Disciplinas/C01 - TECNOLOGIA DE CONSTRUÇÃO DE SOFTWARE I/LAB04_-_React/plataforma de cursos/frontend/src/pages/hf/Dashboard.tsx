@@ -86,7 +86,7 @@ export default function Dashboard() {
                   className="mx-auto rounded-circle bg-opacity-10 bg-primary d-flex align-items-center justify-content-center"
                   style={{ width: '150px', height: '150px', border: '2px dashed #7c3aed' }}
                 >
-                  <span className="fs-1">🚀</span>
+                  <span className="fs-3 text-primary fw-bold">Learnify</span>
                 </div>
               </div>
             </div>
@@ -106,7 +106,7 @@ export default function Dashboard() {
       ) : (
         <div className="card border-secondary bg-black bg-opacity-25 text-white mb-4 shadow-sm">
           <div className="card-body p-4 p-md-5 text-center">
-            <span className="fs-1 mb-3 d-block">👋 Bem-vindo(a), {currentUser.nome}!</span>
+            <span className="fs-3 mb-3 d-block">Bem-vindo(a), {currentUser.nome}!</span>
             <h2 className="fw-bold mb-3">Sua jornada de aprendizado começa aqui</h2>
             <p className="text-muted mb-4">Você ainda não está matriculado em nenhum curso. Visite o catálogo e encontre o curso ideal para você.</p>
             <button onClick={() => navigate('/explore')} className="btn btn-primary px-4 fw-semibold">
@@ -287,21 +287,21 @@ export default function Dashboard() {
             <h5 className="fw-bold border-bottom border-secondary pb-3 mb-3">Novidades</h5>
             <ul className="list-unstyled mb-0 d-flex flex-column gap-3">
               <li className="d-flex gap-2 align-items-start border-bottom border-secondary border-opacity-25 pb-2">
-                <span className="text-primary fs-5">🔥</span>
+                <span className="text-primary small fw-bold mt-1">[Novo]</span>
                 <div>
                   <span className="fw-semibold d-block small" style={{ fontSize: '13px' }}>Nova Trilha Disponível</span>
                   <span className="text-muted small" style={{ fontSize: '11px' }}>Explore a trilha "Full Stack JavaScript" na aba Trilhas.</span>
                 </div>
               </li>
               <li className="d-flex gap-2 align-items-start border-bottom border-secondary border-opacity-25 pb-2">
-                <span className="text-success fs-5">🏆</span>
+                <span className="text-success small fw-bold mt-1">[Info]</span>
                 <div>
                   <span className="fw-semibold d-block small" style={{ fontSize: '13px' }}>Sistema de Certificados</span>
                   <span className="text-muted small" style={{ fontSize: '11px' }}>Complete 100% de qualquer curso para emitir seu diploma digital instantâneo.</span>
                 </div>
               </li>
               <li className="d-flex gap-2 align-items-start">
-                <span className="text-warning fs-5">💎</span>
+                <span className="text-warning small fw-bold mt-1">[Pro]</span>
                 <div>
                   <span className="fw-semibold d-block small" style={{ fontSize: '13px' }}>Módulo Premium Pro</span>
                   <span className="text-muted small" style={{ fontSize: '11px' }}>Assine o Plano Pro e libere acesso completo a trilhas com suporte.</span>

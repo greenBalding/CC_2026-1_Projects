@@ -122,7 +122,6 @@ export default function Explore() {
       {/* Courses Cards Grid */}
       {displayedCourses.length === 0 ? (
         <div className="card border-secondary bg-black bg-opacity-25 text-white p-5 text-center shadow-sm">
-          <span className="fs-1 d-block mb-3">🔍</span>
           <h4 className="fw-semibold">Nenhum curso encontrado</h4>
           <p className="text-muted">Tente ajustar os termos de busca ou mudar a categoria selecionada.</p>
         </div>

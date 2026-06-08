@@ -29,7 +29,6 @@ export default function Trilhas() {
       {/* Trilhas List */}
       {trilhas.length === 0 ? (
         <div className="card border-secondary bg-black bg-opacity-25 text-white p-5 text-center shadow-sm">
-          <span className="fs-1 d-block mb-3">🧭</span>
           <h4 className="fw-semibold">Nenhuma trilha disponível</h4>
           <p className="text-muted">As trilhas serão configuradas no painel de administração.</p>
         </div>

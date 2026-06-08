@@ -209,7 +209,9 @@ export default function CourseDetails() {
                           <span className="text-muted" style={{ fontSize: '11px' }}>{r.dataAvaliacao}</span>
                         </div>
                         <div className="text-warning small d-flex align-items-center gap-1">
-                          {'★'.repeat(Number(r.nota))}
+                          {Array.from({ length: Number(r.nota) }).map((_, idx) => (
+                            <StarIcon key={idx} size={14} />
+                          ))}
                         </div>
                       </div>
                       <p className="text-muted small mb-0">{r.comentario}</p>
