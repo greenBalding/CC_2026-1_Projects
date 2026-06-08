@@ -1,111 +1,166 @@
-import { Link } from 'react-router-dom'
-import { getMatriculasComProgresso, currentUser, certificados, getCursoById, formatNivel } from '../../data/mockData'
-import { BookIcon, TrophyIcon } from '../../components/Icons'
-import '../../styles/hifi.css'
+import { useNavigate } from 'react-router-dom';
+import { useApp } from '../../context/AppContext';
+import { BookIcon, TrophyIcon } from '../../components/Icons';
 
 export default function Cursos() {
-  const matriculas = getMatriculasComProgresso(currentUser.idUsuario)
-  const completedCertificates = certificados.filter(c => c.idUsuario === currentUser.idUsuario)
+  const { currentUser, cursos, matriculas, certificados, usuarios, modulos, aulas, progressoAulas } = useApp();
+  const navigate = useNavigate();
+
+  if (!currentUser) {
+    return (
+      <div className="alert alert-warning text-center mt-4" role="alert">
+        Nenhum usuário logado. Por favor, selecione um usuário na barra superior.
+      </div>
+    );
+  }
+
+  // Get enrolled courses with progress
+  const userMatriculas = matriculas.filter((m) => m.idUsuario === currentUser.idUsuario);
+  
+  const getProgressInfo = (idCurso: string) => {
+    const courseModules = modulos.filter((m) => m.idCurso === idCurso).map((m) => m.idModulo);
+    const courseLessons = aulas.filter((a) => courseModules.includes(a.idModulo));
+    const courseLessonsIds = courseLessons.map((a) => a.idAula);
+    const completed = progressoAulas.filter(
+      (p) => p.idUsuario === currentUser.idUsuario && courseLessonsIds.includes(p.idAula) && p.status === 'CONCLUIDO'
+    );
+    return {
+      percentage: courseLessons.length > 0 ? Math.round((completed.length / courseLessons.length) * 100) : 0,
+    };
+  };
+
+  const activeEnrollments = userMatriculas.map((mat) => {
+    const cursoObj = cursos.find((c) => c.idCurso === mat.idCurso);
+    const progressVal = cursoObj ? getProgressInfo(cursoObj.idCurso).percentage : 0;
+    return {
+      ...mat,
+      curso: cursoObj,
+      progresso: progressVal,
+    };
+  });
+
+  const completedCertificates = certificados.filter((c) => c.idUsuario === currentUser.idUsuario);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', padding: '20px 0' }}>
-      <div>
-        <h1 style={{ fontSize: '28px', fontWeight: '800', background: 'linear-gradient(135deg, #fff 0%, #a5b4fc 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', margin: '0 0 8px 0' }}>Meus Cursos</h1>
-        <p style={{ color: 'var(--text-muted)', margin: 0, fontSize: '15px' }}>Gerencie seu progresso de aprendizado e acesse seus certificados.</p>
+    <div className="container-fluid py-2">
+      {/* Title */}
+      <div className="mb-4">
+        <h2 className="fw-bold text-light mb-1">Meus Cursos</h2>
+        <p className="text-muted">Acompanhe seu progresso nas aulas e baixe seus diplomas de conclusão.</p>
       </div>
 
-      <div className="section">
-        <h2 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <BookIcon size={20} style={{ color: 'var(--accent-secondary)' }} /> Em Andamento
-        </h2>
-        <div className="hf-cards" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' }}>
-          {matriculas.map((mat) => {
-            const c = mat.curso;
-            if (!c) return null;
-            return (
-              <div className="hf-card" key={mat.idMatricula} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '180px' }}>
-                <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '12px' }}>
-                    <div>
-                      <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--accent-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                        {formatNivel(c.nivel)}
+      {/* Em Andamento */}
+      <div className="mb-5">
+        <h4 className="fw-bold text-light mb-3 d-flex align-items-center gap-2">
+          <BookIcon size={20} className="text-primary" /> Cursos em Andamento
+        </h4>
+        
+        {activeEnrollments.length === 0 ? (
+          <div className="card bg-black border border-secondary text-white p-4 text-center shadow-sm">
+            <span className="text-muted small">Você não está estudando nenhum curso no momento.</span>
+          </div>
+        ) : (
+          <div className="row g-3">
+            {activeEnrollments.map((mat) => {
+              const c = mat.curso;
+              if (!c) return null;
+              const instrutorName = usuarios.find((u) => u.idUsuario === c.idInstrutor)?.nome || 'Instrutor';
+
+              return (
+                <div className="col-md-6 col-lg-4" key={mat.idMatricula}>
+                  <div className="card bg-black border border-secondary text-white h-100 shadow-sm hover-card d-flex flex-column justify-content-between">
+                    <div className="p-4">
+                      <span className="badge bg-secondary text-uppercase mb-2" style={{ fontSize: '8px' }}>
+                        {c.nivel}
                       </span>
-                      <h3 style={{ margin: '4px 0', fontSize: '17px', fontWeight: '700', color: 'var(--text-primary)' }}>{c.titulo}</h3>
-                      <p style={{ margin: 0, fontSize: '13px', color: 'var(--text-muted)' }}>por {c.instrutor?.nome}</p>
+                      <h5 className="fw-bold text-light mb-2">{c.titulo}</h5>
+                      <p className="text-muted small mb-0">por {instrutorName}</p>
+                    </div>
+
+                    <div className="p-4 pt-0 mt-3 border-top border-secondary border-opacity-25 pt-3">
+                      <div className="d-flex justify-content-between align-items-center mb-2">
+                        <span className="text-muted small">Progresso</span>
+                        <span className="fw-bold text-primary small">{mat.progresso}%</span>
+                      </div>
+                      <div className="progress bg-dark mb-4" style={{ height: '6px' }}>
+                        <div
+                          className="progress-bar bg-primary"
+                          role="progressbar"
+                          style={{ width: `${mat.progresso}%` }}
+                          aria-valuenow={mat.progresso}
+                          aria-valuemin={0}
+                          aria-valuemax={100}
+                        />
+                      </div>
+
+                      <div className="d-flex justify-content-between align-items-center gap-2">
+                        <button
+                          onClick={() => navigate(`/player/${c.idCurso}`)}
+                          className="btn btn-sm btn-primary px-3 fw-semibold"
+                        >
+                          Continuar
+                        </button>
+                        <button
+                          onClick={() => navigate(`/course/${c.idCurso}`)}
+                          className="btn btn-sm btn-outline-secondary text-light fw-semibold"
+                        >
+                          Detalhes
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-
-                <div style={{ marginTop: 'auto' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                    <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Progresso</span>
-                    <span style={{ fontSize: '12px', fontWeight: '600', color: 'var(--accent-primary)' }}>{mat.progresso}%</span>
-                  </div>
-                  <div style={{ height: '6px', background: 'rgba(255,255,255,0.06)', borderRadius: '3px', overflow: 'hidden', marginBottom: '16px' }}>
-                    <div style={{ height: '100%', width: `${mat.progresso}%`, background: 'linear-gradient(90deg, var(--accent-primary), var(--accent-secondary))', borderRadius: '3px' }} />
-                  </div>
-
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Link to={`/player/${c.idCurso}`} style={{ textDecoration: 'none' }}>
-                      <button style={{
-                        background: 'linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%)',
-                        color: 'white',
-                        border: 'none',
-                        padding: '8px 16px',
-                        borderRadius: '8px',
-                        fontSize: '13px',
-                        fontWeight: '600',
-                        cursor: 'pointer',
-                        transition: 'transform 0.2s, box-shadow 0.2s'
-                      }}>
-                        Continuar
-                      </button>
-                    </Link>
-                    <Link to={`/course/${c.idCurso}`} style={{ fontSize: '13px', color: 'var(--text-muted)', textDecoration: 'none', fontWeight: '500' }}>
-                      Ver detalhes →
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            )
-          })}
-        </div>
+              );
+            })}
+          </div>
+        )}
       </div>
 
-      <div className="section" style={{ marginTop: '20px' }}>
-        <h2 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <TrophyIcon size={20} style={{ color: '#f59e0b' }} /> Certificados Concluídos ({completedCertificates.length})
-        </h2>
-        
+      {/* Certificados Concluídos */}
+      <div>
+        <h4 className="fw-bold text-light mb-3 d-flex align-items-center gap-2">
+          <TrophyIcon size={20} className="text-warning" /> Certificados Conquistados
+        </h4>
+
         {completedCertificates.length === 0 ? (
-          <div className="hf-card" style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>
-            Nenhum certificado emitido ainda. Complete um curso para obter seu certificado!
+          <div className="card bg-black border border-secondary text-white p-4 text-center shadow-sm">
+            <span className="text-muted small">Complete 100% de um curso para liberar seu certificado digital.</span>
           </div>
         ) : (
-          <div className="hf-cards" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
+          <div className="row g-3">
             {completedCertificates.map((cert) => {
-              const curso = getCursoById(cert.idCurso || '');
+              const cursoObj = cursos.find((c) => c.idCurso === cert.idCurso);
               return (
-                <div className="hf-card" key={cert.idCertificado} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderLeft: '4px solid #10b981' }}>
-                  <div>
-                    <span style={{ fontSize: '10px', fontWeight: '700', color: '#10b981', textTransform: 'uppercase' }}>Certificado Disponível</span>
-                    <h3 style={{ margin: '8px 0 4px 0', fontSize: '15px', fontWeight: '700', color: 'var(--text-primary)' }}>
-                      {curso ? curso.titulo : 'Curso Concluído'}
-                    </h3>
-                    <p style={{ margin: 0, fontSize: '12px', color: 'var(--text-muted)' }}>Código: {cert.codigoVerificacao}</p>
-                  </div>
-                  <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Emissão: {new Date(cert.dataEmissao).toLocaleDateString()}</span>
-                    <a href="#" onClick={(e) => { e.preventDefault(); alert(`Código de Verificação: ${cert.codigoVerificacao}`) }} style={{ fontSize: '13px', color: '#10b981', textDecoration: 'none', fontWeight: '600' }}>
-                      Visualizar
-                    </a>
+                <div className="col-md-6 col-lg-4" key={cert.idCertificado}>
+                  <div className="card bg-black border border-success text-white h-100 shadow-sm hover-card d-flex flex-column justify-content-between" style={{ borderLeftWidth: '4px' }}>
+                    <div className="p-4">
+                      <span className="badge bg-success text-uppercase mb-2" style={{ fontSize: '8px' }}>
+                        Certificado Emitido
+                      </span>
+                      <h5 className="fw-bold text-light mb-2">{cursoObj ? cursoObj.titulo : 'Curso Concluído'}</h5>
+                      <p className="text-muted small mb-0" style={{ fontSize: '11px' }}>
+                        Código: <code className="text-light">{cert.codigoVerificacao}</code>
+                      </p>
+                    </div>
+
+                    <div className="p-4 pt-0 mt-3 border-top border-secondary border-opacity-25 pt-3 d-flex justify-content-between align-items-center">
+                      <span className="text-muted small" style={{ fontSize: '11px' }}>
+                        Emitido em: {new Date(cert.dataEmissao).toLocaleDateString()}
+                      </span>
+                      <button
+                        onClick={() => alert(`Certificado Autêntico!\nCódigo: ${cert.codigoVerificacao}\nData de Emissão: ${cert.dataEmissao}`)}
+                        className="btn btn-sm btn-outline-success fw-semibold"
+                      >
+                        Visualizar
+                      </button>
+                    </div>
                   </div>
                 </div>
-              )
+              );
             })}
           </div>
         )}
       </div>
     </div>
-  )
+  );
 }

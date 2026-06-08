@@ -3,10 +3,10 @@ import type { AssinaturaModel } from './assinatura.model.tsx';
 export interface PagamentoModel {
   idPagamento: string;
   idAssinatura: string;
+  idUsuario: string;
   assinatura?: AssinaturaModel;
-  valorPago: number;
+  valor: number;
   dataPagamento: string;
   metodoPagamento: string;
-  idTransacaoGateway: string;
-  dataFim: string;
+  transacaoId: string;
 }

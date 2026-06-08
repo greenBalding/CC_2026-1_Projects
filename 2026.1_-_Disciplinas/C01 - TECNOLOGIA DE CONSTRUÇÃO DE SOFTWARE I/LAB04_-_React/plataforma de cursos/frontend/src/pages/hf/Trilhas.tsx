@@ -1,86 +1,129 @@
-import { Link } from 'react-router-dom'
-import { trilhas, getCursosDaTrilha, formatNivel } from '../../data/mockData'
-import '../../styles/hifi.css'
+import { Link } from 'react-router-dom';
+import { useApp } from '../../context/AppContext';
 
 export default function Trilhas() {
+  const { trilhas, trilhasCursos, cursos, categorias, usuarios, modulos, aulas } = useApp();
+
+  // Helper to fetch courses of a specific trail
+  const getCoursesForTrilha = (trilhaId: string) => {
+    return trilhasCursos
+      .filter((tc) => tc.idTrilha === trilhaId)
+      .sort((a, b) => a.ordem - b.ordem)
+      .map((tc) => cursos.find((c) => c.idCurso === tc.idCurso))
+      .filter(Boolean) as any[];
+  };
+
+  const getLessonsCountForCourse = (courseId: string) => {
+    const courseModules = modulos.filter((m) => m.idCurso === courseId).map((m) => m.idModulo);
+    return aulas.filter((a) => courseModules.includes(a.idModulo)).length;
+  };
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', padding: '20px 0' }}>
-      <div>
-        <h1 style={{ fontSize: '28px', fontWeight: '800', background: 'linear-gradient(135deg, #fff 0%, #a5b4fc 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', margin: '0 0 8px 0' }}>Trilhas de Aprendizado</h1>
-        <p style={{ color: 'var(--text-muted)', margin: 0, fontSize: '15px' }}>Siga caminhos estruturados para dominar uma especialidade do início ao fim.</p>
+    <div className="container-fluid py-2">
+      {/* Title */}
+      <div className="mb-4">
+        <h2 className="fw-bold text-light mb-1">Trilhas de Aprendizado</h2>
+        <p className="text-muted">Caminhos sequenciais estruturados por especialistas para você dominar uma tecnologia do zero.</p>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
-        {trilhas.map((trilha) => {
-          const courses = getCursosDaTrilha(trilha.idTrilha)
-          const totalHours = courses.reduce((sum, c) => sum + (c.totalHoras || 0), 0)
-          const totalLessons = courses.reduce((sum, c) => sum + (c.totalAulas || 0), 0)
+      {/* Trilhas List */}
+      {trilhas.length === 0 ? (
+        <div className="card border-secondary bg-black bg-opacity-25 text-white p-5 text-center shadow-sm">
+          <span className="fs-1 d-block mb-3">🧭</span>
+          <h4 className="fw-semibold">Nenhuma trilha disponível</h4>
+          <p className="text-muted">As trilhas serão configuradas no painel de administração.</p>
+        </div>
+      ) : (
+        <div className="d-flex flex-column gap-4">
+          {trilhas.map((trilha) => {
+            const trCourses = getCoursesForTrilha(trilha.idTrilha);
+            const totalHours = trCourses.reduce((sum, c) => sum + (c.totalHoras || 0), 0);
+            const totalLessons = trCourses.reduce((sum, c) => sum + getLessonsCountForCourse(c.idCurso), 0);
+            const categoryObj = categorias.find((cat) => cat.idCategoria === trilha.idCategoria);
 
-          return (
-            <div className="hf-card" key={trilha.idTrilha} style={{ padding: '24px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', flexWrap: 'wrap', gap: '16px', marginBottom: '20px', paddingBottom: '16px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                <div>
-                  <span style={{ fontSize: '11px', fontWeight: '700', color: 'var(--accent-primary)', textTransform: 'uppercase', background: 'rgba(124,58,237,0.15)', padding: '4px 10px', borderRadius: '999px', display: 'inline-block', marginBottom: '8px' }}>
-                    {trilha.categoria?.nome || 'Tecnologia'}
-                  </span>
-                  <h2 style={{ fontSize: '22px', fontWeight: '700', color: 'var(--text-primary)', margin: '0 0 8px 0' }}>{trilha.titulo}</h2>
-                  <p style={{ color: 'var(--text-muted)', fontSize: '14px', margin: 0, maxWidth: '700px' }}>{trilha.descricao}</p>
-                </div>
-                <div style={{ display: 'flex', gap: '16px', fontSize: '13px', background: 'rgba(255,255,255,0.03)', padding: '12px 18px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.05)' }}>
+            return (
+              <div className="card bg-black border border-secondary text-white p-4 shadow-sm" key={trilha.idTrilha}>
+                {/* Header Trail Details */}
+                <div className="d-flex justify-content-between align-items-start border-bottom border-secondary pb-3 mb-4 flex-wrap gap-3">
                   <div>
-                    <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '11px', textTransform: 'uppercase' }}>Cursos</span>
-                    <strong style={{ fontSize: '16px', color: 'var(--text-primary)' }}>{courses.length}</strong>
+                    <span className="badge bg-primary px-3 py-1.5 rounded-pill mb-2 text-uppercase fw-semibold" style={{ fontSize: '9px' }}>
+                      {categoryObj?.nome || 'Tecnologia'}
+                    </span>
+                    <h3 className="fw-bold text-light mb-2">{trilha.titulo}</h3>
+                    <p className="text-muted mb-0 small" style={{ maxWidth: '750px', lineHeight: '1.5' }}>
+                      {trilha.descricao}
+                    </p>
                   </div>
-                  <div style={{ width: '1px', background: 'rgba(255,255,255,0.08)' }} />
-                  <div>
-                    <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '11px', textTransform: 'uppercase' }}>Aulas</span>
-                    <strong style={{ fontSize: '16px', color: 'var(--text-primary)' }}>{totalLessons}</strong>
-                  </div>
-                  <div style={{ width: '1px', background: 'rgba(255,255,255,0.08)' }} />
-                  <div>
-                    <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '11px', textTransform: 'uppercase' }}>Carga Horária</span>
-                    <strong style={{ fontSize: '16px', color: 'var(--accent-secondary)' }}>{totalHours}h</strong>
-                  </div>
-                </div>
-              </div>
 
-              <div>
-                <h3 style={{ fontSize: '14px', fontWeight: '600', color: 'var(--text-primary)', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Cursos da Trilha</h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  {courses.map((c, index) => (
-                    <div key={c.idCurso} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', background: 'rgba(255,255,255,0.02)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.04)', transition: 'background 0.2s' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                        <div style={{ width: '28px', height: '28px', borderRadius: '999px', background: 'var(--accent-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: '700', color: 'white' }}>
-                          {index + 1}
-                        </div>
-                        <div>
-                          <h4 style={{ fontSize: '15px', fontWeight: '600', color: 'var(--text-primary)', margin: 0 }}>{c.titulo}</h4>
-                          <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{c.instrutor?.nome} • {formatNivel(c.nivel)}</span>
-                        </div>
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                        <span style={{ fontSize: '13px', color: 'var(--text-muted)' }}>{c.totalHoras}h</span>
-                        <Link to={`/course/${c.idCurso}`} style={{
-                          textDecoration: 'none',
-                          color: 'var(--accent-secondary)',
-                          fontSize: '13px',
-                          fontWeight: '600',
-                          background: 'rgba(6,182,212,0.1)',
-                          padding: '6px 12px',
-                          borderRadius: '6px',
-                          transition: 'all 0.2s'
-                        }}>
-                          Ver Curso
-                        </Link>
-                      </div>
+                  {/* Metadata Stats Badge Box */}
+                  <div className="d-flex gap-3 bg-secondary bg-opacity-10 border border-secondary rounded p-3 text-center align-self-sm-center">
+                    <div>
+                      <span className="text-muted small d-block" style={{ fontSize: '9px', textTransform: 'uppercase' }}>Cursos</span>
+                      <strong className="text-light fs-5">{trCourses.length}</strong>
                     </div>
-                  ))}
+                    <div className="vr bg-secondary"></div>
+                    <div>
+                      <span className="text-muted small d-block" style={{ fontSize: '9px', textTransform: 'uppercase' }}>Aulas</span>
+                      <strong className="text-light fs-5">{totalLessons}</strong>
+                    </div>
+                    <div className="vr bg-secondary"></div>
+                    <div>
+                      <span className="text-muted small d-block" style={{ fontSize: '9px', textTransform: 'uppercase' }}>Horas</span>
+                      <strong className="text-primary fs-5">{totalHours}h</strong>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Courses in Trail */}
+                <div>
+                  <h6 className="text-uppercase text-muted fw-bold mb-3" style={{ fontSize: '11px', letterSpacing: '0.05em' }}>
+                    Sequência Recomendada de Estudos
+                  </h6>
+
+                  {trCourses.length === 0 ? (
+                    <div className="text-muted small py-2">Nenhum curso vinculado a esta trilha ainda.</div>
+                  ) : (
+                    <div className="d-flex flex-column gap-2">
+                      {trCourses.map((c, index) => {
+                        const instructorName = usuarios.find((u) => u.idUsuario === c.idInstrutor)?.nome || 'Instrutor';
+                        const numAulas = getLessonsCountForCourse(c.idCurso);
+                        return (
+                          <div
+                            key={c.idCurso}
+                            className="p-3 bg-secondary bg-opacity-5 border border-secondary rounded d-flex justify-content-between align-items-center flex-column flex-sm-row gap-3"
+                          >
+                            <div className="d-flex align-items-center gap-3 w-100">
+                              <div
+                                className="rounded-circle d-flex align-items-center justify-content-center bg-primary text-white fw-bold flex-shrink-0"
+                                style={{ width: '32px', height: '32px', fontSize: '13px' }}
+                              >
+                                {index + 1}
+                              </div>
+                              <div className="text-truncate">
+                                <h6 className="fw-bold text-light mb-1 text-truncate">{c.titulo}</h6>
+                                <span className="text-muted small">
+                                  por {instructorName} • {numAulas} aulas • Nível {c.nivel}
+                                </span>
+                              </div>
+                            </div>
+
+                            <div className="d-flex align-items-center gap-3 justify-content-between w-100 w-sm-auto flex-shrink-0">
+                              <span className="text-muted small fw-semibold">{c.totalHoras}h</span>
+                              <Link to={`/course/${c.idCurso}`} className="btn btn-sm btn-outline-primary fw-semibold px-3 text-nowrap">
+                                Ver Curso
+                              </Link>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
               </div>
-            </div>
-          )
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
     </div>
-  )
+  );
 }

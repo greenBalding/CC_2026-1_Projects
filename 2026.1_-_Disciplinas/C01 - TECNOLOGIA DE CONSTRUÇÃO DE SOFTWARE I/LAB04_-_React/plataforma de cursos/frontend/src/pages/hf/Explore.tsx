@@ -1,17 +1,65 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { categorias, formatNivel, getCursosPorCategoria } from '../../data/mockData'
-import { StarIcon } from '../../components/Icons'
-import '../../styles/hifi.css'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useApp } from '../../context/AppContext';
+import { api } from '../../services/api';
+import { StarIcon, PlayIcon, SearchIcon } from '../../components/Icons';
 
 export default function Explore() {
-  const [activeCategory, setActiveCategory] = useState('Todos')
-  const [searchQuery, setSearchQuery] = useState('')
+  const { currentUser, cursos, categorias, matriculas, usuarios, refreshData } = useApp();
+  const navigate = useNavigate();
 
-  const displayedCourses = getCursosPorCategoria(activeCategory).filter(c =>
-    c.titulo.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    (c.instrutor?.nome || '').toLowerCase().includes(searchQuery.toLowerCase())
-  )
+  const [activeCategory, setActiveCategory] = useState('Todos');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [loadingEnroll, setLoadingEnroll] = useState<string | null>(null);
+
+  if (!currentUser) {
+    return (
+      <div className="alert alert-warning text-center mt-4" role="alert">
+        Nenhum usuário logado. Por favor, selecione um usuário na barra superior.
+      </div>
+    );
+  }
+
+  // Filter courses by category
+  const filteredByCategory =
+    activeCategory === 'Todos'
+      ? cursos
+      : cursos.filter((c) => {
+          const categoryObj = categorias.find((cat) => cat.idCategoria === c.idCategoria);
+          return categoryObj?.nome === activeCategory;
+        });
+
+  // Filter courses by search query
+  const displayedCourses = filteredByCategory.filter((c) => {
+    const instrutorName = usuarios.find((u) => u.idUsuario === c.idInstrutor)?.nome || '';
+    return (
+      c.titulo.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      c.descricao.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      instrutorName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  });
+
+  // Handle enrollment simulation
+  const handleEnroll = async (courseId: string) => {
+    setLoadingEnroll(courseId);
+    try {
+      const newMatricula = {
+        idMatricula: `mat-${Date.now()}`,
+        idUsuario: currentUser.idUsuario,
+        idCurso: courseId,
+        dataMatricula: new Date().toISOString().split('T')[0],
+        dataConclusao: null,
+      };
+      await api.createMatricula(newMatricula);
+      await refreshData();
+      alert('Matrícula realizada com sucesso! Bons estudos.');
+    } catch (err) {
+      console.error(err);
+      alert('Falha ao realizar matrícula. Tente novamente.');
+    } finally {
+      setLoadingEnroll(null);
+    }
+  };
 
   const gradientColors = [
     'linear-gradient(135deg, rgba(124,58,237,0.2) 0%, rgba(6,182,212,0.1) 100%)',
@@ -19,96 +67,141 @@ export default function Explore() {
     'linear-gradient(135deg, rgba(16,185,129,0.2) 0%, rgba(245,158,11,0.1) 100%)',
     'linear-gradient(135deg, rgba(245,158,11,0.2) 0%, rgba(236,72,153,0.1) 100%)',
     'linear-gradient(135deg, rgba(236,72,153,0.2) 0%, rgba(99,102,241,0.1) 100%)',
-    'linear-gradient(135deg, rgba(99,102,241,0.2) 0%, rgba(124,58,237,0.1) 100%)'
-  ]
+    'linear-gradient(135deg, rgba(99,102,241,0.2) 0%, rgba(124,58,237,0.1) 100%)',
+  ];
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      <div className="hf-top">
-        <input
-          type="text"
-          className="hf-search"
-          placeholder="Buscar cursos..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <div className="hf-actions">
-          <span className="pill">Filtrar</span>
+    <div className="container-fluid py-2">
+      {/* Top Search Bar */}
+      <div className="row mb-4">
+        <div className="col-12">
+          <div className="input-group input-group-lg bg-black border border-secondary rounded shadow-sm">
+            <span className="input-group-text bg-transparent border-0 text-muted">
+              <SearchIcon size={20} />
+            </span>
+            <input
+              type="text"
+              className="form-control bg-transparent border-0 text-white"
+              placeholder="Buscar por títulos de cursos, descrição ou instrutores..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              style={{ boxShadow: 'none' }}
+            />
+          </div>
         </div>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-        <div>
-          <h1 style={{ fontSize: '28px', fontWeight: '800', background: 'linear-gradient(135deg, #fff 0%, #a5b4fc 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', margin: '0 0 8px 0' }}>Explorar Cursos</h1>
-          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '16px' }}>
+      {/* Title & Category Filters */}
+      <div className="mb-4">
+        <h2 className="fw-bold text-light mb-3">Catálogo de Cursos</h2>
+        <div className="d-flex gap-2 flex-wrap">
+          <button
+            onClick={() => setActiveCategory('Todos')}
+            className={`btn rounded-pill px-3 py-2 fw-semibold ${
+              activeCategory === 'Todos' ? 'btn-primary text-white' : 'btn-outline-secondary text-light'
+            }`}
+            style={{ fontSize: '13px' }}
+          >
+            Todos Cursos
+          </button>
+          {categorias.map((cat) => (
             <button
-              onClick={() => setActiveCategory('Todos')}
-              style={{
-                padding: '8px 16px',
-                borderRadius: '999px',
-                background: activeCategory === 'Todos' ? 'linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%)' : 'rgba(255,255,255,0.05)',
-                color: activeCategory === 'Todos' ? 'white' : 'var(--text-secondary)',
-                fontSize: '13px',
-                fontWeight: '600',
-                cursor: 'pointer',
-                border: '1px solid ' + (activeCategory === 'Todos' ? 'transparent' : 'rgba(255,255,255,0.08)'),
-                transition: 'all 0.2s ease',
-              }}
+              key={cat.idCategoria}
+              onClick={() => setActiveCategory(cat.nome)}
+              className={`btn rounded-pill px-3 py-2 fw-semibold ${
+                activeCategory === cat.nome ? 'btn-primary text-white' : 'btn-outline-secondary text-light'
+              }`}
+              style={{ fontSize: '13px' }}
             >
-              Todos
+              {cat.nome}
             </button>
-            {categorias.map(cat => (
-              <button
-                key={cat.idCategoria}
-                onClick={() => setActiveCategory(cat.nome)}
-                style={{
-                  padding: '8px 16px',
-                  borderRadius: '999px',
-                  background: activeCategory === cat.nome ? 'linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%)' : 'rgba(255,255,255,0.05)',
-                  color: activeCategory === cat.nome ? 'white' : 'var(--text-secondary)',
-                  fontSize: '13px',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  border: '1px solid ' + (activeCategory === cat.nome ? 'transparent' : 'rgba(255,255,255,0.08)'),
-                  transition: 'all 0.2s ease',
-                }}
-              >
-                {cat.nome}
-              </button>
-            ))}
-          </div>
+          ))}
         </div>
+      </div>
 
-        {displayedCourses.length === 0 ? (
-          <div className="hf-card" style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>
-            Nenhum curso encontrado nesta categoria ou busca.
-          </div>
-        ) : (
-          <div className="hf-cards" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
-            {displayedCourses.map((c, index) => {
-              const bgGradient = gradientColors[index % gradientColors.length]
-              return (
-                <Link key={c.idCurso} to={`/course/${c.idCurso}`} style={{ textDecoration: 'none' }}>
-                  <div className="hf-card hf-card-recommended" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', cursor: 'pointer' }}>
-                    <div>
-                      <div style={{ height: '120px', borderRadius: '12px', background: bgGradient, marginBottom: '12px', border: '1px solid rgba(255,255,255,0.04)' }} />
-                      <h3 style={{ margin: '0 0 6px 0', fontSize: '15px', fontWeight: '700', color: 'var(--text-primary)' }}>{c.titulo}</h3>
-                      <p style={{ margin: '0 0 8px 0', fontSize: '12px', color: 'var(--text-muted)' }}>por {c.instrutor?.nome}</p>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px', paddingTop: '12px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-                      <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{formatNivel(c.nivel)}</span>
-                      <span style={{ fontSize: '13px', fontWeight: '600', color: 'var(--accent-secondary)', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <StarIcon size={12} fill="#f59e0b" style={{ color: '#f59e0b' }} />
-                        4.8
-                      </span>
+      {/* Courses Cards Grid */}
+      {displayedCourses.length === 0 ? (
+        <div className="card border-secondary bg-black bg-opacity-25 text-white p-5 text-center shadow-sm">
+          <span className="fs-1 d-block mb-3">🔍</span>
+          <h4 className="fw-semibold">Nenhum curso encontrado</h4>
+          <p className="text-muted">Tente ajustar os termos de busca ou mudar a categoria selecionada.</p>
+        </div>
+      ) : (
+        <div className="row g-4">
+          {displayedCourses.map((c, index) => {
+            const bgGradient = gradientColors[index % gradientColors.length];
+            const isEnrolled = matriculas.some(
+              (m) => m.idUsuario === currentUser.idUsuario && m.idCurso === c.idCurso
+            );
+            const instrutorName = usuarios.find((u) => u.idUsuario === c.idInstrutor)?.nome || 'Instrutor';
+
+            return (
+              <div className="col-md-6 col-lg-4" key={c.idCurso}>
+                <div className="card bg-black border border-secondary text-white h-100 shadow-sm hover-card d-flex flex-column justify-content-between">
+                  <div>
+                    {/* Header Image box */}
+                    <div
+                      className="w-100 rounded-top"
+                      style={{
+                        height: '130px',
+                        background: bgGradient,
+                        borderBottom: '1px solid rgba(255,255,255,0.05)',
+                      }}
+                    />
+                    
+                    <div className="p-4">
+                      <div className="d-flex justify-content-between align-items-center mb-2">
+                        <span className="badge bg-secondary text-uppercase" style={{ fontSize: '8px' }}>
+                          {c.nivel}
+                        </span>
+                        <span className="small text-muted" style={{ fontSize: '11px' }}>
+                          {c.totalHoras}h de carga
+                        </span>
+                      </div>
+                      
+                      <h5 className="card-title fw-bold text-light mb-2">{c.titulo}</h5>
+                      <p className="text-muted small mb-3 text-truncate-3" style={{ height: '54px', overflow: 'hidden' }}>
+                        {c.descricao}
+                      </p>
+                      <p className="text-muted small mb-0">Instrutor: <strong className="text-light">{instrutorName}</strong></p>
                     </div>
                   </div>
-                </Link>
-              )
-            })}
-          </div>
-        )}
-      </div>
+
+                  <div className="p-4 pt-0 border-top border-secondary border-opacity-25 mt-3">
+                    <div className="d-flex justify-content-between align-items-center mb-3 pt-3">
+                      <span className="text-muted small">{c.totalAulas} aulas</span>
+                      <span className="small text-warning d-flex align-items-center gap-1">
+                        <StarIcon size={12} fill="#ffc107" /> 4.9
+                      </span>
+                    </div>
+
+                    {isEnrolled ? (
+                      <button
+                        onClick={() => navigate(`/player/${c.idCurso}`)}
+                        className="btn btn-outline-primary w-100 fw-semibold d-flex align-items-center justify-content-center gap-2"
+                      >
+                        <PlayIcon size={14} fill="currentColor" /> Acessar Curso
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => handleEnroll(c.idCurso)}
+                        disabled={loadingEnroll === c.idCurso}
+                        className="btn btn-primary w-100 fw-semibold"
+                      >
+                        {loadingEnroll === c.idCurso ? (
+                          <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        ) : (
+                          'Matricular-se'
+                        )}
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
-  )
+  );
 }
