@@ -12,6 +12,14 @@ export default function AdminDashboard() {
     modulos,
     aulas,
     trilhas,
+    trilhasCursos,
+    pagamentos,
+    matriculas,
+    avaliacoes,
+    assinaturas,
+    planos,
+    certificados,
+    progressoAulas,
     refreshData,
     showAlert,
     showConfirm,
@@ -21,7 +29,16 @@ export default function AdminDashboard() {
   const editCourseId = searchParams.get('edit');
   const tabParam = searchParams.get('tab');
 
-  const [activeTab, setActiveTab] = useState<'users' | 'categories' | 'courses' | 'modules' | 'trilhas'>('users');
+  // Stats Calculations
+  const totalRevenue = pagamentos.reduce((sum, p) => sum + Number(p.valor), 0);
+  const activeStudentsCount = usuarios.filter((u) => u.perfil === 'aluno' && u.ativo).length;
+  const totalMatriculas = matriculas.length;
+  const averageSatisfaction =
+    avaliacoes.length > 0
+      ? (avaliacoes.reduce((sum, r) => sum + Number(r.nota), 0) / avaliacoes.length).toFixed(1)
+      : '0.0';
+
+  const [activeTab, setActiveTab] = useState<'users' | 'categories' | 'courses' | 'modules' | 'trilhas' | 'planos' | 'assinaturas' | 'avaliacoes'>('users');
   const [submitting, setSubmitting] = useState(false);
 
   // --- FORM STATES ---
@@ -29,6 +46,14 @@ export default function AdminDashboard() {
   const [userNome, setUserNome] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPerfil, setUserPerfil] = useState<'aluno' | 'instrutor' | 'administrador'>('aluno');
+  const [editingUserId, setEditingUserId] = useState<string | null>(null);
+
+  // Planos Form
+  const [planoNome, setPlanoNome] = useState('');
+  const [planoDesc, setPlanoDesc] = useState('');
+  const [planoPreco, setPlanoPreco] = useState(0);
+  const [planoDuracao, setPlanoDuracao] = useState(1);
+  const [editingPlanoId, setEditingPlanoId] = useState<string | null>(null);
 
   // Categories Form
   const [catNome, setCatNome] = useState('');
@@ -130,29 +155,178 @@ export default function AdminDashboard() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      const generatedId = `u-${Date.now()}`;
-      const newUser = {
-        id: generatedId,
-        idUsuario: generatedId,
-        nome: userNome,
-        email: userEmail,
-        perfil: userPerfil,
-        senhaHash: '123456',
-        ativo: true,
-        dataCriacao: new Date(),
-        dataAlteracao: new Date(),
-      };
-      await api.createUsuario(newUser);
-      await refreshData();
-      showAlert('Usuário cadastrado com sucesso!', 'success');
-      setUserNome('');
-      setUserEmail('');
+      if (editingUserId) {
+        await api.updateUsuario(editingUserId, {
+          nome: userNome,
+          email: userEmail,
+          perfil: userPerfil,
+          dataAlteracao: new Date(),
+        });
+        await refreshData();
+        showAlert('Usuário atualizado com sucesso!', 'success');
+        setEditingUserId(null);
+        setUserNome('');
+        setUserEmail('');
+        setUserPerfil('aluno');
+      } else {
+        const generatedId = `u-${Date.now()}`;
+        const newUser = {
+          id: generatedId,
+          idUsuario: generatedId,
+          nome: userNome,
+          email: userEmail,
+          perfil: userPerfil,
+          senhaHash: '123456',
+          ativo: true,
+          dataCriacao: new Date(),
+          dataAlteracao: new Date(),
+        };
+        await api.createUsuario(newUser);
+        await refreshData();
+        showAlert('Usuário cadastrado com sucesso!', 'success');
+        setUserNome('');
+        setUserEmail('');
+        setUserPerfil('aluno');
+      }
     } catch (err) {
       console.error(err);
-      showAlert('Erro ao cadastrar usuário.', 'error');
+      showAlert('Erro ao salvar usuário.', 'error');
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const handleDeleteUser = async (userId: string) => {
+    showConfirm(
+      'Tem certeza de que deseja excluir este usuário? Esta ação é irreversível.',
+      async () => {
+        try {
+          await api.deleteUsuario(userId);
+          await refreshData();
+          showAlert('Usuário excluído com sucesso!', 'success');
+          if (editingUserId === userId) {
+            setEditingUserId(null);
+            setUserNome('');
+            setUserEmail('');
+            setUserPerfil('aluno');
+          }
+        } catch (err) {
+          console.error(err);
+          showAlert('Erro ao excluir usuário.', 'error');
+        }
+      }
+    );
+  };
+
+  const handleCreatePlano = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    try {
+      if (editingPlanoId) {
+        await api.updatePlano(editingPlanoId, {
+          nome: planoNome,
+          descricao: planoDesc,
+          preco: Number(planoPreco),
+          duracaoMeses: Number(planoDuracao),
+        });
+        await refreshData();
+        showAlert('Plano atualizado com sucesso!', 'success');
+        setEditingPlanoId(null);
+      } else {
+        const generatedId = `pl-${Date.now()}`;
+        const newPlano = {
+          id: generatedId,
+          idPlano: generatedId,
+          nome: planoNome,
+          descricao: planoDesc,
+          preco: Number(planoPreco),
+          duracaoMeses: Number(planoDuracao),
+        };
+        await api.createPlano(newPlano);
+        await refreshData();
+        showAlert('Plano cadastrado com sucesso!', 'success');
+      }
+      setPlanoNome('');
+      setPlanoDesc('');
+      setPlanoPreco(0);
+      setPlanoDuracao(1);
+    } catch (err) {
+      console.error(err);
+      showAlert('Erro ao salvar plano.', 'error');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleDeletePlano = async (planoId: string) => {
+    showConfirm(
+      'Tem certeza de que deseja excluir este plano?',
+      async () => {
+        try {
+          await api.deletePlano(planoId);
+          await refreshData();
+          showAlert('Plano excluído com sucesso!', 'success');
+          if (editingPlanoId === planoId) {
+            setEditingPlanoId(null);
+            setPlanoNome('');
+            setPlanoDesc('');
+            setPlanoPreco(0);
+            setPlanoDuracao(1);
+          }
+        } catch (err) {
+          console.error(err);
+          showAlert('Erro ao excluir plano.', 'error');
+        }
+      }
+    );
+  };
+
+  const handleDeleteAssinatura = async (assinaturaId: string) => {
+    showConfirm(
+      'Tem certeza de que deseja cancelar esta assinatura?',
+      async () => {
+        try {
+          await api.deleteAssinatura(assinaturaId);
+          await refreshData();
+          showAlert('Assinatura cancelada com sucesso!', 'success');
+        } catch (err) {
+          console.error(err);
+          showAlert('Erro ao cancelar assinatura.', 'error');
+        }
+      }
+    );
+  };
+
+  const handleDeleteAvaliacao = async (avaliacaoId: string) => {
+    showConfirm(
+      'Tem certeza de que deseja excluir esta avaliação?',
+      async () => {
+        try {
+          await api.deleteAvaliacao(avaliacaoId);
+          await refreshData();
+          showAlert('Avaliação excluída com sucesso!', 'success');
+        } catch (err) {
+          console.error(err);
+          showAlert('Erro ao excluir avaliação.', 'error');
+        }
+      }
+    );
+  };
+
+  const handleDeleteTrilhaCurso = async (tcId: string) => {
+    showConfirm(
+      'Tem certeza de que deseja desvincular este curso da trilha?',
+      async () => {
+        try {
+          await api.deleteTrilhaCurso(tcId);
+          await refreshData();
+          showAlert('Curso desvinculado da trilha com sucesso!', 'success');
+        } catch (err) {
+          console.error(err);
+          showAlert('Erro ao desvincular curso.', 'error');
+        }
+      }
+    );
   };
 
   const handleCreateCategory = async (e: React.FormEvent) => {
@@ -508,6 +682,38 @@ export default function AdminDashboard() {
         <p className="text-muted">Crie e edite cursos, categorias, usuários e configure as trilhas de conhecimento.</p>
       </div>
 
+      {/* Metrics Cards Grid */}
+      <div className="row g-3 mb-4">
+        <div className="col-md-3">
+          <div className="card bg-black border border-secondary text-white p-3 shadow-sm hover-card">
+            <span className="text-muted small d-block mb-1">Faturamento Geral</span>
+            <h4 className="fw-bold text-success mb-1">R$ {totalRevenue.toFixed(2)}</h4>
+            <span className="text-muted" style={{ fontSize: '10px' }}>Total acumulado de assinaturas</span>
+          </div>
+        </div>
+        <div className="col-md-3">
+          <div className="card bg-black border border-secondary text-white p-3 shadow-sm hover-card">
+            <span className="text-muted small d-block mb-1">Alunos Ativos</span>
+            <h4 className="fw-bold text-primary mb-1">{activeStudentsCount}</h4>
+            <span className="text-muted" style={{ fontSize: '10px' }}>Usuários estudantes cadastrados</span>
+          </div>
+        </div>
+        <div className="col-md-3">
+          <div className="card bg-black border border-secondary text-white p-3 shadow-sm hover-card">
+            <span className="text-muted small d-block mb-1">Total de Matrículas</span>
+            <h4 className="fw-bold text-warning mb-1">{totalMatriculas}</h4>
+            <span className="text-muted" style={{ fontSize: '10px' }}>Matrículas em andamento</span>
+          </div>
+        </div>
+        <div className="col-md-3">
+          <div className="card bg-black border border-secondary text-white p-3 shadow-sm hover-card">
+            <span className="text-muted small d-block mb-1">Satisfação Média</span>
+            <h4 className="fw-bold text-light mb-1">★ {averageSatisfaction} / 5.0</h4>
+            <span className="text-muted" style={{ fontSize: '10px' }}>Nota média das avaliações</span>
+          </div>
+        </div>
+      </div>
+
       {/* Tabs navigation */}
       <ul className="nav nav-tabs border-secondary mb-4">
         <li className="nav-item">
@@ -550,6 +756,30 @@ export default function AdminDashboard() {
             Trilhas
           </button>
         </li>
+        <li className="nav-item">
+          <button
+            onClick={() => setActiveTab('planos')}
+            className={`nav-link border-0 fw-semibold text-light ${activeTab === 'planos' ? 'active bg-primary' : 'bg-transparent'}`}
+          >
+            Planos
+          </button>
+        </li>
+        <li className="nav-item">
+          <button
+            onClick={() => setActiveTab('assinaturas')}
+            className={`nav-link border-0 fw-semibold text-light ${activeTab === 'assinaturas' ? 'active bg-primary' : 'bg-transparent'}`}
+          >
+            Assinaturas
+          </button>
+        </li>
+        <li className="nav-item">
+          <button
+            onClick={() => setActiveTab('avaliacoes')}
+            className={`nav-link border-0 fw-semibold text-light ${activeTab === 'avaliacoes' ? 'active bg-primary' : 'bg-transparent'}`}
+          >
+            Avaliações
+          </button>
+        </li>
       </ul>
 
       {/* Tab Panels */}
@@ -559,7 +789,7 @@ export default function AdminDashboard() {
           <div className="row g-4">
             <div className="col-lg-5">
               <div className="card bg-black border border-secondary text-white p-4 shadow-sm">
-                <h5 className="fw-bold mb-3">Cadastrar Novo Usuário</h5>
+                <h5 className="fw-bold mb-3">{editingUserId ? 'Editar Usuário' : 'Cadastrar Novo Usuário'}</h5>
                 <form onSubmit={handleCreateUser}>
                   <div className="mb-3">
                     <label className="form-label small text-muted mb-1">Nome Completo</label>
@@ -594,8 +824,22 @@ export default function AdminDashboard() {
                     </select>
                   </div>
                   <button type="submit" disabled={submitting} className="btn btn-primary w-100 fw-semibold">
-                    Cadastrar Usuário
+                    {editingUserId ? 'Salvar Alterações' : 'Cadastrar Usuário'}
                   </button>
+                  {editingUserId && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditingUserId(null);
+                        setUserNome('');
+                        setUserEmail('');
+                        setUserPerfil('aluno');
+                      }}
+                      className="btn btn-outline-secondary w-100 mt-2 fw-semibold text-light"
+                    >
+                      Cancelar Edição
+                    </button>
+                  )}
                 </form>
               </div>
             </div>
@@ -609,6 +853,8 @@ export default function AdminDashboard() {
                         <th className="border-secondary text-muted small">Nome</th>
                         <th className="border-secondary text-muted small">E-mail</th>
                         <th className="border-secondary text-muted small">Perfil</th>
+                        <th className="border-secondary text-muted small">Status</th>
+                        <th className="border-secondary text-muted small text-end">Ações</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -617,6 +863,32 @@ export default function AdminDashboard() {
                           <td className="border-secondary text-light fw-semibold">{u.nome}</td>
                           <td className="border-secondary text-muted small">{u.email}</td>
                           <td className="border-secondary text-capitalize text-muted small">{u.perfil}</td>
+                          <td className="border-secondary small">
+                            <span className={`badge ${u.ativo ? 'bg-success' : 'bg-danger'}`}>
+                              {u.ativo ? 'Ativo' : 'Inativo'}
+                            </span>
+                          </td>
+                          <td className="border-secondary text-end small">
+                            <button
+                              onClick={() => {
+                                setEditingUserId(u.idUsuario);
+                                setUserNome(u.nome);
+                                setUserEmail(u.email);
+                                setUserPerfil(u.perfil);
+                              }}
+                              className="btn btn-sm btn-outline-primary me-2"
+                            >
+                              Editar
+                            </button>
+                            <button
+                              onClick={() => handleDeleteUser(u.idUsuario)}
+                              className="btn btn-sm btn-outline-danger"
+                              disabled={u.idUsuario === currentUser?.idUsuario}
+                              title={u.idUsuario === currentUser?.idUsuario ? 'Não é possível excluir o próprio usuário' : ''}
+                            >
+                              Excluir
+                            </button>
+                          </td>
                         </tr>
                       ))}
                     </tbody>
@@ -1268,7 +1540,7 @@ export default function AdminDashboard() {
 
             {/* Link Course to Trail */}
             <div className="col-lg-6">
-              <div className="card bg-black border border-secondary text-white p-4 shadow-sm">
+              <div className="card bg-black border border-secondary text-white p-4 shadow-sm mb-4">
                 <h5 className="fw-bold mb-3">Vincular Curso à Trilha</h5>
                 <form onSubmit={handleLinkCourseToTrail}>
                   <div className="row g-2 mb-3">
@@ -1313,6 +1585,276 @@ export default function AdminDashboard() {
                     Vincular Curso
                   </button>
                 </form>
+              </div>
+
+              {/* Trilha-Curso Linkages List */}
+              <div className="card bg-black border border-secondary text-white p-3 shadow-sm">
+                <h5 className="fw-bold pb-2 mb-3 border-bottom border-secondary">Vínculos Trilha ↔ Curso</h5>
+                <div className="table-responsive" style={{ maxHeight: '300px' }}>
+                  <table className="table table-dark table-striped table-hover mb-0 align-middle">
+                    <thead>
+                      <tr>
+                        <th className="border-secondary text-muted small">Trilha</th>
+                        <th className="border-secondary text-muted small">Curso</th>
+                        <th className="border-secondary text-muted small">Ordem</th>
+                        <th className="border-secondary text-muted small text-end">Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {trilhasCursos.map((tc) => {
+                        const trilha = trilhas.find(t => t.idTrilha === tc.idTrilha);
+                        const curso = cursos.find(c => c.idCurso === tc.idCurso);
+                        const tcId = (tc as any).id || `${tc.idTrilha}-${tc.idCurso}`;
+                        return (
+                          <tr key={tcId}>
+                            <td className="border-secondary text-light small">{trilha?.titulo || tc.idTrilha}</td>
+                            <td className="border-secondary text-muted small">{curso?.titulo || tc.idCurso}</td>
+                            <td className="border-secondary text-muted small">{tc.ordem}</td>
+                            <td className="border-secondary text-end small">
+                              <button
+                                onClick={() => handleDeleteTrilhaCurso(tcId)}
+                                className="btn btn-sm btn-outline-danger"
+                              >
+                                Desvincular
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* PLANOS TAB */}
+        {activeTab === 'planos' && (
+          <div className="row g-4">
+            <div className="col-lg-5">
+              <div className="card bg-black border border-secondary text-white p-4 shadow-sm">
+                <h5 className="fw-bold mb-3">{editingPlanoId ? 'Editar Plano' : 'Cadastrar Novo Plano'}</h5>
+                <form onSubmit={handleCreatePlano}>
+                  <div className="mb-3">
+                    <label className="form-label small text-muted mb-1">Nome do Plano</label>
+                    <input
+                      type="text"
+                      className="form-control bg-dark text-light border-secondary"
+                      required
+                      value={planoNome}
+                      onChange={(e) => setPlanoNome(e.target.value)}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label small text-muted mb-1">Descrição</label>
+                    <textarea
+                      className="form-control bg-dark text-light border-secondary"
+                      rows={2}
+                      required
+                      value={planoDesc}
+                      onChange={(e) => setPlanoDesc(e.target.value)}
+                    />
+                  </div>
+                  <div className="row g-2 mb-4">
+                    <div className="col-6">
+                      <label className="form-label small text-muted mb-1">Preço (R$)</label>
+                      <input
+                        type="number"
+                        step="0.01"
+                        className="form-control bg-dark text-light border-secondary"
+                        required
+                        value={planoPreco}
+                        onChange={(e) => setPlanoPreco(Number(e.target.value))}
+                      />
+                    </div>
+                    <div className="col-6">
+                      <label className="form-label small text-muted mb-1">Duração (meses)</label>
+                      <input
+                        type="number"
+                        className="form-control bg-dark text-light border-secondary"
+                        required
+                        min={1}
+                        value={planoDuracao}
+                        onChange={(e) => setPlanoDuracao(Number(e.target.value))}
+                      />
+                    </div>
+                  </div>
+                  <button type="submit" disabled={submitting} className="btn btn-primary w-100 fw-semibold">
+                    {editingPlanoId ? 'Salvar Alterações' : 'Cadastrar Plano'}
+                  </button>
+                  {editingPlanoId && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditingPlanoId(null);
+                        setPlanoNome('');
+                        setPlanoDesc('');
+                        setPlanoPreco(0);
+                        setPlanoDuracao(1);
+                      }}
+                      className="btn btn-outline-secondary w-100 mt-2 fw-semibold text-light"
+                    >
+                      Cancelar Edição
+                    </button>
+                  )}
+                </form>
+              </div>
+            </div>
+            <div className="col-lg-7">
+              <div className="card bg-black border border-secondary text-white p-3 shadow-sm">
+                <h5 className="fw-bold pb-2 mb-3 border-bottom border-secondary">Planos Cadastrados</h5>
+                <div className="table-responsive" style={{ maxHeight: '400px' }}>
+                  <table className="table table-dark table-striped table-hover mb-0 align-middle">
+                    <thead>
+                      <tr>
+                        <th className="border-secondary text-muted small">Nome</th>
+                        <th className="border-secondary text-muted small">Preço</th>
+                        <th className="border-secondary text-muted small">Duração</th>
+                        <th className="border-secondary text-muted small text-end">Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {planos.map((p) => (
+                        <tr key={p.idPlano}>
+                          <td className="border-secondary text-light fw-semibold">{p.nome}</td>
+                          <td className="border-secondary text-success small">
+                            {p.preco === 0 ? 'Grátis' : `R$ ${Number(p.preco).toFixed(2)}`}
+                          </td>
+                          <td className="border-secondary text-muted small">{p.duracaoMeses} {p.duracaoMeses === 1 ? 'mês' : 'meses'}</td>
+                          <td className="border-secondary text-end small">
+                            <button
+                              onClick={() => {
+                                setEditingPlanoId(p.idPlano);
+                                setPlanoNome(p.nome);
+                                setPlanoDesc(p.descricao);
+                                setPlanoPreco(p.preco);
+                                setPlanoDuracao(p.duracaoMeses);
+                              }}
+                              className="btn btn-sm btn-outline-primary me-2"
+                            >
+                              Editar
+                            </button>
+                            <button
+                              onClick={() => handleDeletePlano(p.idPlano)}
+                              className="btn btn-sm btn-outline-danger"
+                            >
+                              Excluir
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ASSINATURAS TAB */}
+        {activeTab === 'assinaturas' && (
+          <div className="row g-4">
+            <div className="col-12">
+              <div className="card bg-black border border-secondary text-white p-3 shadow-sm">
+                <h5 className="fw-bold pb-2 mb-3 border-bottom border-secondary">Assinaturas Ativas</h5>
+                <div className="table-responsive" style={{ maxHeight: '500px' }}>
+                  <table className="table table-dark table-striped table-hover mb-0 align-middle">
+                    <thead>
+                      <tr>
+                        <th className="border-secondary text-muted small">Usuário</th>
+                        <th className="border-secondary text-muted small">Plano</th>
+                        <th className="border-secondary text-muted small">Início</th>
+                        <th className="border-secondary text-muted small">Fim</th>
+                        <th className="border-secondary text-muted small">Status</th>
+                        <th className="border-secondary text-muted small text-end">Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {assinaturas.map((a) => {
+                        const user = usuarios.find(u => u.idUsuario === a.idUsuario);
+                        const plano = planos.find(p => p.idPlano === a.idPlano);
+                        const isExpired = new Date(a.dataFim) < new Date();
+                        return (
+                          <tr key={a.idAssinatura}>
+                            <td className="border-secondary text-light fw-semibold">{user?.nome || a.idUsuario}</td>
+                            <td className="border-secondary text-muted small">{plano?.nome || a.idPlano}</td>
+                            <td className="border-secondary text-muted small">{new Date(a.dataInicio).toLocaleDateString('pt-BR')}</td>
+                            <td className="border-secondary text-muted small">{new Date(a.dataFim).toLocaleDateString('pt-BR')}</td>
+                            <td className="border-secondary small">
+                              <span className={`badge ${isExpired ? 'bg-danger' : 'bg-success'}`}>
+                                {isExpired ? 'Expirada' : 'Ativa'}
+                              </span>
+                            </td>
+                            <td className="border-secondary text-end small">
+                              <button
+                                onClick={() => handleDeleteAssinatura(a.idAssinatura)}
+                                className="btn btn-sm btn-outline-danger"
+                              >
+                                Cancelar
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* AVALIACOES TAB */}
+        {activeTab === 'avaliacoes' && (
+          <div className="row g-4">
+            <div className="col-12">
+              <div className="card bg-black border border-secondary text-white p-3 shadow-sm">
+                <h5 className="fw-bold pb-2 mb-3 border-bottom border-secondary">Avaliações dos Cursos</h5>
+                <div className="table-responsive" style={{ maxHeight: '500px' }}>
+                  <table className="table table-dark table-striped table-hover mb-0 align-middle">
+                    <thead>
+                      <tr>
+                        <th className="border-secondary text-muted small">Usuário</th>
+                        <th className="border-secondary text-muted small">Curso</th>
+                        <th className="border-secondary text-muted small">Nota</th>
+                        <th className="border-secondary text-muted small">Comentário</th>
+                        <th className="border-secondary text-muted small">Data</th>
+                        <th className="border-secondary text-muted small text-end">Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {avaliacoes.map((av) => {
+                        const user = usuarios.find(u => u.idUsuario === av.idUsuario);
+                        const curso = cursos.find(c => c.idCurso === av.idCurso);
+                        return (
+                          <tr key={av.idAvaliacao}>
+                            <td className="border-secondary text-light fw-semibold">{user?.nome || av.idUsuario}</td>
+                            <td className="border-secondary text-muted small">{curso?.titulo || av.idCurso}</td>
+                            <td className="border-secondary text-warning small">
+                              {'★'.repeat(Number(av.nota))}{'☆'.repeat(5 - Number(av.nota))}
+                              <span className="text-muted ms-1">({av.nota})</span>
+                            </td>
+                            <td className="border-secondary text-muted small" style={{ maxWidth: '250px' }}>
+                              <span className="text-truncate d-inline-block" style={{ maxWidth: '250px' }}>
+                                {av.comentario || '—'}
+                              </span>
+                            </td>
+                            <td className="border-secondary text-muted small">{new Date(av.dataAvaliacao).toLocaleDateString('pt-BR')}</td>
+                            <td className="border-secondary text-end small">
+                              <button
+                                onClick={() => handleDeleteAvaliacao(av.idAvaliacao)}
+                                className="btn btn-sm btn-outline-danger"
+                              >
+                                Excluir
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>

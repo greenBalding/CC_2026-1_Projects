@@ -11,6 +11,7 @@ import Trilhas from './pages/hf/Trilhas';
 import CheckoutPlanos from './pages/hf/CheckoutPlanos';
 import AdminDashboard from './pages/hf/AdminDashboard';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import './index.css';
 
 function AppRoutes() {
@@ -28,20 +29,21 @@ function AppRoutes() {
   }
 
   // Redirect to login if not authenticated
-  if (!currentUser && location.pathname !== '/login') {
+  if (!currentUser && location.pathname !== '/login' && location.pathname !== '/register') {
     return <Navigate to="/login" replace />;
   }
 
-  // Redirect to dashboard if authenticated and trying to access login
-  if (currentUser && location.pathname === '/login') {
+  // Redirect to dashboard if authenticated and trying to access login/register
+  if (currentUser && (location.pathname === '/login' || location.pathname === '/register')) {
     return <Navigate to="/dashboard" replace />;
   }
 
-  // Render Login page standalone (no sidebars/headers)
-  if (location.pathname === '/login') {
+  // Render Login and Register pages standalone (no sidebars/headers)
+  if (location.pathname === '/login' || location.pathname === '/register') {
     return (
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     );

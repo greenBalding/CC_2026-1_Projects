@@ -1,10 +1,12 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { CrownIcon, StarIcon, FlameIcon, TargetIcon, HundredIcon, RocketIcon } from '../../components/Icons';
 
 export default function Profile() {
-  const { currentUser, certificados, matriculas, pagamentos, assinaturas, planos } = useApp();
+  const { currentUser, certificados, matriculas, pagamentos, assinaturas, planos, cursos } = useApp();
   const navigate = useNavigate();
+  const [selectedCert, setSelectedCert] = useState<any>(null);
 
   if (!currentUser) {
     return (
@@ -112,6 +114,39 @@ export default function Profile() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Módulo de Certificados */}
+          <div className="mb-4">
+            <h5 className="fw-bold text-light mb-3">Meus Certificados</h5>
+            <div className="card bg-black border border-secondary text-white p-3 shadow-sm">
+              {userCertificates.length === 0 ? (
+                <div className="text-center text-muted py-4 small">Você ainda não concluiu nenhum curso para gerar certificados.</div>
+              ) : (
+                <div className="row g-3">
+                  {userCertificates.map((cert) => {
+                    const courseObj = cursos.find((c) => c.idCurso === cert.idCurso);
+                    return (
+                      <div className="col-md-6" key={cert.idCertificado}>
+                        <div className="card bg-secondary bg-opacity-10 border-secondary text-white p-3 h-100 d-flex flex-column justify-content-between">
+                          <div>
+                            <h6 className="fw-bold text-primary mb-1">{courseObj?.titulo || 'Curso'}</h6>
+                            <p className="text-muted small mb-2">Concluído em: {new Date(cert.dataEmissao).toLocaleDateString()}</p>
+                            <span className="text-muted font-monospace" style={{ fontSize: '10px' }}>Ref: {cert.codigoVerificacao}</span>
+                          </div>
+                          <button
+                            onClick={() => setSelectedCert(cert)}
+                            className="btn btn-outline-primary btn-sm fw-semibold w-100 mt-3"
+                          >
+                            Visualizar Diploma
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
 
@@ -226,6 +261,86 @@ export default function Profile() {
           </div>
         </div>
       </div>
+
+      {/* Premium Certificate Modal */}
+      {selectedCert && (() => {
+        const certCourse = cursos.find((c) => c.idCurso === selectedCert.idCurso);
+        return (
+          <div className="modal fade show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(8px)', zIndex: 1050 }} role="dialog">
+            <div className="modal-dialog modal-dialog-centered modal-lg">
+              <div className="modal-content bg-black border border-warning border-opacity-50 text-white shadow-lg position-relative">
+                
+                {/* Gold Border Ornament */}
+                <div style={{ position: 'absolute', inset: '15px', border: '2px solid rgba(255, 193, 7, 0.3)', pointerEvents: 'none', borderRadius: '4px' }}></div>
+                
+                <div className="modal-header border-0 pb-0 justify-content-end" style={{ zIndex: 10 }}>
+                  <button type="button" className="btn-close btn-close-white" onClick={() => setSelectedCert(null)} aria-label="Close"></button>
+                </div>
+                
+                <div className="modal-body text-center px-5 py-4" style={{ zIndex: 5 }}>
+                  <div className="mb-4">
+                    <span className="text-warning fw-bold text-uppercase tracking-widest small d-block mb-2" style={{ letterSpacing: '0.25em' }}>
+                      Certificado de Conclusão Acadêmica
+                    </span>
+                    <h1 className="display-6 fw-bold text-light my-3" style={{ fontFamily: 'Georgia, serif' }}>LearnGPT</h1>
+                  </div>
+
+                  <p className="text-muted fst-italic">Certificamos para os devidos fins que o aluno(a)</p>
+                  
+                  <h3 className="fw-bold text-warning my-3" style={{ fontFamily: 'Georgia, serif' }}>
+                    {currentUser.nome}
+                  </h3>
+                  
+                  <p className="text-muted px-4" style={{ maxWidth: '600px', margin: '0 auto', lineHeight: '1.6' }}>
+                    concluiu com êxito os requisitos acadêmicos e práticos estabelecidos para o curso de especialização profissional
+                  </p>
+                  
+                  <h4 className="fw-bold text-light my-3">
+                    "{certCourse?.titulo || 'Curso Especializado'}"
+                  </h4>
+
+                  <p className="text-muted small">
+                    emitido em {new Date(selectedCert.dataEmissao).toLocaleDateString()} com carga horária de {certCourse?.totalHoras || 40} horas.
+                  </p>
+
+                  {/* Stamp Fictitious Graphic */}
+                  <div className="d-flex justify-content-center my-4">
+                    <div className="rounded-circle d-flex flex-column align-items-center justify-content-center border border-warning text-warning" style={{ width: '90px', height: '90px', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.05em', transform: 'rotate(-5deg)', boxShadow: '0 0 15px rgba(255,193,7,0.1)' }}>
+                      <span className="fw-bold">LearnGPT</span>
+                      <hr className="my-1 border-warning w-75" />
+                      <span>OFICIAL</span>
+                      <span>VERIFICADO</span>
+                    </div>
+                  </div>
+
+                  {/* Verification code footer */}
+                  <div className="bg-secondary bg-opacity-10 border border-secondary border-opacity-25 rounded p-2 d-inline-block small">
+                    <span className="text-muted">Código de Autenticidade: </span>
+                    <strong className="text-light font-monospace">{selectedCert.codigoVerificacao}</strong>
+                  </div>
+                </div>
+
+                <div className="modal-footer border-0 pt-0 pb-4 justify-content-center" style={{ zIndex: 10 }}>
+                  <button
+                    type="button"
+                    onClick={() => window.print()}
+                    className="btn btn-warning text-dark fw-bold px-4 shadow-sm"
+                  >
+                    Imprimir / Salvar PDF
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedCert(null)}
+                    className="btn btn-secondary px-4"
+                  >
+                    Fechar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
     </div>
   );
 }

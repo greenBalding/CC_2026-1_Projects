@@ -5,7 +5,7 @@ import { api } from '../../services/api';
 import { StarIcon, PlayIcon, SearchIcon, LockIcon } from '../../components/Icons';
 
 export default function Explore() {
-  const { currentUser, cursos, categorias, matriculas, usuarios, refreshData, showAlert } = useApp();
+  const { currentUser, cursos, categorias, matriculas, usuarios, avaliacoes, refreshData, showAlert } = useApp();
   const navigate = useNavigate();
 
   const [activeCategory, setActiveCategory] = useState('Todos');
@@ -219,9 +219,17 @@ export default function Explore() {
                   <div className="p-4 pt-0 border-top border-secondary border-opacity-25 mt-3">
                     <div className="d-flex justify-content-between align-items-center mb-3 pt-3">
                       <span className="text-muted small">{c.totalAulas} aulas</span>
-                      <span className="small text-warning d-flex align-items-center gap-1">
-                        <StarIcon size={12} fill="#ffc107" /> 4.9
-                      </span>
+                      {(() => {
+                        const courseReviews = avaliacoes.filter((r) => r.idCurso === c.idCurso);
+                        const avgRating = courseReviews.length > 0
+                          ? (courseReviews.reduce((sum, r) => sum + Number(r.nota), 0) / courseReviews.length).toFixed(1)
+                          : '4.8';
+                        return (
+                          <span className="small text-warning d-flex align-items-center gap-1">
+                            <StarIcon size={12} fill="#ffc107" /> {avgRating}
+                          </span>
+                        );
+                      })()}
                     </div>
 
                     {currentUser.perfil === 'administrador' ? (

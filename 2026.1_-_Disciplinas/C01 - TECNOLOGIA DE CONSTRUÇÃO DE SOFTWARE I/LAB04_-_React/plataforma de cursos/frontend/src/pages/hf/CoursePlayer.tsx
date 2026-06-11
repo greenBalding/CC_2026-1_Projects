@@ -16,7 +16,25 @@ export default function CoursePlayer() {
   // Filter modules and lessons for this course
   const courseModules = modulos.filter((m) => m.idCurso === courseId).sort((a, b) => a.ordem - b.ordem);
   const courseModulesIds = courseModules.map((m) => m.idModulo);
-  const courseLessons = aulas.filter((a) => courseModulesIds.includes(a.idModulo)).sort((a, b) => a.ordem - b.ordem);
+  
+  // Sort lessons: first by module order, then by lesson order
+  const courseLessons = aulas
+    .filter((a) => courseModulesIds.includes(a.idModulo))
+    .sort((a, b) => {
+      const modA = courseModules.find((m) => m.idModulo === a.idModulo);
+      const modB = courseModules.find((m) => m.idModulo === b.idModulo);
+      const modOrderA = modA ? modA.ordem : 0;
+      const modOrderB = modB ? modB.ordem : 0;
+      
+      if (modOrderA !== modOrderB) {
+        return modOrderA - modOrderB;
+      }
+      return a.ordem - b.ordem;
+    });
+
+  const currentIdx = activeLesson ? courseLessons.findIndex((l) => l.idAula === activeLesson.idAula) : -1;
+  const prevLesson = currentIdx > 0 ? courseLessons[currentIdx - 1] : null;
+  const nextLesson = currentIdx >= 0 && currentIdx < courseLessons.length - 1 ? courseLessons[currentIdx + 1] : null;
 
   // Set default active lesson on load
   useEffect(() => {
@@ -155,8 +173,23 @@ export default function CoursePlayer() {
 
             {/* Actions Bar under the Video */}
             <div className="d-flex justify-content-between align-items-center mt-3 pt-3 border-top border-secondary border-opacity-25 flex-wrap gap-3">
-              <div className="text-muted small">
-                {activeLesson ? `Duração: ${activeLesson.duracaoMinutos} min` : ''}
+              <div className="d-flex align-items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => prevLesson && setActiveLesson(prevLesson)}
+                  disabled={!prevLesson}
+                  className="btn btn-outline-secondary btn-sm fw-semibold text-light"
+                >
+                  Voltar Aula
+                </button>
+                <button
+                  type="button"
+                  onClick={() => nextLesson && setActiveLesson(nextLesson)}
+                  disabled={!nextLesson}
+                  className="btn btn-outline-secondary btn-sm fw-semibold text-light"
+                >
+                  Avançar Aula
+                </button>
               </div>
 
               {activeLesson && (

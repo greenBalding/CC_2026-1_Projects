@@ -48,6 +48,39 @@ export default function CourseDetails() {
   );
   const isEnrolled = !!userMatricula;
 
+  const [newRating, setNewRating] = useState(5);
+  const [newComment, setNewComment] = useState('');
+  const [submittingReview, setSubmittingReview] = useState(false);
+
+  const hasEvaluated = courseReviews.some((r) => r.idUsuario === currentUser.idUsuario);
+
+  const handleReviewSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newComment.trim()) return;
+    setSubmittingReview(true);
+    try {
+      const reviewRecord = {
+        id: `av-${Date.now()}`,
+        idAvaliacao: `av-${Date.now()}`,
+        idUsuario: currentUser.idUsuario,
+        idCurso: courseId,
+        nota: String(newRating) as "1" | "2" | "3" | "4" | "5",
+        comentario: newComment.trim(),
+        dataAvaliacao: new Date().toISOString().split('T')[0],
+      };
+      await api.createAvaliacao(reviewRecord);
+      await refreshData();
+      showAlert('Sua avaliação foi enviada com sucesso! Obrigado pelo feedback.', 'success');
+      setNewComment('');
+      setNewRating(5);
+    } catch (err) {
+      console.error(err);
+      showAlert('Erro ao enviar avaliação.', 'error');
+    } finally {
+      setSubmittingReview(false);
+    }
+  };
+
   const handleEnroll = async () => {
     setLoadingEnroll(true);
     try {
@@ -273,6 +306,42 @@ export default function CourseDetails() {
                   );
                 })}
               </div>
+            )}
+
+            {isEnrolled && !hasEvaluated && (
+              <form onSubmit={handleReviewSubmit} className="bg-secondary bg-opacity-10 border border-secondary border-opacity-25 rounded p-3 mt-4">
+                <h6 className="fw-bold text-light mb-3">Deixe sua Avaliação</h6>
+                <div className="mb-3">
+                  <label className="form-label small text-muted mb-1 d-block">Nota (1 a 5 estrelas)</label>
+                  <div className="d-flex gap-2">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        type="button"
+                        key={star}
+                        onClick={() => setNewRating(star)}
+                        className="btn btn-sm p-0 border-0"
+                      >
+                        <StarIcon size={24} style={{ color: star <= newRating ? '#ffc107' : '#6c757d' }} />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="mb-3">
+                  <label className="form-label small text-muted mb-1">Comentário</label>
+                  <textarea
+                    rows={3}
+                    className="form-control bg-black text-white border-secondary small"
+                    required
+                    placeholder="Escreva sua opinião sobre o curso..."
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                    disabled={submittingReview}
+                  />
+                </div>
+                <button type="submit" disabled={submittingReview || !newComment.trim()} className="btn btn-primary btn-sm fw-semibold px-4">
+                  {submittingReview ? 'Enviando...' : 'Enviar Avaliação'}
+                </button>
+              </form>
             )}
           </div>
         </div>

@@ -45,6 +45,14 @@ export const api = {
       body: JSON.stringify(data),
     });
   },
+  deleteUsuario: async (idUsuario: string) => {
+    const list = await api.getUsuarios();
+    const found = list.find((u) => u.idUsuario === idUsuario);
+    const dbId = found ? ((found as any).id || found.idUsuario) : idUsuario;
+    return request<void>(`/usuarios/${dbId}`, {
+      method: 'DELETE',
+    });
+  },
 
   // ─── CATEGORIAS ────────────────────────────────────────────────
   getCategorias: () => request<CategoriaModel[]>('/categorias'),
@@ -197,6 +205,23 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(data),
     }),
+  updateAvaliacao: async (idAvaliacao: string, data: Partial<AvaliacaoModel>) => {
+    const list = await api.getAvaliacoes();
+    const found = list.find((a) => a.idAvaliacao === idAvaliacao);
+    const dbId = found ? ((found as any).id || found.idAvaliacao) : idAvaliacao;
+    return request<AvaliacaoModel>(`/avaliacoes/${dbId}`, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    });
+  },
+  deleteAvaliacao: async (idAvaliacao: string) => {
+    const list = await api.getAvaliacoes();
+    const found = list.find((a) => a.idAvaliacao === idAvaliacao);
+    const dbId = found ? ((found as any).id || found.idAvaliacao) : idAvaliacao;
+    return request<void>(`/avaliacoes/${dbId}`, {
+      method: 'DELETE',
+    });
+  },
 
   // ─── TRILHAS ───────────────────────────────────────────────────
   getTrilhas: () => request<TrilhaModel[]>('/trilhas'),
@@ -230,6 +255,17 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(data),
     }),
+  updateTrilhaCurso: async (id: string, data: Partial<TrilhaCursoModel>) => {
+    return request<TrilhaCursoModel>(`/trilhas_cursos/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    });
+  },
+  deleteTrilhaCurso: async (id: string) => {
+    return request<void>(`/trilhas_cursos/${id}`, {
+      method: 'DELETE',
+    });
+  },
 
   // ─── CERTIFICADOS ──────────────────────────────────────────────
   getCertificados: () => request<CertificadoModel[]>('/certificados'),
@@ -241,6 +277,28 @@ export const api = {
 
   // ─── PLANOS ────────────────────────────────────────────────────
   getPlanos: () => request<PlanoModel[]>('/planos'),
+  createPlano: (data: PlanoModel) =>
+    request<PlanoModel>('/planos', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }),
+  updatePlano: async (idPlano: string, data: Partial<PlanoModel>) => {
+    const list = await api.getPlanos();
+    const found = list.find((p) => p.idPlano === idPlano);
+    const dbId = found ? ((found as any).id || found.idPlano) : idPlano;
+    return request<PlanoModel>(`/planos/${dbId}`, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    });
+  },
+  deletePlano: async (idPlano: string) => {
+    const list = await api.getPlanos();
+    const found = list.find((p) => p.idPlano === idPlano);
+    const dbId = found ? ((found as any).id || found.idPlano) : idPlano;
+    return request<void>(`/planos/${dbId}`, {
+      method: 'DELETE',
+    });
+  },
 
   // ─── ASSINATURAS ───────────────────────────────────────────────
   getAssinaturas: () => request<AssinaturaModel[]>('/assinaturas'),
@@ -249,6 +307,23 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(data),
     }),
+  updateAssinatura: async (idAssinatura: string, data: Partial<AssinaturaModel>) => {
+    const list = await api.getAssinaturas();
+    const found = list.find((a) => a.idAssinatura === idAssinatura);
+    const dbId = found ? ((found as any).id || found.idAssinatura) : idAssinatura;
+    return request<AssinaturaModel>(`/assinaturas/${dbId}`, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    });
+  },
+  deleteAssinatura: async (idAssinatura: string) => {
+    const list = await api.getAssinaturas();
+    const found = list.find((a) => a.idAssinatura === idAssinatura);
+    const dbId = found ? ((found as any).id || found.idAssinatura) : idAssinatura;
+    return request<void>(`/assinaturas/${dbId}`, {
+      method: 'DELETE',
+    });
+  },
 
   // ─── PAGAMENTOS ────────────────────────────────────────────────
   getPagamentos: () => request<PagamentoModel[]>('/pagamentos'),
