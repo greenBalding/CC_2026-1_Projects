@@ -1,7 +1,7 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { useApp } from '../../context/AppContext';
+import { useApp } from '../../hooks/useApp';
 import { api } from '../../services/api';
-import { StarIcon, CheckIcon } from '../../components/Icons';
+import { StarIcon, CheckIcon } from '../../components/ui/Icons';
 import { useState } from 'react';
 
 export default function CourseDetails() {

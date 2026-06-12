@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useApp } from '../../context/AppContext';
+import { useApp } from '../../hooks/useApp';
 import { api } from '../../services/api';
-import { BookIcon, TrophyIcon } from '../../components/Icons';
+import { BookIcon, TrophyIcon } from '../../components/ui/Icons';
 
 export default function Cursos() {
   const { currentUser, cursos, matriculas, certificados, usuarios, modulos, aulas, progressoAulas, refreshData, showAlert, showConfirm } = useApp();

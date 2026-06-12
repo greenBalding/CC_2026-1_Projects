@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useApp } from '../../context/AppContext';
-import { CrownIcon, StarIcon, FlameIcon, TargetIcon, HundredIcon, RocketIcon } from '../../components/Icons';
+import { useApp } from '../../hooks/useApp';
+import { CrownIcon, StarIcon, FlameIcon, TargetIcon, HundredIcon, RocketIcon } from '../../components/ui/Icons';
 
 export default function Profile() {
   const { currentUser, certificados, matriculas, pagamentos, assinaturas, planos, cursos } = useApp();

@@ -1,73 +1,113 @@
-# React + TypeScript + Vite
+# LearnGPT — Plataforma de Cursos
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Plataforma de cursos online desenvolvida como projeto da atividade prática da disciplina **LAB04 - React** da disciplina de **Tecnologia de Construção de Software I** (2026.1).
 
-Currently, two official plugins are available:
+## Tecnologias
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+| Camada | Tecnologia |
+|--------|-----------|
+| **Frontend** | React 19 + TypeScript |
+| **Bundler** | Vite 8 |
+| **Estilização** | Bootstrap 5 + React Bootstrap |
+| **Roteamento** | React Router DOM 7 |
+| **Backend (mock)** | JSON Server |
 
-## React Compiler
+## Estrutura do Projeto
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+plataforma de cursos/
+├── backend/                    # Mock da API
+│   └── db.json                 # Banco de dados (JSON Server)
+│
+└── frontend/                   # Aplicação React
+    └── src/
+        ├── components/         # Componentes reutilizáveis
+        │   ├── layout/         # Estrutura da página (sidebar, navbar)
+        │   └── ui/             # Componentes visuais (ícones, modal)
+        ├── context/            # Context API (estado global)
+        ├── hooks/              # Custom hooks
+        ├── models/             # Interfaces/Types do domínio
+        ├── pages/              # Páginas da aplicação
+        │   ├── admin/          # Painel administrativo
+        │   ├── auth/           # Login e Registro
+        │   ├── checkout/       # Planos e pagamento
+        │   ├── cursos/         # Catálogo, detalhes e player
+        │   ├── dashboard/      # Página inicial
+        │   ├── explore/        # Explorar cursos
+        │   ├── profile/        # Perfil do usuário
+        │   └── trilhas/        # Trilhas de aprendizado
+        ├── services/           # Comunicação com a API
+        └── utils/              # Constantes e utilitários
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Como Rodar
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Pré-requisitos
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- [Node.js](https://nodejs.org/) (v18+)
+- npm
+
+### Instalação
+
+```bash
+cd frontend
+npm install
 ```
+
+### Execução
+
+Abra **dois terminais**:
+
+**Terminal 1 — Backend (API mock):**
+```bash
+cd frontend
+npm run server
+```
+> Roda em http://localhost:3001
+
+**Terminal 2 — Frontend:**
+```bash
+cd frontend
+npm run dev
+```
+> Roda em http://localhost:5173
+
+## Perfis de Usuário
+
+| Perfil | Acesso |
+|--------|--------|
+| **Aluno** | Dashboard, cursos, trilhas, perfil |
+| **Instrutor** | Tudo do aluno + painel admin |
+| **Administrador** | Acesso completo (CRUD de todas as entidades) |
+
+### Usuários de Teste
+
+| Nome | Email | Senha | Perfil |
+|------|-------|-------|--------|
+| Aluno Teste 1 | alunoteste1@dbjson.com | 123456 | Aluno |
+| Admin | admin@dbjson.com | 123456 | Administrador |
+| Gemini 3.5 Flash | google@google.com | 123456 | Instrutor |
+| Opus 3.6 (Thinking) | opus@anthropic.com | 123456 | Instrutor |
+
+## Funcionalidades
+
+- Autenticação (login/registro)
+- Dashboard com progresso dos cursos
+- Catálogo de cursos com filtros por categoria e nível
+- Player de aulas com tracking de progresso
+- Trilhas de aprendizado
+- Sistema de avaliações
+- Certificados de conclusão
+- Planos e assinaturas (checkout)
+- Perfil do usuário
+- Painel administrativo (CRUD completo)
+
+## Scripts Disponíveis
+
+| Comando | Descrição |
+|---------|-----------|
+| `npm run dev` | Inicia o servidor de desenvolvimento (Vite) |
+| `npm run server` | Inicia o JSON Server (API mock) |
+| `npm run build` | Gera build de produção |
+| `npm run lint` | Executa o ESLint |
+| `npm run preview` | Preview do build de produção |

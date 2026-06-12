@@ -1,8 +1,8 @@
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { useApp } from '../../context/AppContext';
+import { useApp } from '../../hooks/useApp';
 import { api } from '../../services/api';
-import { PlayIcon, QuizIcon, DocumentIcon, VideoIcon, BookIcon, CheckIcon } from '../../components/Icons';
+import { PlayIcon, QuizIcon, DocumentIcon, VideoIcon, CheckIcon } from '../../components/ui/Icons';
 
 export default function CoursePlayer() {
   const { id } = useParams<{ id: string }>();
@@ -153,19 +153,41 @@ export default function CoursePlayer() {
               }}
             >
               {activeLesson ? (
-                <>
-                  <div className="mb-4">
-                    {activeLesson.tipoConteudo === 'video' ? (
-                      <PlayIcon size={64} fill="currentColor" className="text-primary animate-pulse" />
-                    ) : activeLesson.tipoConteudo === 'quiz' ? (
-                      <QuizIcon size={64} className="text-success" />
-                    ) : (
-                      <DocumentIcon size={64} className="text-info" />
-                    )}
+                activeLesson.tipoConteudo === 'texto' && activeLesson.urlConteudo && activeLesson.urlConteudo !== '#' ? (
+                  <div className="w-100 h-100 d-flex flex-column p-4" style={{ overflowY: 'auto' }}>
+                    <div className="d-flex align-items-center gap-2 mb-3">
+                      <DocumentIcon size={24} className="text-info" />
+                      <h5 className="fw-bold mb-0 text-light">{activeLesson.titulo}</h5>
+                    </div>
+                    <p className="text-light" style={{ lineHeight: '1.8', fontSize: '15px' }}>
+                      {activeLesson.urlConteudo}
+                    </p>
                   </div>
-                  <h4 className="fw-bold text-center px-4">{activeLesson.titulo}</h4>
-                  <span className="text-muted small mt-1">Simulador de reprodutor de mídia ({activeLesson.tipoConteudo})</span>
-                </>
+                ) : activeLesson.tipoConteudo === 'quiz' && activeLesson.urlConteudo && activeLesson.urlConteudo !== '#' ? (
+                  <div className="w-100 h-100 d-flex flex-column p-4" style={{ overflowY: 'auto' }}>
+                    <div className="d-flex align-items-center gap-2 mb-3">
+                      <QuizIcon size={24} className="text-success" />
+                      <h5 className="fw-bold mb-0 text-light">{activeLesson.titulo}</h5>
+                    </div>
+                    <p className="text-light" style={{ lineHeight: '1.8', fontSize: '15px' }}>
+                      {activeLesson.urlConteudo}
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    <div className="mb-4">
+                      {activeLesson.tipoConteudo === 'video' ? (
+                        <PlayIcon size={64} fill="currentColor" className="text-primary animate-pulse" />
+                      ) : activeLesson.tipoConteudo === 'quiz' ? (
+                        <QuizIcon size={64} className="text-success" />
+                      ) : (
+                        <DocumentIcon size={64} className="text-info" />
+                      )}
+                    </div>
+                    <h4 className="fw-bold text-center px-4">{activeLesson.titulo}</h4>
+                    <span className="text-muted small mt-1">Simulador de reprodutor de mídia ({activeLesson.tipoConteudo})</span>
+                  </>
+                )
               ) : (
                 <h5 className="text-muted">Selecione uma aula para reproduzir</h5>
               )}
@@ -214,41 +236,7 @@ export default function CoursePlayer() {
             </div>
           </div>
 
-          {/* Description & Resources */}
-          {activeLesson && (
-            <div className="card bg-black border border-secondary text-white p-4 shadow-sm">
-              <h4 className="fw-bold text-light mb-3">{activeLesson.titulo}</h4>
-              <p className="text-muted" style={{ lineHeight: '1.6' }}>
-                Nesta aula do curso "{curso.titulo}", abordaremos de forma prática e aprofundada os tópicos conceituais. Recomenda-se realizar o acompanhamento dos slides de apoio e exercícios para consolidar a fixação do conteúdo estudado.
-              </p>
 
-              <div className="mt-4 pt-3 border-top border-secondary">
-                <h6 className="fw-semibold text-light mb-3">Materiais de Apoio</h6>
-                <div className="d-flex gap-2 flex-wrap">
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      showAlert('Slides baixados com sucesso!', 'success', 'Materiais de Apoio');
-                    }}
-                    className="btn btn-sm btn-secondary bg-opacity-25 border-secondary text-light d-flex align-items-center gap-2"
-                  >
-                    <DocumentIcon size={14} /> Slides da Aula
-                  </a>
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      showAlert('Repositório clonado com o código da aula!', 'success', 'Código-fonte');
-                    }}
-                    className="btn btn-sm btn-secondary bg-opacity-25 border-secondary text-light d-flex align-items-center gap-2"
-                  >
-                    <BookIcon size={14} /> Arquivos do Código
-                  </a>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Right Side: Progress & Lesson List Accordion */}

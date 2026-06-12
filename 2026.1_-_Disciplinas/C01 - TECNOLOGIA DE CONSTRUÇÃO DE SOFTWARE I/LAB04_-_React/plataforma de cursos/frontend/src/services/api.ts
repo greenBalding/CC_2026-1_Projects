@@ -13,7 +13,7 @@ import type { PlanoModel } from '../models/plano.model';
 import type { AssinaturaModel } from '../models/assinatura.model';
 import type { PagamentoModel } from '../models/pagamento.model';
 
-const API_URL = 'http://localhost:3001';
+import { API_URL } from '../utils/constants';
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_URL}${path}`, {

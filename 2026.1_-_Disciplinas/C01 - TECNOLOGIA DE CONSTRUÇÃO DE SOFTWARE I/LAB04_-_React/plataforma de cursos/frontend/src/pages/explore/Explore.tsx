@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useApp } from '../../context/AppContext';
+import { useApp } from '../../hooks/useApp';
 import { api } from '../../services/api';
-import { StarIcon, PlayIcon, SearchIcon, LockIcon } from '../../components/Icons';
+import { StarIcon, PlayIcon, SearchIcon, LockIcon } from '../../components/ui/Icons';
 
 export default function Explore() {
   const { currentUser, cursos, categorias, matriculas, usuarios, avaliacoes, refreshData, showAlert } = useApp();

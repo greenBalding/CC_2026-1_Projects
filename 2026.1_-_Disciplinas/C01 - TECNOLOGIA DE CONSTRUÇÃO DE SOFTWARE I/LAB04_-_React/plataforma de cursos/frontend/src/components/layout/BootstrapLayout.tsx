@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import type { ReactNode } from 'react';
-import { useApp } from '../context/AppContext';
-import { HomeIcon, SearchIcon, PlayIcon, MapIcon, UserIcon, StarIcon, CrownIcon } from './Icons';
+import { useApp } from '../../hooks/useApp';
+import { HomeIcon, SearchIcon, PlayIcon, MapIcon, UserIcon, StarIcon, CrownIcon } from '../ui/Icons';
 
 interface Props {
   children: ReactNode;

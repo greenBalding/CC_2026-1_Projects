@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useApp } from '../../context/AppContext';
-import { LockIcon } from '../../components/Icons';
+import { useApp } from '../../hooks/useApp';
+import { LockIcon } from '../../components/ui/Icons';
 
 export default function Trilhas() {
   const { trilhas, trilhasCursos, cursos, categorias, usuarios, modulos, aulas } = useApp();

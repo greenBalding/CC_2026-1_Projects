@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useApp } from '../../context/AppContext';
+import { useApp } from '../../hooks/useApp';
 import { api } from '../../services/api';
-import { CheckIcon } from '../../components/Icons';
+import { CheckIcon } from '../../components/ui/Icons';
 
 export default function CheckoutPlanos() {
   const { currentUser, planos, assinaturas, refreshData, showAlert } = useApp();

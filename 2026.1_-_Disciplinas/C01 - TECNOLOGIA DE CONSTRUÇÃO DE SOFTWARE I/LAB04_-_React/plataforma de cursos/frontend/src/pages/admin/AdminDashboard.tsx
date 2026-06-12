@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useApp } from '../../context/AppContext';
+import { useApp } from '../../hooks/useApp';
 import { api } from '../../services/api';
 
 export default function AdminDashboard() {
@@ -18,8 +18,6 @@ export default function AdminDashboard() {
     avaliacoes,
     assinaturas,
     planos,
-    certificados,
-    progressoAulas,
     refreshData,
     showAlert,
     showConfirm,

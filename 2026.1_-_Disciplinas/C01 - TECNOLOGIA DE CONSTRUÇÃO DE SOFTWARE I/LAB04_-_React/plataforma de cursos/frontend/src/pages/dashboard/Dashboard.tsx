@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useApp } from '../../context/AppContext';
-import { StarIcon, PlayIcon, LockIcon } from '../../components/Icons';
+import { useApp } from '../../hooks/useApp';
+import { StarIcon, PlayIcon, LockIcon } from '../../components/ui/Icons';
 
 export default function Dashboard() {
   const { currentUser, cursos, matriculas, progressoAulas, certificados, usuarios, modulos, aulas } = useApp();

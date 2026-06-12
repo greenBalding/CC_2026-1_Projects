@@ -1,17 +1,18 @@
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { AppProvider, useApp } from './context/AppContext';
-import BootstrapLayout from './components/BootstrapLayout';
-import Dashboard from './pages/hf/Dashboard';
-import CoursePlayer from './pages/hf/CoursePlayer';
-import Explore from './pages/hf/Explore';
-import Profile from './pages/hf/Profile';
-import CourseDetails from './pages/hf/CourseDetails';
-import Cursos from './pages/hf/Cursos';
-import Trilhas from './pages/hf/Trilhas';
-import CheckoutPlanos from './pages/hf/CheckoutPlanos';
-import AdminDashboard from './pages/hf/AdminDashboard';
-import Login from './pages/Login';
-import Register from './pages/Register';
+import { AppProvider } from './context/AppContext';
+import { useApp } from './hooks/useApp';
+import BootstrapLayout from './components/layout/BootstrapLayout';
+import Dashboard from './pages/dashboard/Dashboard';
+import CoursePlayer from './pages/cursos/CoursePlayer';
+import Explore from './pages/explore/Explore';
+import Profile from './pages/profile/Profile';
+import CourseDetails from './pages/cursos/CourseDetails';
+import Cursos from './pages/cursos/Cursos';
+import Trilhas from './pages/trilhas/Trilhas';
+import CheckoutPlanos from './pages/checkout/CheckoutPlanos';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import Login from './pages/auth/Login';
+import Register from './pages/auth/Register';
 import './index.css';
 
 function AppRoutes() {

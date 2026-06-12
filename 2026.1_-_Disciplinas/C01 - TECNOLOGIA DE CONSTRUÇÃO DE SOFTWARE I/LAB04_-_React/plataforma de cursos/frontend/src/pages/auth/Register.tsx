@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useApp } from '../context/AppContext';
-import { api } from '../services/api';
+import { useApp } from '../../hooks/useApp';
+import { api } from '../../services/api';
 
 export default function Register() {
   const { usuarios, setCurrentUser, refreshData, showAlert } = useApp();
