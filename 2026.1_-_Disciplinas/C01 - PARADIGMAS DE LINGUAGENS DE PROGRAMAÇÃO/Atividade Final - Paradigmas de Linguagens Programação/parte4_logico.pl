@@ -10,6 +10,7 @@ aluno(daniela,   2024004, 9.0, 9.5, 10.0, 95).
 aluno(amanda,    2024005, 10.0, 9.0, 10.0, 100).
 aluno(guilherme, 2024006, 9.0, 10.0, 10.0, 100).
 aluno(matheus,   2024007, 10.0, 10.0, 9.0, 100).
+aluno(antonio,   2024008, 10.0, 10.0, 10.0, 100).
 
 % ---- 2. Processamento (regras de calculo e classificacao) ----
 

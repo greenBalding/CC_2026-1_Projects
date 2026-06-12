@@ -14,6 +14,7 @@
 \usepackage{enumitem}
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{amsmath}
 
 \geometry{left=2.5cm, right=2.5cm, top=3cm, bottom=3cm}
 
@@ -96,6 +97,7 @@
     {\Large Paradigmas de Linguagens de Programação}\\[0.3cm]
     {\large Sistema de Análise de Desempenho Acadêmico}\\[3cm]
     {\large\textbf{Alunos:}}\\[0.3cm]
+    {\Large Antônio Calixto da Silva}\\
     {\large Amanda Barbosa Ferreira Agapito}\\
     {\large Guilherme José da Silva}\\
     {\large Matheus Silva Pains}\\[2cm]
@@ -146,6 +148,7 @@ Daniela   & 2024004 & 9,0  & 9,5  & 10,0 & 9,50 & 95  & Aprovado \\
 Amanda    & 2024005 & 10,0 & 9,0  & 10,0 & 9,67 & 100 & Aprovado \\
 Guilherme & 2024006 & 9,0  & 10,0 & 10,0 & 9,67 & 100 & Aprovado \\
 Matheus   & 2024007 & 10,0 & 10,0 & 9,0  & 9,67 & 100 & Aprovado \\
+Antonio   & 2024008 & 10,0 & 10,0 & 10,0 & 10,00 & 100 & Aprovado \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -181,8 +184,9 @@ Daniela      2024004      9.50    95    Aprovado
 Amanda       2024005      9.67    100   Aprovado
 Guilherme    2024006      9.67    100   Aprovado
 Matheus      2024007      9.67    100   Aprovado
+Antonio      2024008      10.00   100   Aprovado
 ------------------------------------------------
-Total: 7 | Aprovados: 5 | Reprovados: 2
+Total: 8 | Aprovados: 6 | Reprovados: 2
 \end{lstlisting}
 
 % ===================================================================
@@ -206,9 +210,10 @@ Daniela      2024004      9.0    9.5    10.0   9.50     95     Aprovado
 Amanda       2024005      10.0   9.0    10.0   9.67     100    Aprovado
 Guilherme    2024006      9.0    10.0   10.0   9.67     100    Aprovado
 Matheus      2024007      10.0   10.0   9.0    9.67     100    Aprovado
+Antonio      2024008      10.0   10.0   10.0   10.00    100    Aprovado
 ----------------------------------------------------------------------
-Total de alunos: 7
-Aprovados: 5
+Total de alunos: 8
+Aprovados: 6
 Reprovados: 2
 ======================================================================
 \end{lstlisting}
@@ -234,9 +239,10 @@ Daniela      2024004      9.0    9.5    10.0   9.50     95     Aprovado
 Amanda       2024005      10.0   9.0    10.0   9.67     100    Aprovado
 Guilherme    2024006      9.0    10.0   10.0   9.67     100    Aprovado
 Matheus      2024007      10.0   10.0   9.0    9.67     100    Aprovado
+Antonio      2024008      10.0   10.0   10.0   10.00    100    Aprovado
 ----------------------------------------------------------------------
-Total de alunos: 7
-Aprovados: 5
+Total de alunos: 8
+Aprovados: 6
 Reprovados: 2
 ======================================================================
 
@@ -246,6 +252,7 @@ Reprovados: 2
   Amanda - Media: 9.67
   Guilherme - Media: 9.67
   Matheus - Media: 9.67
+  Antonio - Media: 10.00
 \end{lstlisting}
 
 % ===================================================================
@@ -262,7 +269,8 @@ X = ana ;
 X = daniela ;
 X = amanda ;
 X = guilherme ;
-X = matheus.
+X = matheus ;
+X = antonio.
 
 ?- reprovado(X).
 X = bruno ;
