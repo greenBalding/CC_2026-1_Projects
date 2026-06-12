@@ -70,43 +70,32 @@ export default function BootstrapLayout({ children }: Props) {
               LearnGPT
             </Link>
           </div>
-          
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarContent"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
 
-          <div className="collapse navbar-collapse justify-content-end" id="navbarContent">
-            <div className="d-flex align-items-center gap-3 mt-3 mt-lg-0">
-              {/* Informações do Usuário */}
-              {currentUser && (
-                <Link
-                  to="/profile"
-                  className="d-flex align-items-center gap-2 text-decoration-none text-light"
-                  style={{ transition: 'opacity 0.2s', cursor: 'pointer' }}
-                  onMouseEnter={(e) => e.currentTarget.style.opacity = '0.85'}
-                  onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
-                  title="Acessar Meu Perfil"
+          <div className="d-flex align-items-center gap-3">
+            {/* Informações do Usuário */}
+            {currentUser && (
+              <Link
+                to="/profile"
+                className="d-flex align-items-center gap-2 text-decoration-none text-light"
+                style={{ transition: 'opacity 0.2s', cursor: 'pointer' }}
+                onMouseEnter={(e) => e.currentTarget.style.opacity = '0.85'}
+                onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+                title="Acessar Meu Perfil"
+              >
+                <div
+                  className="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold bg-primary"
+                  style={{ width: '38px', height: '38px', fontSize: '14px' }}
                 >
-                  <div
-                    className="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold bg-primary"
-                    style={{ width: '38px', height: '38px', fontSize: '14px' }}
-                  >
-                    {currentUser.nome.split(' ').map((n) => n[0]).join('')}
+                  {currentUser.nome.split(' ').map((n) => n[0]).join('')}
+                </div>
+                <div className="d-none d-sm-block">
+                  <div className="fw-semibold small lh-1">{currentUser.nome}</div>
+                  <div className="text-muted small mt-1 text-capitalize" style={{ fontSize: '10px' }}>
+                    {isStaff ? currentUser.perfil : (activePlan ? activePlan.nome : 'Conta Gratuita')}
                   </div>
-                  <div className="d-none d-sm-block">
-                    <div className="fw-semibold small lh-1">{currentUser.nome}</div>
-                    <div className="text-muted small mt-1 text-capitalize" style={{ fontSize: '10px' }}>
-                      {isStaff ? currentUser.perfil : (activePlan ? activePlan.nome : 'Conta Gratuita')}
-                    </div>
-                  </div>
-                </Link>
-              )}
-            </div>
+                </div>
+              </Link>
+            )}
           </div>
         </div>
       </nav>
