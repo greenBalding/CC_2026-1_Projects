@@ -1,4 +1,5 @@
-# Parte 2 - Versao Orientada a Objetos (Python)
+# Parte 2 - Implementacao Orientada a Objetos (Python)
+# Sistema de Analise de Desempenho Academico
 
 import os
 
@@ -72,16 +73,8 @@ class Turma:
         print("=" * 70)
 
 
-# ---- 1. Pre-processamento (entrada de dados) ----
-
+# Programa principal
 caminho = os.path.join(os.path.dirname(os.path.abspath(__file__)), "alunos.csv")
 turma = Turma()
 turma.carregar_arquivo(caminho)
-
-# ---- 2. Processamento (calculo e classificacao) ----
-# Os metodos calcular_media() e verificar_aprovacao() da classe Aluno
-# sao chamados dentro de gerar_relatorio()
-
-# ---- 3. Resultado (saida final) ----
-
 turma.gerar_relatorio()

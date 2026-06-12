@@ -1,4 +1,6 @@
-/* Parte 1 - Versao Imperativa em C */
+/*
+ * Parte 1 - Versao Imperativa em C
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,8 +12,6 @@ int main() {
     char nome[50], mat[20];
     float n1, n2, n3, media;
     int freq, aprovados = 0, reprovados = 0, total = 0;
-
-    /* ---- 1. Pre-processamento (entrada de dados) ---- */
 
     arq = fopen("alunos.csv", "r");
     if (arq == NULL) {
@@ -33,8 +33,6 @@ int main() {
         n3 = atof(strtok(NULL, ";"));
         freq = atoi(strtok(NULL, ";"));
 
-        /* ---- 2. Processamento (calculo e classificacao) ---- */
-
         media = (n1 + n2 + n3) / 3;
 
         if (media >= 6.0 && freq >= 75) {
@@ -48,8 +46,6 @@ int main() {
     }
 
     fclose(arq);
-
-    /* ---- 3. Resultado (saida final) ---- */
 
     printf("------------------------------------------------\n");
     printf("Total: %d | Aprovados: %d | Reprovados: %d\n", total, aprovados, reprovados);

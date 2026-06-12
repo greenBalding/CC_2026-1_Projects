@@ -1,4 +1,5 @@
-# Parte 3 - Versao Funcional (Python)
+# Parte 3 - Implementacao Funcional (Python)
+# Sistema de Analise de Desempenho Academico
 
 import os
 from functools import reduce
@@ -48,8 +49,7 @@ def contar_situacao(acc, r):
         return (acc[0], acc[1] + 1)
 
 
-# ---- 1. Pre-processamento (entrada de dados) ----
-
+# Entrada
 caminho = os.path.join(os.path.dirname(os.path.abspath(__file__)), "alunos.csv")
 arquivo = open(caminho, "r", encoding="utf-8")
 linhas = arquivo.readlines()
@@ -57,14 +57,13 @@ arquivo.close()
 
 alunos = list(map(parse_linha, filter(lambda l: l.strip() != "", linhas)))
 
-# ---- 2. Processamento (calculo e classificacao) ----
-
+# Processamento com map
 resultados = list(map(gerar_resultado, alunos))
+
+# Filter para separar aprovados
 aprovados = list(filter(lambda r: r["situacao"] == "Aprovado", resultados))
-total_aprov, total_reprov = reduce(contar_situacao, resultados, (0, 0))
 
-# ---- 3. Resultado (saida final) ----
-
+# Saida
 print("=" * 70)
 print("RELATORIO DE DESEMPENHO ACADEMICO - VERSAO FUNCIONAL (Python)")
 print("=" * 70)
@@ -73,6 +72,9 @@ print("-" * 70)
 
 for r in resultados:
     print(f"{r['nome']:<12} {r['matricula']:<12} {r['nota1']:<6.1f} {r['nota2']:<6.1f} {r['nota3']:<6.1f} {r['media']:<8.2f} {r['frequencia']:<6} {r['situacao']}")
+
+# Reduce para contar
+total_aprov, total_reprov = reduce(contar_situacao, resultados, (0, 0))
 
 print("-" * 70)
 print(f"Total de alunos: {len(resultados)}")
