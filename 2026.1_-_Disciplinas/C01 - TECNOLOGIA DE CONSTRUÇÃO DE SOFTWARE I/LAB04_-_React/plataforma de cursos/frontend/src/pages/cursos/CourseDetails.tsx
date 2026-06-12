@@ -159,9 +159,6 @@ export default function CourseDetails() {
         <div className="card-body p-4 p-md-5">
           <div className="row align-items-center g-4">
             <div className="col-lg-8">
-              <span className="badge bg-primary px-3 py-2 rounded-pill mb-3 text-uppercase fw-bold" style={{ fontSize: '9px', letterSpacing: '0.05em' }}>
-                Curso Premium
-              </span>
               <h1 className="display-4 fw-bold mb-3 text-light">{curso.titulo}</h1>
               <p className="lead text-light mb-4" style={{ opacity: 0.85, fontSize: '16px' }}>
                 {curso.descricao}
