@@ -8,7 +8,7 @@
       "senhaHash": "123456",
       "ativo": true,
       "dataCriacao": "2026-06-08T21:56:18.883Z",
-      "dataAlteracao": "2026-06-08T21:56:18.883Z",
+      "dataAlteracao": "2026-06-12T17:19:13.856Z",
       "id": "ktsR0xlAxsU"
     },
     {
@@ -43,6 +43,17 @@
       "dataCriacao": "2026-06-12T12:00:00.000Z",
       "dataAlteracao": "2026-06-12T12:00:00.000Z",
       "id": "opus36thinking"
+    },
+    {
+      "id": "VeR8GTmDxFw",
+      "idUsuario": "u-1781283953529",
+      "nome": "Aluno Teste 2",
+      "email": "alunoteste2@dbjson.com",
+      "perfil": "aluno",
+      "senhaHash": "123456",
+      "ativo": true,
+      "dataCriacao": "2026-06-12T17:05:53.529Z",
+      "dataAlteracao": "2026-06-12T17:05:53.530Z"
     }
   ],
   "categorias": [
@@ -989,5 +1000,6 @@
       "transacaoId": "tx-728072574",
       "id": "GrYE3bAT_sg"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

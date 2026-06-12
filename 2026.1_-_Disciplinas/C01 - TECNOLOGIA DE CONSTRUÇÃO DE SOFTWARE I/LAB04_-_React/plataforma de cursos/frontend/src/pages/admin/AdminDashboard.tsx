@@ -43,6 +43,7 @@ export default function AdminDashboard() {
   // Users Form
   const [userNome, setUserNome] = useState('');
   const [userEmail, setUserEmail] = useState('');
+  const [userSenha, setUserSenha] = useState('');
   const [userPerfil, setUserPerfil] = useState<'aluno' | 'instrutor' | 'administrador'>('aluno');
   const [editingUserId, setEditingUserId] = useState<string | null>(null);
 
@@ -154,17 +155,22 @@ export default function AdminDashboard() {
     setSubmitting(true);
     try {
       if (editingUserId) {
-        await api.updateUsuario(editingUserId, {
+        const updatePayload: Partial<UsuarioModel> = {
           nome: userNome,
           email: userEmail,
           perfil: userPerfil,
           dataAlteracao: new Date(),
-        });
+        };
+        if (userSenha) {
+          updatePayload.senhaHash = userSenha;
+        }
+        await api.updateUsuario(editingUserId, updatePayload);
         await refreshData();
         showAlert('Usuário atualizado com sucesso!', 'success');
         setEditingUserId(null);
         setUserNome('');
         setUserEmail('');
+        setUserSenha('');
         setUserPerfil('aluno');
       } else {
         const generatedId = `u-${Date.now()}`;
@@ -174,7 +180,7 @@ export default function AdminDashboard() {
           nome: userNome,
           email: userEmail,
           perfil: userPerfil,
-          senhaHash: '123456',
+          senhaHash: userSenha || '123456',
           ativo: true,
           dataCriacao: new Date(),
           dataAlteracao: new Date(),
@@ -184,6 +190,7 @@ export default function AdminDashboard() {
         showAlert('Usuário cadastrado com sucesso!', 'success');
         setUserNome('');
         setUserEmail('');
+        setUserSenha('');
         setUserPerfil('aluno');
       }
     } catch (err) {
@@ -206,6 +213,7 @@ export default function AdminDashboard() {
             setEditingUserId(null);
             setUserNome('');
             setUserEmail('');
+            setUserSenha('');
             setUserPerfil('aluno');
           }
         } catch (err) {
@@ -809,6 +817,18 @@ export default function AdminDashboard() {
                       onChange={(e) => setUserEmail(e.target.value)}
                     />
                   </div>
+                  <div className="mb-3">
+                    <label className="form-label small text-muted mb-1">
+                      {editingUserId ? 'Senha (deixe em branco para manter a atual)' : 'Senha'}
+                    </label>
+                    <input
+                      type="password"
+                      className="form-control bg-dark text-light border-secondary"
+                      required={!editingUserId}
+                      value={userSenha}
+                      onChange={(e) => setUserSenha(e.target.value)}
+                    />
+                  </div>
                   <div className="mb-4">
                     <label className="form-label small text-muted mb-1">Perfil de Acesso</label>
                     <select
@@ -831,6 +851,7 @@ export default function AdminDashboard() {
                         setEditingUserId(null);
                         setUserNome('');
                         setUserEmail('');
+                        setUserSenha('');
                         setUserPerfil('aluno');
                       }}
                       className="btn btn-outline-secondary w-100 mt-2 fw-semibold text-light"
@@ -873,6 +894,7 @@ export default function AdminDashboard() {
                                 setUserNome(u.nome);
                                 setUserEmail(u.email);
                                 setUserPerfil(u.perfil);
+                                setUserSenha('');
                               }}
                               className="btn btn-sm btn-outline-primary me-2"
                             >
