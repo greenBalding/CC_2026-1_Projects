@@ -224,6 +224,24 @@ export default function AdminDashboard() {
     );
   };
 
+  const handleToggleUserStatus = async (user: UsuarioModel) => {
+    if (user.idUsuario === currentUser?.idUsuario) {
+      showAlert('Você não pode desativar seu próprio usuário!', 'error');
+      return;
+    }
+    try {
+      await api.updateUsuario(user.idUsuario, {
+        ativo: !user.ativo,
+        dataAlteracao: new Date(),
+      });
+      await refreshData();
+      showAlert(`Status do usuário atualizado para ${!user.ativo ? 'Ativo' : 'Inativo'}!`, 'success');
+    } catch (err) {
+      console.error(err);
+      showAlert('Erro ao alterar status do usuário.', 'error');
+    }
+  };
+
   const handleCreatePlano = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
@@ -883,9 +901,18 @@ export default function AdminDashboard() {
                           <td className="border-secondary text-muted small">{u.email}</td>
                           <td className="border-secondary text-capitalize text-muted small">{u.perfil}</td>
                           <td className="border-secondary small">
-                            <span className={`badge ${u.ativo ? 'bg-success' : 'bg-danger'}`}>
+                            <button
+                              onClick={() => handleToggleUserStatus(u)}
+                              disabled={u.idUsuario === currentUser?.idUsuario}
+                              className={`badge ${u.ativo ? 'bg-success' : 'bg-danger'} border-0 px-2 py-1 text-white`}
+                              style={{ 
+                                cursor: u.idUsuario === currentUser?.idUsuario ? 'not-allowed' : 'pointer',
+                                opacity: u.idUsuario === currentUser?.idUsuario ? 0.7 : 1,
+                              }}
+                              title={u.idUsuario === currentUser?.idUsuario ? 'Você não pode desativar a si mesmo' : 'Clique para alternar o status'}
+                            >
                               {u.ativo ? 'Ativo' : 'Inativo'}
-                            </span>
+                            </button>
                           </td>
                           <td className="border-secondary text-end small">
                             <button

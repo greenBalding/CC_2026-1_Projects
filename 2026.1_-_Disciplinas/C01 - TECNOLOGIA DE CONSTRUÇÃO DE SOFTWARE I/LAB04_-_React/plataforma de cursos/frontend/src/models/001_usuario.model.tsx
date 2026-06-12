@@ -1,5 +1,5 @@
 // Esse é modelo de dados utilizado para definir a estrutura do objeto de usuário no sistema. 
-// Os 
+// O modelo pode ser criado na tela de login ou também pode ser utilizado pelo perfil ADM para criar novos usuários.
 
 export interface UsuarioModel {
 
