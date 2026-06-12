@@ -61,7 +61,7 @@ function AppRoutes() {
         <Route path="/player" element={isStaff ? <Navigate to="/admin" replace /> : <CoursePlayer />} />
         <Route path="/player/:id" element={isStaff ? <Navigate to="/admin" replace /> : <CoursePlayer />} />
         <Route path="/explore" element={isStaff ? <Navigate to="/admin" replace /> : <Explore />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={isStaff ? <Navigate to="/admin" replace /> : <Profile />} />
         <Route path="/course/:id" element={isStaff ? <Navigate to="/admin" replace /> : <CourseDetails />} />
         <Route path="/cursos" element={isStaff ? <Navigate to="/admin" replace /> : <Cursos />} />
         <Route path="/trilhas" element={isStaff ? <Navigate to="/admin" replace /> : <Trilhas />} />

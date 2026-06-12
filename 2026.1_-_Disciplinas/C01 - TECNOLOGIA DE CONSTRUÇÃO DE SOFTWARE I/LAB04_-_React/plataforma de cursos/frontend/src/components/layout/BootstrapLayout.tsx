@@ -23,7 +23,6 @@ export default function BootstrapLayout({ children }: Props) {
   const navItems = isStaff
     ? [
         { to: '/admin', icon: <CrownIcon size={18} />, label: 'Painel Admin' },
-        { to: '/profile', icon: <UserIcon size={18} />, label: 'Meu Perfil' },
       ]
     : [
         { to: '/dashboard', icon: <HomeIcon size={18} />, label: 'Início' },
@@ -86,8 +85,8 @@ export default function BootstrapLayout({ children }: Props) {
                     </div>
                     <div className="d-none d-sm-block">
                       <div className="fw-semibold small lh-1 text-light">{currentUser.nome}</div>
-                      <div className="text-muted small mt-1" style={{ fontSize: '10px' }}>
-                        {isPro ? (userSub?.idPlano === 'plan3' ? 'Pro Anual' : 'Assinante Pro') : userSub?.idPlano === 'plan1' ? 'Plano Básico' : 'Conta Gratuita'}
+                      <div className="text-muted small mt-1 text-capitalize" style={{ fontSize: '10px' }}>
+                        {isStaff ? currentUser.perfil : (isPro ? (userSub?.idPlano === 'plan3' ? 'Pro Anual' : 'Assinante Pro') : userSub?.idPlano === 'plan1' ? 'Plano Básico' : 'Conta Gratuita')}
                       </div>
                     </div>
                   </div>
