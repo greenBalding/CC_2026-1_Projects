@@ -989,6 +989,5 @@
       "transacaoId": "tx-728072574",
       "id": "GrYE3bAT_sg"
     }
-  ],
-  "$schema": "./node_modules/json-server/schema.json"
+  ]
 }
