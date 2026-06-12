@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useApp } from '../../hooks/useApp';
-import { Play, Lock } from 'lucide-react';
+import { Lock } from 'lucide-react';
 
 export default function Dashboard() {
   const { currentUser, cursos, matriculas, progressoAulas, usuarios, modulos, aulas, avaliacoes } = useApp();
@@ -48,9 +48,6 @@ export default function Dashboard() {
 
   // Prioritize showing in-progress courses, fallback to first overall enrollment
   const inProgressEnrollments = activeEnrollments.filter((e) => e.progresso < 100);
-  const heroEnrollment = inProgressEnrollments.length > 0 ? inProgressEnrollments[0] : activeEnrollments[0];
-  const heroCourse = heroEnrollment?.curso;
-  const heroProgress = heroEnrollment?.progresso || 0;
 
   // Prioritize showing in-progress courses, fallback to all enrollments if none in progress
   const displayedEnrollments = inProgressEnrollments.length > 0 ? inProgressEnrollments : activeEnrollments;
@@ -59,57 +56,6 @@ export default function Dashboard() {
 
   return (
     <div className="container-fluid py-2">
-      {/* Hero Section */}
-      {heroCourse ? (
-        <div className="card border-0 mb-4 bg-gradient text-white shadow-lg overflow-hidden" style={{ background: 'linear-gradient(135deg, #2a1a4a 0%, #111 100%)' }}>
-          <div className="card-body p-4 p-md-5">
-            <div className="row align-items-center">
-              <div className="col-lg-12">
-                <span className="badge bg-primary px-3 py-2 rounded-pill mb-3 text-uppercase fw-bold" style={{ fontSize: '10px', letterSpacing: '0.05em' }}>
-                  Continue Aprendendo
-                </span>
-                <h1 className="display-5 fw-bold mb-3">{heroCourse.titulo}</h1>
-                <p className="lead text-muted-light mb-4" style={{ fontSize: '16px', color: '#cbd5e1' }}>
-                  {heroCourse.descricao}
-                </p>
-                <div className="d-flex align-items-center gap-3 flex-wrap">
-                  <button
-                    onClick={() => navigate(`/player/${heroCourse.idCurso}`)}
-                    className="btn btn-primary btn-lg fw-bold px-4 d-flex align-items-center gap-2"
-                  >
-                    <Play size={18} fill="currentColor" /> Continuar Aula
-                  </button>
-                  <div className="text-light fs-6">
-                    Seu progresso: <strong className="text-primary">{heroProgress}%</strong>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* Progress bar at the bottom of the card */}
-          <div className="progress rounded-0" style={{ height: '6px', background: 'rgba(255,255,255,0.08)' }}>
-            <div
-              className="progress-bar bg-primary progress-bar-striped progress-bar-animated"
-              role="progressbar"
-              style={{ width: `${heroProgress}%` }}
-              aria-valuenow={heroProgress}
-              aria-valuemin={0}
-              aria-valuemax={100}
-            />
-          </div>
-        </div>
-      ) : (
-        <div className="card border-secondary bg-black bg-opacity-25 text-white mb-4 shadow-sm">
-          <div className="card-body p-4 p-md-5 text-center">
-            <span className="fs-3 mb-3 d-block">Bem-vindo(a), {currentUser.nome}!</span>
-            <h2 className="fw-bold mb-3">Sua jornada de aprendizado começa aqui</h2>
-            <p className="text-muted mb-4">Você ainda não está matriculado em nenhum curso. Visite o catálogo e encontre o curso ideal para você.</p>
-            <button onClick={() => navigate('/explore')} className="btn btn-primary px-4 fw-semibold">
-              Explorar Cursos
-            </button>
-          </div>
-        </div>
-      )}
 
       {/* Grid de Conteúdo Principal e Painel Lateral */}
       <div className="row">
