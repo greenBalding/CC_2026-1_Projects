@@ -63,6 +63,7 @@ export default function AdminDashboard() {
   // Courses Form
   const [courseTitle, setCourseTitle] = useState('');
   const [courseDesc, setCourseDesc] = useState('');
+  const [courseBannerUrl, setCourseBannerUrl] = useState('');
   const [courseInstructor, setCourseInstructor] = useState('');
   const [courseCategory, setCourseCategory] = useState('');
   const [courseLevel, setCourseLevel] = useState<'iniciante' | 'intermediario' | 'avancado'>('iniciante');
@@ -108,6 +109,7 @@ export default function AdminDashboard() {
       if (course) {
         setCourseTitle(course.titulo);
         setCourseDesc(course.descricao);
+        setCourseBannerUrl(course.bannerUrl || '');
         setCourseInstructor(course.idInstrutor);
         setCourseCategory(course.idCategoria);
         setCourseLevel(course.nivel);
@@ -116,6 +118,7 @@ export default function AdminDashboard() {
     } else {
       setCourseTitle('');
       setCourseDesc('');
+      setCourseBannerUrl('');
       setCourseInstructor('');
       setCourseCategory('');
       setCourseLevel('iniciante');
@@ -433,12 +436,14 @@ export default function AdminDashboard() {
           idCategoria: courseCategory,
           nivel: courseLevel,
           totalHoras: Number(courseHours),
+          bannerUrl: courseBannerUrl || undefined,
         });
         await refreshData();
         showAlert('Curso atualizado com sucesso!', 'success');
         const newParams = new URLSearchParams(searchParams);
         newParams.delete('edit');
         setSearchParams(newParams);
+        setCourseBannerUrl('');
       } else {
         const generatedId = `c-${Date.now()}`;
         const newCourse = {
@@ -449,6 +454,7 @@ export default function AdminDashboard() {
           idInstrutor: courseInstructor,
           idCategoria: courseCategory,
           nivel: courseLevel,
+          bannerUrl: courseBannerUrl || undefined,
           dataPublicacao: new Date().toISOString().split('T')[0],
           totalAulas: 0,
           totalHoras: Number(courseHours),
@@ -458,6 +464,7 @@ export default function AdminDashboard() {
         showAlert('Curso cadastrado com sucesso!', 'success');
         setCourseTitle('');
         setCourseDesc('');
+        setCourseBannerUrl('');
       }
     } catch (err) {
       console.error(err);
@@ -1126,6 +1133,16 @@ export default function AdminDashboard() {
                       required
                       value={courseDesc}
                       onChange={(e) => setCourseDesc(e.target.value)}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label small text-muted mb-1">URL do Banner do Curso</label>
+                    <input
+                      type="text"
+                      placeholder="Ex: /banners/react-banner-16x9.png ou URL externa"
+                      className="form-control bg-dark text-light border-secondary"
+                      value={courseBannerUrl}
+                      onChange={(e) => setCourseBannerUrl(e.target.value)}
                     />
                   </div>
                   <div className="row g-2 mb-3">
