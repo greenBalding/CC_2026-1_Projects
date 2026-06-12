@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useApp } from '../../hooks/useApp';
-import { StarIcon, PlayIcon, LockIcon } from '../../components/ui/Icons';
+import { Star, Play, Lock } from 'lucide-react';
 
 export default function Dashboard() {
   const { currentUser, cursos, matriculas, progressoAulas, certificados, usuarios, modulos, aulas } = useApp();
@@ -74,7 +74,7 @@ export default function Dashboard() {
                     onClick={() => navigate(`/player/${heroCourse.idCurso}`)}
                     className="btn btn-primary btn-lg fw-bold px-4 d-flex align-items-center gap-2"
                   >
-                    <PlayIcon size={18} fill="currentColor" /> Continuar Aula
+                    <Play size={18} fill="currentColor" /> Continuar Aula
                   </button>
                   <div className="text-light fs-6">
                     Seu progresso: <strong className="text-primary">{heroProgress}%</strong>
@@ -245,8 +245,8 @@ export default function Dashboard() {
                           className="position-absolute top-0 end-0 m-2 px-2 py-0.5 rounded bg-dark bg-opacity-75 border border-secondary border-opacity-50 d-flex align-items-center gap-1"
                           style={{ zIndex: 2, fontSize: '9px', backdropFilter: 'blur(4px)' }}
                         >
-                          <LockIcon size={10} className="text-secondary" />
-                          <span className="text-muted fw-bold" style={{ letterSpacing: '0.05em' }}>EM BREVE</span>
+                           <Lock size={10} className="text-secondary" />
+                           <span className="text-muted fw-bold" style={{ letterSpacing: '0.05em' }}>EM BREVE</span>
                         </div>
                       )}
 
@@ -274,8 +274,8 @@ export default function Dashboard() {
                                 letterSpacing: '0.05em',
                               }}
                             >
-                              <LockIcon size={20} className="mb-1 text-muted" style={{ opacity: 0.6 }} />
-                              <span>Em breve...</span>
+                               <Lock size={20} className="mb-1 text-muted" style={{ opacity: 0.6 }} />
+                               <span>Em breve...</span>
                             </div>
                           )}
                           <h6 className="fw-bold text-light mb-1 text-truncate-2" style={{ height: '38px', overflow: 'hidden' }}>
@@ -288,9 +288,9 @@ export default function Dashboard() {
                           <span className="text-capitalize text-muted small" style={{ fontSize: '11px' }}>
                             {c.nivel}
                           </span>
-                          <span className="small text-warning d-flex align-items-center gap-1" style={{ fontSize: '12px' }}>
-                            <StarIcon size={12} fill="#ffc107" /> 4.9
-                          </span>
+                           <span className="small text-warning d-flex align-items-center gap-1" style={{ fontSize: '12px' }}>
+                             <Star size={12} fill="#ffc107" style={{ color: '#ffc107' }} /> 4.9
+                           </span>
                         </div>
                         
                         {currentUser.perfil === 'administrador' ? (
@@ -306,7 +306,7 @@ export default function Dashboard() {
                             className="btn btn-sm btn-secondary w-100 mt-3 fw-semibold d-flex align-items-center justify-content-center gap-2"
                             style={{ cursor: 'not-allowed' }}
                           >
-                            <LockIcon size={12} /> Em breve
+                             <Lock size={12} /> Em breve
                           </button>
                         ) : (
                           <button

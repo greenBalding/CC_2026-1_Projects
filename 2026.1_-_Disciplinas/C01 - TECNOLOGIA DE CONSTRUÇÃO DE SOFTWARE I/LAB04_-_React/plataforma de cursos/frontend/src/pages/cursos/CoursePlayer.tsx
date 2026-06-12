@@ -2,7 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useApp } from '../../hooks/useApp';
 import { api } from '../../services/api';
-import { PlayIcon, QuizIcon, DocumentIcon, VideoIcon, CheckIcon } from '../../components/ui/Icons';
+import { Play, HelpCircle, FileText, Video, Check } from 'lucide-react';
 
 export default function CoursePlayer() {
   const { id } = useParams<{ id: string }>();
@@ -156,7 +156,7 @@ export default function CoursePlayer() {
                 activeLesson.tipoConteudo === 'texto' && activeLesson.urlConteudo && activeLesson.urlConteudo !== '#' ? (
                   <div className="w-100 h-100 d-flex flex-column p-4" style={{ overflowY: 'auto' }}>
                     <div className="d-flex align-items-center gap-2 mb-3">
-                      <DocumentIcon size={24} className="text-info" />
+                      <FileText size={24} className="text-info" />
                       <h5 className="fw-bold mb-0 text-light">{activeLesson.titulo}</h5>
                     </div>
                     <p className="text-light" style={{ lineHeight: '1.8', fontSize: '15px' }}>
@@ -166,7 +166,7 @@ export default function CoursePlayer() {
                 ) : activeLesson.tipoConteudo === 'quiz' && activeLesson.urlConteudo && activeLesson.urlConteudo !== '#' ? (
                   <div className="w-100 h-100 d-flex flex-column p-4" style={{ overflowY: 'auto' }}>
                     <div className="d-flex align-items-center gap-2 mb-3">
-                      <QuizIcon size={24} className="text-success" />
+                      <HelpCircle size={24} className="text-success" />
                       <h5 className="fw-bold mb-0 text-light">{activeLesson.titulo}</h5>
                     </div>
                     <p className="text-light" style={{ lineHeight: '1.8', fontSize: '15px' }}>
@@ -177,11 +177,11 @@ export default function CoursePlayer() {
                   <>
                     <div className="mb-4">
                       {activeLesson.tipoConteudo === 'video' ? (
-                        <PlayIcon size={64} fill="currentColor" className="text-primary animate-pulse" />
+                        <Play size={64} fill="currentColor" className="text-primary animate-pulse" />
                       ) : activeLesson.tipoConteudo === 'quiz' ? (
-                        <QuizIcon size={64} className="text-success" />
+                        <HelpCircle size={64} className="text-success" />
                       ) : (
-                        <DocumentIcon size={64} className="text-info" />
+                        <FileText size={64} className="text-info" />
                       )}
                     </div>
                     <h4 className="fw-bold text-center px-4">{activeLesson.titulo}</h4>
@@ -226,7 +226,7 @@ export default function CoursePlayer() {
                     <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                   ) : isCurrentLessonCompleted ? (
                     <>
-                      <CheckIcon size={16} /> Aula Concluída
+                      <Check size={16} /> Aula Concluída
                     </>
                   ) : (
                     'Marcar como Concluída'
@@ -235,8 +235,6 @@ export default function CoursePlayer() {
               )}
             </div>
           </div>
-
-
         </div>
 
         {/* Right Side: Progress & Lesson List Accordion */}
@@ -298,11 +296,11 @@ export default function CoursePlayer() {
                           >
                             <div className="d-flex gap-2 align-items-center text-truncate">
                               {lesson.tipoConteudo === 'video' ? (
-                                <VideoIcon size={14} className={isActive ? 'text-primary' : 'text-muted'} />
+                                <Video size={14} className={isActive ? 'text-primary' : 'text-muted'} />
                               ) : lesson.tipoConteudo === 'quiz' ? (
-                                <QuizIcon size={14} className={isActive ? 'text-success' : 'text-muted'} />
+                                <HelpCircle size={14} className={isActive ? 'text-success' : 'text-muted'} />
                               ) : (
-                                <DocumentIcon size={14} className={isActive ? 'text-info' : 'text-muted'} />
+                                <FileText size={14} className={isActive ? 'text-info' : 'text-muted'} />
                               )}
                               <span className="small text-truncate" style={{ fontSize: '13px', fontWeight: isActive ? '600' : 'normal' }}>
                                 {lesson.titulo}
@@ -321,7 +319,7 @@ export default function CoursePlayer() {
                                   background: isCompleted ? '#10b981' : 'transparent',
                                 }}
                               >
-                                {isCompleted && <CheckIcon size={10} className="text-white" />}
+                                {isCompleted && <Check size={10} className="text-white" />}
                               </div>
                             </div>
                           </div>

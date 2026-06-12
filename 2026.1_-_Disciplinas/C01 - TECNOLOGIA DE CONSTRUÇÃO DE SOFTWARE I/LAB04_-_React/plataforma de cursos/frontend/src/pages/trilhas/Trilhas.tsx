@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useApp } from '../../hooks/useApp';
-import { LockIcon } from '../../components/ui/Icons';
+import { Lock } from 'lucide-react';
 
 export default function Trilhas() {
   const { trilhas, trilhasCursos, cursos, categorias, usuarios, modulos, aulas } = useApp();
@@ -131,7 +131,7 @@ export default function Trilhas() {
                                   className="btn btn-sm btn-secondary fw-semibold px-3 text-nowrap d-flex align-items-center gap-1"
                                   style={{ cursor: 'not-allowed' }}
                                 >
-                                  <LockIcon size={12} /> Em breve
+                                  <Lock size={12} /> Em breve
                                 </button>
                               ) : (
                                 <Link to={`/course/${c.idCurso}`} className="btn btn-sm btn-outline-primary fw-semibold px-3 text-nowrap">

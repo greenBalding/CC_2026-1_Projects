@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import type { ReactNode } from 'react';
 import { useApp } from '../../hooks/useApp';
-import { HomeIcon, SearchIcon, PlayIcon, MapIcon, UserIcon, StarIcon, CrownIcon } from '../ui/Icons';
+import { Home, Search, Play, Map, User, Star, Crown } from 'lucide-react';
 
 interface Props {
   children: ReactNode;
@@ -22,15 +22,15 @@ export default function BootstrapLayout({ children }: Props) {
   const isStaff = currentUser?.perfil === 'administrador' || currentUser?.perfil === 'instrutor';
   const navItems = isStaff
     ? [
-        { to: '/admin', icon: <CrownIcon size={18} />, label: 'Painel Admin' },
+        { to: '/admin', icon: <Crown size={18} />, label: 'Painel Admin' },
       ]
     : [
-        { to: '/dashboard', icon: <HomeIcon size={18} />, label: 'Início' },
-        { to: '/explore', icon: <SearchIcon size={18} />, label: 'Explorar' },
-        { to: '/cursos', icon: <PlayIcon size={18} />, label: 'Meus Cursos' },
-        { to: '/trilhas', icon: <MapIcon size={18} />, label: 'Trilhas' },
-        { to: '/checkout', icon: <StarIcon size={18} fill="none" />, label: 'Planos & Premium' },
-        { to: '/profile', icon: <UserIcon size={18} />, label: 'Meu Perfil' },
+        { to: '/dashboard', icon: <Home size={18} />, label: 'Início' },
+        { to: '/explore', icon: <Search size={18} />, label: 'Explorar' },
+        { to: '/cursos', icon: <Play size={18} />, label: 'Meus Cursos' },
+        { to: '/trilhas', icon: <Map size={18} />, label: 'Trilhas' },
+        { to: '/checkout', icon: <Star size={18} />, label: 'Planos & Premium' },
+        { to: '/profile', icon: <User size={18} />, label: 'Meu Perfil' },
       ];
 
   return (

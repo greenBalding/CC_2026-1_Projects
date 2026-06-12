@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../hooks/useApp';
 import { api } from '../../services/api';
-import { BookIcon, TrophyIcon } from '../../components/ui/Icons';
+import { BookOpen, Trophy } from 'lucide-react';
 
 export default function Cursos() {
   const { currentUser, cursos, matriculas, certificados, usuarios, modulos, aulas, progressoAulas, refreshData, showAlert, showConfirm } = useApp();
@@ -74,7 +74,7 @@ export default function Cursos() {
       {/* Em Andamento */}
       <div className="mb-5">
         <h4 className="fw-bold text-light mb-3 d-flex align-items-center gap-2">
-          <BookIcon size={20} className="text-primary" /> Cursos em Andamento
+          <BookOpen size={20} className="text-primary" /> Cursos em Andamento
         </h4>
         
         {activeEnrollments.length === 0 ? (
@@ -184,7 +184,7 @@ export default function Cursos() {
       {/* Certificados Concluídos */}
       <div>
         <h4 className="fw-bold text-light mb-3 d-flex align-items-center gap-2">
-          <TrophyIcon size={20} className="text-warning" /> Certificados Conquistados
+          <Trophy size={20} className="text-warning" /> Certificados Conquistados
         </h4>
 
         {completedCertificates.length === 0 ? (

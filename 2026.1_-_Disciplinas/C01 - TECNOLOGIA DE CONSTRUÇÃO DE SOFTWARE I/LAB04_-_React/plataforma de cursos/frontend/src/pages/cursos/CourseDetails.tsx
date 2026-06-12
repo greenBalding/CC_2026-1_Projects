@@ -1,7 +1,7 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useApp } from '../../hooks/useApp';
 import { api } from '../../services/api';
-import { StarIcon, CheckIcon } from '../../components/ui/Icons';
+import { Star, Check } from 'lucide-react';
 import { useState } from 'react';
 
 export default function CourseDetails() {
@@ -216,7 +216,7 @@ export default function CourseDetails() {
                 <div className="d-flex align-items-center justify-content-center gap-2 mb-1">
                   <span className="fs-3 fw-bold text-light">{averageRating.toFixed(1)}</span>
                   <span className="text-warning d-flex align-items-center gap-1">
-                    <StarIcon size={16} fill="#ffc107" />
+                    <Star size={16} fill="#ffc107" style={{ color: '#ffc107' }} />
                   </span>
                 </div>
                 <div className="text-muted small">Média baseada em {courseReviews.length} avaliações</div>
@@ -296,9 +296,9 @@ export default function CourseDetails() {
                           <span className="text-muted" style={{ fontSize: '11px' }}>{r.dataAvaliacao}</span>
                         </div>
                         <div className="text-warning small d-flex align-items-center gap-1">
-                          {Array.from({ length: Number(r.nota) }).map((_, idx) => (
-                            <StarIcon key={idx} size={14} />
-                          ))}
+                           {Array.from({ length: Number(r.nota) }).map((_, idx) => (
+                             <Star key={idx} size={14} fill="#ffc107" style={{ color: '#ffc107' }} />
+                           ))}
                         </div>
                       </div>
                       <p className="text-muted small mb-0">{r.comentario}</p>
@@ -321,7 +321,7 @@ export default function CourseDetails() {
                         onClick={() => setNewRating(star)}
                         className="btn btn-sm p-0 border-0"
                       >
-                        <StarIcon size={24} style={{ color: star <= newRating ? '#ffc107' : '#6c757d' }} />
+                        <Star size={24} fill={star <= newRating ? '#ffc107' : 'none'} style={{ color: star <= newRating ? '#ffc107' : '#6c757d' }} />
                       </button>
                     ))}
                   </div>
@@ -370,19 +370,19 @@ export default function CourseDetails() {
             <h5 className="fw-bold border-bottom border-secondary pb-3 mb-3">O que está incluso</h5>
             <ul className="list-unstyled mb-0 d-flex flex-column gap-3 text-light" style={{ fontSize: '13px' }}>
               <li className="d-flex align-items-center gap-2">
-                <CheckIcon size={14} className="text-success" />
+                <Check size={14} className="text-success" />
                 <span>Vídeos sob demanda em HD</span>
               </li>
               <li className="d-flex align-items-center gap-2">
-                <CheckIcon size={14} className="text-success" />
+                <Check size={14} className="text-success" />
                 <span>Material de leitura complementar</span>
               </li>
               <li className="d-flex align-items-center gap-2">
-                <CheckIcon size={14} className="text-success" />
+                <Check size={14} className="text-success" />
                 <span>Exercícios de fixação práticos</span>
               </li>
               <li className="d-flex align-items-center gap-2">
-                <CheckIcon size={14} className="text-success" />
+                <Check size={14} className="text-success" />
                 <span>Certificado verificado em PDF</span>
               </li>
             </ul>

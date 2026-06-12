@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../hooks/useApp';
-import { CrownIcon, StarIcon, FlameIcon, TargetIcon, HundredIcon, RocketIcon } from '../../components/ui/Icons';
+import { Crown, Star, Flame, Target, Award, Rocket } from 'lucide-react';
 
 export default function Profile() {
   const { currentUser, certificados, matriculas, pagamentos, assinaturas, planos, cursos } = useApp();
@@ -31,15 +31,15 @@ export default function Profile() {
 
   const achievements = [
     {
-      icon: <CrownIcon size={30} style={{ color: isPro ? '#ffc107' : '#6c757d' }} />,
+      icon: <Crown size={30} style={{ color: isPro ? '#ffc107' : '#6c757d' }} />,
       name: isPro ? (activePlan ? activePlan.nome : 'Pro') : 'Básico',
       description: isPro ? 'Assinatura Ativa' : 'Assinatura Inativa',
     },
-    { icon: <StarIcon size={30} fill="#7c3aed" style={{ color: '#7c3aed' }} />, name: 'Top Student', description: 'Top 1% da semana' },
-    { icon: <FlameIcon size={30} style={{ color: '#dc3545' }} />, name: 'On Fire', description: '7 dias de streak' },
-    { icon: <TargetIcon size={30} style={{ color: '#0dcaf0' }} />, name: 'Objetivo', description: 'Primeira meta batida' },
-    { icon: <HundredIcon size={30} style={{ color: '#198754' }} />, name: 'Perfeição', description: 'Nota 10 em 3 quizzes' },
-    { icon: <RocketIcon size={30} style={{ color: '#d63384' }} />, name: 'Speedrun', description: 'Concluiu em < 3 dias' },
+    { icon: <Star size={30} fill="#7c3aed" style={{ color: '#7c3aed' }} />, name: 'Top Student', description: 'Top 1% da semana' },
+    { icon: <Flame size={30} style={{ color: '#dc3545' }} />, name: 'On Fire', description: '7 dias de streak' },
+    { icon: <Target size={30} style={{ color: '#0dcaf0' }} />, name: 'Objetivo', description: 'Primeira meta batida' },
+    { icon: <Award size={30} style={{ color: '#198754' }} />, name: 'Perfeição', description: 'Nota 10 em 3 quizzes' },
+    { icon: <Rocket size={30} style={{ color: '#d63384' }} />, name: 'Speedrun', description: 'Concluiu em < 3 dias' },
   ];
 
   return (

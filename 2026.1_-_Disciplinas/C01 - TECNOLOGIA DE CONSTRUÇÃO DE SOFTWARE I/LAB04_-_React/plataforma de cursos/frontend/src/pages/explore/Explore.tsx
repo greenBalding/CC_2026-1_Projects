@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../hooks/useApp';
 import { api } from '../../services/api';
-import { StarIcon, PlayIcon, SearchIcon, LockIcon } from '../../components/ui/Icons';
+import { Star, Play, Search, Lock } from 'lucide-react';
 
 export default function Explore() {
   const { currentUser, cursos, categorias, matriculas, usuarios, avaliacoes, refreshData, showAlert } = useApp();
@@ -77,7 +77,7 @@ export default function Explore() {
         <div className="col-12">
           <div className="input-group input-group-lg bg-black border border-secondary rounded shadow-sm">
             <span className="input-group-text bg-transparent border-0 text-muted">
-              <SearchIcon size={20} />
+              <Search size={20} />
             </span>
             <input
               type="text"
@@ -164,8 +164,8 @@ export default function Explore() {
                       className="position-absolute top-0 end-0 m-3 px-2 py-1 rounded bg-dark bg-opacity-75 border border-secondary border-opacity-50 d-flex align-items-center gap-1"
                       style={{ zIndex: 2, fontSize: '10px', backdropFilter: 'blur(4px)' }}
                     >
-                      <LockIcon size={12} className="text-secondary" />
-                      <span className="text-muted fw-bold" style={{ letterSpacing: '0.05em' }}>EM BREVE</span>
+                       <Lock size={12} className="text-secondary" />
+                       <span className="text-muted fw-bold" style={{ letterSpacing: '0.05em' }}>EM BREVE</span>
                     </div>
                   )}
 
@@ -193,8 +193,8 @@ export default function Explore() {
                           letterSpacing: '0.05em',
                         }}
                       >
-                        <LockIcon size={24} className="mb-2 text-muted" style={{ opacity: 0.6 }} />
-                        <span>Em breve...</span>
+                         <Lock size={24} className="mb-2 text-muted" style={{ opacity: 0.6 }} />
+                         <span>Em breve...</span>
                       </div>
                     )}
                     
@@ -225,9 +225,9 @@ export default function Explore() {
                           ? (courseReviews.reduce((sum, r) => sum + Number(r.nota), 0) / courseReviews.length).toFixed(1)
                           : '4.8';
                         return (
-                          <span className="small text-warning d-flex align-items-center gap-1">
-                            <StarIcon size={12} fill="#ffc107" /> {avgRating}
-                          </span>
+                           <span className="small text-warning d-flex align-items-center gap-1">
+                             <Star size={12} fill="#ffc107" style={{ color: '#ffc107' }} /> {avgRating}
+                           </span>
                         );
                       })()}
                     </div>
@@ -245,14 +245,14 @@ export default function Explore() {
                         className="btn btn-secondary w-100 fw-semibold d-flex align-items-center justify-content-center gap-2"
                         style={{ cursor: 'not-allowed' }}
                       >
-                        <LockIcon size={14} /> Em breve
+                         <Lock size={14} /> Em breve
                       </button>
                     ) : isEnrolled ? (
                       <button
                         onClick={() => navigate(`/player/${c.idCurso}`)}
                         className="btn btn-outline-primary w-100 fw-semibold d-flex align-items-center justify-content-center gap-2"
                       >
-                        <PlayIcon size={14} fill="currentColor" /> Acessar Curso
+                         <Play size={14} fill="currentColor" /> Acessar Curso
                       </button>
                     ) : (
                       <button

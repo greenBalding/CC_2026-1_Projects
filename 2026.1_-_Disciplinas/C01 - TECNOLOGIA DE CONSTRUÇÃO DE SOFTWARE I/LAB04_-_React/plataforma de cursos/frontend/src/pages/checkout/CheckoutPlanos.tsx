@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useApp } from '../../hooks/useApp';
 import { api } from '../../services/api';
-import { CheckIcon } from '../../components/ui/Icons';
+import { Check } from 'lucide-react';
 
 export default function CheckoutPlanos() {
   const { currentUser, planos, assinaturas, refreshData, showAlert } = useApp();
@@ -174,21 +174,21 @@ export default function CheckoutPlanos() {
 
                   <ul className="list-unstyled mb-5 d-flex flex-column gap-3" style={{ fontSize: '14px' }}>
                     <li className="d-flex align-items-center gap-2">
-                      <CheckIcon size={16} className="text-success" />
+                      <Check size={16} className="text-success" />
                       <span>Acesso a todos os cursos catalogados</span>
                     </li>
                     <li className="d-flex align-items-center gap-2">
-                      <CheckIcon size={16} className="text-success" />
+                      <Check size={16} className="text-success" />
                       <span>Emissão ilimitada de certificados</span>
                     </li>
                     {p.idPlano !== 'plan1' ? (
                       <>
                         <li className="d-flex align-items-center gap-2">
-                          <CheckIcon size={16} className="text-success" />
+                          <Check size={16} className="text-success" />
                           <span>Acesso completo às Trilhas de Estudos</span>
                         </li>
                         <li className="d-flex align-items-center gap-2">
-                          <CheckIcon size={16} className="text-success" />
+                          <Check size={16} className="text-success" />
                           <span>Suporte técnico prioritário de instrutores</span>
                         </li>
                       </>
@@ -389,7 +389,7 @@ export default function CheckoutPlanos() {
                 {checkoutStep === 4 && (
                   <div className="text-center py-4 px-2">
                     <div className="d-inline-flex align-items-center justify-content-center bg-success bg-opacity-10 border border-success rounded-circle mb-4" style={{ width: '80px', height: '80px', boxShadow: '0 0 24px rgba(25, 135, 84, 0.2)' }}>
-                      <CheckIcon size={36} className="text-success" />
+                      <Check size={36} className="text-success" />
                     </div>
                     <h3 className="fw-bold text-light mb-3">Parabéns! Assinatura Ativa!</h3>
                     <p className="text-muted mb-4 px-3" style={{ fontSize: '14px', lineHeight: '1.6' }}>

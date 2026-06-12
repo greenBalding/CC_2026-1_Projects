@@ -10,6 +10,17 @@
       "dataCriacao": "2026-06-08T22:34:19.393Z",
       "dataAlteracao": "2026-06-08T22:34:19.393Z",
       "id": "TLH7usHX7x4"
+    },
+    {
+      "id": "rc10yPTAVUE",
+      "idUsuario": "u-1781287395293",
+      "nome": "Aluno Teste 1",
+      "email": "alunoteste1@dbjson.com",
+      "perfil": "aluno",
+      "senhaHash": "123456",
+      "ativo": true,
+      "dataCriacao": "2026-06-12T18:03:15.293Z",
+      "dataAlteracao": "2026-06-12T18:03:15.293Z"
     }
   ],
   "categorias": [],
@@ -24,5 +35,6 @@
   "certificados": [],
   "planos": [],
   "assinaturas": [],
-  "pagamentos": []
+  "pagamentos": [],
+  "$schema": "./node_modules/json-server/schema.json"
 }
