@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useApp } from '../../hooks/useApp';
 import { api } from '../../services/api';
-import { Check } from 'lucide-react';
+
 
 export default function CourseDetails() {
   const { id } = useParams<{ id: string }>();
@@ -249,7 +249,7 @@ export default function CourseDetails() {
       {/* Grid Content */}
       <div className="row g-4">
         {/* Left main column */}
-        <div className="col-lg-8">
+        <div className="col-lg-12">
           {/* Instructor Card */}
           <div className="card bg-black border border-secondary text-white p-4 mb-4 shadow-sm">
             <h5 className="fw-bold border-bottom border-secondary pb-3 mb-3">Instrutor</h5>
@@ -426,48 +426,6 @@ export default function CourseDetails() {
 
         </div>
 
-        {/* Right sidebar column */}
-        <div className="col-lg-4">
-          <div className="card bg-black border border-secondary text-white p-3 mb-4 shadow-sm">
-            <h5 className="fw-bold border-bottom border-secondary pb-3 mb-3">Detalhes Básicos</h5>
-            <ul className="list-unstyled mb-0 d-flex flex-column gap-3" style={{ fontSize: '13px' }}>
-              <li className="d-flex justify-content-between">
-                <span className="text-muted">Acesso:</span>
-                <strong className="text-light">Vitalício completo</strong>
-              </li>
-              <li className="d-flex justify-content-between">
-                <span className="text-muted">Suporte:</span>
-                <strong className="text-light">Disponível via Fórum</strong>
-              </li>
-              <li className="d-flex justify-content-between">
-                <span className="text-muted">Certificação:</span>
-                <strong className="text-light">Inclusa (ao bater 100%)</strong>
-              </li>
-            </ul>
-          </div>
-
-          <div className="card bg-black border border-secondary text-white p-3 shadow-sm">
-            <h5 className="fw-bold border-bottom border-secondary pb-3 mb-3">O que está incluso</h5>
-            <ul className="list-unstyled mb-0 d-flex flex-column gap-3 text-light" style={{ fontSize: '13px' }}>
-              <li className="d-flex align-items-center gap-2">
-                <Check size={14} className="text-success" />
-                <span>Vídeos sob demanda em HD</span>
-              </li>
-              <li className="d-flex align-items-center gap-2">
-                <Check size={14} className="text-success" />
-                <span>Material de leitura complementar</span>
-              </li>
-              <li className="d-flex align-items-center gap-2">
-                <Check size={14} className="text-success" />
-                <span>Exercícios de fixação práticos</span>
-              </li>
-              <li className="d-flex align-items-center gap-2">
-                <Check size={14} className="text-success" />
-                <span>Certificado verificado em PDF</span>
-              </li>
-            </ul>
-          </div>
-        </div>
       </div>
     </div>
   );
