@@ -641,35 +641,7 @@
       "id": "pcZk-XZey_w"
     }
   ],
-  "avaliacoes": [
-    {
-      "idAvaliacao": "av1",
-      "idUsuario": "u1",
-      "idCurso": "c1",
-      "nota": "5",
-      "comentario": "Curso excelente! Muito bem estruturado e didático.",
-      "dataAvaliacao": "2024-05-01",
-      "id": "Gr1fEuBGkKM"
-    },
-    {
-      "idAvaliacao": "av2",
-      "idUsuario": "u1",
-      "idCurso": "c7",
-      "nota": "5",
-      "comentario": "Instrutor é ótimo! Aprendi muito sobre Node.js.",
-      "dataAvaliacao": "2024-04-10",
-      "id": "FU3nmabfEJo"
-    },
-    {
-      "idAvaliacao": "av3",
-      "idUsuario": "u1",
-      "idCurso": "c11",
-      "nota": "4",
-      "comentario": "Bom conteúdo, mas poderia ter mais exemplos práticos.",
-      "dataAvaliacao": "2024-03-20",
-      "id": "_KPidHicuMc"
-    }
-  ],
+  "avaliacoes": [],
   "trilhas": [
     {
       "idTrilha": "t1",
@@ -853,72 +825,7 @@
       "id": "ijRM6d8lAuY"
     }
   ],
-  "assinaturas": [
-    {
-      "idAssinatura": "sub1",
-      "idUsuario": "u1",
-      "idPlano": "plan2",
-      "dataInicio": "2024-01-15",
-      "dataFim": "2025-01-15",
-      "id": "nnYrw8CiZZY"
-    },
-    {
-      "idAssinatura": "sub-1780878659224",
-      "idUsuario": "u-admin",
-      "idPlano": "plan1",
-      "dataInicio": "2026-06-08",
-      "dataFim": "2026-07-08",
-      "id": "KpBk_T7rovQ"
-    },
-    {
-      "idAssinatura": "sub-1780956918564",
-      "idUsuario": "u-1780955778883",
-      "idPlano": "plan1",
-      "dataInicio": "2026-06-08",
-      "dataFim": "2026-07-08",
-      "id": "_62jFQAQ8y8"
-    },
-    {
-      "idAssinatura": "sub-1780956933116",
-      "idUsuario": "u-1780955778883",
-      "idPlano": "plan2",
-      "dataInicio": "2026-06-08",
-      "dataFim": "2026-07-08",
-      "id": "Nu6x5ebtMfc"
-    },
-    {
-      "idAssinatura": "sub-1780957242701",
-      "idUsuario": "u-1780955778883",
-      "idPlano": "plan2",
-      "dataInicio": "2026-06-08",
-      "dataFim": "2026-07-08",
-      "id": "49KSnXfm4fk"
-    },
-    {
-      "idAssinatura": "sub-1780957253783",
-      "idUsuario": "u-1780955778883",
-      "idPlano": "plan3",
-      "dataInicio": "2026-06-08",
-      "dataFim": "2027-06-08",
-      "id": "5eQaGncfjtA"
-    },
-    {
-      "idAssinatura": "sub-1780957572704",
-      "idUsuario": "u-1780955778883",
-      "idPlano": "plan2",
-      "dataInicio": "2026-06-08",
-      "dataFim": "2026-07-08",
-      "id": "xMMo57iq4XA"
-    },
-    {
-      "idAssinatura": "sub-1780957706238",
-      "idUsuario": "u-1780955778883",
-      "idPlano": "plan3",
-      "dataInicio": "2026-06-08",
-      "dataFim": "2027-06-08",
-      "id": "Z1EiDTLSTP0"
-    }
-  ],
+  "assinaturas": [],
   "pagamentos": [
     {
       "idPagamento": "pag1",

@@ -3,16 +3,16 @@
 
 export interface UsuarioModel {
 
-  // Identificador único do usuário
+  // [Preenchimento Automático] Identificador único do usuário
   idUsuario: string;
 
-  // Informações pessoais
+  // [Preenchimento Manual] Informações pessoais
   nome: string;
   email: string;
   perfil: 'administrador' | 'instrutor' | 'aluno';
   senhaHash: string;
 
-  // Status e log de atividades  
+  // [Preenchimento Automático] Status e log de atividades  
   ativo: boolean;
   dataCriacao: Date;
   dataAlteracao: Date;
