@@ -4,9 +4,32 @@ import { useApp } from '../../hooks/useApp';
 import { Crown, Star, Flame, Target, Award, Rocket } from 'lucide-react';
 
 export default function Profile() {
-  const { currentUser, certificados, matriculas, pagamentos, assinaturas, planos, cursos } = useApp();
+  const { currentUser, certificados, matriculas, pagamentos, assinaturas, planos, cursos, aulas, progressoAulas } = useApp();
   const navigate = useNavigate();
   const [selectedCert, setSelectedCert] = useState<any>(null);
+
+  // Calculate dynamic study hours from completed lessons
+  const completedProgress = progressoAulas.filter(
+    (p) => p.idUsuario === currentUser.idUsuario && p.status === 'CONCLUIDO'
+  );
+  const completedLessonIds = completedProgress.map((p) => p.idAula);
+  const completedLessons = aulas.filter((a) => completedLessonIds.includes(a.idAula));
+  const totalMinutes = completedLessons.reduce((sum, a) => sum + (a.duracaoMinutos || 0), 0);
+  const studyHours = Number((totalMinutes / 60).toFixed(1));
+
+  // Goal calculations
+  const weeklyGoalHours = 10;
+  const progressPercentage = weeklyGoalHours > 0 ? Math.min(Math.round((studyHours / weeklyGoalHours) * 100), 100) : 0;
+  const hoursRemaining = Number(Math.max(weeklyGoalHours - studyHours, 0).toFixed(1));
+
+  // Leaderboard data
+  const leaderboardData = [
+    { nome: 'Diego Fernandes', horas: 8.5 },
+    { nome: 'Mayk Brito', horas: 6.2 },
+    { nome: currentUser.nome, horas: studyHours, isSelf: true },
+    { nome: 'Ana Souza', horas: 3.0 },
+    { nome: 'Felipe Deschamps', horas: 1.5 },
+  ].sort((a, b) => b.horas - a.horas);
 
   if (!currentUser) {
     return (
@@ -78,8 +101,8 @@ export default function Profile() {
               <div className="col-sm-4">
                 <div className="card bg-black border border-secondary text-white p-3 text-center shadow-sm">
                   <span className="text-muted small d-block mb-1">Horas de Estudo</span>
-                  <span className="fs-3 fw-bold text-primary">48h</span>
-                  <span className="text-muted small mt-1" style={{ fontSize: '10px' }}>+2h essa semana</span>
+                  <span className="fs-3 fw-bold text-primary">{studyHours}h</span>
+                  <span className="text-muted small mt-1" style={{ fontSize: '10px' }}>tempo total</span>
                 </div>
               </div>
               <div className="col-sm-4">
@@ -223,40 +246,47 @@ export default function Profile() {
             <h5 className="fw-bold border-bottom border-secondary pb-3 mb-3">Meta Diária</h5>
             <span className="text-muted small d-block mb-2">Progresso do objetivo semanal</span>
             <div className="d-flex justify-content-between align-items-baseline mb-2">
-              <span className="fs-3 fw-bold text-primary">48h / 100h</span>
-              <span className="text-muted small">48% concluído</span>
+              <span className="fs-3 fw-bold text-primary">{studyHours}h / {weeklyGoalHours}h</span>
+              <span className="text-muted small">{progressPercentage}% concluído</span>
             </div>
             <div className="progress bg-dark mb-2" style={{ height: '6px' }}>
               <div
                 className="progress-bar bg-primary"
                 role="progressbar"
-                style={{ width: '48%' }}
-                aria-valuenow={48}
+                style={{ width: `${progressPercentage}%` }}
+                aria-valuenow={progressPercentage}
                 aria-valuemin={0}
                 aria-valuemax={100}
               />
             </div>
-            <span className="text-muted" style={{ fontSize: '11px' }}>Faltam 52 horas para atingir seu objetivo. Mantenha o foco!</span>
+            <span className="text-muted" style={{ fontSize: '11px' }}>
+              {hoursRemaining > 0 
+                ? `Faltam ${hoursRemaining} horas para atingir seu objetivo semanal. Mantenha o foco!` 
+                : 'Parabéns! Você atingiu sua meta semanal! 🚀'}
+            </span>
           </div>
 
           <div className="card bg-black border border-secondary text-white p-3 shadow-sm">
             <h5 className="fw-bold border-bottom border-secondary pb-3 mb-3">Leaderboard</h5>
-            <div className="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom border-secondary border-opacity-25">
-              <div className="d-flex align-items-center gap-2">
-                <span className="fw-bold text-warning">#42</span>
-                <span className="small">{currentUser.nome} (Você)</span>
-              </div>
-              <span className="badge bg-secondary">48h</span>
-            </div>
-            <div className="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom border-secondary border-opacity-25">
-              <div className="d-flex align-items-center gap-2">
-                <span className="fw-bold text-light">#43</span>
-                <span className="small">Diego Fernandes</span>
-              </div>
-              <span className="badge bg-secondary">44h</span>
-            </div>
-            <div className="text-center">
-              <span className="text-muted" style={{ fontSize: '11px' }}>Você está no Top 1% da sua liga semanal!</span>
+            {leaderboardData.map((userRow, index) => {
+              const rank = index + 1;
+              const isUserSelf = userRow.isSelf;
+              return (
+                <div key={userRow.nome} className="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom border-secondary border-opacity-25">
+                  <div className="d-flex align-items-center gap-2">
+                    <span className={`fw-bold ${rank === 1 ? 'text-warning' : rank === 2 ? 'text-light' : 'text-muted'}`}>
+                      #{rank}
+                    </span>
+                    <span className={`small ${isUserSelf ? 'text-primary fw-bold' : ''}`}>
+                      {userRow.nome} {isUserSelf && '(Você)'}
+                    </span>
+                  </div>
+                  <span className="badge bg-secondary">{userRow.horas}h</span>
+                </div>
+              );
+            })}
+            <div className="text-center mt-2">
+              <span className="text-muted" style={{ fontSize: '11px' }}>Você está disputando a liga semanal com outros estudantes!</span>
             </div>
           </div>
         </div>
