@@ -3,7 +3,7 @@ import { useApp } from '../../hooks/useApp';
 import { Play, Lock } from 'lucide-react';
 
 export default function Dashboard() {
-  const { currentUser, cursos, matriculas, progressoAulas, certificados, usuarios, modulos, aulas, avaliacoes } = useApp();
+  const { currentUser, cursos, matriculas, progressoAulas, usuarios, modulos, aulas, avaliacoes } = useApp();
   const navigate = useNavigate();
 
   if (!currentUser) {
@@ -55,9 +55,7 @@ export default function Dashboard() {
   // Prioritize showing in-progress courses, fallback to all enrollments if none in progress
   const displayedEnrollments = inProgressEnrollments.length > 0 ? inProgressEnrollments : activeEnrollments;
 
-  // Global user metrics
-  const totalCompletedCursos = activeEnrollments.filter((e) => e.progresso === 100).length;
-  const userCertificadosCount = certificados.filter((c) => c.idUsuario === currentUser.idUsuario).length;
+
 
   return (
     <div className="container-fluid py-2">
@@ -116,7 +114,7 @@ export default function Dashboard() {
       {/* Grid de Conteúdo Principal e Painel Lateral */}
       <div className="row">
         {/* Lado Esquerdo: Listas de Cursos */}
-        <div className="col-lg-8 mb-4">
+        <div className="col-lg-12 mb-4">
           {/* Meus Cursos */}
           {displayedEnrollments.length > 0 && (
             <div className="mb-5">
@@ -344,62 +342,6 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Lado Direito: Métricas Gerais & Atividade */}
-        <div className="col-lg-4">
-          <div className="card bg-black border border-secondary text-white p-3 mb-4 shadow-sm">
-            <h5 className="fw-bold border-bottom border-secondary pb-3 mb-3">Métricas Gerais</h5>
-            
-            {/* Overall Progress */}
-            <div className="mb-4">
-              <span className="text-muted small d-block mb-1">Média de Conclusão</span>
-              <div className="d-flex align-items-baseline gap-2">
-                <span className="fs-2 fw-bold text-primary">
-                  {activeEnrollments.length > 0
-                    ? Math.round(activeEnrollments.reduce((sum, e) => sum + e.progresso, 0) / activeEnrollments.length)
-                    : 0}
-                  %
-                </span>
-                <span className="text-muted small">das matrículas</span>
-              </div>
-              <div className="progress bg-dark mt-2" style={{ height: '6px' }}>
-                <div
-                  className="progress-bar bg-primary"
-                  role="progressbar"
-                  style={{
-                    width: `${
-                      activeEnrollments.length > 0
-                        ? Math.round(activeEnrollments.reduce((sum, e) => sum + e.progresso, 0) / activeEnrollments.length)
-                        : 0
-                    }%`,
-                  }}
-                />
-              </div>
-            </div>
-
-            {/* Quick Metrics Cards Grid */}
-            <div className="row g-2 text-center">
-              <div className="col-4">
-                <div className="bg-secondary bg-opacity-10 border border-secondary rounded p-2">
-                  <span className="fs-5 fw-bold text-light d-block">{userMatriculas.length}</span>
-                  <span className="text-muted small" style={{ fontSize: '10px' }}>Inscritos</span>
-                </div>
-              </div>
-              <div className="col-4">
-                <div className="bg-secondary bg-opacity-10 border border-secondary rounded p-2">
-                  <span className="fs-5 fw-bold text-success d-block">{totalCompletedCursos}</span>
-                  <span className="text-muted small" style={{ fontSize: '10px' }}>Concluídos</span>
-                </div>
-              </div>
-              <div className="col-4">
-                <div className="bg-secondary bg-opacity-10 border border-secondary rounded p-2">
-                  <span className="fs-5 fw-bold text-warning d-block">{userCertificadosCount}</span>
-                  <span className="text-muted small" style={{ fontSize: '10px' }}>Diplomas</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
       </div>
     </div>
   );

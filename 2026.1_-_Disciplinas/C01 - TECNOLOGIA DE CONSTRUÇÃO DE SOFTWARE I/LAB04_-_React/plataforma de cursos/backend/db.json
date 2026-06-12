@@ -2623,6 +2623,34 @@
       "idAula": "lesson-mod-c-1781290945812-4-5",
       "status": "CONCLUIDO",
       "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "EGOKyOrPoOI",
+      "idUsuario": "u-1781294568901",
+      "idAula": "lesson-mod-c-1781290964582-1-1",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "Lf1h1-6AwX0",
+      "idUsuario": "u-1781294568901",
+      "idAula": "lesson-mod-c-1781290964582-1-2",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "EiEdvM79Nqk",
+      "idUsuario": "u-1781294568901",
+      "idAula": "lesson-mod-c-1781290964582-1-3",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "SBUFh2sXk6Q",
+      "idUsuario": "u-1781294568901",
+      "idAula": "lesson-mod-c-1781290930850-1-1",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
     }
   ],
   "avaliacoes": [
