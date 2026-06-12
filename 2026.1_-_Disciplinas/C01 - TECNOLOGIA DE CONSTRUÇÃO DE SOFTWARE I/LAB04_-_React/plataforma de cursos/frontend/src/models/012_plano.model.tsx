@@ -10,5 +10,5 @@ export interface PlanoModel {
   // [Preenchimento Manual] Valores financeiros e regras de negócio de tempo
   preco: number;
   duracaoMeses: number;
-  
+  vantagens?: string[];
 }

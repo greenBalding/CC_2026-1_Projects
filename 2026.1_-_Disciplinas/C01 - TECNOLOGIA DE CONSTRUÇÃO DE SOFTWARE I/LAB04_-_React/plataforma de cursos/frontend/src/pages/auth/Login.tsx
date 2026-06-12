@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../../hooks/useApp';
+import { api } from '../../services/api';
 
 export default function Login() {
-  const { usuarios, setCurrentUser, refreshData } = useApp();
+  const { setCurrentUser } = useApp();
 
   // Form states
   const [email, setEmail] = useState('');
@@ -31,11 +32,11 @@ export default function Login() {
     setLoginError(false);
 
     try {
-      // Refresh list to make sure we have all registered users
-      await refreshData();
+      // Fetch fresh user list from API to bypass React state closure
+      const latestUsers = await api.getUsuarios();
 
       // Find user by email and matching password
-      const user = usuarios.find(
+      const user = latestUsers.find(
         (u) => u.email.toLowerCase() === email.toLowerCase() && u.senhaHash === password
       );
 

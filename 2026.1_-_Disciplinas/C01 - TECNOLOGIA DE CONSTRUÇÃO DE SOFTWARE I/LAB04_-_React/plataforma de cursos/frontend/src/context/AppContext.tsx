@@ -11,13 +11,13 @@ import type {
   AulaModel,
   MatriculaModel,
   ProgressoAulaModel,
+  AvaliacaoModel,
   CertificadoModel,
   PlanoModel,
   AssinaturaModel,
   PagamentoModel,
   TrilhaModel,
-  TrilhaCursoModel,
-  AvaliacaoModel
+  TrilhaCursoModel
 } from '../models/000_index';
 
 export interface AppContextType {
@@ -34,9 +34,9 @@ export interface AppContextType {
   planos: PlanoModel[];
   assinaturas: AssinaturaModel[];
   pagamentos: PagamentoModel[];
+  avaliacoes: AvaliacaoModel[];
   trilhas: TrilhaModel[];
   trilhasCursos: TrilhaCursoModel[];
-  avaliacoes: AvaliacaoModel[];
   loading: boolean;
   refreshData: () => Promise<void>;
   showAlert: (message: string, type?: 'success' | 'error' | 'alert', title?: string) => void;
@@ -74,9 +74,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [planos, setPlanos] = useState<PlanoModel[]>([]);
   const [assinaturas, setAssinaturas] = useState<AssinaturaModel[]>([]);
   const [pagamentos, setPagamentos] = useState<PagamentoModel[]>([]);
+  const [avaliacoes, setAvaliacoes] = useState<AvaliacaoModel[]>([]);
   const [trilhas, setTrilhas] = useState<TrilhaModel[]>([]);
   const [trilhasCursos, setTrilhasCursos] = useState<TrilhaCursoModel[]>([]);
-  const [avaliacoes, setAvaliacoes] = useState<AvaliacaoModel[]>([]);
   const [loading, setLoading] = useState(true);
 
   const [modal, setModal] = useState<ModalState>({
@@ -156,9 +156,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setPlanos(plansList);
       setAssinaturas(subsList);
       setPagamentos(paysList);
+      setAvaliacoes(evalsList);
       setTrilhas(trilhasList);
       setTrilhasCursos(trilhasCursosList);
-      setAvaliacoes(evalsList);
 
       // Restore active user if still in the list, otherwise clear session
       if (currentUser) {
@@ -207,9 +207,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
         planos,
         assinaturas,
         pagamentos,
+        avaliacoes,
         trilhas,
         trilhasCursos,
-        avaliacoes,
         loading,
         refreshData,
         showAlert,

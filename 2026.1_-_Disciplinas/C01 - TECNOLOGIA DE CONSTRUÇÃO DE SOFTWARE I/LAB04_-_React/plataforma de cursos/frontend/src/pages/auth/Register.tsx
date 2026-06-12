@@ -4,7 +4,7 @@ import { useApp } from '../../hooks/useApp';
 import { api } from '../../services/api';
 
 export default function Register() {
-  const { usuarios, setCurrentUser, refreshData, showAlert } = useApp();
+  const { planos, setCurrentUser, refreshData, showAlert } = useApp();
   const navigate = useNavigate();
 
   // Form states
@@ -30,8 +30,7 @@ export default function Register() {
     }
 
     if (password.length < 6) {
-      setErrorMsg('A senha deve ter pelo menos 6 caracteres.');
-      setValidated(true);
+      setErrorMsg('A senha precisa conter no mínimo 6 caracteres.');
       return;
     }
 
@@ -41,15 +40,15 @@ export default function Register() {
       return;
     }
 
-    setValidated(true);
     setSubmitting(true);
     setErrorMsg('');
 
     try {
-      await refreshData();
+      // Fetch fresh user list from API to bypass React state closure
+      const latestUsers = await api.getUsuarios();
       
       // Check if email already exists
-      const emailExists = usuarios.some((u) => u.email.toLowerCase() === email.toLowerCase());
+      const emailExists = latestUsers.some((u) => u.email.toLowerCase() === email.toLowerCase());
       if (emailExists) {
         setErrorMsg('Este endereço de e-mail já está sendo utilizado.');
         setSubmitting(false);
@@ -70,6 +69,26 @@ export default function Register() {
       };
 
       await api.createUsuario(newUser);
+
+      // Auto assign free subscription
+      const freePlan = planos.find((p) => p.preco === 0);
+      if (freePlan) {
+        const today = new Date();
+        const endDate = new Date();
+        endDate.setMonth(today.getMonth() + freePlan.duracaoMeses);
+        
+        const subId = `sub-${Date.now()}`;
+        const newSubscription = {
+          id: subId,
+          idAssinatura: subId,
+          idUsuario: generatedId,
+          idPlano: freePlan.idPlano,
+          dataInicio: today.toISOString().split('T')[0],
+          dataFim: endDate.toISOString().split('T')[0],
+        };
+        await api.createAssinatura(newSubscription);
+      }
+
       await refreshData();
       
       showAlert('Cadastro realizado com sucesso!', 'success');

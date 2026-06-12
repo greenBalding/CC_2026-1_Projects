@@ -21,20 +21,2632 @@
       "ativo": true,
       "dataCriacao": "2026-06-12T18:03:15.293Z",
       "dataAlteracao": "2026-06-12T18:03:15.293Z"
+    },
+    {
+      "id": "MkhVMBWDDu4",
+      "idUsuario": "u-1781288068791",
+      "nome": "Gemini 3.5 Flash",
+      "email": "google@google.com",
+      "perfil": "instrutor",
+      "senhaHash": "123456",
+      "ativo": true,
+      "dataCriacao": "2026-06-12T18:14:28.791Z",
+      "dataAlteracao": "2026-06-12T18:14:28.791Z"
+    },
+    {
+      "id": "1ZZd2KBooYY",
+      "idUsuario": "u-1781293443466",
+      "nome": "Aluno Pagante",
+      "email": "alunopagante@dbjson.com",
+      "perfil": "aluno",
+      "senhaHash": "123456",
+      "ativo": true,
+      "dataCriacao": "2026-06-12T19:44:03.466Z",
+      "dataAlteracao": "2026-06-12T19:44:03.466Z"
     }
   ],
-  "categorias": [],
-  "cursos": [],
-  "modulos": [],
-  "aulas": [],
-  "matriculas": [],
-  "progresso_aulas": [],
-  "avaliacoes": [],
-  "trilhas": [],
-  "trilhas_cursos": [],
-  "certificados": [],
-  "planos": [],
-  "assinaturas": [],
-  "pagamentos": [],
+  "categorias": [
+    {
+      "id": "M5jPbsGifvQ",
+      "idCategoria": "cat-1781290863497",
+      "nome": "Fundamentos Matemáticos",
+      "descricao": "[descrição]",
+      "ativa": true
+    },
+    {
+      "id": "cJodZJad1d0",
+      "idCategoria": "cat-1781290879605",
+      "nome": "Fundamentos da Computação",
+      "descricao": "[descrição]",
+      "ativa": true
+    },
+    {
+      "id": "pgjDtzURDXM",
+      "idCategoria": "cat-1781290893272",
+      "nome": "Empreendedorismo",
+      "descricao": "[descrição]",
+      "ativa": true
+    },
+    {
+      "id": "9CeQtD_bj90",
+      "idCategoria": "cat-1781291733457",
+      "nome": "Iniciante",
+      "descricao": "Todos os módulos de nível iniciante.",
+      "ativa": true
+    },
+    {
+      "id": "zm3D4eHGLvk",
+      "idCategoria": "cat-1781292061870",
+      "nome": "Intermediário",
+      "descricao": "Todos os módulos de nível iniciante e intermediário.",
+      "ativa": true
+    },
+    {
+      "id": "rSPbxqoQmCc",
+      "idCategoria": "cat-1781292762093",
+      "nome": "Avançado",
+      "descricao": "Todos os módulos dos 3 níveis.",
+      "ativa": true
+    }
+  ],
+  "cursos": [
+    {
+      "id": "dVYRUIlSdZQ",
+      "idCurso": "c-1781290930850",
+      "titulo": "Introdução à Matemática",
+      "descricao": "[descrição]",
+      "idInstrutor": "u-1781288068791",
+      "idCategoria": "cat-1781290863497",
+      "nivel": "iniciante",
+      "dataPublicacao": "2026-06-12",
+      "totalAulas": 20,
+      "totalHoras": 10,
+      "bannerUrl": "/banners/intro-matematica.png"
+    },
+    {
+      "id": "ZG6k3zp9W_Q",
+      "idCurso": "c-1781290945812",
+      "titulo": "Introdução à Computação",
+      "descricao": "[descrição]",
+      "idInstrutor": "u-1781288068791",
+      "idCategoria": "cat-1781290879605",
+      "nivel": "iniciante",
+      "dataPublicacao": "2026-06-12",
+      "totalAulas": 20,
+      "totalHoras": 10,
+      "bannerUrl": "/banners/intro-computacao.png"
+    },
+    {
+      "id": "evjNL1w0rkk",
+      "idCurso": "c-1781290964582",
+      "titulo": "Introdução ao Empreendedorismo",
+      "descricao": "[descrição]",
+      "idInstrutor": "u-1781288068791",
+      "idCategoria": "cat-1781290893272",
+      "nivel": "iniciante",
+      "dataPublicacao": "2026-06-12",
+      "totalAulas": 20,
+      "totalHoras": 10,
+      "bannerUrl": "/banners/intro-empreendedorismo.png"
+    },
+    {
+      "id": "pkSlb1DBgl8",
+      "idCurso": "c-1781290996961",
+      "titulo": "Cálculo e Estatística",
+      "descricao": "[descrição]",
+      "idInstrutor": "u-1781288068791",
+      "idCategoria": "cat-1781290863497",
+      "nivel": "intermediario",
+      "dataPublicacao": "2026-06-12",
+      "totalAulas": 20,
+      "totalHoras": 20,
+      "bannerUrl": "/banners/inter-calc-estat.png"
+    },
+    {
+      "id": "jbqznEyCD_I",
+      "idCurso": "c-1781291026966",
+      "titulo": "Algoritmos e Linguagens de Programação",
+      "descricao": "[descrição]",
+      "idInstrutor": "u-1781288068791",
+      "idCategoria": "cat-1781290879605",
+      "nivel": "intermediario",
+      "dataPublicacao": "2026-06-12",
+      "totalAulas": 20,
+      "totalHoras": 20,
+      "bannerUrl": "/banners/inter-algor-linguagens.png"
+    },
+    {
+      "id": "y0fVD1KytOo",
+      "idCurso": "c-1781291050286",
+      "titulo": "Contabilidade e Finanças",
+      "descricao": "[descrição]",
+      "idInstrutor": "u-1781288068791",
+      "idCategoria": "cat-1781290893272",
+      "nivel": "intermediario",
+      "dataPublicacao": "2026-06-12",
+      "totalAulas": 20,
+      "totalHoras": 20,
+      "bannerUrl": "/banners/inter-contabi-financas.png"
+    },
+    {
+      "id": "ZufKnsZIbSg",
+      "idCurso": "c-1781291099209",
+      "titulo": "Distribuições Complexas",
+      "descricao": "[descrição]",
+      "idInstrutor": "u-1781288068791",
+      "idCategoria": "cat-1781290863497",
+      "nivel": "avancado",
+      "dataPublicacao": "2026-06-12",
+      "totalAulas": 20,
+      "totalHoras": 30
+    },
+    {
+      "id": "SKf2GSEMW6Y",
+      "idCurso": "c-1781291121017",
+      "titulo": "Banco de Dados e Criptografia",
+      "descricao": "[descrição]",
+      "idInstrutor": "u-1781288068791",
+      "idCategoria": "cat-1781290879605",
+      "nivel": "avancado",
+      "dataPublicacao": "2026-06-12",
+      "totalAulas": 20,
+      "totalHoras": 30
+    },
+    {
+      "id": "3hr6F4eV7Qw",
+      "idCurso": "c-1781291145535",
+      "titulo": "Mercado Financeiro e Especulações",
+      "descricao": "[descrição]",
+      "idInstrutor": "u-1781288068791",
+      "idCategoria": "cat-1781290893272",
+      "nivel": "avancado",
+      "dataPublicacao": "2026-06-12",
+      "totalAulas": 20,
+      "totalHoras": 30
+    }
+  ],
+  "modulos": [
+    {
+      "id": "mod-c-1781290930850-1",
+      "idModulo": "mod-c-1781290930850-1",
+      "titulo": "Lógica Proposicional e Conjuntos",
+      "idCurso": "c-1781290930850",
+      "ordem": 1
+    },
+    {
+      "id": "mod-c-1781290930850-2",
+      "idModulo": "mod-c-1781290930850-2",
+      "titulo": "Funções e Gráficos de Elementares",
+      "idCurso": "c-1781290930850",
+      "ordem": 2
+    },
+    {
+      "id": "mod-c-1781290930850-3",
+      "idModulo": "mod-c-1781290930850-3",
+      "titulo": "Matrizes e Sistemas Lineares",
+      "idCurso": "c-1781290930850",
+      "ordem": 3
+    },
+    {
+      "id": "mod-c-1781290930850-4",
+      "idModulo": "mod-c-1781290930850-4",
+      "titulo": "Trigonometria e Geometria Plana",
+      "idCurso": "c-1781290930850",
+      "ordem": 4
+    },
+    {
+      "id": "mod-c-1781290945812-1",
+      "idModulo": "mod-c-1781290945812-1",
+      "titulo": "História da Computação e Arquitetura Von Neumann",
+      "idCurso": "c-1781290945812",
+      "ordem": 1
+    },
+    {
+      "id": "mod-c-1781290945812-2",
+      "idModulo": "mod-c-1781290945812-2",
+      "titulo": "Sistemas de Numeração e Álgebra Booleana",
+      "idCurso": "c-1781290945812",
+      "ordem": 2
+    },
+    {
+      "id": "mod-c-1781290945812-3",
+      "idModulo": "mod-c-1781290945812-3",
+      "titulo": "Fundamentos de Sistemas Operacionais e Redes",
+      "idCurso": "c-1781290945812",
+      "ordem": 3
+    },
+    {
+      "id": "mod-c-1781290945812-4",
+      "idModulo": "mod-c-1781290945812-4",
+      "titulo": "Introdução ao Pensamento Computacional e Algoritmos",
+      "idCurso": "c-1781290945812",
+      "ordem": 4
+    },
+    {
+      "id": "mod-c-1781290964582-1",
+      "idModulo": "mod-c-1781290964582-1",
+      "titulo": "Mentalidade Empreendedora e Identificação de Oportunidades",
+      "idCurso": "c-1781290964582",
+      "ordem": 1
+    },
+    {
+      "id": "mod-c-1781290964582-2",
+      "idModulo": "mod-c-1781290964582-2",
+      "titulo": "Validação de Mercado e Proposta de Valor",
+      "idCurso": "c-1781290964582",
+      "ordem": 2
+    },
+    {
+      "id": "mod-c-1781290964582-3",
+      "idModulo": "mod-c-1781290964582-3",
+      "titulo": "Modelagem de Negócios e Framework Canvas",
+      "idCurso": "c-1781290964582",
+      "ordem": 3
+    },
+    {
+      "id": "mod-c-1781290964582-4",
+      "idModulo": "mod-c-1781290964582-4",
+      "titulo": "Estratégias de Pitch e Introdução ao Mínimo Produto Viável",
+      "idCurso": "c-1781290964582",
+      "ordem": 4
+    },
+    {
+      "id": "mod-c-1781290996961-1",
+      "idModulo": "mod-c-1781290996961-1",
+      "titulo": "Limites e Continuidade de Funções",
+      "idCurso": "c-1781290996961",
+      "ordem": 1
+    },
+    {
+      "id": "mod-c-1781290996961-2",
+      "idModulo": "mod-c-1781290996961-2",
+      "titulo": "Derivadas e Aplicações de Otimização",
+      "idCurso": "c-1781290996961",
+      "ordem": 2
+    },
+    {
+      "id": "mod-c-1781290996961-3",
+      "idModulo": "mod-c-1781290996961-3",
+      "titulo": "Introdução ao Cálculo Integral",
+      "idCurso": "c-1781290996961",
+      "ordem": 3
+    },
+    {
+      "id": "mod-c-1781290996961-4",
+      "idModulo": "mod-c-1781290996961-4",
+      "titulo": "Estatística Descritiva e Análise de Dados",
+      "idCurso": "c-1781290996961",
+      "ordem": 4
+    },
+    {
+      "id": "mod-c-1781291026966-1",
+      "idModulo": "mod-c-1781291026966-1",
+      "titulo": "Estruturas de Controle de Fluxo e Condicionais",
+      "idCurso": "c-1781291026966",
+      "ordem": 1
+    },
+    {
+      "id": "mod-c-1781291026966-2",
+      "idModulo": "mod-c-1781291026966-2",
+      "titulo": "Estruturas de Repetição e Laços",
+      "idCurso": "c-1781291026966",
+      "ordem": 2
+    },
+    {
+      "id": "mod-c-1781291026966-3",
+      "idModulo": "mod-c-1781291026966-3",
+      "titulo": "Vetores, Matrizes e Manipulação de Strings",
+      "idCurso": "c-1781291026966",
+      "ordem": 3
+    },
+    {
+      "id": "mod-c-1781291026966-4",
+      "idModulo": "mod-c-1781291026966-4",
+      "titulo": "Funções, Modularização e Escopo de Variáveis",
+      "idCurso": "c-1781291026966",
+      "ordem": 4
+    },
+    {
+      "id": "mod-c-1781291050286-1",
+      "idModulo": "mod-c-1781291050286-1",
+      "titulo": "Conceitos Básicos e Princípios Contáveis",
+      "idCurso": "c-1781291050286",
+      "ordem": 1
+    },
+    {
+      "id": "mod-c-1781291050286-2",
+      "idModulo": "mod-c-1781291050286-2",
+      "titulo": "Balanço Patrimonial e Demonstração do Resultado do Exercício",
+      "idCurso": "c-1781291050286",
+      "ordem": 2
+    },
+    {
+      "id": "mod-c-1781291050286-3",
+      "idModulo": "mod-c-1781291050286-3",
+      "titulo": "Fluxo de Caixa e Capital de Giro",
+      "idCurso": "c-1781291050286",
+      "ordem": 3
+    },
+    {
+      "id": "mod-c-1781291050286-4",
+      "idModulo": "mod-c-1781291050286-4",
+      "titulo": "Análise de Indicadores Financeiros e Viabilidade",
+      "idCurso": "c-1781291050286",
+      "ordem": 4
+    },
+    {
+      "id": "mod-c-1781291099209-1",
+      "idModulo": "mod-c-1781291099209-1",
+      "titulo": "Espaços Amostrais e Variáveis Aleatórias Continuas",
+      "idCurso": "c-1781291099209",
+      "ordem": 1
+    },
+    {
+      "id": "mod-c-1781291099209-2",
+      "idModulo": "mod-c-1781291099209-2",
+      "titulo": "Distribuição Normal e Teorema Central do Limite",
+      "idCurso": "c-1781291099209",
+      "ordem": 2
+    },
+    {
+      "id": "mod-c-1781291099209-3",
+      "idModulo": "mod-c-1781291099209-3",
+      "titulo": "Distribuições Conjuntas e Funções de Densidade Marginais",
+      "idCurso": "c-1781291099209",
+      "ordem": 3
+    },
+    {
+      "id": "mod-c-1781291099209-4",
+      "idModulo": "mod-c-1781291099209-4",
+      "titulo": "Métodos de Estimação e Inferência Estatística Avançada",
+      "idCurso": "c-1781291099209",
+      "ordem": 4
+    },
+    {
+      "id": "mod-c-1781291121017-1",
+      "idModulo": "mod-c-1781291121017-1",
+      "titulo": "Modelagem Entidade-Relacionamento e Álgebra Relacional",
+      "idCurso": "c-1781291121017",
+      "ordem": 1
+    },
+    {
+      "id": "mod-c-1781291121017-2",
+      "idModulo": "mod-c-1781291121017-2",
+      "titulo": "Linguagem SQL Estruturada e Normalização de Dados",
+      "idCurso": "c-1781291121017",
+      "ordem": 2
+    },
+    {
+      "id": "mod-c-1781291121017-3",
+      "idModulo": "mod-c-1781291121017-3",
+      "titulo": "Fundamentos de Criptografia Simétrica e Assimétrica",
+      "idCurso": "c-1781291121017",
+      "ordem": 3
+    },
+    {
+      "id": "mod-c-1781291121017-4",
+      "idModulo": "mod-c-1781291121017-4",
+      "titulo": "Segurança em Sistemas de Armazenamento e Funções Hash",
+      "idCurso": "c-1781291121017",
+      "ordem": 4
+    },
+    {
+      "id": "mod-c-1781291145535-1",
+      "idModulo": "mod-c-1781291145535-1",
+      "titulo": "Estrutura do Sistema Financeiro Nacional e Ativos",
+      "idCurso": "c-1781291145535",
+      "ordem": 1
+    },
+    {
+      "id": "mod-c-1781291145535-2",
+      "idModulo": "mod-c-1781291145535-2",
+      "titulo": "Introdução à Renda Fixa e Variável",
+      "idCurso": "c-1781291145535",
+      "ordem": 2
+    },
+    {
+      "id": "mod-c-1781291145535-3",
+      "idModulo": "mod-c-1781291145535-3",
+      "titulo": "Fundamentos de Análise Técnica e Gráfica",
+      "idCurso": "c-1781291145535",
+      "ordem": 3
+    },
+    {
+      "id": "mod-c-1781291145535-4",
+      "idModulo": "mod-c-1781291145535-4",
+      "titulo": "Derivativos, Gerenciamento de Risco e Psicologia do Mercado",
+      "idCurso": "c-1781291145535",
+      "ordem": 4
+    }
+  ],
+  "aulas": [
+    {
+      "id": "lesson-mod-c-1781290930850-1-1",
+      "idAula": "lesson-mod-c-1781290930850-1-1",
+      "titulo": "1. Introdução a Lógica Proposicional e Conjuntos",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290930850-1",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781290930850-1-2",
+      "idAula": "lesson-mod-c-1781290930850-1-2",
+      "titulo": "2. Conceitos Essenciais de Lógica Proposicional e Conjuntos",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290930850-1",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781290930850-1-3",
+      "idAula": "lesson-mod-c-1781290930850-1-3",
+      "titulo": "3. Leitura Complementar: Lógica Proposicional e Conjuntos",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Lógica Proposicional e Conjuntos. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781290930850-1",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781290930850-1-4",
+      "idAula": "lesson-mod-c-1781290930850-1-4",
+      "titulo": "4. Demonstração Prática de Lógica Proposicional e Conjuntos",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290930850-1",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781290930850-1-5",
+      "idAula": "lesson-mod-c-1781290930850-1-5",
+      "titulo": "5. Quiz de Fixação: Lógica Proposicional e Conjuntos",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Lógica Proposicional e Conjuntos\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781290930850-1",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781290930850-2-1",
+      "idAula": "lesson-mod-c-1781290930850-2-1",
+      "titulo": "1. Introdução a Funções e Gráficos de Elementares",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290930850-2",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781290930850-2-2",
+      "idAula": "lesson-mod-c-1781290930850-2-2",
+      "titulo": "2. Conceitos Essenciais de Funções e Gráficos de Elementares",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290930850-2",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781290930850-2-3",
+      "idAula": "lesson-mod-c-1781290930850-2-3",
+      "titulo": "3. Leitura Complementar: Funções e Gráficos de Elementares",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Funções e Gráficos de Elementares. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781290930850-2",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781290930850-2-4",
+      "idAula": "lesson-mod-c-1781290930850-2-4",
+      "titulo": "4. Demonstração Prática de Funções e Gráficos de Elementares",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290930850-2",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781290930850-2-5",
+      "idAula": "lesson-mod-c-1781290930850-2-5",
+      "titulo": "5. Quiz de Fixação: Funções e Gráficos de Elementares",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Funções e Gráficos de Elementares\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781290930850-2",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781290930850-3-1",
+      "idAula": "lesson-mod-c-1781290930850-3-1",
+      "titulo": "1. Introdução a Matrizes e Sistemas Lineares",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290930850-3",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781290930850-3-2",
+      "idAula": "lesson-mod-c-1781290930850-3-2",
+      "titulo": "2. Conceitos Essenciais de Matrizes e Sistemas Lineares",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290930850-3",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781290930850-3-3",
+      "idAula": "lesson-mod-c-1781290930850-3-3",
+      "titulo": "3. Leitura Complementar: Matrizes e Sistemas Lineares",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Matrizes e Sistemas Lineares. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781290930850-3",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781290930850-3-4",
+      "idAula": "lesson-mod-c-1781290930850-3-4",
+      "titulo": "4. Demonstração Prática de Matrizes e Sistemas Lineares",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290930850-3",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781290930850-3-5",
+      "idAula": "lesson-mod-c-1781290930850-3-5",
+      "titulo": "5. Quiz de Fixação: Matrizes e Sistemas Lineares",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Matrizes e Sistemas Lineares\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781290930850-3",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781290930850-4-1",
+      "idAula": "lesson-mod-c-1781290930850-4-1",
+      "titulo": "1. Introdução a Trigonometria e Geometria Plana",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290930850-4",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781290930850-4-2",
+      "idAula": "lesson-mod-c-1781290930850-4-2",
+      "titulo": "2. Conceitos Essenciais de Trigonometria e Geometria Plana",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290930850-4",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781290930850-4-3",
+      "idAula": "lesson-mod-c-1781290930850-4-3",
+      "titulo": "3. Leitura Complementar: Trigonometria e Geometria Plana",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Trigonometria e Geometria Plana. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781290930850-4",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781290930850-4-4",
+      "idAula": "lesson-mod-c-1781290930850-4-4",
+      "titulo": "4. Demonstração Prática de Trigonometria e Geometria Plana",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290930850-4",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781290930850-4-5",
+      "idAula": "lesson-mod-c-1781290930850-4-5",
+      "titulo": "5. Quiz de Fixação: Trigonometria e Geometria Plana",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Trigonometria e Geometria Plana\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781290930850-4",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781290945812-1-1",
+      "idAula": "lesson-mod-c-1781290945812-1-1",
+      "titulo": "1. Introdução a História da Computação e Arquitetura Von Neumann",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290945812-1",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781290945812-1-2",
+      "idAula": "lesson-mod-c-1781290945812-1-2",
+      "titulo": "2. Conceitos Essenciais de História da Computação e Arquitetura Von Neumann",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290945812-1",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781290945812-1-3",
+      "idAula": "lesson-mod-c-1781290945812-1-3",
+      "titulo": "3. Leitura Complementar: História da Computação e Arquitetura Von Neumann",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre História da Computação e Arquitetura Von Neumann. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781290945812-1",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781290945812-1-4",
+      "idAula": "lesson-mod-c-1781290945812-1-4",
+      "titulo": "4. Demonstração Prática de História da Computação e Arquitetura Von Neumann",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290945812-1",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781290945812-1-5",
+      "idAula": "lesson-mod-c-1781290945812-1-5",
+      "titulo": "5. Quiz de Fixação: História da Computação e Arquitetura Von Neumann",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"História da Computação e Arquitetura Von Neumann\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781290945812-1",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781290945812-2-1",
+      "idAula": "lesson-mod-c-1781290945812-2-1",
+      "titulo": "1. Introdução a Sistemas de Numeração e Álgebra Booleana",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290945812-2",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781290945812-2-2",
+      "idAula": "lesson-mod-c-1781290945812-2-2",
+      "titulo": "2. Conceitos Essenciais de Sistemas de Numeração e Álgebra Booleana",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290945812-2",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781290945812-2-3",
+      "idAula": "lesson-mod-c-1781290945812-2-3",
+      "titulo": "3. Leitura Complementar: Sistemas de Numeração e Álgebra Booleana",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Sistemas de Numeração e Álgebra Booleana. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781290945812-2",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781290945812-2-4",
+      "idAula": "lesson-mod-c-1781290945812-2-4",
+      "titulo": "4. Demonstração Prática de Sistemas de Numeração e Álgebra Booleana",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290945812-2",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781290945812-2-5",
+      "idAula": "lesson-mod-c-1781290945812-2-5",
+      "titulo": "5. Quiz de Fixação: Sistemas de Numeração e Álgebra Booleana",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Sistemas de Numeração e Álgebra Booleana\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781290945812-2",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781290945812-3-1",
+      "idAula": "lesson-mod-c-1781290945812-3-1",
+      "titulo": "1. Introdução a Fundamentos de Sistemas Operacionais e Redes",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290945812-3",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781290945812-3-2",
+      "idAula": "lesson-mod-c-1781290945812-3-2",
+      "titulo": "2. Conceitos Essenciais de Fundamentos de Sistemas Operacionais e Redes",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290945812-3",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781290945812-3-3",
+      "idAula": "lesson-mod-c-1781290945812-3-3",
+      "titulo": "3. Leitura Complementar: Fundamentos de Sistemas Operacionais e Redes",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Fundamentos de Sistemas Operacionais e Redes. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781290945812-3",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781290945812-3-4",
+      "idAula": "lesson-mod-c-1781290945812-3-4",
+      "titulo": "4. Demonstração Prática de Fundamentos de Sistemas Operacionais e Redes",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290945812-3",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781290945812-3-5",
+      "idAula": "lesson-mod-c-1781290945812-3-5",
+      "titulo": "5. Quiz de Fixação: Fundamentos de Sistemas Operacionais e Redes",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Fundamentos de Sistemas Operacionais e Redes\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781290945812-3",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781290945812-4-1",
+      "idAula": "lesson-mod-c-1781290945812-4-1",
+      "titulo": "1. Introdução a Introdução ao Pensamento Computacional e Algoritmos",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290945812-4",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781290945812-4-2",
+      "idAula": "lesson-mod-c-1781290945812-4-2",
+      "titulo": "2. Conceitos Essenciais de Introdução ao Pensamento Computacional e Algoritmos",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290945812-4",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781290945812-4-3",
+      "idAula": "lesson-mod-c-1781290945812-4-3",
+      "titulo": "3. Leitura Complementar: Introdução ao Pensamento Computacional e Algoritmos",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Introdução ao Pensamento Computacional e Algoritmos. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781290945812-4",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781290945812-4-4",
+      "idAula": "lesson-mod-c-1781290945812-4-4",
+      "titulo": "4. Demonstração Prática de Introdução ao Pensamento Computacional e Algoritmos",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290945812-4",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781290945812-4-5",
+      "idAula": "lesson-mod-c-1781290945812-4-5",
+      "titulo": "5. Quiz de Fixação: Introdução ao Pensamento Computacional e Algoritmos",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Introdução ao Pensamento Computacional e Algoritmos\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781290945812-4",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781290964582-1-1",
+      "idAula": "lesson-mod-c-1781290964582-1-1",
+      "titulo": "1. Introdução a Mentalidade Empreendedora e Identificação de Oportunidades",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290964582-1",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781290964582-1-2",
+      "idAula": "lesson-mod-c-1781290964582-1-2",
+      "titulo": "2. Conceitos Essenciais de Mentalidade Empreendedora e Identificação de Oportunidades",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290964582-1",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781290964582-1-3",
+      "idAula": "lesson-mod-c-1781290964582-1-3",
+      "titulo": "3. Leitura Complementar: Mentalidade Empreendedora e Identificação de Oportunidades",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Mentalidade Empreendedora e Identificação de Oportunidades. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781290964582-1",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781290964582-1-4",
+      "idAula": "lesson-mod-c-1781290964582-1-4",
+      "titulo": "4. Demonstração Prática de Mentalidade Empreendedora e Identificação de Oportunidades",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290964582-1",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781290964582-1-5",
+      "idAula": "lesson-mod-c-1781290964582-1-5",
+      "titulo": "5. Quiz de Fixação: Mentalidade Empreendedora e Identificação de Oportunidades",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Mentalidade Empreendedora e Identificação de Oportunidades\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781290964582-1",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781290964582-2-1",
+      "idAula": "lesson-mod-c-1781290964582-2-1",
+      "titulo": "1. Introdução a Validação de Mercado e Proposta de Valor",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290964582-2",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781290964582-2-2",
+      "idAula": "lesson-mod-c-1781290964582-2-2",
+      "titulo": "2. Conceitos Essenciais de Validação de Mercado e Proposta de Valor",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290964582-2",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781290964582-2-3",
+      "idAula": "lesson-mod-c-1781290964582-2-3",
+      "titulo": "3. Leitura Complementar: Validação de Mercado e Proposta de Valor",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Validação de Mercado e Proposta de Valor. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781290964582-2",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781290964582-2-4",
+      "idAula": "lesson-mod-c-1781290964582-2-4",
+      "titulo": "4. Demonstração Prática de Validação de Mercado e Proposta de Valor",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290964582-2",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781290964582-2-5",
+      "idAula": "lesson-mod-c-1781290964582-2-5",
+      "titulo": "5. Quiz de Fixação: Validação de Mercado e Proposta de Valor",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Validação de Mercado e Proposta de Valor\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781290964582-2",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781290964582-3-1",
+      "idAula": "lesson-mod-c-1781290964582-3-1",
+      "titulo": "1. Introdução a Modelagem de Negócios e Framework Canvas",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290964582-3",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781290964582-3-2",
+      "idAula": "lesson-mod-c-1781290964582-3-2",
+      "titulo": "2. Conceitos Essenciais de Modelagem de Negócios e Framework Canvas",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290964582-3",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781290964582-3-3",
+      "idAula": "lesson-mod-c-1781290964582-3-3",
+      "titulo": "3. Leitura Complementar: Modelagem de Negócios e Framework Canvas",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Modelagem de Negócios e Framework Canvas. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781290964582-3",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781290964582-3-4",
+      "idAula": "lesson-mod-c-1781290964582-3-4",
+      "titulo": "4. Demonstração Prática de Modelagem de Negócios e Framework Canvas",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290964582-3",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781290964582-3-5",
+      "idAula": "lesson-mod-c-1781290964582-3-5",
+      "titulo": "5. Quiz de Fixação: Modelagem de Negócios e Framework Canvas",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Modelagem de Negócios e Framework Canvas\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781290964582-3",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781290964582-4-1",
+      "idAula": "lesson-mod-c-1781290964582-4-1",
+      "titulo": "1. Introdução a Estratégias de Pitch e Introdução ao Mínimo Produto Viável",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290964582-4",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781290964582-4-2",
+      "idAula": "lesson-mod-c-1781290964582-4-2",
+      "titulo": "2. Conceitos Essenciais de Estratégias de Pitch e Introdução ao Mínimo Produto Viável",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290964582-4",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781290964582-4-3",
+      "idAula": "lesson-mod-c-1781290964582-4-3",
+      "titulo": "3. Leitura Complementar: Estratégias de Pitch e Introdução ao Mínimo Produto Viável",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Estratégias de Pitch e Introdução ao Mínimo Produto Viável. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781290964582-4",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781290964582-4-4",
+      "idAula": "lesson-mod-c-1781290964582-4-4",
+      "titulo": "4. Demonstração Prática de Estratégias de Pitch e Introdução ao Mínimo Produto Viável",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290964582-4",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781290964582-4-5",
+      "idAula": "lesson-mod-c-1781290964582-4-5",
+      "titulo": "5. Quiz de Fixação: Estratégias de Pitch e Introdução ao Mínimo Produto Viável",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Estratégias de Pitch e Introdução ao Mínimo Produto Viável\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781290964582-4",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781290996961-1-1",
+      "idAula": "lesson-mod-c-1781290996961-1-1",
+      "titulo": "1. Introdução a Limites e Continuidade de Funções",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290996961-1",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781290996961-1-2",
+      "idAula": "lesson-mod-c-1781290996961-1-2",
+      "titulo": "2. Conceitos Essenciais de Limites e Continuidade de Funções",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290996961-1",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781290996961-1-3",
+      "idAula": "lesson-mod-c-1781290996961-1-3",
+      "titulo": "3. Leitura Complementar: Limites e Continuidade de Funções",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Limites e Continuidade de Funções. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781290996961-1",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781290996961-1-4",
+      "idAula": "lesson-mod-c-1781290996961-1-4",
+      "titulo": "4. Demonstração Prática de Limites e Continuidade de Funções",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290996961-1",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781290996961-1-5",
+      "idAula": "lesson-mod-c-1781290996961-1-5",
+      "titulo": "5. Quiz de Fixação: Limites e Continuidade de Funções",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Limites e Continuidade de Funções\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781290996961-1",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781290996961-2-1",
+      "idAula": "lesson-mod-c-1781290996961-2-1",
+      "titulo": "1. Introdução a Derivadas e Aplicações de Otimização",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290996961-2",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781290996961-2-2",
+      "idAula": "lesson-mod-c-1781290996961-2-2",
+      "titulo": "2. Conceitos Essenciais de Derivadas e Aplicações de Otimização",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290996961-2",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781290996961-2-3",
+      "idAula": "lesson-mod-c-1781290996961-2-3",
+      "titulo": "3. Leitura Complementar: Derivadas e Aplicações de Otimização",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Derivadas e Aplicações de Otimização. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781290996961-2",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781290996961-2-4",
+      "idAula": "lesson-mod-c-1781290996961-2-4",
+      "titulo": "4. Demonstração Prática de Derivadas e Aplicações de Otimização",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290996961-2",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781290996961-2-5",
+      "idAula": "lesson-mod-c-1781290996961-2-5",
+      "titulo": "5. Quiz de Fixação: Derivadas e Aplicações de Otimização",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Derivadas e Aplicações de Otimização\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781290996961-2",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781290996961-3-1",
+      "idAula": "lesson-mod-c-1781290996961-3-1",
+      "titulo": "1. Introdução a Introdução ao Cálculo Integral",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290996961-3",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781290996961-3-2",
+      "idAula": "lesson-mod-c-1781290996961-3-2",
+      "titulo": "2. Conceitos Essenciais de Introdução ao Cálculo Integral",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290996961-3",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781290996961-3-3",
+      "idAula": "lesson-mod-c-1781290996961-3-3",
+      "titulo": "3. Leitura Complementar: Introdução ao Cálculo Integral",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Introdução ao Cálculo Integral. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781290996961-3",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781290996961-3-4",
+      "idAula": "lesson-mod-c-1781290996961-3-4",
+      "titulo": "4. Demonstração Prática de Introdução ao Cálculo Integral",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290996961-3",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781290996961-3-5",
+      "idAula": "lesson-mod-c-1781290996961-3-5",
+      "titulo": "5. Quiz de Fixação: Introdução ao Cálculo Integral",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Introdução ao Cálculo Integral\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781290996961-3",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781290996961-4-1",
+      "idAula": "lesson-mod-c-1781290996961-4-1",
+      "titulo": "1. Introdução a Estatística Descritiva e Análise de Dados",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290996961-4",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781290996961-4-2",
+      "idAula": "lesson-mod-c-1781290996961-4-2",
+      "titulo": "2. Conceitos Essenciais de Estatística Descritiva e Análise de Dados",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290996961-4",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781290996961-4-3",
+      "idAula": "lesson-mod-c-1781290996961-4-3",
+      "titulo": "3. Leitura Complementar: Estatística Descritiva e Análise de Dados",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Estatística Descritiva e Análise de Dados. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781290996961-4",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781290996961-4-4",
+      "idAula": "lesson-mod-c-1781290996961-4-4",
+      "titulo": "4. Demonstração Prática de Estatística Descritiva e Análise de Dados",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781290996961-4",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781290996961-4-5",
+      "idAula": "lesson-mod-c-1781290996961-4-5",
+      "titulo": "5. Quiz de Fixação: Estatística Descritiva e Análise de Dados",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Estatística Descritiva e Análise de Dados\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781290996961-4",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781291026966-1-1",
+      "idAula": "lesson-mod-c-1781291026966-1-1",
+      "titulo": "1. Introdução a Estruturas de Controle de Fluxo e Condicionais",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291026966-1",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781291026966-1-2",
+      "idAula": "lesson-mod-c-1781291026966-1-2",
+      "titulo": "2. Conceitos Essenciais de Estruturas de Controle de Fluxo e Condicionais",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291026966-1",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781291026966-1-3",
+      "idAula": "lesson-mod-c-1781291026966-1-3",
+      "titulo": "3. Leitura Complementar: Estruturas de Controle de Fluxo e Condicionais",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Estruturas de Controle de Fluxo e Condicionais. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781291026966-1",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781291026966-1-4",
+      "idAula": "lesson-mod-c-1781291026966-1-4",
+      "titulo": "4. Demonstração Prática de Estruturas de Controle de Fluxo e Condicionais",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291026966-1",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781291026966-1-5",
+      "idAula": "lesson-mod-c-1781291026966-1-5",
+      "titulo": "5. Quiz de Fixação: Estruturas de Controle de Fluxo e Condicionais",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Estruturas de Controle de Fluxo e Condicionais\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781291026966-1",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781291026966-2-1",
+      "idAula": "lesson-mod-c-1781291026966-2-1",
+      "titulo": "1. Introdução a Estruturas de Repetição e Laços",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291026966-2",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781291026966-2-2",
+      "idAula": "lesson-mod-c-1781291026966-2-2",
+      "titulo": "2. Conceitos Essenciais de Estruturas de Repetição e Laços",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291026966-2",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781291026966-2-3",
+      "idAula": "lesson-mod-c-1781291026966-2-3",
+      "titulo": "3. Leitura Complementar: Estruturas de Repetição e Laços",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Estruturas de Repetição e Laços. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781291026966-2",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781291026966-2-4",
+      "idAula": "lesson-mod-c-1781291026966-2-4",
+      "titulo": "4. Demonstração Prática de Estruturas de Repetição e Laços",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291026966-2",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781291026966-2-5",
+      "idAula": "lesson-mod-c-1781291026966-2-5",
+      "titulo": "5. Quiz de Fixação: Estruturas de Repetição e Laços",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Estruturas de Repetição e Laços\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781291026966-2",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781291026966-3-1",
+      "idAula": "lesson-mod-c-1781291026966-3-1",
+      "titulo": "1. Introdução a Vetores, Matrizes e Manipulação de Strings",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291026966-3",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781291026966-3-2",
+      "idAula": "lesson-mod-c-1781291026966-3-2",
+      "titulo": "2. Conceitos Essenciais de Vetores, Matrizes e Manipulação de Strings",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291026966-3",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781291026966-3-3",
+      "idAula": "lesson-mod-c-1781291026966-3-3",
+      "titulo": "3. Leitura Complementar: Vetores, Matrizes e Manipulação de Strings",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Vetores, Matrizes e Manipulação de Strings. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781291026966-3",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781291026966-3-4",
+      "idAula": "lesson-mod-c-1781291026966-3-4",
+      "titulo": "4. Demonstração Prática de Vetores, Matrizes e Manipulação de Strings",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291026966-3",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781291026966-3-5",
+      "idAula": "lesson-mod-c-1781291026966-3-5",
+      "titulo": "5. Quiz de Fixação: Vetores, Matrizes e Manipulação de Strings",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Vetores, Matrizes e Manipulação de Strings\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781291026966-3",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781291026966-4-1",
+      "idAula": "lesson-mod-c-1781291026966-4-1",
+      "titulo": "1. Introdução a Funções, Modularização e Escopo de Variáveis",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291026966-4",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781291026966-4-2",
+      "idAula": "lesson-mod-c-1781291026966-4-2",
+      "titulo": "2. Conceitos Essenciais de Funções, Modularização e Escopo de Variáveis",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291026966-4",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781291026966-4-3",
+      "idAula": "lesson-mod-c-1781291026966-4-3",
+      "titulo": "3. Leitura Complementar: Funções, Modularização e Escopo de Variáveis",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Funções, Modularização e Escopo de Variáveis. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781291026966-4",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781291026966-4-4",
+      "idAula": "lesson-mod-c-1781291026966-4-4",
+      "titulo": "4. Demonstração Prática de Funções, Modularização e Escopo de Variáveis",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291026966-4",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781291026966-4-5",
+      "idAula": "lesson-mod-c-1781291026966-4-5",
+      "titulo": "5. Quiz de Fixação: Funções, Modularização e Escopo de Variáveis",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Funções, Modularização e Escopo de Variáveis\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781291026966-4",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781291050286-1-1",
+      "idAula": "lesson-mod-c-1781291050286-1-1",
+      "titulo": "1. Introdução a Conceitos Básicos e Princípios Contáveis",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291050286-1",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781291050286-1-2",
+      "idAula": "lesson-mod-c-1781291050286-1-2",
+      "titulo": "2. Conceitos Essenciais de Conceitos Básicos e Princípios Contáveis",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291050286-1",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781291050286-1-3",
+      "idAula": "lesson-mod-c-1781291050286-1-3",
+      "titulo": "3. Leitura Complementar: Conceitos Básicos e Princípios Contáveis",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Conceitos Básicos e Princípios Contáveis. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781291050286-1",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781291050286-1-4",
+      "idAula": "lesson-mod-c-1781291050286-1-4",
+      "titulo": "4. Demonstração Prática de Conceitos Básicos e Princípios Contáveis",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291050286-1",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781291050286-1-5",
+      "idAula": "lesson-mod-c-1781291050286-1-5",
+      "titulo": "5. Quiz de Fixação: Conceitos Básicos e Princípios Contáveis",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Conceitos Básicos e Princípios Contáveis\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781291050286-1",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781291050286-2-1",
+      "idAula": "lesson-mod-c-1781291050286-2-1",
+      "titulo": "1. Introdução a Balanço Patrimonial e Demonstração do Resultado do Exercício",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291050286-2",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781291050286-2-2",
+      "idAula": "lesson-mod-c-1781291050286-2-2",
+      "titulo": "2. Conceitos Essenciais de Balanço Patrimonial e Demonstração do Resultado do Exercício",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291050286-2",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781291050286-2-3",
+      "idAula": "lesson-mod-c-1781291050286-2-3",
+      "titulo": "3. Leitura Complementar: Balanço Patrimonial e Demonstração do Resultado do Exercício",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Balanço Patrimonial e Demonstração do Resultado do Exercício. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781291050286-2",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781291050286-2-4",
+      "idAula": "lesson-mod-c-1781291050286-2-4",
+      "titulo": "4. Demonstração Prática de Balanço Patrimonial e Demonstração do Resultado do Exercício",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291050286-2",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781291050286-2-5",
+      "idAula": "lesson-mod-c-1781291050286-2-5",
+      "titulo": "5. Quiz de Fixação: Balanço Patrimonial e Demonstração do Resultado do Exercício",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Balanço Patrimonial e Demonstração do Resultado do Exercício\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781291050286-2",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781291050286-3-1",
+      "idAula": "lesson-mod-c-1781291050286-3-1",
+      "titulo": "1. Introdução a Fluxo de Caixa e Capital de Giro",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291050286-3",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781291050286-3-2",
+      "idAula": "lesson-mod-c-1781291050286-3-2",
+      "titulo": "2. Conceitos Essenciais de Fluxo de Caixa e Capital de Giro",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291050286-3",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781291050286-3-3",
+      "idAula": "lesson-mod-c-1781291050286-3-3",
+      "titulo": "3. Leitura Complementar: Fluxo de Caixa e Capital de Giro",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Fluxo de Caixa e Capital de Giro. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781291050286-3",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781291050286-3-4",
+      "idAula": "lesson-mod-c-1781291050286-3-4",
+      "titulo": "4. Demonstração Prática de Fluxo de Caixa e Capital de Giro",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291050286-3",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781291050286-3-5",
+      "idAula": "lesson-mod-c-1781291050286-3-5",
+      "titulo": "5. Quiz de Fixação: Fluxo de Caixa e Capital de Giro",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Fluxo de Caixa e Capital de Giro\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781291050286-3",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781291050286-4-1",
+      "idAula": "lesson-mod-c-1781291050286-4-1",
+      "titulo": "1. Introdução a Análise de Indicadores Financeiros e Viabilidade",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291050286-4",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781291050286-4-2",
+      "idAula": "lesson-mod-c-1781291050286-4-2",
+      "titulo": "2. Conceitos Essenciais de Análise de Indicadores Financeiros e Viabilidade",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291050286-4",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781291050286-4-3",
+      "idAula": "lesson-mod-c-1781291050286-4-3",
+      "titulo": "3. Leitura Complementar: Análise de Indicadores Financeiros e Viabilidade",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Análise de Indicadores Financeiros e Viabilidade. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781291050286-4",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781291050286-4-4",
+      "idAula": "lesson-mod-c-1781291050286-4-4",
+      "titulo": "4. Demonstração Prática de Análise de Indicadores Financeiros e Viabilidade",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291050286-4",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781291050286-4-5",
+      "idAula": "lesson-mod-c-1781291050286-4-5",
+      "titulo": "5. Quiz de Fixação: Análise de Indicadores Financeiros e Viabilidade",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Análise de Indicadores Financeiros e Viabilidade\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781291050286-4",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781291099209-1-1",
+      "idAula": "lesson-mod-c-1781291099209-1-1",
+      "titulo": "1. Introdução a Espaços Amostrais e Variáveis Aleatórias Continuas",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291099209-1",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781291099209-1-2",
+      "idAula": "lesson-mod-c-1781291099209-1-2",
+      "titulo": "2. Conceitos Essenciais de Espaços Amostrais e Variáveis Aleatórias Continuas",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291099209-1",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781291099209-1-3",
+      "idAula": "lesson-mod-c-1781291099209-1-3",
+      "titulo": "3. Leitura Complementar: Espaços Amostrais e Variáveis Aleatórias Continuas",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Espaços Amostrais e Variáveis Aleatórias Continuas. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781291099209-1",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781291099209-1-4",
+      "idAula": "lesson-mod-c-1781291099209-1-4",
+      "titulo": "4. Demonstração Prática de Espaços Amostrais e Variáveis Aleatórias Continuas",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291099209-1",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781291099209-1-5",
+      "idAula": "lesson-mod-c-1781291099209-1-5",
+      "titulo": "5. Quiz de Fixação: Espaços Amostrais e Variáveis Aleatórias Continuas",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Espaços Amostrais e Variáveis Aleatórias Continuas\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781291099209-1",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781291099209-2-1",
+      "idAula": "lesson-mod-c-1781291099209-2-1",
+      "titulo": "1. Introdução a Distribuição Normal e Teorema Central do Limite",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291099209-2",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781291099209-2-2",
+      "idAula": "lesson-mod-c-1781291099209-2-2",
+      "titulo": "2. Conceitos Essenciais de Distribuição Normal e Teorema Central do Limite",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291099209-2",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781291099209-2-3",
+      "idAula": "lesson-mod-c-1781291099209-2-3",
+      "titulo": "3. Leitura Complementar: Distribuição Normal e Teorema Central do Limite",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Distribuição Normal e Teorema Central do Limite. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781291099209-2",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781291099209-2-4",
+      "idAula": "lesson-mod-c-1781291099209-2-4",
+      "titulo": "4. Demonstração Prática de Distribuição Normal e Teorema Central do Limite",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291099209-2",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781291099209-2-5",
+      "idAula": "lesson-mod-c-1781291099209-2-5",
+      "titulo": "5. Quiz de Fixação: Distribuição Normal e Teorema Central do Limite",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Distribuição Normal e Teorema Central do Limite\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781291099209-2",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781291099209-3-1",
+      "idAula": "lesson-mod-c-1781291099209-3-1",
+      "titulo": "1. Introdução a Distribuições Conjuntas e Funções de Densidade Marginais",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291099209-3",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781291099209-3-2",
+      "idAula": "lesson-mod-c-1781291099209-3-2",
+      "titulo": "2. Conceitos Essenciais de Distribuições Conjuntas e Funções de Densidade Marginais",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291099209-3",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781291099209-3-3",
+      "idAula": "lesson-mod-c-1781291099209-3-3",
+      "titulo": "3. Leitura Complementar: Distribuições Conjuntas e Funções de Densidade Marginais",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Distribuições Conjuntas e Funções de Densidade Marginais. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781291099209-3",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781291099209-3-4",
+      "idAula": "lesson-mod-c-1781291099209-3-4",
+      "titulo": "4. Demonstração Prática de Distribuições Conjuntas e Funções de Densidade Marginais",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291099209-3",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781291099209-3-5",
+      "idAula": "lesson-mod-c-1781291099209-3-5",
+      "titulo": "5. Quiz de Fixação: Distribuições Conjuntas e Funções de Densidade Marginais",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Distribuições Conjuntas e Funções de Densidade Marginais\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781291099209-3",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781291099209-4-1",
+      "idAula": "lesson-mod-c-1781291099209-4-1",
+      "titulo": "1. Introdução a Métodos de Estimação e Inferência Estatística Avançada",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291099209-4",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781291099209-4-2",
+      "idAula": "lesson-mod-c-1781291099209-4-2",
+      "titulo": "2. Conceitos Essenciais de Métodos de Estimação e Inferência Estatística Avançada",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291099209-4",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781291099209-4-3",
+      "idAula": "lesson-mod-c-1781291099209-4-3",
+      "titulo": "3. Leitura Complementar: Métodos de Estimação e Inferência Estatística Avançada",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Métodos de Estimação e Inferência Estatística Avançada. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781291099209-4",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781291099209-4-4",
+      "idAula": "lesson-mod-c-1781291099209-4-4",
+      "titulo": "4. Demonstração Prática de Métodos de Estimação e Inferência Estatística Avançada",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291099209-4",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781291099209-4-5",
+      "idAula": "lesson-mod-c-1781291099209-4-5",
+      "titulo": "5. Quiz de Fixação: Métodos de Estimação e Inferência Estatística Avançada",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Métodos de Estimação e Inferência Estatística Avançada\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781291099209-4",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781291121017-1-1",
+      "idAula": "lesson-mod-c-1781291121017-1-1",
+      "titulo": "1. Introdução a Modelagem Entidade-Relacionamento e Álgebra Relacional",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291121017-1",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781291121017-1-2",
+      "idAula": "lesson-mod-c-1781291121017-1-2",
+      "titulo": "2. Conceitos Essenciais de Modelagem Entidade-Relacionamento e Álgebra Relacional",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291121017-1",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781291121017-1-3",
+      "idAula": "lesson-mod-c-1781291121017-1-3",
+      "titulo": "3. Leitura Complementar: Modelagem Entidade-Relacionamento e Álgebra Relacional",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Modelagem Entidade-Relacionamento e Álgebra Relacional. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781291121017-1",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781291121017-1-4",
+      "idAula": "lesson-mod-c-1781291121017-1-4",
+      "titulo": "4. Demonstração Prática de Modelagem Entidade-Relacionamento e Álgebra Relacional",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291121017-1",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781291121017-1-5",
+      "idAula": "lesson-mod-c-1781291121017-1-5",
+      "titulo": "5. Quiz de Fixação: Modelagem Entidade-Relacionamento e Álgebra Relacional",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Modelagem Entidade-Relacionamento e Álgebra Relacional\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781291121017-1",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781291121017-2-1",
+      "idAula": "lesson-mod-c-1781291121017-2-1",
+      "titulo": "1. Introdução a Linguagem SQL Estruturada e Normalização de Dados",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291121017-2",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781291121017-2-2",
+      "idAula": "lesson-mod-c-1781291121017-2-2",
+      "titulo": "2. Conceitos Essenciais de Linguagem SQL Estruturada e Normalização de Dados",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291121017-2",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781291121017-2-3",
+      "idAula": "lesson-mod-c-1781291121017-2-3",
+      "titulo": "3. Leitura Complementar: Linguagem SQL Estruturada e Normalização de Dados",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Linguagem SQL Estruturada e Normalização de Dados. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781291121017-2",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781291121017-2-4",
+      "idAula": "lesson-mod-c-1781291121017-2-4",
+      "titulo": "4. Demonstração Prática de Linguagem SQL Estruturada e Normalização de Dados",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291121017-2",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781291121017-2-5",
+      "idAula": "lesson-mod-c-1781291121017-2-5",
+      "titulo": "5. Quiz de Fixação: Linguagem SQL Estruturada e Normalização de Dados",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Linguagem SQL Estruturada e Normalização de Dados\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781291121017-2",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781291121017-3-1",
+      "idAula": "lesson-mod-c-1781291121017-3-1",
+      "titulo": "1. Introdução a Fundamentos de Criptografia Simétrica e Assimétrica",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291121017-3",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781291121017-3-2",
+      "idAula": "lesson-mod-c-1781291121017-3-2",
+      "titulo": "2. Conceitos Essenciais de Fundamentos de Criptografia Simétrica e Assimétrica",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291121017-3",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781291121017-3-3",
+      "idAula": "lesson-mod-c-1781291121017-3-3",
+      "titulo": "3. Leitura Complementar: Fundamentos de Criptografia Simétrica e Assimétrica",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Fundamentos de Criptografia Simétrica e Assimétrica. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781291121017-3",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781291121017-3-4",
+      "idAula": "lesson-mod-c-1781291121017-3-4",
+      "titulo": "4. Demonstração Prática de Fundamentos de Criptografia Simétrica e Assimétrica",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291121017-3",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781291121017-3-5",
+      "idAula": "lesson-mod-c-1781291121017-3-5",
+      "titulo": "5. Quiz de Fixação: Fundamentos de Criptografia Simétrica e Assimétrica",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Fundamentos de Criptografia Simétrica e Assimétrica\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781291121017-3",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781291121017-4-1",
+      "idAula": "lesson-mod-c-1781291121017-4-1",
+      "titulo": "1. Introdução a Segurança em Sistemas de Armazenamento e Funções Hash",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291121017-4",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781291121017-4-2",
+      "idAula": "lesson-mod-c-1781291121017-4-2",
+      "titulo": "2. Conceitos Essenciais de Segurança em Sistemas de Armazenamento e Funções Hash",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291121017-4",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781291121017-4-3",
+      "idAula": "lesson-mod-c-1781291121017-4-3",
+      "titulo": "3. Leitura Complementar: Segurança em Sistemas de Armazenamento e Funções Hash",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Segurança em Sistemas de Armazenamento e Funções Hash. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781291121017-4",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781291121017-4-4",
+      "idAula": "lesson-mod-c-1781291121017-4-4",
+      "titulo": "4. Demonstração Prática de Segurança em Sistemas de Armazenamento e Funções Hash",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291121017-4",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781291121017-4-5",
+      "idAula": "lesson-mod-c-1781291121017-4-5",
+      "titulo": "5. Quiz de Fixação: Segurança em Sistemas de Armazenamento e Funções Hash",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Segurança em Sistemas de Armazenamento e Funções Hash\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781291121017-4",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781291145535-1-1",
+      "idAula": "lesson-mod-c-1781291145535-1-1",
+      "titulo": "1. Introdução a Estrutura do Sistema Financeiro Nacional e Ativos",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291145535-1",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781291145535-1-2",
+      "idAula": "lesson-mod-c-1781291145535-1-2",
+      "titulo": "2. Conceitos Essenciais de Estrutura do Sistema Financeiro Nacional e Ativos",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291145535-1",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781291145535-1-3",
+      "idAula": "lesson-mod-c-1781291145535-1-3",
+      "titulo": "3. Leitura Complementar: Estrutura do Sistema Financeiro Nacional e Ativos",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Estrutura do Sistema Financeiro Nacional e Ativos. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781291145535-1",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781291145535-1-4",
+      "idAula": "lesson-mod-c-1781291145535-1-4",
+      "titulo": "4. Demonstração Prática de Estrutura do Sistema Financeiro Nacional e Ativos",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291145535-1",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781291145535-1-5",
+      "idAula": "lesson-mod-c-1781291145535-1-5",
+      "titulo": "5. Quiz de Fixação: Estrutura do Sistema Financeiro Nacional e Ativos",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Estrutura do Sistema Financeiro Nacional e Ativos\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781291145535-1",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781291145535-2-1",
+      "idAula": "lesson-mod-c-1781291145535-2-1",
+      "titulo": "1. Introdução a Introdução à Renda Fixa e Variável",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291145535-2",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781291145535-2-2",
+      "idAula": "lesson-mod-c-1781291145535-2-2",
+      "titulo": "2. Conceitos Essenciais de Introdução à Renda Fixa e Variável",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291145535-2",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781291145535-2-3",
+      "idAula": "lesson-mod-c-1781291145535-2-3",
+      "titulo": "3. Leitura Complementar: Introdução à Renda Fixa e Variável",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Introdução à Renda Fixa e Variável. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781291145535-2",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781291145535-2-4",
+      "idAula": "lesson-mod-c-1781291145535-2-4",
+      "titulo": "4. Demonstração Prática de Introdução à Renda Fixa e Variável",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291145535-2",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781291145535-2-5",
+      "idAula": "lesson-mod-c-1781291145535-2-5",
+      "titulo": "5. Quiz de Fixação: Introdução à Renda Fixa e Variável",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Introdução à Renda Fixa e Variável\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781291145535-2",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781291145535-3-1",
+      "idAula": "lesson-mod-c-1781291145535-3-1",
+      "titulo": "1. Introdução a Fundamentos de Análise Técnica e Gráfica",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291145535-3",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781291145535-3-2",
+      "idAula": "lesson-mod-c-1781291145535-3-2",
+      "titulo": "2. Conceitos Essenciais de Fundamentos de Análise Técnica e Gráfica",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291145535-3",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781291145535-3-3",
+      "idAula": "lesson-mod-c-1781291145535-3-3",
+      "titulo": "3. Leitura Complementar: Fundamentos de Análise Técnica e Gráfica",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Fundamentos de Análise Técnica e Gráfica. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781291145535-3",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781291145535-3-4",
+      "idAula": "lesson-mod-c-1781291145535-3-4",
+      "titulo": "4. Demonstração Prática de Fundamentos de Análise Técnica e Gráfica",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291145535-3",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781291145535-3-5",
+      "idAula": "lesson-mod-c-1781291145535-3-5",
+      "titulo": "5. Quiz de Fixação: Fundamentos de Análise Técnica e Gráfica",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Fundamentos de Análise Técnica e Gráfica\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781291145535-3",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    },
+    {
+      "id": "lesson-mod-c-1781291145535-4-1",
+      "idAula": "lesson-mod-c-1781291145535-4-1",
+      "titulo": "1. Introdução a Derivativos, Gerenciamento de Risco e Psicologia do Mercado",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291145535-4",
+      "duracaoMinutos": 10,
+      "ordem": 1
+    },
+    {
+      "id": "lesson-mod-c-1781291145535-4-2",
+      "idAula": "lesson-mod-c-1781291145535-4-2",
+      "titulo": "2. Conceitos Essenciais de Derivativos, Gerenciamento de Risco e Psicologia do Mercado",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291145535-4",
+      "duracaoMinutos": 15,
+      "ordem": 2
+    },
+    {
+      "id": "lesson-mod-c-1781291145535-4-3",
+      "idAula": "lesson-mod-c-1781291145535-4-3",
+      "titulo": "3. Leitura Complementar: Derivativos, Gerenciamento de Risco e Psicologia do Mercado",
+      "tipoConteudo": "texto",
+      "urlConteudo": "Este artigo apresenta os fundamentos teóricos detalhados sobre Derivativos, Gerenciamento de Risco e Psicologia do Mercado. Compreender esses pilares é essencial para avançar com segurança nos tópicos práticos subsequentes e dominar o conteúdo.",
+      "idModulo": "mod-c-1781291145535-4",
+      "duracaoMinutos": 20,
+      "ordem": 3
+    },
+    {
+      "id": "lesson-mod-c-1781291145535-4-4",
+      "idAula": "lesson-mod-c-1781291145535-4-4",
+      "titulo": "4. Demonstração Prática de Derivativos, Gerenciamento de Risco e Psicologia do Mercado",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "idModulo": "mod-c-1781291145535-4",
+      "duracaoMinutos": 18,
+      "ordem": 4
+    },
+    {
+      "id": "lesson-mod-c-1781291145535-4-5",
+      "idAula": "lesson-mod-c-1781291145535-4-5",
+      "titulo": "5. Quiz de Fixação: Derivativos, Gerenciamento de Risco e Psicologia do Mercado",
+      "tipoConteudo": "quiz",
+      "urlConteudo": "Responda mentalmente para testar seu aprendizado:\n\nQual é o elemento principal e mais importante de \"Derivativos, Gerenciamento de Risco e Psicologia do Mercado\" que aprendemos nesta seção?",
+      "idModulo": "mod-c-1781291145535-4",
+      "duracaoMinutos": 5,
+      "ordem": 5
+    }
+  ],
+  "matriculas": [
+    {
+      "idMatricula": "mat-1781291947390",
+      "idUsuario": "u-1781287395293",
+      "idCurso": "c-1781290930850",
+      "dataMatricula": "2026-06-12",
+      "dataConclusao": null,
+      "id": "k0Mn3rlhiHo"
+    },
+    {
+      "idMatricula": "mat-1781292908457",
+      "idUsuario": "u-1781287395293",
+      "idCurso": "c-1781290945812",
+      "dataMatricula": "2026-06-12",
+      "dataConclusao": null,
+      "id": "v-cONh0fiII"
+    },
+    {
+      "idMatricula": "mat-1781293462433",
+      "idUsuario": "u-1781293443466",
+      "idCurso": "c-1781290964582",
+      "dataMatricula": "2026-06-12",
+      "dataConclusao": null,
+      "id": "Zz4Xx_iXuts"
+    }
+  ],
+  "progresso_aulas": [
+    {
+      "id": "z29WE9f_y7Q",
+      "idUsuario": "u-1781287395293",
+      "idAula": "lesson-mod-c-1781290930850-1-1",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "n4nMRugzIS4",
+      "idUsuario": "u-1781287395293",
+      "idAula": "lesson-mod-c-1781290930850-1-2",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "1qidRgF1Cz0",
+      "idUsuario": "u-1781287395293",
+      "idAula": "lesson-mod-c-1781290930850-1-3",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "q7oM7OqQnMg",
+      "idUsuario": "u-1781287395293",
+      "idAula": "lesson-mod-c-1781290930850-1-4",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "e2AGb7JHBfk",
+      "idUsuario": "u-1781287395293",
+      "idAula": "lesson-mod-c-1781290930850-1-5",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "Jg47nViXfkE",
+      "idUsuario": "u-1781287395293",
+      "idAula": "lesson-mod-c-1781290930850-2-1",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "jF83dRMusMM",
+      "idUsuario": "u-1781287395293",
+      "idAula": "lesson-mod-c-1781290930850-2-2",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "M5QCq5Nmufs",
+      "idUsuario": "u-1781287395293",
+      "idAula": "lesson-mod-c-1781290930850-2-3",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "hBvUaJUd01c",
+      "idUsuario": "u-1781287395293",
+      "idAula": "lesson-mod-c-1781290930850-2-4",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "NW2x_atVIQ0",
+      "idUsuario": "u-1781287395293",
+      "idAula": "lesson-mod-c-1781290930850-2-5",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "pYS6RR6MNB0",
+      "idUsuario": "u-1781287395293",
+      "idAula": "lesson-mod-c-1781290930850-3-1",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "v3dztk-pGWg",
+      "idUsuario": "u-1781287395293",
+      "idAula": "lesson-mod-c-1781290930850-3-2",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "JQxidQsNsiU",
+      "idUsuario": "u-1781287395293",
+      "idAula": "lesson-mod-c-1781290930850-3-3",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "kOG5TCX36UQ",
+      "idUsuario": "u-1781287395293",
+      "idAula": "lesson-mod-c-1781290930850-3-4",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "adyUi4_iuWE",
+      "idUsuario": "u-1781287395293",
+      "idAula": "lesson-mod-c-1781290930850-3-5",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "dpoiXLs5EjA",
+      "idUsuario": "u-1781287395293",
+      "idAula": "lesson-mod-c-1781290930850-4-1",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "C5dOX6gEkzU",
+      "idUsuario": "u-1781287395293",
+      "idAula": "lesson-mod-c-1781290930850-4-2",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "ghi4zZ4j4A8",
+      "idUsuario": "u-1781287395293",
+      "idAula": "lesson-mod-c-1781290930850-4-3",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "GCe4G9S4jHE",
+      "idUsuario": "u-1781287395293",
+      "idAula": "lesson-mod-c-1781290930850-4-4",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "A4LLcQFK6p0",
+      "idUsuario": "u-1781287395293",
+      "idAula": "lesson-mod-c-1781290930850-4-5",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "rbXIPaVgnHo",
+      "idUsuario": "u-1781287395293",
+      "idAula": "lesson-mod-c-1781290945812-1-1",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "3u0U1XWXZ3w",
+      "idUsuario": "u-1781287395293",
+      "idAula": "lesson-mod-c-1781290945812-1-2",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "JHzzJvOaL8Q",
+      "idUsuario": "u-1781287395293",
+      "idAula": "lesson-mod-c-1781290945812-1-3",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    }
+  ],
+  "avaliacoes": [
+    {
+      "id": "xTW_6wHZAdE",
+      "idAvaliacao": "ev-1781293880282",
+      "idUsuario": "u-1781287395293",
+      "idCurso": "c-1781290930850",
+      "nota": "5",
+      "comentario": "Instrutor melhor que esse não existe!",
+      "dataAvaliacao": "2026-06-12"
+    }
+  ],
+  "trilhas": [
+    {
+      "id": "ZE-GaVcfR1U",
+      "idTrilha": "t-1781291745321",
+      "titulo": "Iniciante",
+      "descricao": "Iniciante",
+      "idCategoria": "cat-1781291733457"
+    },
+    {
+      "id": "T7gY_kqK3xk",
+      "idTrilha": "t-1781292703958",
+      "titulo": "Intermediário",
+      "descricao": "Intermediário",
+      "idCategoria": "cat-1781292061870"
+    },
+    {
+      "id": "Zue8V6YDowU",
+      "idTrilha": "t-1781292779019",
+      "titulo": "Avançado",
+      "descricao": "Avançado",
+      "idCategoria": "cat-1781292762093"
+    },
+    {
+      "id": "_TfgjXL5xd0",
+      "idTrilha": "t-1781293679401",
+      "titulo": "Matemática Completo",
+      "descricao": "Todos os cursos de fundamentos matemáticos.",
+      "idCategoria": "cat-1781290863497"
+    }
+  ],
+  "trilhas_cursos": [
+    {
+      "id": "D93RHbJJJLk",
+      "idTrilha": "t-1781291745321",
+      "idCurso": "c-1781290930850",
+      "ordem": 1
+    },
+    {
+      "id": "_fVNMHAESu4",
+      "idTrilha": "t-1781291745321",
+      "idCurso": "c-1781290945812",
+      "ordem": 2
+    },
+    {
+      "id": "o0PyAUcRxCI",
+      "idTrilha": "t-1781291745321",
+      "idCurso": "c-1781290945812",
+      "ordem": 3
+    },
+    {
+      "id": "pEvV1FUKHZ0",
+      "idTrilha": "t-1781292703958",
+      "idCurso": "c-1781290996961",
+      "ordem": 1
+    },
+    {
+      "id": "6PqWFMedUKk",
+      "idTrilha": "t-1781292703958",
+      "idCurso": "c-1781291026966",
+      "ordem": 2
+    },
+    {
+      "id": "p3g_uME7Bhk",
+      "idTrilha": "t-1781292703958",
+      "idCurso": "c-1781291050286",
+      "ordem": 3
+    },
+    {
+      "id": "XVt3kRTW6CQ",
+      "idTrilha": "t-1781292779019",
+      "idCurso": "c-1781291099209",
+      "ordem": 1
+    },
+    {
+      "id": "oSRbSY6LvS4",
+      "idTrilha": "t-1781292779019",
+      "idCurso": "c-1781291121017",
+      "ordem": 2
+    },
+    {
+      "id": "BCltzraW7Ws",
+      "idTrilha": "t-1781292779019",
+      "idCurso": "c-1781291145535",
+      "ordem": 3
+    },
+    {
+      "id": "4EK6ydiVXa4",
+      "idTrilha": "t-1781293679401",
+      "idCurso": "c-1781290930850",
+      "ordem": 1
+    },
+    {
+      "id": "etKmPYrHt1w",
+      "idTrilha": "t-1781293679401",
+      "idCurso": "c-1781290996961",
+      "ordem": 2
+    },
+    {
+      "id": "7kd0gOwKtsI",
+      "idTrilha": "t-1781293679401",
+      "idCurso": "c-1781291099209",
+      "ordem": 3
+    }
+  ],
+  "certificados": [
+    {
+      "idCertificado": "cert-1781292433409",
+      "idUsuario": "u-1781287395293",
+      "idCurso": "c-1781290930850",
+      "idTrilha": null,
+      "codigoVerificacao": "LEARN-2026-INT-SY6EC0",
+      "dataEmissao": "2026-06-12",
+      "id": "MyGW-niPF0s"
+    }
+  ],
+  "planos": [
+    {
+      "id": "vYBpK3sucVQ",
+      "idPlano": "pl-1781288871351",
+      "nome": "Gratuito",
+      "descricao": "Acesso essencial para começar a aprender.",
+      "preco": 0,
+      "duracaoMeses": 1,
+      "vantagens": [
+        "Acesso aos módulos de introdução e conceitos básicos",
+        "Suporte via comunidade de alunos",
+        "Acesso à plataforma via web e mobile",
+        "Certificado de participação nos cursos gratuitos"
+      ]
+    },
+    {
+      "id": "Cri3kQuIouU",
+      "idPlano": "pl-1781288982774",
+      "nome": "Pro",
+      "descricao": "Tudo o que está no plano Free, mais:",
+      "preco": 100,
+      "duracaoMeses": 1,
+      "vantagens": [
+        "Acesso ilimitado a todos os cursos, módulos e trilhas avançadas",
+        "Projetos práticos e desafios de código reais",
+        "Suporte prioritário com instrutores na plataforma",
+        "Acesso antecipado a novos cursos e atualizações de ferramentas de IA",
+        "Certificados de conclusão válidos para o mercado"
+      ]
+    },
+    {
+      "id": "ZfR2LkK-z70",
+      "idPlano": "pl-1781290752525",
+      "nome": "Pro (Anual)",
+      "descricao": "Tudo o que está no plano Pro, mais:",
+      "preco": 1080,
+      "duracaoMeses": 12,
+      "vantagens": [
+        "Desconto de 10% em cada mensalidade."
+      ]
+    }
+  ],
+  "assinaturas": [
+    {
+      "id": "nRiOrH4fdg0",
+      "idAssinatura": "sub-1781293443478",
+      "idUsuario": "u-1781293443466",
+      "idPlano": "pl-1781288871351",
+      "dataInicio": "2026-06-12",
+      "dataFim": "2026-07-12"
+    },
+    {
+      "id": "JnUZgIUwdgg",
+      "idAssinatura": "sub-1781293455428",
+      "idUsuario": "u-1781293443466",
+      "idPlano": "pl-1781290752525",
+      "dataInicio": "2026-06-12",
+      "dataFim": "2027-06-12"
+    }
+  ],
+  "pagamentos": [
+    {
+      "id": "oBamR-E7HMg",
+      "idPagamento": "pag-1781293455438",
+      "idAssinatura": "sub-1781293455428",
+      "idUsuario": "u-1781293443466",
+      "valor": 1080,
+      "dataPagamento": "2026-06-12T19:44:15.428Z",
+      "metodoPagamento": "pix",
+      "transacaoId": "tx-625139070"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

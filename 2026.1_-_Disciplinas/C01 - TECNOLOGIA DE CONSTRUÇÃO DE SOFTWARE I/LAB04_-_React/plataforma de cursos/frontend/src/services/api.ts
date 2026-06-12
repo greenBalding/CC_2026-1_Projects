@@ -25,6 +25,9 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
     ...options,
   });
   if (!res.ok) {
+    if (res.status === 404 && (!options || !options.method || options.method.toUpperCase() === 'GET')) {
+      return [] as unknown as T;
+    }
     throw new Error(`API error: ${res.statusText}`);
   }
   return res.json();
@@ -334,4 +337,12 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(data),
     }),
+  deletePagamento: async (idPagamento: string) => {
+    const list = await api.getPagamentos();
+    const found = list.find((p) => p.idPagamento === idPagamento);
+    const dbId = found ? ((found as any).id || found.idPagamento) : idPagamento;
+    return request<void>(`/pagamentos/${dbId}`, {
+      method: 'DELETE',
+    });
+  },
 };

@@ -5,7 +5,7 @@ import { api } from '../../services/api';
 import { BookOpen, Trophy } from 'lucide-react';
 
 export default function Cursos() {
-  const { currentUser, cursos, matriculas, certificados, usuarios, modulos, aulas, progressoAulas, refreshData, showAlert, showConfirm } = useApp();
+  const { currentUser, cursos, matriculas, certificados, usuarios, modulos, aulas, progressoAulas, avaliacoes, refreshData, showAlert, showConfirm } = useApp();
   const navigate = useNavigate();
   const [loadingUnenroll, setLoadingUnenroll] = useState<string | null>(null);
 
@@ -88,6 +88,12 @@ export default function Cursos() {
               if (!c) return null;
               const instrutorName = usuarios.find((u) => u.idUsuario === c.idInstrutor)?.nome || 'Instrutor';
 
+              const courseEvals = avaliacoes.filter((e) => e.idCurso === c.idCurso);
+              const hasEvals = courseEvals.length > 0;
+              const avgRating = hasEvals
+                ? (courseEvals.reduce((sum, e) => sum + Number(e.nota), 0) / courseEvals.length).toFixed(1)
+                : null;
+
               return (
                 <div className="col-md-6 col-lg-4" key={mat.idMatricula}>
                   <div
@@ -127,11 +133,28 @@ export default function Cursos() {
                         </div>
                       )}
                       <div className="p-4">
-                        <span className="badge bg-secondary text-uppercase mb-2" style={{ fontSize: '8px' }}>
+                        <span className="badge bg-secondary text-uppercase fw-semibold mb-2" style={{ fontSize: '10px', letterSpacing: '0.03em' }}>
                           {c.nivel}
                         </span>
-                        <h5 className="fw-bold text-light mb-2">{c.titulo}</h5>
-                        <p className="text-muted small mb-0">por {instrutorName}</p>
+                        <h5 className="fw-bold text-light mb-2" style={{ fontSize: '1.2rem', lineHeight: '1.3' }}>{c.titulo}</h5>
+
+                        {/* Course Rating */}
+                        <div className="d-flex align-items-center gap-1 mb-2" style={{ fontSize: '13.5px' }}>
+                          {hasEvals ? (
+                            <>
+                              <span className="text-warning">★</span>
+                              <span className="fw-semibold text-warning">{avgRating}</span>
+                              <span className="text-muted">({courseEvals.length})</span>
+                            </>
+                          ) : (
+                            <>
+                              <span className="text-muted">★</span>
+                              <span className="text-muted" style={{ fontSize: '12.5px' }}>Sem avaliações</span>
+                            </>
+                          )}
+                        </div>
+
+                        <p className="text-muted mb-0" style={{ fontSize: '13.5px' }}>por {instrutorName}</p>
                       </div>
                     </div>
 

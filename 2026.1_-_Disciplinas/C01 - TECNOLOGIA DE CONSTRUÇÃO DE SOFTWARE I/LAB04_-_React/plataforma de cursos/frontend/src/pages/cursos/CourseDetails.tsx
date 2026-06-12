@@ -1,16 +1,84 @@
+import { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useApp } from '../../hooks/useApp';
 import { api } from '../../services/api';
-import { Star, Check } from 'lucide-react';
-import { useState } from 'react';
+import { Check } from 'lucide-react';
 
 export default function CourseDetails() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { currentUser, cursos, modulos, aulas, matriculas, avaliacoes, usuarios, refreshData, showAlert, showConfirm } = useApp();
+  const courseId = id || '';
+  const { currentUser, cursos, modulos, aulas, matriculas, usuarios, avaliacoes, refreshData, showAlert, showConfirm } = useApp();
   const [loadingEnroll, setLoadingEnroll] = useState(false);
 
-  const courseId = id || '';
+  // Evaluation States
+  const [rating, setRating] = useState<"1" | "2" | "3" | "4" | "5">("5");
+  const [comment, setComment] = useState("");
+  const [submittingEval, setSubmittingEval] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const evals = avaliacoes.filter((e) => e.idCurso === courseId);
+  const myEval = evals.find((e) => e.idUsuario === currentUser?.idUsuario);
+
+  const handleSubmitEval = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmittingEval(true);
+    try {
+      if (isEditing && myEval) {
+        await api.updateAvaliacao(myEval.idAvaliacao, {
+          nota: rating,
+          comentario: comment.trim() || null,
+        });
+        showAlert('Avaliação atualizada com sucesso!', 'success');
+        setIsEditing(false);
+      } else {
+        const generatedId = `ev-${Date.now()}`;
+        const newEval = {
+          id: generatedId,
+          idAvaliacao: generatedId,
+          idUsuario: currentUser?.idUsuario || '',
+          idCurso: courseId,
+          nota: rating,
+          comentario: comment.trim() || null,
+          dataAvaliacao: new Date().toISOString().split('T')[0],
+        };
+        await api.createAvaliacao(newEval);
+        showAlert('Avaliação enviada com sucesso!', 'success');
+      }
+      await refreshData();
+      setComment("");
+      setRating("5");
+    } catch (err) {
+      console.error(err);
+      showAlert('Erro ao processar avaliação.', 'error');
+    } finally {
+      setSubmittingEval(false);
+    }
+  };
+
+  const handleDeleteEval = async (idAvaliacao: string) => {
+    showConfirm(
+      'Tem certeza de que deseja excluir sua avaliação?',
+      async () => {
+        try {
+          await api.deleteAvaliacao(idAvaliacao);
+          await refreshData();
+          showAlert('Avaliação excluída com sucesso.', 'success');
+          setIsEditing(false);
+          setComment("");
+          setRating("5");
+        } catch (err) {
+          console.error(err);
+          showAlert('Erro ao excluir avaliação.', 'error');
+        }
+      }
+    );
+  };
+
+  const renderStars = (nota: string) => {
+    const stars = Number(nota);
+    return '⭐'.repeat(stars) + '☆'.repeat(5 - stars);
+  };
   const curso = cursos.find((c) => c.idCurso === courseId);
 
   if (!currentUser) {
@@ -36,50 +104,10 @@ export default function CourseDetails() {
   const instrutor = usuarios.find((u) => u.idUsuario === curso.idInstrutor);
   const courseModules = modulos.filter((m) => m.idCurso === courseId).sort((a, b) => a.ordem - b.ordem);
   
-  // Calculate average rating
-  const courseReviews = avaliacoes.filter((a) => a.idCurso === courseId);
-  const averageRating =
-    courseReviews.length > 0
-      ? courseReviews.reduce((sum, r) => sum + Number(r.nota), 0) / courseReviews.length
-      : 4.8; // Default fallback
-
   const userMatricula = matriculas.find(
     (m) => m.idUsuario === currentUser.idUsuario && m.idCurso === courseId
   );
   const isEnrolled = !!userMatricula;
-
-  const [newRating, setNewRating] = useState(5);
-  const [newComment, setNewComment] = useState('');
-  const [submittingReview, setSubmittingReview] = useState(false);
-
-  const hasEvaluated = courseReviews.some((r) => r.idUsuario === currentUser.idUsuario);
-
-  const handleReviewSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newComment.trim()) return;
-    setSubmittingReview(true);
-    try {
-      const reviewRecord = {
-        id: `av-${Date.now()}`,
-        idAvaliacao: `av-${Date.now()}`,
-        idUsuario: currentUser.idUsuario,
-        idCurso: courseId,
-        nota: String(newRating) as "1" | "2" | "3" | "4" | "5",
-        comentario: newComment.trim(),
-        dataAvaliacao: new Date().toISOString().split('T')[0],
-      };
-      await api.createAvaliacao(reviewRecord);
-      await refreshData();
-      showAlert('Sua avaliação foi enviada com sucesso! Obrigado pelo feedback.', 'success');
-      setNewComment('');
-      setNewRating(5);
-    } catch (err) {
-      console.error(err);
-      showAlert('Erro ao enviar avaliação.', 'error');
-    } finally {
-      setSubmittingReview(false);
-    }
-  };
 
   const handleEnroll = async () => {
     setLoadingEnroll(true);
@@ -212,15 +240,7 @@ export default function CourseDetails() {
                   Em breve...
                 </div>
               )}
-              <div className="bg-black bg-opacity-40 rounded border border-secondary p-3">
-                <div className="d-flex align-items-center justify-content-center gap-2 mb-1">
-                  <span className="fs-3 fw-bold text-light">{averageRating.toFixed(1)}</span>
-                  <span className="text-warning d-flex align-items-center gap-1">
-                    <Star size={16} fill="#ffc107" style={{ color: '#ffc107' }} />
-                  </span>
-                </div>
-                <div className="text-muted small">Média baseada em {courseReviews.length} avaliações</div>
-              </div>
+
             </div>
           </div>
         </div>
@@ -278,72 +298,132 @@ export default function CourseDetails() {
             )}
           </div>
 
-          {/* Reviews list */}
-          <div className="card bg-black border border-secondary text-white p-4 shadow-sm">
-            <h5 className="fw-bold border-bottom border-secondary pb-3 mb-3">Avaliações dos Alunos</h5>
+          {/* Avaliações Card */}
+          <div className="card bg-black border border-secondary text-white p-4 mb-4 shadow-sm">
+            <h5 className="fw-bold border-bottom border-secondary pb-3 mb-3">Avaliações do Curso</h5>
             
-            {courseReviews.length === 0 ? (
-              <div className="text-muted small text-center py-3">Sem avaliações no momento. Comece a assistir para avaliar o curso!</div>
-            ) : (
-              <div className="d-flex flex-column gap-3">
-                {courseReviews.map((r) => {
-                  const reviewerName = usuarios.find((u) => u.idUsuario === r.idUsuario)?.nome || 'Aluno';
-                  return (
-                    <div key={r.idAvaliacao} className="border-bottom border-secondary border-opacity-50 pb-3">
-                      <div className="d-flex justify-content-between align-items-start mb-2">
-                        <div>
-                          <strong className="text-light small d-block">{reviewerName}</strong>
-                          <span className="text-muted" style={{ fontSize: '11px' }}>{r.dataAvaliacao}</span>
-                        </div>
-                        <div className="text-warning small d-flex align-items-center gap-1">
-                           {Array.from({ length: Number(r.nota) }).map((_, idx) => (
-                             <Star key={idx} size={14} fill="#ffc107" style={{ color: '#ffc107' }} />
-                           ))}
-                        </div>
+            {/* Average Rating Banner */}
+            {evals.length > 0 && (
+              <div className="alert alert-secondary bg-dark border-secondary text-white d-flex align-items-center justify-content-between p-3 mb-4 rounded">
+                <div>
+                  <span className="text-muted small d-block">Média do Curso</span>
+                  <span className="fs-4 fw-bold">
+                    {(evals.reduce((sum, e) => sum + Number(e.nota), 0) / evals.length).toFixed(1)} / 5.0
+                  </span>
+                </div>
+                <div className="fs-4 text-warning">
+                  {renderStars(Math.round(evals.reduce((sum, e) => sum + Number(e.nota), 0) / evals.length).toString())}
+                </div>
+              </div>
+            )}
+
+            {/* User review form / display */}
+            {isEnrolled && currentUser && (
+              <div className="p-3 bg-secondary bg-opacity-10 border border-secondary rounded mb-4">
+                {myEval && !isEditing ? (
+                  <div>
+                    <div className="d-flex justify-content-between align-items-start mb-2">
+                      <div>
+                        <span className="text-primary small d-block fw-semibold">Sua Avaliação</span>
+                        <span className="fs-5 text-warning">{renderStars(myEval.nota)}</span>
                       </div>
-                      <p className="text-muted small mb-0">{r.comentario}</p>
+                      <div className="d-flex gap-2">
+                        <button
+                          onClick={() => {
+                            setRating(myEval.nota);
+                            setComment(myEval.comentario || "");
+                            setIsEditing(true);
+                          }}
+                          className="btn btn-sm btn-outline-primary fw-semibold"
+                        >
+                          Editar
+                        </button>
+                        <button
+                          onClick={() => handleDeleteEval(myEval.idAvaliacao)}
+                          className="btn btn-sm btn-outline-danger"
+                        >
+                          Excluir
+                        </button>
+                      </div>
+                    </div>
+                    {myEval.comentario && <p className="text-light small mb-0 mt-2 bg-black bg-opacity-50 p-2 rounded">{myEval.comentario}</p>}
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmitEval}>
+                    <h6 className="fw-semibold text-primary mb-3">
+                      {isEditing ? 'Editar sua Avaliação' : 'Avaliar este Curso'}
+                    </h6>
+                    <div className="row g-2 mb-3">
+                      <div className="col-sm-4">
+                        <label className="form-label small text-muted mb-1">Nota</label>
+                        <select
+                          className="form-select form-select-sm bg-dark text-light border-secondary"
+                          value={rating}
+                          onChange={(e) => setRating(e.target.value as any)}
+                        >
+                          <option value="5">⭐⭐⭐⭐⭐ (Excelente)</option>
+                          <option value="4">⭐⭐⭐⭐ (Muito Bom)</option>
+                          <option value="3">⭐⭐⭐ (Bom)</option>
+                          <option value="2">⭐⭐ (Regular)</option>
+                          <option value="1">⭐ (Ruim)</option>
+                        </select>
+                      </div>
+                      <div className="col-sm-8">
+                        <label className="form-label small text-muted mb-1">Comentário (Opcional)</label>
+                        <textarea
+                          rows={1}
+                          className="form-control form-control-sm bg-dark text-light border-secondary"
+                          placeholder="Escreva sua opinião..."
+                          value={comment}
+                          onChange={(e) => setComment(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                    <div className="d-flex gap-2">
+                      <button type="submit" disabled={submittingEval} className="btn btn-sm btn-primary fw-semibold px-3">
+                        {submittingEval ? 'Enviando...' : isEditing ? 'Salvar Alterações' : 'Enviar Avaliação'}
+                      </button>
+                      {isEditing && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setIsEditing(false);
+                            setComment("");
+                            setRating("5");
+                          }}
+                          className="btn btn-sm btn-outline-secondary fw-semibold px-3"
+                        >
+                          Cancelar
+                        </button>
+                      )}
+                    </div>
+                  </form>
+                )}
+              </div>
+            )}
+
+            {/* All reviews list */}
+            {evals.length === 0 ? (
+              <div className="text-muted small text-center py-2">Este curso ainda não recebeu avaliações.</div>
+            ) : (
+              <div className="d-flex flex-column gap-3" style={{ maxHeight: '300px', overflowY: 'auto' }}>
+                {evals.map((e) => {
+                  const reviewer = usuarios.find((u) => u.idUsuario === e.idUsuario);
+                  return (
+                    <div key={e.idAvaliacao} className="p-3 border-bottom border-secondary border-opacity-50">
+                      <div className="d-flex justify-content-between align-items-center mb-1">
+                        <span className="fw-bold text-light small">{reviewer?.nome || 'Estudante'}</span>
+                        <span className="text-muted" style={{ fontSize: '11px' }}>{e.dataAvaliacao}</span>
+                      </div>
+                      <div className="text-warning mb-2" style={{ fontSize: '13px' }}>{renderStars(e.nota)}</div>
+                      {e.comentario && <p className="text-muted small mb-0">{e.comentario}</p>}
                     </div>
                   );
                 })}
               </div>
             )}
-
-            {isEnrolled && !hasEvaluated && (
-              <form onSubmit={handleReviewSubmit} className="bg-secondary bg-opacity-10 border border-secondary border-opacity-25 rounded p-3 mt-4">
-                <h6 className="fw-bold text-light mb-3">Deixe sua Avaliação</h6>
-                <div className="mb-3">
-                  <label className="form-label small text-muted mb-1 d-block">Nota (1 a 5 estrelas)</label>
-                  <div className="d-flex gap-2">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <button
-                        type="button"
-                        key={star}
-                        onClick={() => setNewRating(star)}
-                        className="btn btn-sm p-0 border-0"
-                      >
-                        <Star size={24} fill={star <= newRating ? '#ffc107' : 'none'} style={{ color: star <= newRating ? '#ffc107' : '#6c757d' }} />
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <div className="mb-3">
-                  <label className="form-label small text-muted mb-1">Comentário</label>
-                  <textarea
-                    rows={3}
-                    className="form-control bg-black text-white border-secondary small"
-                    required
-                    placeholder="Escreva sua opinião sobre o curso..."
-                    value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
-                    disabled={submittingReview}
-                  />
-                </div>
-                <button type="submit" disabled={submittingReview || !newComment.trim()} className="btn btn-primary btn-sm fw-semibold px-4">
-                  {submittingReview ? 'Enviando...' : 'Enviar Avaliação'}
-                </button>
-              </form>
-            )}
           </div>
+
         </div>
 
         {/* Right sidebar column */}

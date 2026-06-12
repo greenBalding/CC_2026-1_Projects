@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../hooks/useApp';
-import { Crown, Star, Flame, Target, Award, Rocket } from 'lucide-react';
+
 
 export default function Profile() {
   const { currentUser, certificados, matriculas, pagamentos, assinaturas, planos, cursos, aulas, progressoAulas } = useApp();
@@ -25,19 +25,6 @@ export default function Profile() {
   const totalMinutes = completedLessons.reduce((sum, a) => sum + (a.duracaoMinutos || 0), 0);
   const studyHours = Number((totalMinutes / 60).toFixed(1));
 
-  // Goal calculations
-  const weeklyGoalHours = 10;
-  const progressPercentage = weeklyGoalHours > 0 ? Math.min(Math.round((studyHours / weeklyGoalHours) * 100), 100) : 0;
-  const hoursRemaining = Number(Math.max(weeklyGoalHours - studyHours, 0).toFixed(1));
-
-  // Leaderboard data
-  const leaderboardData = [
-    { nome: 'Diego Fernandes', horas: 8.5 },
-    { nome: 'Mayk Brito', horas: 6.2 },
-    { nome: currentUser.nome, horas: studyHours, isSelf: true },
-    { nome: 'Ana Souza', horas: 3.0 },
-    { nome: 'Felipe Deschamps', horas: 1.5 },
-  ].sort((a, b) => b.horas - a.horas);
 
 
   const userCertificates = certificados.filter((c) => c.idUsuario === currentUser.idUsuario);
@@ -47,24 +34,13 @@ export default function Profile() {
   const userSubs = assinaturas.filter((s) => s.idUsuario === currentUser.idUsuario);
   const activeSubscription = userSubs.length > 0 ? userSubs[userSubs.length - 1] : null;
 
+  const freePlan = planos.find((p) => p.preco === 0) || null;
   const activePlan = activeSubscription
-    ? planos.find((p) => p.idPlano === activeSubscription.idPlano)
-    : null;
+    ? planos.find((p) => p.idPlano === activeSubscription.idPlano) || freePlan
+    : freePlan;
 
-  const isPro = activePlan ? (activePlan.idPlano === 'plan2' || activePlan.idPlano === 'plan3') : false;
+  const isPro = activePlan ? activePlan.preco > 0 : false;
 
-  const achievements = [
-    {
-      icon: <Crown size={30} style={{ color: isPro ? '#ffc107' : '#6c757d' }} />,
-      name: isPro ? (activePlan ? activePlan.nome : 'Pro') : 'Básico',
-      description: isPro ? 'Assinatura Ativa' : 'Assinatura Inativa',
-    },
-    { icon: <Star size={30} fill="#7c3aed" style={{ color: '#7c3aed' }} />, name: 'Top Student', description: 'Top 1% da semana' },
-    { icon: <Flame size={30} style={{ color: '#dc3545' }} />, name: 'On Fire', description: '7 dias de streak' },
-    { icon: <Target size={30} style={{ color: '#0dcaf0' }} />, name: 'Objetivo', description: 'Primeira meta batida' },
-    { icon: <Award size={30} style={{ color: '#198754' }} />, name: 'Perfeição', description: 'Nota 10 em 3 quizzes' },
-    { icon: <Rocket size={30} style={{ color: '#d63384' }} />, name: 'Speedrun', description: 'Concluiu em < 3 dias' },
-  ];
 
   return (
     <div className="container-fluid py-2">
@@ -123,23 +99,6 @@ export default function Profile() {
             </div>
           </div>
 
-          {/* Badges achievements */}
-          <div className="mb-4">
-            <h5 className="fw-bold text-light mb-3">Conquistas Desbloqueadas</h5>
-            <div className="row g-3">
-              {achievements.map((ach) => (
-                <div className="col-6 col-sm-4 col-md-3" key={ach.name}>
-                  <div className="card bg-black border border-secondary text-white p-3 text-center h-100 shadow-sm hover-card">
-                    <div className="mb-2 d-flex justify-content-center align-items-center" style={{ height: '40px' }}>
-                      {ach.icon}
-                    </div>
-                    <strong className="text-light small d-block mb-1">{ach.name}</strong>
-                    <span className="text-muted" style={{ fontSize: '10px' }}>{ach.description}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
 
           {/* Módulo de Certificados */}
           <div className="mb-4">
@@ -223,11 +182,11 @@ export default function Profile() {
                 </div>
                 <div className="d-flex justify-content-between align-items-center mb-2">
                   <span className="text-muted small">Início</span>
-                  <span className="text-light small">{activeSubscription?.dataInicio}</span>
+                  <span className="text-light small">{activeSubscription ? activeSubscription.dataInicio : 'N/A'}</span>
                 </div>
                 <div className="d-flex justify-content-between align-items-center">
                   <span className="text-muted small">Expira em</span>
-                  <span className="text-light small">{activeSubscription?.dataFim}</span>
+                  <span className="text-light small">{activeSubscription ? activeSubscription.dataFim : 'Nunca'}</span>
                 </div>
               </div>
             ) : (
@@ -243,53 +202,8 @@ export default function Profile() {
             )}
           </div>
 
-          <div className="card bg-black border border-secondary text-white p-3 mb-4 shadow-sm">
-            <h5 className="fw-bold border-bottom border-secondary pb-3 mb-3">Meta Diária</h5>
-            <span className="text-muted small d-block mb-2">Progresso do objetivo semanal</span>
-            <div className="d-flex justify-content-between align-items-baseline mb-2">
-              <span className="fs-3 fw-bold text-primary">{studyHours}h / {weeklyGoalHours}h</span>
-              <span className="text-muted small">{progressPercentage}% concluído</span>
-            </div>
-            <div className="progress bg-dark mb-2" style={{ height: '6px' }}>
-              <div
-                className="progress-bar bg-primary"
-                role="progressbar"
-                style={{ width: `${progressPercentage}%` }}
-                aria-valuenow={progressPercentage}
-                aria-valuemin={0}
-                aria-valuemax={100}
-              />
-            </div>
-            <span className="text-muted" style={{ fontSize: '11px' }}>
-              {hoursRemaining > 0 
-                ? `Faltam ${hoursRemaining} horas para atingir seu objetivo semanal. Mantenha o foco!` 
-                : 'Parabéns! Você atingiu sua meta semanal! 🚀'}
-            </span>
-          </div>
 
-          <div className="card bg-black border border-secondary text-white p-3 shadow-sm">
-            <h5 className="fw-bold border-bottom border-secondary pb-3 mb-3">Leaderboard</h5>
-            {leaderboardData.map((userRow, index) => {
-              const rank = index + 1;
-              const isUserSelf = userRow.isSelf;
-              return (
-                <div key={userRow.nome} className="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom border-secondary border-opacity-25">
-                  <div className="d-flex align-items-center gap-2">
-                    <span className={`fw-bold ${rank === 1 ? 'text-warning' : rank === 2 ? 'text-light' : 'text-muted'}`}>
-                      #{rank}
-                    </span>
-                    <span className={`small ${isUserSelf ? 'text-primary fw-bold' : ''}`}>
-                      {userRow.nome} {isUserSelf && '(Você)'}
-                    </span>
-                  </div>
-                  <span className="badge bg-secondary">{userRow.horas}h</span>
-                </div>
-              );
-            })}
-            <div className="text-center mt-2">
-              <span className="text-muted" style={{ fontSize: '11px' }}>Você está disputando a liga semanal com outros estudantes!</span>
-            </div>
-          </div>
+
         </div>
       </div>
 

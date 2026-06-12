@@ -1,9 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useApp } from '../../hooks/useApp';
-import { Star, Play, Lock } from 'lucide-react';
+import { Play, Lock } from 'lucide-react';
 
 export default function Dashboard() {
-  const { currentUser, cursos, matriculas, progressoAulas, certificados, usuarios, modulos, aulas } = useApp();
+  const { currentUser, cursos, matriculas, progressoAulas, certificados, usuarios, modulos, aulas, avaliacoes } = useApp();
   const navigate = useNavigate();
 
   if (!currentUser) {
@@ -46,9 +46,14 @@ export default function Dashboard() {
   const enrolledIds = userMatriculas.map((m) => m.idCurso);
   const recommendedCourses = cursos.filter((c) => !enrolledIds.includes(c.idCurso)).slice(0, 3);
 
-  const firstEnrollment = activeEnrollments[0];
-  const heroCourse = firstEnrollment?.curso;
-  const heroProgress = firstEnrollment?.progresso || 0;
+  // Prioritize showing in-progress courses, fallback to first overall enrollment
+  const inProgressEnrollments = activeEnrollments.filter((e) => e.progresso < 100);
+  const heroEnrollment = inProgressEnrollments.length > 0 ? inProgressEnrollments[0] : activeEnrollments[0];
+  const heroCourse = heroEnrollment?.curso;
+  const heroProgress = heroEnrollment?.progresso || 0;
+
+  // Prioritize showing in-progress courses, fallback to all enrollments if none in progress
+  const displayedEnrollments = inProgressEnrollments.length > 0 ? inProgressEnrollments : activeEnrollments;
 
   // Global user metrics
   const totalCompletedCursos = activeEnrollments.filter((e) => e.progresso === 100).length;
@@ -61,7 +66,7 @@ export default function Dashboard() {
         <div className="card border-0 mb-4 bg-gradient text-white shadow-lg overflow-hidden" style={{ background: 'linear-gradient(135deg, #2a1a4a 0%, #111 100%)' }}>
           <div className="card-body p-4 p-md-5">
             <div className="row align-items-center">
-              <div className="col-lg-8">
+              <div className="col-lg-12">
                 <span className="badge bg-primary px-3 py-2 rounded-pill mb-3 text-uppercase fw-bold" style={{ fontSize: '10px', letterSpacing: '0.05em' }}>
                   Continue Aprendendo
                 </span>
@@ -79,14 +84,6 @@ export default function Dashboard() {
                   <div className="text-light fs-6">
                     Seu progresso: <strong className="text-primary">{heroProgress}%</strong>
                   </div>
-                </div>
-              </div>
-              <div className="col-lg-4 d-none d-lg-block text-center">
-                <div
-                  className="mx-auto rounded-circle bg-opacity-10 bg-primary d-flex align-items-center justify-content-center"
-                  style={{ width: '150px', height: '150px', border: '2px dashed #7c3aed' }}
-                >
-                  <span className="fs-3 text-primary fw-bold">LearnGPT</span>
                 </div>
               </div>
             </div>
@@ -121,14 +118,14 @@ export default function Dashboard() {
         {/* Lado Esquerdo: Listas de Cursos */}
         <div className="col-lg-8 mb-4">
           {/* Meus Cursos */}
-          {activeEnrollments.length > 0 && (
+          {displayedEnrollments.length > 0 && (
             <div className="mb-5">
               <div className="d-flex justify-content-between align-items-center mb-4">
                 <h3 className="fw-bold text-light mb-0">Meus Cursos</h3>
                 <Link to="/cursos" className="btn btn-sm btn-outline-secondary text-light">Ver todos →</Link>
               </div>
               <div className="row g-3">
-                {activeEnrollments.slice(0, 2).map((m) => {
+                {displayedEnrollments.slice(0, 2).map((m) => {
                   const c = m.curso;
                   if (!c) return null;
                   const instrutorName = usuarios.find((u) => u.idUsuario === c.idInstrutor)?.nome || 'Instrutor';
@@ -220,6 +217,13 @@ export default function Dashboard() {
               {recommendedCourses.map((c) => {
                 const instrutorName = usuarios.find((u) => u.idUsuario === c.idInstrutor)?.nome || 'Instrutor';
                 const isEmBreve = !c.bannerUrl;
+
+                const courseEvals = avaliacoes.filter((e) => e.idCurso === c.idCurso);
+                const hasEvals = courseEvals.length > 0;
+                const avgRating = hasEvals
+                  ? (courseEvals.reduce((sum, e) => sum + Number(e.nota), 0) / courseEvals.length).toFixed(1)
+                  : null;
+
                 return (
                   <div className="col-md-4" key={c.idCurso}>
                     <div
@@ -278,19 +282,34 @@ export default function Dashboard() {
                                <span>Em breve...</span>
                             </div>
                           )}
-                          <h6 className="fw-bold text-light mb-1 text-truncate-2" style={{ height: '38px', overflow: 'hidden' }}>
+                          
+                          <h6 className="fw-bold text-light mb-1 text-truncate-2" style={{ height: '42px', fontSize: '0.98rem', lineHeight: '1.4', overflow: 'hidden' }}>
                             {c.titulo}
                           </h6>
-                          <p className="text-muted small mb-2">{instrutorName}</p>
+
+                          {/* Course Rating */}
+                          <div className="d-flex align-items-center gap-1 mb-2" style={{ fontSize: '12.5px' }}>
+                            {hasEvals ? (
+                              <>
+                                <span className="text-warning">★</span>
+                                <span className="fw-semibold text-warning">{avgRating}</span>
+                                <span className="text-muted">({courseEvals.length})</span>
+                              </>
+                            ) : (
+                              <>
+                                <span className="text-muted">★</span>
+                                <span className="text-muted" style={{ fontSize: '11.5px' }}>Sem avaliações</span>
+                              </>
+                            )}
+                          </div>
+
+                          <p className="text-muted mb-2" style={{ fontSize: '12.5px' }}>{instrutorName}</p>
                         </div>
 
                         <div className="pt-2 border-top border-secondary d-flex justify-content-between align-items-center mt-3">
-                          <span className="text-capitalize text-muted small" style={{ fontSize: '11px' }}>
+                          <span className="text-capitalize text-muted fw-semibold" style={{ fontSize: '12px', letterSpacing: '0.02em' }}>
                             {c.nivel}
                           </span>
-                           <span className="small text-warning d-flex align-items-center gap-1" style={{ fontSize: '12px' }}>
-                             <Star size={12} fill="#ffc107" style={{ color: '#ffc107' }} /> 4.9
-                           </span>
                         </div>
                         
                         {currentUser.perfil === 'administrador' ? (
@@ -380,32 +399,6 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="card bg-black border border-secondary text-white p-3 shadow-sm">
-            <h5 className="fw-bold border-bottom border-secondary pb-3 mb-3">Novidades</h5>
-            <ul className="list-unstyled mb-0 d-flex flex-column gap-3">
-              <li className="d-flex gap-2 align-items-start border-bottom border-secondary border-opacity-25 pb-2">
-                <span className="text-primary small fw-bold mt-1">[Novo]</span>
-                <div>
-                  <span className="fw-semibold d-block small" style={{ fontSize: '13px' }}>Nova Trilha Disponível</span>
-                  <span className="text-muted small" style={{ fontSize: '11px' }}>Explore a trilha "Full Stack JavaScript" na aba Trilhas.</span>
-                </div>
-              </li>
-              <li className="d-flex gap-2 align-items-start border-bottom border-secondary border-opacity-25 pb-2">
-                <span className="text-success small fw-bold mt-1">[Info]</span>
-                <div>
-                  <span className="fw-semibold d-block small" style={{ fontSize: '13px' }}>Sistema de Certificados</span>
-                  <span className="text-muted small" style={{ fontSize: '11px' }}>Complete 100% de qualquer curso para emitir seu diploma digital instantâneo.</span>
-                </div>
-              </li>
-              <li className="d-flex gap-2 align-items-start">
-                <span className="text-warning small fw-bold mt-1">[Pro]</span>
-                <div>
-                  <span className="fw-semibold d-block small" style={{ fontSize: '13px' }}>Módulo Premium Pro</span>
-                  <span className="text-muted small" style={{ fontSize: '11px' }}>Assine o Plano Pro e libere acesso completo a trilhas com suporte.</span>
-                </div>
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
     </div>

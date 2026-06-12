@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../hooks/useApp';
 import { api } from '../../services/api';
-import { Star, Play, Search, Lock } from 'lucide-react';
+import { Play, Search, Lock } from 'lucide-react';
 
 export default function Explore() {
   const { currentUser, cursos, categorias, matriculas, usuarios, avaliacoes, refreshData, showAlert } = useApp();
@@ -135,6 +135,12 @@ export default function Explore() {
             const instrutorName = usuarios.find((u) => u.idUsuario === c.idInstrutor)?.nome || 'Instrutor';
             const isEmBreve = !c.bannerUrl;
 
+            const courseEvals = avaliacoes.filter((e) => e.idCurso === c.idCurso);
+            const hasEvals = courseEvals.length > 0;
+            const avgRating = hasEvals
+              ? (courseEvals.reduce((sum, e) => sum + Number(e.nota), 0) / courseEvals.length).toFixed(1)
+              : null;
+
             return (
               <div className="col-md-6 col-lg-4" key={c.idCurso}>
                 <div
@@ -200,36 +206,42 @@ export default function Explore() {
                     
                     <div className="p-4">
                       <div className="d-flex justify-content-between align-items-center mb-2">
-                        <span className="badge bg-secondary text-uppercase" style={{ fontSize: '8px' }}>
+                        <span className="badge bg-secondary text-uppercase fw-semibold" style={{ fontSize: '10px', letterSpacing: '0.03em' }}>
                           {c.nivel}
                         </span>
-                        <span className="small text-muted" style={{ fontSize: '11px' }}>
+                        <span className="text-muted" style={{ fontSize: '13px' }}>
                           {c.totalHoras}h de carga
                         </span>
                       </div>
                       
-                      <h5 className="card-title fw-bold text-light mb-2">{c.titulo}</h5>
-                      <p className="text-muted small mb-3">
+                      <h5 className="card-title fw-bold text-light mb-1" style={{ fontSize: '1.2rem', lineHeight: '1.3' }}>{c.titulo}</h5>
+
+                      {/* Course Rating */}
+                      <div className="d-flex align-items-center gap-1 mb-3" style={{ fontSize: '13.5px' }}>
+                        {hasEvals ? (
+                          <>
+                            <span className="text-warning">★</span>
+                            <span className="fw-semibold text-warning">{avgRating}</span>
+                            <span className="text-muted">({courseEvals.length} {courseEvals.length === 1 ? 'avaliação' : 'avaliações'})</span>
+                          </>
+                        ) : (
+                          <>
+                            <span className="text-muted">★</span>
+                            <span className="text-muted" style={{ fontSize: '12.5px' }}>Sem avaliações</span>
+                          </>
+                        )}
+                      </div>
+
+                      <p className="text-muted mb-3" style={{ fontSize: '13.5px', lineHeight: '1.5' }}>
                         {c.descricao}
                       </p>
-                      <p className="text-muted small mb-0">Instrutor: <strong className="text-light">{instrutorName}</strong></p>
+                      <p className="text-muted mb-0" style={{ fontSize: '13.5px' }}>Instrutor: <strong className="text-light">{instrutorName}</strong></p>
                     </div>
                   </div>
 
                   <div className="p-4 pt-0 border-top border-secondary border-opacity-25 mt-3">
                     <div className="d-flex justify-content-between align-items-center mb-3 pt-3">
-                      <span className="text-muted small">{c.totalAulas} aulas</span>
-                      {(() => {
-                        const courseReviews = avaliacoes.filter((r) => r.idCurso === c.idCurso);
-                        const avgRating = courseReviews.length > 0
-                          ? (courseReviews.reduce((sum, r) => sum + Number(r.nota), 0) / courseReviews.length).toFixed(1)
-                          : '4.8';
-                        return (
-                           <span className="small text-warning d-flex align-items-center gap-1">
-                             <Star size={12} fill="#ffc107" style={{ color: '#ffc107' }} /> {avgRating}
-                           </span>
-                        );
-                      })()}
+                      <span className="text-muted" style={{ fontSize: '13.5px' }}>{c.totalAulas} aulas</span>
                     </div>
 
                     {currentUser.perfil === 'administrador' ? (

@@ -16,7 +16,6 @@ export default function AdminDashboard() {
     trilhasCursos,
     pagamentos,
     matriculas,
-    avaliacoes,
     assinaturas,
     planos,
     refreshData,
@@ -32,12 +31,7 @@ export default function AdminDashboard() {
   const totalRevenue = pagamentos.reduce((sum, p) => sum + Number(p.valor), 0);
   const activeStudentsCount = usuarios.filter((u) => u.perfil === 'aluno' && u.ativo).length;
   const totalMatriculas = matriculas.length;
-  const averageSatisfaction =
-    avaliacoes.length > 0
-      ? (avaliacoes.reduce((sum, r) => sum + Number(r.nota), 0) / avaliacoes.length).toFixed(1)
-      : '0.0';
-
-  const [activeTab, setActiveTab] = useState<'users' | 'categories' | 'courses' | 'modules' | 'trilhas' | 'planos' | 'assinaturas' | 'avaliacoes'>('users');
+  const [activeTab, setActiveTab] = useState<'users' | 'categories' | 'courses' | 'modules' | 'trilhas' | 'planos' | 'assinaturas'>('users');
   const [submitting, setSubmitting] = useState(false);
 
   // --- FORM STATES ---
@@ -51,8 +45,9 @@ export default function AdminDashboard() {
   // Planos Form
   const [planoNome, setPlanoNome] = useState('');
   const [planoDesc, setPlanoDesc] = useState('');
-  const [planoPreco, setPlanoPreco] = useState(0);
-  const [planoDuracao, setPlanoDuracao] = useState(1);
+  const [planoPreco, setPlanoPreco] = useState<number | ''>('');
+  const [planoDuracao, setPlanoDuracao] = useState<number | ''>(1);
+  const [planoVantagens, setPlanoVantagens] = useState('');
   const [editingPlanoId, setEditingPlanoId] = useState<string | null>(null);
 
   // Categories Form
@@ -190,6 +185,28 @@ export default function AdminDashboard() {
           dataAlteracao: new Date(),
         };
         await api.createUsuario(newUser);
+
+        // Auto assign free subscription if created user is student
+        if (userPerfil === 'aluno') {
+          const freePlan = planos.find((p) => p.preco === 0);
+          if (freePlan) {
+            const today = new Date();
+            const endDate = new Date();
+            endDate.setMonth(today.getMonth() + freePlan.duracaoMeses);
+            
+            const subId = `sub-${Date.now()}`;
+            const newSubscription = {
+              id: subId,
+              idAssinatura: subId,
+              idUsuario: generatedId,
+              idPlano: freePlan.idPlano,
+              dataInicio: today.toISOString().split('T')[0],
+              dataFim: endDate.toISOString().split('T')[0],
+            };
+            await api.createAssinatura(newSubscription);
+          }
+        }
+
         await refreshData();
         showAlert('Usuário cadastrado com sucesso!', 'success');
         setUserNome('');
@@ -256,12 +273,18 @@ export default function AdminDashboard() {
     e.preventDefault();
     setSubmitting(true);
     try {
+      const vantagensArray = planoVantagens
+        .split('\n')
+        .map((v) => v.trim())
+        .filter(Boolean);
+
       if (editingPlanoId) {
         await api.updatePlano(editingPlanoId, {
           nome: planoNome,
           descricao: planoDesc,
           preco: Number(planoPreco),
           duracaoMeses: Number(planoDuracao),
+          vantagens: vantagensArray,
         });
         await refreshData();
         showAlert('Plano atualizado com sucesso!', 'success');
@@ -275,6 +298,7 @@ export default function AdminDashboard() {
           descricao: planoDesc,
           preco: Number(planoPreco),
           duracaoMeses: Number(planoDuracao),
+          vantagens: vantagensArray,
         };
         await api.createPlano(newPlano);
         await refreshData();
@@ -282,8 +306,9 @@ export default function AdminDashboard() {
       }
       setPlanoNome('');
       setPlanoDesc('');
-      setPlanoPreco(0);
+      setPlanoPreco('');
       setPlanoDuracao(1);
+      setPlanoVantagens('');
     } catch (err) {
       console.error(err);
       showAlert('Erro ao salvar plano.', 'error');
@@ -304,8 +329,9 @@ export default function AdminDashboard() {
             setEditingPlanoId(null);
             setPlanoNome('');
             setPlanoDesc('');
-            setPlanoPreco(0);
+            setPlanoPreco('');
             setPlanoDuracao(1);
+            setPlanoVantagens('');
           }
         } catch (err) {
           console.error(err);
@@ -320,9 +346,17 @@ export default function AdminDashboard() {
       'Tem certeza de que deseja cancelar esta assinatura?',
       async () => {
         try {
+          // Deleta a assinatura
           await api.deleteAssinatura(assinaturaId);
+
+          // Deleta os pagamentos associados a esta assinatura
+          const associatedPayments = pagamentos.filter((p) => p.idAssinatura === assinaturaId);
+          for (const payment of associatedPayments) {
+            await api.deletePagamento(payment.idPagamento);
+          }
+
           await refreshData();
-          showAlert('Assinatura cancelada com sucesso!', 'success');
+          showAlert('Assinatura cancelada e faturamento atualizado com sucesso!', 'success');
         } catch (err) {
           console.error(err);
           showAlert('Erro ao cancelar assinatura.', 'error');
@@ -331,21 +365,7 @@ export default function AdminDashboard() {
     );
   };
 
-  const handleDeleteAvaliacao = async (avaliacaoId: string) => {
-    showConfirm(
-      'Tem certeza de que deseja excluir esta avaliação?',
-      async () => {
-        try {
-          await api.deleteAvaliacao(avaliacaoId);
-          await refreshData();
-          showAlert('Avaliação excluída com sucesso!', 'success');
-        } catch (err) {
-          console.error(err);
-          showAlert('Erro ao excluir avaliação.', 'error');
-        }
-      }
-    );
-  };
+
 
   const handleDeleteTrilhaCurso = async (tcId: string) => {
     showConfirm(
@@ -722,32 +742,25 @@ export default function AdminDashboard() {
 
       {/* Metrics Cards Grid */}
       <div className="row g-3 mb-4">
-        <div className="col-md-3">
+        <div className="col-md-4">
           <div className="card bg-black border border-secondary text-white p-3 shadow-sm hover-card">
             <span className="text-muted small d-block mb-1">Faturamento Geral</span>
             <h4 className="fw-bold text-success mb-1">R$ {totalRevenue.toFixed(2)}</h4>
             <span className="text-muted" style={{ fontSize: '10px' }}>Total acumulado de assinaturas</span>
           </div>
         </div>
-        <div className="col-md-3">
+        <div className="col-md-4">
           <div className="card bg-black border border-secondary text-white p-3 shadow-sm hover-card">
             <span className="text-muted small d-block mb-1">Alunos Ativos</span>
             <h4 className="fw-bold text-primary mb-1">{activeStudentsCount}</h4>
             <span className="text-muted" style={{ fontSize: '10px' }}>Usuários estudantes cadastrados</span>
           </div>
         </div>
-        <div className="col-md-3">
+        <div className="col-md-4">
           <div className="card bg-black border border-secondary text-white p-3 shadow-sm hover-card">
             <span className="text-muted small d-block mb-1">Total de Matrículas</span>
             <h4 className="fw-bold text-warning mb-1">{totalMatriculas}</h4>
             <span className="text-muted" style={{ fontSize: '10px' }}>Matrículas em andamento</span>
-          </div>
-        </div>
-        <div className="col-md-3">
-          <div className="card bg-black border border-secondary text-white p-3 shadow-sm hover-card">
-            <span className="text-muted small d-block mb-1">Satisfação Média</span>
-            <h4 className="fw-bold text-light mb-1">★ {averageSatisfaction} / 5.0</h4>
-            <span className="text-muted" style={{ fontSize: '10px' }}>Nota média das avaliações</span>
           </div>
         </div>
       </div>
@@ -810,14 +823,7 @@ export default function AdminDashboard() {
             Assinaturas
           </button>
         </li>
-        <li className="nav-item">
-          <button
-            onClick={() => setActiveTab('avaliacoes')}
-            className={`nav-link border-0 fw-semibold text-light ${activeTab === 'avaliacoes' ? 'active bg-primary' : 'bg-transparent'}`}
-          >
-            Avaliações
-          </button>
-        </li>
+
       </ul>
 
       {/* Tab Panels */}
@@ -837,6 +843,7 @@ export default function AdminDashboard() {
                       required
                       value={userNome}
                       onChange={(e) => setUserNome(e.target.value)}
+                      autoComplete="off"
                     />
                   </div>
                   <div className="mb-3">
@@ -847,6 +854,7 @@ export default function AdminDashboard() {
                       required
                       value={userEmail}
                       onChange={(e) => setUserEmail(e.target.value)}
+                      autoComplete="new-email"
                     />
                   </div>
                   <div className="mb-3">
@@ -859,6 +867,7 @@ export default function AdminDashboard() {
                       required={!editingUserId}
                       value={userSenha}
                       onChange={(e) => setUserSenha(e.target.value)}
+                      autoComplete="new-password"
                     />
                   </div>
                   <div className="mb-4">
@@ -1047,64 +1056,6 @@ export default function AdminDashboard() {
                   </table>
                 </div>
               </div>
-
-              {/* Relação: Listar cursos de uma categoria específica */}
-              <div className="card bg-black border border-secondary text-white p-3 shadow-sm">
-                <h5 className="fw-bold pb-2 mb-3 border-bottom border-secondary">Listar Cursos por Categoria</h5>
-                <div className="mb-3">
-                  <label className="form-label small text-muted mb-1">Selecionar Categoria</label>
-                  <select
-                    className="form-select bg-dark text-light border-secondary"
-                    value={selectedCategoryFilter}
-                    onChange={(e) => setSelectedCategoryFilter(e.target.value)}
-                  >
-                    <option value="">Selecione...</option>
-                    {categorias.map((cat) => (
-                      <option key={cat.idCategoria} value={cat.idCategoria}>{cat.nome}</option>
-                    ))}
-                  </select>
-                </div>
-
-                {selectedCategoryFilter ? (
-                  <div className="table-responsive" style={{ maxHeight: '250px' }}>
-                    <table className="table table-dark table-striped table-hover mb-0 align-middle">
-                      <thead>
-                        <tr>
-                          <th className="border-secondary text-muted small">Curso</th>
-                          <th className="border-secondary text-muted small">Nível</th>
-                          <th className="border-secondary text-muted small text-end">Ações</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {cursos.filter((c) => c.idCategoria === selectedCategoryFilter).length === 0 ? (
-                          <tr>
-                            <td colSpan={3} className="text-center text-muted small py-3">
-                              Nenhum curso cadastrado nesta categoria.
-                            </td>
-                          </tr>
-                        ) : (
-                          cursos.filter((c) => c.idCategoria === selectedCategoryFilter).map((c) => (
-                            <tr key={c.idCurso}>
-                              <td className="border-secondary text-light fw-semibold small">{c.titulo}</td>
-                              <td className="border-secondary text-muted text-capitalize small">{c.nivel}</td>
-                              <td className="border-secondary text-end small">
-                                <button
-                                  onClick={() => setSearchParams({ tab: 'courses', edit: c.idCurso })}
-                                  className="btn btn-sm btn-outline-primary"
-                                >
-                                  Editar Curso
-                                </button>
-                              </td>
-                            </tr>
-                          ))
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
-                ) : (
-                  <p className="text-muted small mb-0 text-center py-2">Selecione uma categoria para visualizar seus cursos vinculados.</p>
-                )}
-              </div>
             </div>
           </div>
         )}
@@ -1258,6 +1209,64 @@ export default function AdminDashboard() {
                     </tbody>
                   </table>
                 </div>
+              </div>
+
+              {/* Relação: Listar cursos de uma categoria específica */}
+              <div className="card bg-black border border-secondary text-white p-3 shadow-sm mt-4">
+                <h5 className="fw-bold pb-2 mb-3 border-bottom border-secondary">Listar Cursos por Categoria</h5>
+                <div className="mb-3">
+                  <label className="form-label small text-muted mb-1">Selecionar Categoria</label>
+                  <select
+                    className="form-select bg-dark text-light border-secondary"
+                    value={selectedCategoryFilter}
+                    onChange={(e) => setSelectedCategoryFilter(e.target.value)}
+                  >
+                    <option value="">Selecione...</option>
+                    {categorias.map((cat) => (
+                      <option key={cat.idCategoria} value={cat.idCategoria}>{cat.nome}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {selectedCategoryFilter ? (
+                  <div className="table-responsive" style={{ maxHeight: '250px' }}>
+                    <table className="table table-dark table-striped table-hover mb-0 align-middle">
+                      <thead>
+                        <tr>
+                          <th className="border-secondary text-muted small">Curso</th>
+                          <th className="border-secondary text-muted small">Nível</th>
+                          <th className="border-secondary text-muted small text-end">Ações</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {cursos.filter((c) => c.idCategoria === selectedCategoryFilter).length === 0 ? (
+                          <tr>
+                            <td colSpan={3} className="text-center text-muted small py-3">
+                              Nenhum curso cadastrado nesta categoria.
+                            </td>
+                          </tr>
+                        ) : (
+                          cursos.filter((c) => c.idCategoria === selectedCategoryFilter).map((c) => (
+                            <tr key={c.idCurso}>
+                              <td className="border-secondary text-light fw-semibold small">{c.titulo}</td>
+                              <td className="border-secondary text-muted text-capitalize small">{c.nivel}</td>
+                              <td className="border-secondary text-end small">
+                                <button
+                                  onClick={() => setSearchParams({ tab: 'courses', edit: c.idCurso })}
+                                  className="btn btn-sm btn-outline-primary"
+                                >
+                                  Editar Curso
+                                </button>
+                              </td>
+                            </tr>
+                          ))
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : (
+                  <p className="text-muted small mb-0 text-center py-2">Selecione uma categoria para visualizar seus cursos vinculados.</p>
+                )}
               </div>
             </div>
           </div>
@@ -1727,6 +1736,16 @@ export default function AdminDashboard() {
                       onChange={(e) => setPlanoDesc(e.target.value)}
                     />
                   </div>
+                  <div className="mb-3">
+                    <label className="form-label small text-muted mb-1">Vantagens (uma por linha, comece com "-" para desabilitar com X vermelho)</label>
+                    <textarea
+                      className="form-control bg-dark text-light border-secondary"
+                      rows={4}
+                      value={planoVantagens}
+                      onChange={(e) => setPlanoVantagens(e.target.value)}
+                      placeholder="Ex:&#10;Acesso a todos os cursos&#10;Emissão de certificados&#10;- Suporte técnico prioritário"
+                    />
+                  </div>
                   <div className="row g-2 mb-4">
                     <div className="col-6">
                       <label className="form-label small text-muted mb-1">Preço (R$)</label>
@@ -1736,7 +1755,8 @@ export default function AdminDashboard() {
                         className="form-control bg-dark text-light border-secondary"
                         required
                         value={planoPreco}
-                        onChange={(e) => setPlanoPreco(Number(e.target.value))}
+                        onChange={(e) => setPlanoPreco(e.target.value === '' ? '' : Number(e.target.value))}
+                        placeholder="0.00"
                       />
                     </div>
                     <div className="col-6">
@@ -1747,7 +1767,8 @@ export default function AdminDashboard() {
                         required
                         min={1}
                         value={planoDuracao}
-                        onChange={(e) => setPlanoDuracao(Number(e.target.value))}
+                        onChange={(e) => setPlanoDuracao(e.target.value === '' ? '' : Number(e.target.value))}
+                        placeholder="Ex: 1"
                       />
                     </div>
                   </div>
@@ -1761,8 +1782,9 @@ export default function AdminDashboard() {
                         setEditingPlanoId(null);
                         setPlanoNome('');
                         setPlanoDesc('');
-                        setPlanoPreco(0);
+                        setPlanoPreco('');
                         setPlanoDuracao(1);
+                        setPlanoVantagens('');
                       }}
                       className="btn btn-outline-secondary w-100 mt-2 fw-semibold text-light"
                     >
@@ -1801,6 +1823,7 @@ export default function AdminDashboard() {
                                 setPlanoDesc(p.descricao);
                                 setPlanoPreco(p.preco);
                                 setPlanoDuracao(p.duracaoMeses);
+                                setPlanoVantagens(p.vantagens ? p.vantagens.join('\n') : '');
                               }}
                               className="btn btn-sm btn-outline-primary me-2"
                             >
@@ -1876,60 +1899,7 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* AVALIACOES TAB */}
-        {activeTab === 'avaliacoes' && (
-          <div className="row g-4">
-            <div className="col-12">
-              <div className="card bg-black border border-secondary text-white p-3 shadow-sm">
-                <h5 className="fw-bold pb-2 mb-3 border-bottom border-secondary">Avaliações dos Cursos</h5>
-                <div className="table-responsive" style={{ maxHeight: '500px' }}>
-                  <table className="table table-dark table-striped table-hover mb-0 align-middle">
-                    <thead>
-                      <tr>
-                        <th className="border-secondary text-muted small">Usuário</th>
-                        <th className="border-secondary text-muted small">Curso</th>
-                        <th className="border-secondary text-muted small">Nota</th>
-                        <th className="border-secondary text-muted small">Comentário</th>
-                        <th className="border-secondary text-muted small">Data</th>
-                        <th className="border-secondary text-muted small text-end">Ações</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {avaliacoes.map((av) => {
-                        const user = usuarios.find(u => u.idUsuario === av.idUsuario);
-                        const curso = cursos.find(c => c.idCurso === av.idCurso);
-                        return (
-                          <tr key={av.idAvaliacao}>
-                            <td className="border-secondary text-light fw-semibold">{user?.nome || av.idUsuario}</td>
-                            <td className="border-secondary text-muted small">{curso?.titulo || av.idCurso}</td>
-                            <td className="border-secondary text-warning small">
-                              {'★'.repeat(Number(av.nota))}{'☆'.repeat(5 - Number(av.nota))}
-                              <span className="text-muted ms-1">({av.nota})</span>
-                            </td>
-                            <td className="border-secondary text-muted small" style={{ maxWidth: '250px' }}>
-                              <span className="text-truncate d-inline-block" style={{ maxWidth: '250px' }}>
-                                {av.comentario || '—'}
-                              </span>
-                            </td>
-                            <td className="border-secondary text-muted small">{new Date(av.dataAvaliacao).toLocaleDateString('pt-BR')}</td>
-                            <td className="border-secondary text-end small">
-                              <button
-                                onClick={() => handleDeleteAvaliacao(av.idAvaliacao)}
-                                className="btn btn-sm btn-outline-danger"
-                              >
-                                Excluir
-                              </button>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function BootstrapLayout({ children }: Props) {
-  const { currentUser, setCurrentUser, assinaturas } = useApp();
+  const { currentUser, setCurrentUser, assinaturas, planos } = useApp();
   const location = useLocation();
   const [collapsed, setCollapsed] = useState(false);
 
@@ -17,7 +17,10 @@ export default function BootstrapLayout({ children }: Props) {
     ? assinaturas.filter((a) => a.idUsuario === currentUser.idUsuario)
     : [];
   const userSub = userSubs.length > 0 ? userSubs[userSubs.length - 1] : null;
-  const isPro = userSub ? (userSub.idPlano === 'plan2' || userSub.idPlano === 'plan3') : false;
+  const freePlan = planos.find((p) => p.preco === 0) || null;
+  const activePlan = userSub
+    ? planos.find((p) => p.idPlano === userSub.idPlano) || freePlan
+    : freePlan;
 
   const isStaff = currentUser?.perfil === 'administrador' || currentUser?.perfil === 'instrutor';
   const navItems = isStaff
@@ -86,7 +89,7 @@ export default function BootstrapLayout({ children }: Props) {
                     <div className="d-none d-sm-block">
                       <div className="fw-semibold small lh-1 text-light">{currentUser.nome}</div>
                       <div className="text-muted small mt-1 text-capitalize" style={{ fontSize: '10px' }}>
-                        {isStaff ? currentUser.perfil : (isPro ? (userSub?.idPlano === 'plan3' ? 'Pro Anual' : 'Assinante Pro') : userSub?.idPlano === 'plan1' ? 'Plano Básico' : 'Conta Gratuita')}
+                        {isStaff ? currentUser.perfil : (activePlan ? activePlan.nome : 'Conta Gratuita')}
                       </div>
                     </div>
                   </div>

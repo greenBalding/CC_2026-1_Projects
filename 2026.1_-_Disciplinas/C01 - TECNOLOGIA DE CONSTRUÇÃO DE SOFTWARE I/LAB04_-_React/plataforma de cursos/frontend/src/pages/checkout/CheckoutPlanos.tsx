@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useApp } from '../../hooks/useApp';
 import { api } from '../../services/api';
-import { Check } from 'lucide-react';
+import { Check, X } from 'lucide-react';
 
 export default function CheckoutPlanos() {
   const { currentUser, planos, assinaturas, refreshData, showAlert } = useApp();
@@ -31,9 +31,10 @@ export default function CheckoutPlanos() {
   const userSubs = assinaturas.filter((s) => s.idUsuario === currentUser.idUsuario);
   const activeSubscription = userSubs.length > 0 ? userSubs[userSubs.length - 1] : null;
 
+  const freePlan = planos.find((p) => p.preco === 0) || null;
   const activePlan = activeSubscription
-    ? planos.find((p) => p.idPlano === activeSubscription.idPlano)
-    : null;
+    ? planos.find((p) => p.idPlano === activeSubscription.idPlano) || freePlan
+    : freePlan;
 
   const handleOpenCheckout = (plan: any) => {
     setSelectedPlan(plan);
@@ -151,7 +152,7 @@ export default function CheckoutPlanos() {
 
         {activePlan && (
           <div className="alert alert-success border-success bg-success bg-opacity-10 text-success d-inline-block mt-3 px-4 py-2">
-            Plano Ativo Atualmente: <strong>{activePlan.nome}</strong> (Expira em: {activeSubscription?.dataFim})
+            Plano Ativo Atualmente: <strong>{activePlan.nome}</strong> {activeSubscription ? `(Expira em: ${activeSubscription.dataFim})` : '(Acesso Vitalício)'}
           </div>
         )}
       </div>
@@ -173,29 +174,52 @@ export default function CheckoutPlanos() {
                   </div>
 
                   <ul className="list-unstyled mb-5 d-flex flex-column gap-3" style={{ fontSize: '14px' }}>
-                    <li className="d-flex align-items-center gap-2">
-                      <Check size={16} className="text-success" />
-                      <span>Acesso a todos os cursos catalogados</span>
-                    </li>
-                    <li className="d-flex align-items-center gap-2">
-                      <Check size={16} className="text-success" />
-                      <span>Emissão ilimitada de certificados</span>
-                    </li>
-                    {p.idPlano !== 'plan1' ? (
+                    {p.vantagens && p.vantagens.length > 0 ? (
+                      p.vantagens.map((item: string, idx: number) => {
+                        const isDisabled = item.startsWith('-');
+                        const cleanText = item.replace(/^[+-]\s*/, '');
+                        return (
+                          <li
+                            key={idx}
+                            className="d-flex align-items-center gap-2"
+                            style={isDisabled ? { opacity: 0.6 } : undefined}
+                          >
+                            {isDisabled ? (
+                              <X size={16} className="text-danger" />
+                            ) : (
+                              <Check size={16} className="text-success" />
+                            )}
+                            <span>{cleanText}</span>
+                          </li>
+                        );
+                      })
+                    ) : (
                       <>
                         <li className="d-flex align-items-center gap-2">
                           <Check size={16} className="text-success" />
-                          <span>Acesso completo às Trilhas de Estudos</span>
+                          <span>Acesso a todos os cursos catalogados</span>
                         </li>
                         <li className="d-flex align-items-center gap-2">
                           <Check size={16} className="text-success" />
+                          <span>Emissão ilimitada de certificados</span>
+                        </li>
+                        <li className="d-flex align-items-center gap-2" style={p.preco === 0 ? { opacity: 0.6 } : undefined}>
+                          {p.preco > 0 ? (
+                            <Check size={16} className="text-success" />
+                          ) : (
+                            <X size={16} className="text-danger" />
+                          )}
+                          <span>Acesso completo às Trilhas de Estudos</span>
+                        </li>
+                        <li className="d-flex align-items-center gap-2" style={p.preco === 0 ? { opacity: 0.6 } : undefined}>
+                          {p.preco > 0 ? (
+                            <Check size={16} className="text-success" />
+                          ) : (
+                            <X size={16} className="text-danger" />
+                          )}
                           <span>Suporte técnico prioritário de instrutores</span>
                         </li>
                       </>
-                    ) : (
-                      <li className="d-flex align-items-center gap-2 text-muted">
-                        <span>Sem acesso a Trilhas e suporte</span>
-                      </li>
                     )}
                   </ul>
                 </div>
