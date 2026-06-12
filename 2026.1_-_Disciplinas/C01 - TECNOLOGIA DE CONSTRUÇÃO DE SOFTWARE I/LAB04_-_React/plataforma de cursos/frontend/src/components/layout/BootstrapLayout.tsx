@@ -19,16 +19,20 @@ export default function BootstrapLayout({ children }: Props) {
   const userSub = userSubs.length > 0 ? userSubs[userSubs.length - 1] : null;
   const isPro = userSub ? (userSub.idPlano === 'plan2' || userSub.idPlano === 'plan3') : false;
 
-  const isAdminOrInstructor = currentUser?.perfil === 'administrador' || currentUser?.perfil === 'instrutor';
-  const navItems = [
-    { to: '/dashboard', icon: <HomeIcon size={18} />, label: 'Início' },
-    { to: '/explore', icon: <SearchIcon size={18} />, label: 'Explorar' },
-    { to: '/cursos', icon: <PlayIcon size={18} />, label: 'Meus Cursos' },
-    { to: '/trilhas', icon: <MapIcon size={18} />, label: 'Trilhas' },
-    { to: '/checkout', icon: <StarIcon size={18} fill="none" />, label: 'Planos & Premium' },
-    { to: '/profile', icon: <UserIcon size={18} />, label: 'Meu Perfil' },
-    ...(isAdminOrInstructor ? [{ to: '/admin', icon: <CrownIcon size={18} />, label: 'Painel Admin' }] : []),
-  ];
+  const isStaff = currentUser?.perfil === 'administrador' || currentUser?.perfil === 'instrutor';
+  const navItems = isStaff
+    ? [
+        { to: '/admin', icon: <CrownIcon size={18} />, label: 'Painel Admin' },
+        { to: '/profile', icon: <UserIcon size={18} />, label: 'Meu Perfil' },
+      ]
+    : [
+        { to: '/dashboard', icon: <HomeIcon size={18} />, label: 'Início' },
+        { to: '/explore', icon: <SearchIcon size={18} />, label: 'Explorar' },
+        { to: '/cursos', icon: <PlayIcon size={18} />, label: 'Meus Cursos' },
+        { to: '/trilhas', icon: <MapIcon size={18} />, label: 'Trilhas' },
+        { to: '/checkout', icon: <StarIcon size={18} fill="none" />, label: 'Planos & Premium' },
+        { to: '/profile', icon: <UserIcon size={18} />, label: 'Meu Perfil' },
+      ];
 
   return (
     <div className="d-flex flex-column min-vh-100 bg-dark text-light">

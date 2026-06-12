@@ -34,9 +34,11 @@ function AppRoutes() {
     return <Navigate to="/login" replace />;
   }
 
+  const isStaff = currentUser?.perfil === 'administrador' || currentUser?.perfil === 'instrutor';
+
   // Redirect to dashboard if authenticated and trying to access login/register
   if (currentUser && (location.pathname === '/login' || location.pathname === '/register')) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to={isStaff ? "/admin" : "/dashboard"} replace />;
   }
 
   // Render Login and Register pages standalone (no sidebars/headers)
@@ -54,18 +56,18 @@ function AppRoutes() {
   return (
     <BootstrapLayout>
       <Routes>
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/player" element={<CoursePlayer />} />
-        <Route path="/player/:id" element={<CoursePlayer />} />
-        <Route path="/explore" element={<Explore />} />
+        <Route path="/" element={<Navigate to={isStaff ? "/admin" : "/dashboard"} replace />} />
+        <Route path="/dashboard" element={isStaff ? <Navigate to="/admin" replace /> : <Dashboard />} />
+        <Route path="/player" element={isStaff ? <Navigate to="/admin" replace /> : <CoursePlayer />} />
+        <Route path="/player/:id" element={isStaff ? <Navigate to="/admin" replace /> : <CoursePlayer />} />
+        <Route path="/explore" element={isStaff ? <Navigate to="/admin" replace /> : <Explore />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/course/:id" element={<CourseDetails />} />
-        <Route path="/cursos" element={<Cursos />} />
-        <Route path="/trilhas" element={<Trilhas />} />
-        <Route path="/checkout" element={<CheckoutPlanos />} />
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        <Route path="/course/:id" element={isStaff ? <Navigate to="/admin" replace /> : <CourseDetails />} />
+        <Route path="/cursos" element={isStaff ? <Navigate to="/admin" replace /> : <Cursos />} />
+        <Route path="/trilhas" element={isStaff ? <Navigate to="/admin" replace /> : <Trilhas />} />
+        <Route path="/checkout" element={isStaff ? <Navigate to="/admin" replace /> : <CheckoutPlanos />} />
+        <Route path="/admin" element={isStaff ? <AdminDashboard /> : <Navigate to="/dashboard" replace />} />
+        <Route path="*" element={<Navigate to={isStaff ? "/admin" : "/dashboard"} replace />} />
       </Routes>
     </BootstrapLayout>
   );
