@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import type { ReactNode } from 'react';
 import { useApp } from '../../hooks/useApp';
-import { Home, Search, Play, Map, Star, Crown } from 'lucide-react';
+import { Home, Search, Play, Map, Star, Crown, LogOut } from 'lucide-react';
 
 interface Props {
   children: ReactNode;
@@ -75,38 +75,29 @@ export default function BootstrapLayout({ children }: Props) {
 
           <div className="collapse navbar-collapse justify-content-end" id="navbarContent">
             <div className="d-flex align-items-center gap-3 mt-3 mt-lg-0">
-              {/* Informações do Usuário & Sair */}
+              {/* Informações do Usuário */}
               {currentUser && (
-                <div className="d-flex align-items-center gap-3">
-                  <Link
-                    to="/profile"
-                    className="d-flex align-items-center gap-2 text-decoration-none text-light"
-                    style={{ transition: 'opacity 0.2s', cursor: 'pointer' }}
-                    onMouseEnter={(e) => e.currentTarget.style.opacity = '0.85'}
-                    onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
-                    title="Acessar Meu Perfil"
+                <Link
+                  to="/profile"
+                  className="d-flex align-items-center gap-2 text-decoration-none text-light"
+                  style={{ transition: 'opacity 0.2s', cursor: 'pointer' }}
+                  onMouseEnter={(e) => e.currentTarget.style.opacity = '0.85'}
+                  onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+                  title="Acessar Meu Perfil"
+                >
+                  <div
+                    className="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold bg-primary"
+                    style={{ width: '38px', height: '38px', fontSize: '14px' }}
                   >
-                    <div
-                      className="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold bg-primary"
-                      style={{ width: '38px', height: '38px', fontSize: '14px' }}
-                    >
-                      {currentUser.nome.split(' ').map((n) => n[0]).join('')}
+                    {currentUser.nome.split(' ').map((n) => n[0]).join('')}
+                  </div>
+                  <div className="d-none d-sm-block">
+                    <div className="fw-semibold small lh-1">{currentUser.nome}</div>
+                    <div className="text-muted small mt-1 text-capitalize" style={{ fontSize: '10px' }}>
+                      {isStaff ? currentUser.perfil : (activePlan ? activePlan.nome : 'Conta Gratuita')}
                     </div>
-                    <div className="d-none d-sm-block">
-                      <div className="fw-semibold small lh-1">{currentUser.nome}</div>
-                      <div className="text-muted small mt-1 text-capitalize" style={{ fontSize: '10px' }}>
-                        {isStaff ? currentUser.perfil : (activePlan ? activePlan.nome : 'Conta Gratuita')}
-                      </div>
-                    </div>
-                  </Link>
-                  <button
-                    onClick={() => setCurrentUser(null)}
-                    className="btn btn-sm btn-outline-danger px-2.5 py-1 fw-semibold text-nowrap"
-                    style={{ fontSize: '12px' }}
-                  >
-                    Sair
-                  </button>
-                </div>
+                  </div>
+                </Link>
               )}
             </div>
           </div>
@@ -149,6 +140,35 @@ export default function BootstrapLayout({ children }: Props) {
                 );
               })}
             </ul>
+
+            {/* Botão Sair no rodapé da Sidebar */}
+            <div className="mt-auto pt-3 border-top border-secondary border-opacity-25 w-100">
+              <button
+                onClick={() => setCurrentUser(null)}
+                className={`w-100 btn d-flex align-items-center ${
+                  collapsed ? 'justify-content-center px-0' : 'text-start px-3'
+                } text-danger`}
+                style={{
+                  borderRadius: '6px',
+                  border: '1px solid rgba(220, 53, 69, 0.25)',
+                  padding: collapsed ? '10px 0' : '8px 12px',
+                  backgroundColor: 'rgba(220, 53, 69, 0.05)',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(220, 53, 69, 0.15)';
+                  e.currentTarget.style.borderColor = 'rgba(220, 53, 69, 0.5)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(220, 53, 69, 0.05)';
+                  e.currentTarget.style.borderColor = 'rgba(220, 53, 69, 0.25)';
+                }}
+                title={collapsed ? 'Sair' : undefined}
+              >
+                <LogOut size={18} />
+                {!collapsed && <span className="ms-2 fw-semibold text-nowrap">Sair</span>}
+              </button>
+            </div>
           </div>
         </nav>
 
