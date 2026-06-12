@@ -23,9 +23,16 @@ export default function BootstrapLayout({ children }: Props) {
     : freePlan;
 
   const isStaff = currentUser?.perfil === 'administrador' || currentUser?.perfil === 'instrutor';
-  const navItems = isStaff
+  const isAdmin = currentUser?.perfil === 'administrador';
+  const isInstructor = currentUser?.perfil === 'instrutor';
+
+  const navItems = isAdmin
     ? [
         { to: '/admin', icon: <Crown size={18} />, label: 'Painel Admin' },
+      ]
+    : isInstructor
+    ? [
+        { to: '/instrutor', icon: <Crown size={18} />, label: 'Área do Instrutor' },
       ]
     : [
         { to: '/dashboard', icon: <Home size={18} />, label: 'Início' },
