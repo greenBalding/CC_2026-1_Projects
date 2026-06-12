@@ -70,6 +70,10 @@ export default function Explore() {
     'linear-gradient(135deg, rgba(99,102,241,0.2) 0%, rgba(124,58,237,0.1) 100%)',
   ];
 
+  const categoriesWithCourses = categorias.filter((cat) =>
+    cursos.some((c) => c.idCategoria === cat.idCategoria)
+  );
+
   return (
     <div className="container-fluid py-2">
       {/* Top Search Bar */}
@@ -104,7 +108,7 @@ export default function Explore() {
           >
             Todos Cursos
           </button>
-          {categorias.map((cat) => (
+          {categoriesWithCourses.map((cat) => (
             <button
               key={cat.idCategoria}
               onClick={() => setActiveCategory(cat.nome)}

@@ -43,6 +43,17 @@
       "ativo": true,
       "dataCriacao": "2026-06-12T19:44:03.466Z",
       "dataAlteracao": "2026-06-12T19:44:03.466Z"
+    },
+    {
+      "id": "G7-HUUsbFbs",
+      "idUsuario": "u-1781294568901",
+      "nome": "Aluno Teste Final",
+      "email": "alunofinal@dbjson.com",
+      "perfil": "aluno",
+      "senhaHash": "123456",
+      "ativo": true,
+      "dataCriacao": "2026-06-12T20:02:48.901Z",
+      "dataAlteracao": "2026-06-12T20:02:48.901Z"
     }
   ],
   "categorias": [
@@ -2634,6 +2645,22 @@
       "idPlano": "pl-1781290752525",
       "dataInicio": "2026-06-12",
       "dataFim": "2027-06-12"
+    },
+    {
+      "id": "aP_xvUp2tJg",
+      "idAssinatura": "sub-1781294568915",
+      "idUsuario": "u-1781294568901",
+      "idPlano": "pl-1781288871351",
+      "dataInicio": "2026-06-12",
+      "dataFim": "2026-07-12"
+    },
+    {
+      "id": "RAMq1-MkHTw",
+      "idAssinatura": "sub-1781294607566",
+      "idUsuario": "u-1781294568901",
+      "idPlano": "pl-1781288982774",
+      "dataInicio": "2026-06-12",
+      "dataFim": "2026-07-12"
     }
   ],
   "pagamentos": [
@@ -2646,6 +2673,16 @@
       "dataPagamento": "2026-06-12T19:44:15.428Z",
       "metodoPagamento": "pix",
       "transacaoId": "tx-625139070"
+    },
+    {
+      "id": "UiM9hZcF5_4",
+      "idPagamento": "pag-1781294607580",
+      "idAssinatura": "sub-1781294607566",
+      "idUsuario": "u-1781294568901",
+      "valor": 100,
+      "dataPagamento": "2026-06-12T20:03:27.566Z",
+      "metodoPagamento": "boleto",
+      "transacaoId": "tx-411350207"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
