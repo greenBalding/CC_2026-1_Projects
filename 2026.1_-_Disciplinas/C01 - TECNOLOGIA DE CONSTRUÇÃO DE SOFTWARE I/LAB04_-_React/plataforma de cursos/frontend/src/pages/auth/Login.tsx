@@ -6,11 +6,11 @@ import { api }             from '../../services/api';
 export default function Login() {
   const { setCurrentUser } = useApp();
 
-  // Form states
+  // Estados do formulário
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // Validation states
+  // Estados de validação
   const [validated, setValidated] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -32,10 +32,10 @@ export default function Login() {
     setLoginError(false);
 
     try {
-      // Fetch fresh user list from API to bypass React state closure
+      // Busca a lista de usuários mais recente da API para contornar o fechamento do estado do React
       const latestUsers = await api.getUsuarios();
 
-      // Find user by email and matching password
+      // Encontra o usuário por e-mail e senha correspondente
       const user = latestUsers.find(
         (u) => u.email.toLowerCase() === email.toLowerCase() && u.senhaHash === password
       );

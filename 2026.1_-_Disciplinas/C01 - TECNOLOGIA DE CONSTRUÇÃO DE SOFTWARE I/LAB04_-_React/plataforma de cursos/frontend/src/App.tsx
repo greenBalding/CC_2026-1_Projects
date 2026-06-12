@@ -29,7 +29,7 @@ function AppRoutes() {
     );
   }
 
-  // Redirect to login if not authenticated
+  // Redireciona para o login se não estiver autenticado
   if (!currentUser && location.pathname !== '/login' && location.pathname !== '/register') {
     return <Navigate to="/login" replace />;
   }
@@ -37,14 +37,14 @@ function AppRoutes() {
   const isAdmin = currentUser?.perfil === 'administrador';
   const isInstructor = currentUser?.perfil === 'instrutor';
 
-  // Redirect to dashboard if authenticated and trying to access login/register
+  // Redireciona para o painel se estiver autenticado e tentar acessar login/registro
   if (currentUser && (location.pathname === '/login' || location.pathname === '/register')) {
     if (isAdmin) return <Navigate to="/admin" replace />;
     if (isInstructor) return <Navigate to="/instrutor" replace />;
     return <Navigate to="/dashboard" replace />;
   }
 
-  // Render Login and Register pages standalone (no sidebars/headers)
+  // Renderiza as páginas de Login e Registro de forma independente (sem barras laterais/cabeçalhos)
   if (location.pathname === '/login' || location.pathname === '/register') {
     return (
       <Routes>
@@ -55,7 +55,7 @@ function AppRoutes() {
     );
   }
 
-  // Render main layout and pages
+  // Renderiza o layout principal e as páginas
   return (
     <BootstrapLayout>
       <Routes>

@@ -160,7 +160,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setTrilhas(trilhasList);
       setTrilhasCursos(trilhasCursosList);
 
-      // Restore active user if still in the list, otherwise clear session
+      // Restaura o usuário ativo se ainda estiver na lista, caso contrário limpa a sessão
       if (currentUser) {
         const found = usersList.find((u) => u.idUsuario === currentUser.idUsuario);
         if (found) {

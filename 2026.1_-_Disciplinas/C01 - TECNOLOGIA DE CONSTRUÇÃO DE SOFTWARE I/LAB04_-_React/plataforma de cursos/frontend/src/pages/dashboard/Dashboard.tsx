@@ -14,10 +14,10 @@ export default function Dashboard() {
     );
   }
 
-  // Get current user's enrollments
+  // Obtém as matrículas do usuário atual
   const userMatriculas = matriculas.filter((m) => m.idUsuario === currentUser.idUsuario);
   
-  // Helper to fetch counts dynamically:
+  // Auxiliar para buscar contagens dinamicamente:
   const getProgressInfo = (idCurso: string) => {
     const courseModules = modulos.filter((m) => m.idCurso === idCurso).map((m) => m.idModulo);
     const courseLessons = aulas.filter((a) => courseModules.includes(a.idModulo));
@@ -32,7 +32,7 @@ export default function Dashboard() {
     };
   };
 
-  // Enrolled courses with active progress
+  // Cursos matriculados com progresso ativo
   const activeEnrollments = userMatriculas.map((mat) => {
     const curso = cursos.find((c) => c.idCurso === mat.idCurso);
     const stats = curso ? getProgressInfo(curso.idCurso) : { percentage: 0 };
@@ -46,10 +46,10 @@ export default function Dashboard() {
   const enrolledIds = userMatriculas.map((m) => m.idCurso);
   const recommendedCourses = cursos.filter((c) => !enrolledIds.includes(c.idCurso)).slice(0, 3);
 
-  // Prioritize showing in-progress courses, fallback to first overall enrollment
+  // Prioriza a exibição de cursos em andamento, fallback para a primeira matrícula geral
   const inProgressEnrollments = activeEnrollments.filter((e) => e.progresso < 100);
 
-  // Prioritize showing in-progress courses, fallback to all enrollments if none in progress
+  // Prioriza a exibição de cursos em andamento, fallback para todas as matrículas se nenhuma estiver em andamento
   const displayedEnrollments = inProgressEnrollments.length > 0 ? inProgressEnrollments : activeEnrollments;
 
 

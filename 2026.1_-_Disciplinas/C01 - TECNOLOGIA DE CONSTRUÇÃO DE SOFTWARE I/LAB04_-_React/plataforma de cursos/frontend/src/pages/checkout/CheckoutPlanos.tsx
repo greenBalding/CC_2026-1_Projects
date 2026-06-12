@@ -11,13 +11,13 @@ export default function CheckoutPlanos() {
   const [processingText, setProcessingText] = useState('Processando dados...');
   const [transacaoId, setTransacaoId] = useState('');
 
-  // Card details form state
+  // Estado do formulário de detalhes do cartão
   const [cardNumber, setCardNumber] = useState('');
   const [cardName, setCardName] = useState('');
   const [cardExpiry, setCardExpiry] = useState('');
   const [cardCvv, setCardCvv] = useState('');
 
-  // PIX fake copy state
+  // Estado de cópia do PIX (simulador)
   const [copiedPix, setCopiedPix] = useState(false);
 
   if (!currentUser) {
@@ -52,7 +52,7 @@ export default function CheckoutPlanos() {
     setCopiedPix(false);
   };
 
-  // Simulates processing stages in Step 3
+  // Simula as etapas de processamento no Passo 3
   useEffect(() => {
     if (checkoutStep === 3) {
       const texts = [
@@ -68,9 +68,9 @@ export default function CheckoutPlanos() {
         if (currentTextIdx < texts.length) {
           setProcessingText(texts[currentTextIdx]);
         }
-      }, 9000000); // long interval but we'll complete it in a timeout anyway
+      }, 9000000); // intervalo longo, mas vamos completá-lo de qualquer forma no timeout
 
-      // Trigger completion simulation
+      // Inicia a simulação de finalização
       const timeout = setTimeout(async () => {
         try {
           const today = new Date();
@@ -81,7 +81,7 @@ export default function CheckoutPlanos() {
           const generatedTxId = `tx-${Math.floor(Math.random() * 900000000) + 100000000}`;
           setTransacaoId(generatedTxId);
 
-          // 1. Create Assinatura Record
+          // 1. Cria o registro de Assinatura
           const newSubscription = {
             id: subId,
             idAssinatura: subId,
@@ -92,7 +92,7 @@ export default function CheckoutPlanos() {
           };
           await api.createAssinatura(newSubscription);
 
-          // 2. Create Pagamento Record
+          // 2. Cria o registro de Pagamento
           const payId = `pag-${Date.now()}`;
           const newPayment = {
             id: payId,
@@ -126,7 +126,7 @@ export default function CheckoutPlanos() {
   const handleNextStep = () => {
     if (checkoutStep === 1) {
       if (selectedPlan.preco === 0) {
-        // Free plans skip payment method and go straight to processing
+        // Planos gratuitos ignoram a forma de pagamento e vão direto para o processamento
         setCheckoutStep(3);
       } else {
         setCheckoutStep(2);

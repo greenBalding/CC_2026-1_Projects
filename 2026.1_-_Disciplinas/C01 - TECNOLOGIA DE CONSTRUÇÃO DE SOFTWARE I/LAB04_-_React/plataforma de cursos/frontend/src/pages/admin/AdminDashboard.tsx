@@ -27,22 +27,22 @@ export default function AdminDashboard() {
   const editCourseId = searchParams.get('edit');
   const tabParam = searchParams.get('tab');
 
-  // Stats Calculations
+  // Cálculo de estatísticas
   const totalRevenue = pagamentos.reduce((sum, p) => sum + Number(p.valor), 0);
   const activeStudentsCount = usuarios.filter((u) => u.perfil === 'aluno' && u.ativo).length;
   const totalMatriculas = matriculas.length;
   const [activeTab, setActiveTab] = useState<'users' | 'categories' | 'courses' | 'modules' | 'trilhas' | 'planos' | 'assinaturas'>('users');
   const [submitting, setSubmitting] = useState(false);
 
-  // --- FORM STATES ---
-  // Users Form
+  // --- ESTADOS DOS FORMULÁRIOS ---
+  // Formulário de Usuários
   const [userNome, setUserNome] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userSenha, setUserSenha] = useState('');
   const [userPerfil, setUserPerfil] = useState<'aluno' | 'instrutor' | 'administrador'>('aluno');
   const [editingUserId, setEditingUserId] = useState<string | null>(null);
 
-  // Planos Form
+  // Formulário de Planos
   const [planoNome, setPlanoNome] = useState('');
   const [planoDesc, setPlanoDesc] = useState('');
   const [planoPreco, setPlanoPreco] = useState<number | ''>('');
@@ -50,13 +50,13 @@ export default function AdminDashboard() {
   const [planoVantagens, setPlanoVantagens] = useState('');
   const [editingPlanoId, setEditingPlanoId] = useState<string | null>(null);
 
-  // Categories Form
+  // Formulário de Categorias
   const [catNome, setCatNome] = useState('');
   const [catDesc, setCatDesc] = useState('');
   const [editingCatId, setEditingCatId] = useState<string | null>(null);
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState('');
 
-  // Courses Form
+  // Formulário de Cursos
   const [courseTitle, setCourseTitle] = useState('');
   const [courseDesc, setCourseDesc] = useState('');
   const [courseBannerUrl, setCourseBannerUrl] = useState('');
@@ -65,13 +65,13 @@ export default function AdminDashboard() {
   const [courseLevel, setCourseLevel] = useState<'iniciante' | 'intermediario' | 'avancado'>('iniciante');
   const [courseHours, setCourseHours] = useState(10);
 
-  // Modules Form
+  // Formulário de Módulos
   const [modCourseId, setModCourseId] = useState('');
   const [modTitle, setModTitle] = useState('');
   const [modOrder, setModOrder] = useState(1);
   const [editingModId, setEditingModId] = useState<string | null>(null);
 
-  // Lessons Form
+  // Formulário de Aulas
   const [lessonCourseId, setLessonCourseId] = useState('');
   const [lessonModId, setLessonModId] = useState('');
   const [lessonTitle, setLessonTitle] = useState('');
@@ -79,26 +79,27 @@ export default function AdminDashboard() {
   const [lessonDuration, setLessonDuration] = useState(15);
   const [lessonOrder, setLessonOrder] = useState(1);
   const [editingLessonId, setEditingLessonId] = useState<string | null>(null);
+  const [lessonUrl, setLessonUrl] = useState('');
 
-  // Trilhas Form
+  // Formulário de Trilhas
   const [trilhaTitle, setTrilhaTitle] = useState('');
   const [trilhaDesc, setTrilhaDesc] = useState('');
   const [trilhaCategory, setTrilhaCategory] = useState('');
   const [editingTrilhaId, setEditingTrilhaId] = useState<string | null>(null);
 
-  // Link Course to Trail Form
+  // Formulário de Vincular Curso à Trilha
   const [linkTrilhaId, setLinkTrilhaId] = useState('');
   const [linkCourseId, setLinkCourseId] = useState('');
   const [linkOrder, setLinkOrder] = useState(1);
 
-  // Sync tab from query param
+  // Sincroniza a aba a partir do parâmetro de busca
   useEffect(() => {
     if (tabParam) {
       setActiveTab(tabParam as any);
     }
   }, [tabParam]);
 
-  // Sync edit course state
+  // Sincroniza o estado de edição do curso
   useEffect(() => {
     if (editCourseId) {
       const course = cursos.find((c) => c.idCurso === editCourseId);
@@ -130,7 +131,7 @@ export default function AdminDashboard() {
     );
   }
 
-  // Security Check: Alunos cannot edit
+  // Verificação de segurança: Alunos não podem editar
   const isAllowed = currentUser.perfil === 'administrador' || currentUser.perfil === 'instrutor';
 
   if (!isAllowed) {
@@ -148,7 +149,7 @@ export default function AdminDashboard() {
     );
   }
 
-  // --- SUBMIT HANDLERS ---
+  // --- MANIPULADORES DE ENVIO ---
   const handleCreateUser = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
@@ -186,7 +187,7 @@ export default function AdminDashboard() {
         };
         await api.createUsuario(newUser);
 
-        // Auto assign free subscription if created user is student
+        // Associa automaticamente o plano gratuito se o usuário criado for um aluno
         if (userPerfil === 'aluno') {
           const freePlan = planos.find((p) => p.preco === 0);
           if (freePlan) {
@@ -590,6 +591,7 @@ export default function AdminDashboard() {
           idModulo: lessonModId,
           titulo: lessonTitle,
           tipoConteudo: lessonType,
+          urlConteudo: lessonUrl,
           duracaoMinutos: Number(lessonDuration),
           ordem: Number(lessonOrder),
         });
@@ -597,6 +599,7 @@ export default function AdminDashboard() {
         showAlert('Aula atualizada com sucesso!', 'success');
         setEditingLessonId(null);
         setLessonTitle('');
+        setLessonUrl('');
       } else {
         const generatedId = `a-${Date.now()}`;
         const newLesson = {
@@ -605,7 +608,7 @@ export default function AdminDashboard() {
           idModulo: lessonModId,
           titulo: lessonTitle,
           tipoConteudo: lessonType,
-          urlConteudo: '#',
+          urlConteudo: lessonUrl,
           duracaoMinutos: Number(lessonDuration),
           ordem: Number(lessonOrder),
         };
@@ -613,6 +616,7 @@ export default function AdminDashboard() {
         await refreshData();
         showAlert('Aula cadastrada com sucesso!', 'success');
         setLessonTitle('');
+        setLessonUrl('');
         setLessonOrder((prev) => prev + 1);
       }
     } catch (err) {
@@ -634,6 +638,7 @@ export default function AdminDashboard() {
           if (editingLessonId === lessonId) {
             setEditingLessonId(null);
             setLessonTitle('');
+            setLessonUrl('');
           }
         } catch (err) {
           console.error(err);
@@ -734,13 +739,13 @@ export default function AdminDashboard() {
 
   return (
     <div className="container-fluid py-2">
-      {/* Title */}
+      {/* Título */}
       <div className="mb-4">
         <h2 className="fw-bold text-light mb-1">Painel Administrativo</h2>
         <p className="text-muted">Crie e edite cursos, categorias, usuários e configure as trilhas de conhecimento.</p>
       </div>
 
-      {/* Metrics Cards Grid */}
+      {/* Grade de Cartões de Métricas */}
       <div className="row g-3 mb-4">
         <div className="col-md-4">
           <div className="card bg-black border border-secondary text-white p-3 shadow-sm hover-card">
@@ -765,7 +770,7 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      {/* Tabs navigation */}
+      {/* Navegação de Abas */}
       <ul className="nav nav-tabs border-secondary mb-4">
         <li className="nav-item">
           <button
@@ -826,9 +831,9 @@ export default function AdminDashboard() {
 
       </ul>
 
-      {/* Tab Panels */}
+      {/* Painéis de Abas */}
       <div className="tab-content">
-        {/* USERS TAB */}
+        {/* ABA DE USUÁRIOS */}
         {activeTab === 'users' && (
           <div className="row g-4">
             <div className="col-lg-5">
@@ -969,7 +974,7 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* CATEGORIES TAB */}
+        {/* ABA DE CATEGORIAS */}
         {activeTab === 'categories' && (
           <div className="row g-4">
             <div className="col-lg-5">
@@ -1060,7 +1065,7 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* COURSES TAB */}
+        {/* ABA DE CURSOS */}
         {activeTab === 'courses' && (
           <div className="row g-4">
             <div className="col-lg-5">
@@ -1272,10 +1277,10 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* MODULES & LESSONS TAB */}
+        {/* ABA DE MÓDULOS E AULAS */}
         {activeTab === 'modules' && (
           <div className="row g-4">
-            {/* Create module */}
+            {/* Criar módulo */}
             <div className="col-md-6 col-lg-4">
               <div className="card bg-black border border-secondary text-white p-4 shadow-sm">
                 <h5 className="fw-bold mb-3">{editingModId ? 'Editar Módulo' : '1. Cadastrar Módulo'}</h5>
@@ -1332,7 +1337,7 @@ export default function AdminDashboard() {
               </div>
             </div>
 
-            {/* Create lesson */}
+            {/* Criar aula */}
             <div className="col-md-6 col-lg-4">
               <div className="card bg-black border border-secondary text-white p-4 shadow-sm">
                 <h5 className="fw-bold mb-3">{editingLessonId ? 'Editar Aula' : '2. Cadastrar Aula'}</h5>
@@ -1379,7 +1384,7 @@ export default function AdminDashboard() {
                       onChange={(e) => setLessonTitle(e.target.value)}
                     />
                   </div>
-                  <div className="row g-2 mb-4">
+                  <div className="row g-2 mb-3">
                     <div className="col-4">
                       <label className="form-label small text-muted mb-1">Tipo</label>
                       <select
@@ -1389,7 +1394,6 @@ export default function AdminDashboard() {
                       >
                         <option value="video">Vídeo</option>
                         <option value="texto">Texto</option>
-                        <option value="quiz">Quiz</option>
                       </select>
                     </div>
                     <div className="col-4">
@@ -1413,6 +1417,33 @@ export default function AdminDashboard() {
                       />
                     </div>
                   </div>
+                  <div className="mb-4">
+                    {lessonType === 'texto' || lessonType === 'quiz' ? (
+                      <>
+                        <label className="form-label small text-muted mb-1">Conteúdo Escrito da Aula</label>
+                        <textarea
+                          rows={4}
+                          className="form-control bg-dark text-light border-secondary form-control-sm"
+                          required
+                          placeholder="Digite o conteúdo em texto da aula..."
+                          value={lessonUrl}
+                          onChange={(e) => setLessonUrl(e.target.value)}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <label className="form-label small text-muted mb-1">Link do Vídeo</label>
+                        <input
+                          type="url"
+                          className="form-control bg-dark text-light border-secondary form-control-sm"
+                          required
+                          placeholder="https://example.com/video"
+                          value={lessonUrl}
+                          onChange={(e) => setLessonUrl(e.target.value)}
+                        />
+                      </>
+                    )}
+                  </div>
                   <button type="submit" disabled={submitting} className="btn btn-primary w-100 fw-semibold btn-sm">
                     {editingLessonId ? 'Salvar Alterações' : 'Cadastrar Aula'}
                   </button>
@@ -1422,6 +1453,7 @@ export default function AdminDashboard() {
                       onClick={() => {
                         setEditingLessonId(null);
                         setLessonTitle('');
+                        setLessonUrl('');
                       }}
                       className="btn btn-outline-secondary w-100 mt-2 fw-semibold text-light btn-sm"
                     >
@@ -1432,7 +1464,7 @@ export default function AdminDashboard() {
               </div>
             </div>
 
-            {/* Structured Courses list syllabus */}
+            {/* Grade curricular estruturada dos cursos */}
             <div className="col-lg-4">
               <div className="card bg-black border border-secondary text-white p-3 shadow-sm" style={{ maxHeight: '420px', overflowY: 'auto' }}>
                 <h5 className="fw-bold pb-2 mb-3 border-bottom border-secondary">Grade Estruturada</h5>
@@ -1485,6 +1517,7 @@ export default function AdminDashboard() {
                                         setLessonType(a.tipoConteudo as any);
                                         setLessonDuration(a.duracaoMinutos);
                                         setLessonOrder(a.ordem);
+                                        setLessonUrl(a.urlConteudo || '');
                                       }}
                                       className="btn btn-link p-0 text-primary text-decoration-none"
                                       style={{ fontSize: '9px' }}
@@ -1513,10 +1546,10 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* TRILHAS TAB */}
+        {/* ABA DE TRILHAS */}
         {activeTab === 'trilhas' && (
           <div className="row g-4">
-            {/* Create Trail */}
+            {/* Criar Trilha */}
             <div className="col-lg-6">
               <div className="card bg-black border border-secondary text-white p-4 shadow-sm mb-4">
                 <h5 className="fw-bold mb-3">{editingTrilhaId ? 'Editar Trilha' : 'Criar Nova Trilha'}</h5>
@@ -1576,7 +1609,7 @@ export default function AdminDashboard() {
                 </form>
               </div>
 
-              {/* List of Trails */}
+              {/* Lista de Trilhas */}
               <div className="card bg-black border border-secondary text-white p-3 shadow-sm">
                 <h5 className="fw-bold pb-2 mb-3 border-bottom border-secondary">Trilhas Cadastradas</h5>
                 <div className="table-responsive" style={{ maxHeight: '300px' }}>
@@ -1618,7 +1651,7 @@ export default function AdminDashboard() {
               </div>
             </div>
 
-            {/* Link Course to Trail */}
+            {/* Vincular Curso à Trilha */}
             <div className="col-lg-6">
               <div className="card bg-black border border-secondary text-white p-4 shadow-sm mb-4">
                 <h5 className="fw-bold mb-3">Vincular Curso à Trilha</h5>
@@ -1667,7 +1700,7 @@ export default function AdminDashboard() {
                 </form>
               </div>
 
-              {/* Trilha-Curso Linkages List */}
+              {/* Lista de Vínculos Trilha-Curso */}
               <div className="card bg-black border border-secondary text-white p-3 shadow-sm">
                 <h5 className="fw-bold pb-2 mb-3 border-bottom border-secondary">Vínculos Trilha ↔ Curso</h5>
                 <div className="table-responsive" style={{ maxHeight: '300px' }}>
@@ -1709,7 +1742,7 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* PLANOS TAB */}
+        {/* ABA DE PLANOS */}
         {activeTab === 'planos' && (
           <div className="row g-4">
             <div className="col-lg-5">
@@ -1846,7 +1879,7 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* ASSINATURAS TAB */}
+        {/* ABA DE ASSINATURAS */}
         {activeTab === 'assinaturas' && (
           <div className="row g-4">
             <div className="col-12">

@@ -53,7 +53,7 @@ export default function Profile() {
     );
   }
 
-  // Calculate dynamic study hours from completed lessons
+  // Calcula as horas de estudo dinâmicas a partir das aulas concluídas
   const completedProgress = progressoAulas.filter(
     (p) => p.idUsuario === currentUser.idUsuario && p.status === 'CONCLUIDO'
   );
@@ -81,7 +81,7 @@ export default function Profile() {
 
   return (
     <div className="container-fluid py-2">
-      {/* Profile Header */}
+      {/* Cabeçalho do Perfil */}
       <div className="card bg-black border border-secondary text-white p-4 mb-4 shadow-sm">
         <div className="d-flex align-items-center gap-3 flex-column flex-sm-row text-center text-sm-start">
           <div
@@ -106,9 +106,9 @@ export default function Profile() {
       </div>
 
       <div className="row g-4">
-        {/* Left Side: Stats & Badges */}
+        {/* Lado Esquerdo: Estatísticas e Conquistas */}
         <div className="col-lg-8">
-          {/* Stats Cards */}
+          {/* Cartões de Estatísticas */}
           <div className="mb-4">
             <h5 className="fw-bold text-light mb-3">Minhas Estatísticas</h5>
             <div className="row g-3">
@@ -204,7 +204,7 @@ export default function Profile() {
           </div>
         </div>
 
-        {/* Right Side: Goals & Metrics */}
+        {/* Lado Direito: Objetivos e Métricas */}
         <div className="col-lg-4">
           {/* Módulo de Assinatura Ativa */}
           <div className="card bg-black border border-secondary text-white p-3 mb-4 shadow-sm">
@@ -244,7 +244,7 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* Premium Certificate Modal */}
+      {/* Modal do Certificado Premium */}
       {selectedCert && (() => {
         const certCourse = cursos.find((c) => c.idCurso === selectedCert.idCurso);
         const instrutorName = certCourse
@@ -253,16 +253,16 @@ export default function Profile() {
 
         return (
           <div className="modal fade show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(8px)', zIndex: 1050 }} role="dialog">
-            {/* Inject dynamic local styling for printing and previewing */}
+            {/* Injeta estilo local dinâmico para impressão e visualização */}
             <style>{`
               @media print {
-                /* Set A4 landscape and remove margins */
+                /* Configura o formato A4 em paisagem e remove as margens */
                 @page {
                   size: landscape;
                   margin: 0;
                 }
                 
-                /* Reset root containers to avoid layout page breaks */
+                /* Redefine os contêineres principais para evitar quebras de página de layout */
                 html, body, #root {
                   margin: 0 !important;
                   padding: 0 !important;
@@ -271,12 +271,12 @@ export default function Profile() {
                   background-color: #030108 !important;
                 }
 
-                /* Hide navbars, sidebars, headers, and backgrounds globally */
+                /* Oculta barras de navegação, barras laterais, cabeçalhos e fundos globalmente */
                 nav, .navbar, .no-print, .modal-backdrop {
                   display: none !important;
                 }
                 
-                /* Collapse flex layouts */
+                /* Recolhe layouts flexíveis */
                 .d-flex {
                   display: block !important;
                 }
@@ -287,12 +287,12 @@ export default function Profile() {
                   background: none !important;
                 }
 
-                /* Hide all direct child elements of the profile wrapper except the modal */
+                /* Oculta todos os elementos filhos diretos do wrapper do perfil, exceto o modal */
                 .container-fluid > *:not(.modal) {
                   display: none !important;
                 }
 
-                /* Expand modal wrappers to full screen height and width */
+                /* Expande os contêineres do modal para a altura e largura totais da tela */
                 .modal {
                   position: absolute !important;
                   left: 0 !important;
@@ -356,12 +356,12 @@ export default function Profile() {
                 }
               }
               
-              /* Screen preview container */
+              /* Contêiner de visualização em tela */
               .certificate-preview-container {
                 width: 100%;
                 max-width: 820px;
                 margin: 0 auto;
-                aspect-ratio: 1.414; /* A4 Landscape Aspect Ratio */
+                aspect-ratio: 1.414; /* Proporção da imagem A4 Paisagem */
                 background: linear-gradient(135deg, #120924 0%, #030108 100%);
                 border: 10px double rgba(255, 193, 7, 0.45);
                 padding: 35px 40px;
@@ -385,15 +385,15 @@ export default function Profile() {
                 
                 <div className="modal-body py-4 px-md-5">
                   
-                  {/* Visual Preview Container */}
+                  {/* Contêiner de Visualização Visual */}
                   <div id="printable-certificate" className="certificate-preview-container">
-                    {/* Corner Ornaments */}
+                    {/* Ornamentos de Canto */}
                     <div style={{ position: 'absolute', top: '12px', left: '12px', width: '22px', height: '22px', borderTop: '2.5px solid #ffc107', borderLeft: '2.5px solid #ffc107' }}></div>
                     <div style={{ position: 'absolute', top: '12px', right: '12px', width: '22px', height: '22px', borderTop: '2.5px solid #ffc107', borderRight: '2.5px solid #ffc107' }}></div>
                     <div style={{ position: 'absolute', bottom: '12px', left: '12px', width: '22px', height: '22px', borderBottom: '2.5px solid #ffc107', borderLeft: '2.5px solid #ffc107' }}></div>
                     <div style={{ position: 'absolute', bottom: '12px', right: '12px', width: '22px', height: '22px', borderBottom: '2.5px solid #ffc107', borderRight: '2.5px solid #ffc107' }}></div>
 
-                    {/* Logo/Header */}
+                    {/* Logotipo/Cabeçalho */}
                     <div>
                       <div className="d-flex justify-content-between align-items-center mb-1">
                         <span className="text-warning fw-bold text-uppercase tracking-widest" style={{ letterSpacing: '0.22em', fontSize: '11px' }}>
@@ -404,7 +404,7 @@ export default function Profile() {
                       <hr className="my-2" style={{ borderColor: 'rgba(255, 193, 7, 0.25)' }} />
                     </div>
 
-                    {/* Cert Body */}
+                    {/* Corpo do Certificado */}
                     <div className="my-auto py-2">
                       <p className="text-muted fst-italic mb-1" style={{ fontSize: '13.5px' }}>Certificamos para os devidos fins que o aluno(a)</p>
                       
@@ -425,10 +425,10 @@ export default function Profile() {
                       </p>
                     </div>
 
-                    {/* Stamp & Signatures row */}
+                    {/* Linha do Selo e Assinaturas */}
                     <div>
                       <div className="d-flex justify-content-between align-items-center mt-3 px-4">
-                        {/* Coordinator Sig */}
+                        {/* Assinatura do Coordenador */}
                         <div className="text-center" style={{ width: '180px' }}>
                           <div className="border-bottom border-secondary pb-1 mb-1 font-monospace" style={{ fontSize: '12px', color: '#ddd' }}>
                             LearnGPT Team
@@ -436,7 +436,7 @@ export default function Profile() {
                           <span className="text-muted small" style={{ fontSize: '9px' }}>Coordenador Geral</span>
                         </div>
 
-                        {/* Seal Graphic */}
+                        {/* Selo Gráfico */}
                         <div className="rounded-circle d-flex flex-column align-items-center justify-content-center border border-warning text-warning" style={{ width: '75px', height: '75px', fontSize: '8px', textTransform: 'uppercase', letterSpacing: '0.04em', transform: 'rotate(-5deg)', background: 'rgba(255,193,7,0.02)', boxShadow: '0 0 15px rgba(255,193,7,0.08)' }}>
                           <span className="fw-bold">LearnGPT</span>
                           <hr className="my-1 border-warning w-75" />
@@ -444,7 +444,7 @@ export default function Profile() {
                           <span>APROVADO</span>
                         </div>
 
-                        {/* Instructor Sig */}
+                        {/* Assinatura do Instrutor */}
                         <div className="text-center" style={{ width: '180px' }}>
                           <div className="border-bottom border-secondary pb-1 mb-1 font-monospace" style={{ fontSize: '12px', color: '#ddd' }}>
                             {instrutorName}
@@ -453,7 +453,7 @@ export default function Profile() {
                         </div>
                       </div>
 
-                      {/* Authenticity code */}
+                      {/* Código de Autenticidade */}
                       <div className="mt-3 text-center">
                         <div className="bg-secondary bg-opacity-10 border border-secondary border-opacity-25 rounded px-3 py-1 d-inline-block" style={{ fontSize: '10.5px' }}>
                           <span className="text-muted">Chave de Autenticidade: </span>

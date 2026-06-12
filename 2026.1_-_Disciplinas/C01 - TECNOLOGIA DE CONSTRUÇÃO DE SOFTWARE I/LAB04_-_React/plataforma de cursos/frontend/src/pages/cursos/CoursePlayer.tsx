@@ -13,11 +13,11 @@ export default function CoursePlayer() {
   const courseId = id || 'c1';
   const curso = cursos.find((c) => c.idCurso === courseId);
 
-  // Filter modules and lessons for this course
+  // Filtra módulos e aulas para este curso
   const courseModules = modulos.filter((m) => m.idCurso === courseId).sort((a, b) => a.ordem - b.ordem);
   const courseModulesIds = courseModules.map((m) => m.idModulo);
   
-  // Sort lessons: first by module order, then by lesson order
+  // Ordena as aulas: primeiro pela ordem do módulo, depois pela ordem da aula
   const courseLessons = aulas
     .filter((a) => courseModulesIds.includes(a.idModulo))
     .sort((a, b) => {
@@ -36,7 +36,7 @@ export default function CoursePlayer() {
   const prevLesson = currentIdx > 0 ? courseLessons[currentIdx - 1] : null;
   const nextLesson = currentIdx >= 0 && currentIdx < courseLessons.length - 1 ? courseLessons[currentIdx + 1] : null;
 
-  // Set default active lesson on load
+  // Define a aula ativa padrão ao carregar
   useEffect(() => {
     if (courseLessons.length > 0 && !activeLesson) {
       setActiveLesson(courseLessons[0]);
@@ -63,7 +63,7 @@ export default function CoursePlayer() {
     );
   }
 
-  // Get completed lessons count
+  // Obtém a contagem de aulas concluídas
   const courseLessonsIds = courseLessons.map((a) => a.idAula);
   const userCompletedLessons = progressoAulas.filter(
     (p) => p.idUsuario === currentUser.idUsuario && courseLessonsIds.includes(p.idAula) && p.status === 'CONCLUIDO'
@@ -72,15 +72,15 @@ export default function CoursePlayer() {
   const completedIds = userCompletedLessons.map((p) => p.idAula);
   const progressPercentage = courseLessons.length > 0 ? Math.round((userCompletedLessons.length / courseLessons.length) * 100) : 0;
 
-  // Check if active lesson is completed
+  // Verifica se a aula ativa está concluída
   const isCurrentLessonCompleted = activeLesson ? completedIds.includes(activeLesson.idAula) : false;
 
-  // Check if certificate already exists
+  // Verifica se o certificado já existe
   const hasCertificate = certificados.some(
     (c) => c.idUsuario === currentUser.idUsuario && c.idCurso === courseId
   );
 
-  // Toggle complete class status
+  // Alterna o status de conclusão da aula
   const handleToggleComplete = async () => {
     if (!activeLesson) return;
     setMarkingProgress(true);
@@ -96,14 +96,14 @@ export default function CoursePlayer() {
       await api.upsertProgressoAula(progressRecord);
       await refreshData();
 
-      // Check if this action completes the course (100% completion)
+      // Verifica se esta ação conclui o curso (100% de conclusão)
       const updatedCompletedCount = isCompleting 
         ? userCompletedLessons.length + 1 
         : userCompletedLessons.length - 1;
       
       const isCourseNowCompleted = courseLessons.length > 0 && updatedCompletedCount === courseLessons.length;
 
-      // Generate certificate if completed and doesn't have one yet
+      // Gera o certificado se concluído e ainda não possuir um
       if (isCourseNowCompleted && !hasCertificate) {
         const hash = Math.random().toString(36).substring(2, 8).toUpperCase();
         const newCertificate = {
@@ -159,7 +159,7 @@ export default function CoursePlayer() {
                       <FileText size={24} className="text-info" />
                       <h5 className="fw-bold mb-0 text-light">{activeLesson.titulo}</h5>
                     </div>
-                    <p className="text-light" style={{ lineHeight: '1.8', fontSize: '15px' }}>
+                    <p className="text-light" style={{ lineHeight: '1.8', fontSize: '15px', whiteSpace: 'pre-line' }}>
                       {activeLesson.urlConteudo}
                     </p>
                   </div>
@@ -169,7 +169,7 @@ export default function CoursePlayer() {
                       <HelpCircle size={24} className="text-success" />
                       <h5 className="fw-bold mb-0 text-light">{activeLesson.titulo}</h5>
                     </div>
-                    <p className="text-light" style={{ lineHeight: '1.8', fontSize: '15px' }}>
+                    <p className="text-light" style={{ lineHeight: '1.8', fontSize: '15px', whiteSpace: 'pre-line' }}>
                       {activeLesson.urlConteudo}
                     </p>
                   </div>

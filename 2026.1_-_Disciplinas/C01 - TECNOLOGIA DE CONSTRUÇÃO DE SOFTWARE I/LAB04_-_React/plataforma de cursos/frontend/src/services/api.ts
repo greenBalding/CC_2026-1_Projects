@@ -174,7 +174,7 @@ export const api = {
   // ─── PROGRESSO AULAS ──────────────────────────────────────────
   getProgressoAulas: () => request<ProgressoAulaModel[]>('/progresso_aulas'),
   upsertProgressoAula: async (data: ProgressoAulaModel) => {
-    // Check if progress already exists
+    // Verifica se o progresso já existe
     const progressList = await api.getProgressoAulas();
     const existing = progressList.find(
       (p) => p.idUsuario === data.idUsuario && p.idAula === data.idAula
@@ -184,7 +184,7 @@ export const api = {
         method: 'PUT',
         body: JSON.stringify(data),
       }).catch(() => {
-        // Fallback for json-server composite key if id is just standard string-based single ID
+        // Solução alternativa para a chave composta do json-server se o id for apenas um ID único padrão baseado em string
         const jsonServerId = (existing as any).id || `${existing.idUsuario}-${existing.idAula}`;
         return request<ProgressoAulaModel>(`/progresso_aulas/${jsonServerId}`, {
           method: 'PUT',
@@ -194,7 +194,7 @@ export const api = {
     } else {
       return request<ProgressoAulaModel>('/progresso_aulas', {
         method: 'POST',
-        // Make sure it has a flat id for JSON Server compatibility if needed
+        // Garante que possui um id simples para compatibilidade com o JSON Server se necessário
         body: JSON.stringify({
           id: `${data.idUsuario}-${data.idAula}`,
           ...data,

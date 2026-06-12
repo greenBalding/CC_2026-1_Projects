@@ -111,7 +111,7 @@ export default function BootstrapLayout({ children }: Props) {
         </div>
       </nav>
 
-      {/* Main Layout Area */}
+      {/* Área de Layout Principal */}
       <div className="d-flex flex-row flex-grow-1">
         {/* Sidebar Lateral */}
         <nav

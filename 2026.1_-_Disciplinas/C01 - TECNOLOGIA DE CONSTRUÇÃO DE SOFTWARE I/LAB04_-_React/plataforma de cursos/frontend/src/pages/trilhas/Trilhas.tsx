@@ -5,7 +5,7 @@ import { Lock }   from 'lucide-react';
 export default function Trilhas() {
   const { trilhas, trilhasCursos, cursos, categorias, usuarios, modulos, aulas } = useApp();
 
-  // Helper to fetch courses of a specific trail
+  // Auxiliar para buscar os cursos de uma trilha específica
   const getCoursesForTrilha = (trilhaId: string) => {
     return trilhasCursos
       .filter((tc) => tc.idTrilha === trilhaId)
@@ -21,13 +21,13 @@ export default function Trilhas() {
 
   return (
     <div className="container-fluid py-2">
-      {/* Title */}
+      {/* Título */}
       <div className="mb-4">
         <h2 className="fw-bold text-light mb-1">Trilhas de Aprendizado</h2>
         <p className="text-muted">Caminhos sequenciais estruturados por especialistas para você dominar uma tecnologia do zero.</p>
       </div>
 
-      {/* Trilhas List */}
+      {/* Lista de Trilhas */}
       {trilhas.length === 0 ? (
         <div className="card border-secondary bg-black bg-opacity-25 text-white p-5 text-center shadow-sm">
           <h4 className="fw-semibold">Nenhuma trilha disponível</h4>
@@ -43,7 +43,7 @@ export default function Trilhas() {
 
             return (
               <div className="card bg-black border border-secondary text-white p-4 shadow-sm" key={trilha.idTrilha}>
-                {/* Header Trail Details */}
+                {/* Detalhes do Cabeçalho da Trilha */}
                 <div className="d-flex justify-content-between align-items-start border-bottom border-secondary pb-3 mb-4 flex-wrap gap-3">
                   <div>
                     <span className="badge bg-primary px-3 py-1.5 rounded-pill mb-2 text-uppercase fw-semibold" style={{ fontSize: '9px' }}>
@@ -55,7 +55,7 @@ export default function Trilhas() {
                     </p>
                   </div>
 
-                  {/* Metadata Stats Badge Box */}
+                  {/* Caixa de Badges de Metadados e Estatísticas */}
                   <div className="d-flex gap-3 bg-secondary bg-opacity-10 border border-secondary rounded p-3 text-center align-self-sm-center">
                     <div>
                       <span className="text-muted small d-block" style={{ fontSize: '9px', textTransform: 'uppercase' }}>Cursos</span>
@@ -74,7 +74,7 @@ export default function Trilhas() {
                   </div>
                 </div>
 
-                {/* Courses in Trail */}
+                {/* Cursos na Trilha */}
                 <div>
                   <h6 className="text-uppercase text-muted fw-bold mb-3" style={{ fontSize: '11px', letterSpacing: '0.05em' }}>
                     Sequência Recomendada de Estudos

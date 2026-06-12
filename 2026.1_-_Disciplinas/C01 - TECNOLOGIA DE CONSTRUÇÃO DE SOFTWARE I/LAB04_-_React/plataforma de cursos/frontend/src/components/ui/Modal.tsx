@@ -19,7 +19,7 @@ export default function GlobalModal({ modal }: GlobalModalProps) {
       <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: '420px' }}>
         <div className="modal-content bg-dark border border-secondary text-white shadow-lg animate-scale" style={{ borderRadius: '16px' }}>
           <div className="modal-body text-center p-4">
-            {/* Dynamic Icon */}
+            {/* Ícone Dinâmico */}
             <div className="mb-3 d-inline-flex align-items-center justify-content-center rounded-circle" style={{
               width: '70px',
               height: '70px',

@@ -7,13 +7,13 @@ export default function Register() {
   const { planos, setCurrentUser, refreshData, showAlert } = useApp();
   const navigate = useNavigate();
 
-  // Form states
+  // Estados do formulário
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [perfil, setPerfil] = useState<'aluno' | 'instrutor' | 'administrador'>('aluno');
 
-  // Validation and UI states
+  // Estados de validação e interface
   const [validated, setValidated] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -22,7 +22,7 @@ export default function Register() {
     e.preventDefault();
     const form = e.currentTarget;
 
-    // Custom validations
+    // Validações customizadas
     if (nome.trim().length < 3) {
       setErrorMsg('O nome deve ter pelo menos 3 caracteres.');
       setValidated(true);
@@ -44,10 +44,10 @@ export default function Register() {
     setErrorMsg('');
 
     try {
-      // Fetch fresh user list from API to bypass React state closure
+      // Busca a lista de usuários mais recente da API para contornar o fechamento do estado do React
       const latestUsers = await api.getUsuarios();
       
-      // Check if email already exists
+      // Verifica se o e-mail já existe
       const emailExists = latestUsers.some((u) => u.email.toLowerCase() === email.toLowerCase());
       if (emailExists) {
         setErrorMsg('Este endereço de e-mail já está sendo utilizado.');
@@ -70,7 +70,7 @@ export default function Register() {
 
       await api.createUsuario(newUser);
 
-      // Auto assign free subscription
+      // Associa automaticamente a assinatura do plano gratuito
       const freePlan = planos.find((p) => p.preco === 0);
       if (freePlan) {
         const today = new Date();
@@ -93,7 +93,7 @@ export default function Register() {
       
       showAlert('Cadastro realizado com sucesso!', 'success');
       
-      // Auto login and redirect
+      // Login automático e redirecionamento
       setCurrentUser(newUser);
       navigate('/dashboard');
     } catch (err) {

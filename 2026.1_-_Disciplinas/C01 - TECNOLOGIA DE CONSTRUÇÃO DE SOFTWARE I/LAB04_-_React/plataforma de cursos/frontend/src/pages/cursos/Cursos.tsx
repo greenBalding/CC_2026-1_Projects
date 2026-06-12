@@ -36,7 +36,7 @@ export default function Cursos() {
     );
   }
 
-  // Get enrolled courses with progress
+  // Obtém os cursos matriculados com progresso
   const userMatriculas = matriculas.filter((m) => m.idUsuario === currentUser.idUsuario);
   
   const getProgressInfo = (idCurso: string) => {

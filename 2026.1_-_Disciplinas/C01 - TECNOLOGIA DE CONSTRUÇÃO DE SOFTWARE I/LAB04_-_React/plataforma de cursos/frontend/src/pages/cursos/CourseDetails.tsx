@@ -11,7 +11,7 @@ export default function CourseDetails() {
   const { currentUser, cursos, modulos, aulas, matriculas, usuarios, avaliacoes, refreshData, showAlert, showConfirm } = useApp();
   const [loadingEnroll, setLoadingEnroll] = useState(false);
 
-  // Evaluation States
+  // Estados de avaliação
   const [rating, setRating] = useState<"1" | "2" | "3" | "4" | "5">("5");
   const [comment, setComment] = useState("");
   const [submittingEval, setSubmittingEval] = useState(false);

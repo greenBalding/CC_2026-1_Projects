@@ -20,7 +20,7 @@ export default function Explore() {
     );
   }
 
-  // Filter courses by category
+  // Filtra os cursos por categoria
   const filteredByCategory =
     activeCategory === 'Todos'
       ? cursos
@@ -29,7 +29,7 @@ export default function Explore() {
           return categoryObj?.nome === activeCategory;
         });
 
-  // Filter courses by search query
+  // Filtra os cursos pela consulta de busca
   const displayedCourses = filteredByCategory.filter((c) => {
     const instrutorName = usuarios.find((u) => u.idUsuario === c.idInstrutor)?.nome || '';
     return (
@@ -39,7 +39,7 @@ export default function Explore() {
     );
   });
 
-  // Handle enrollment simulation
+  // Manipula a simulação de matrícula
   const handleEnroll = async (courseId: string) => {
     setLoadingEnroll(courseId);
     try {
@@ -76,7 +76,7 @@ export default function Explore() {
 
   return (
     <div className="container-fluid py-2">
-      {/* Top Search Bar */}
+      {/* Barra de Busca Superior */}
       <div className="row mb-4">
         <div className="col-12">
           <div className="input-group input-group-lg bg-black border border-secondary rounded shadow-sm">
@@ -95,7 +95,7 @@ export default function Explore() {
         </div>
       </div>
 
-      {/* Title & Category Filters */}
+      {/* Filtros de Título e Categoria */}
       <div className="mb-4">
         <h2 className="fw-bold text-light mb-3">Catálogo de Cursos</h2>
         <div className="d-flex gap-2 flex-wrap">
@@ -123,7 +123,7 @@ export default function Explore() {
         </div>
       </div>
 
-      {/* Courses Cards Grid */}
+      {/* Grade de Cartões de Cursos */}
       {displayedCourses.length === 0 ? (
         <div className="card border-secondary bg-black bg-opacity-25 text-white p-5 text-center shadow-sm">
           <h4 className="fw-semibold">Nenhum curso encontrado</h4>
@@ -180,7 +180,7 @@ export default function Explore() {
                   )}
 
                   <div>
-                    {/* Header Image box */}
+                    {/* Caixa da Imagem do Cabeçalho */}
                     {c.bannerUrl ? (
                       <img
                         src={c.bannerUrl}
@@ -220,7 +220,7 @@ export default function Explore() {
                       
                       <h5 className="card-title fw-bold text-light mb-1" style={{ fontSize: '1.2rem', lineHeight: '1.3' }}>{c.titulo}</h5>
 
-                      {/* Course Rating */}
+                      {/* Avaliação do Curso */}
                       <div className="d-flex align-items-center gap-1 mb-3" style={{ fontSize: '13.5px' }}>
                         {hasEvals ? (
                           <>
