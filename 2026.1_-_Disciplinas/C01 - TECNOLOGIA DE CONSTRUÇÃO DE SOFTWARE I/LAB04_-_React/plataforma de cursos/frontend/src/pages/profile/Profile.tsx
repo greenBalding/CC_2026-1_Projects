@@ -434,7 +434,7 @@ export default function Profile() {
                     onClick={() => window.print()}
                     className="btn btn-warning text-dark fw-bold px-4 shadow-sm"
                   >
-                    Imprimir / Salvar PDF
+                    Baixar PDF
                   </button>
                   <button
                     type="button"

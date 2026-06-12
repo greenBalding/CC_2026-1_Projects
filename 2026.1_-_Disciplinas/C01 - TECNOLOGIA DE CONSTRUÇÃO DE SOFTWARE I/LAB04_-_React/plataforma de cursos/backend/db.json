@@ -2689,12 +2689,6 @@
       "ordem": 2
     },
     {
-      "id": "o0PyAUcRxCI",
-      "idTrilha": "t-1781291745321",
-      "idCurso": "c-1781290945812",
-      "ordem": 3
-    },
-    {
       "id": "pEvV1FUKHZ0",
       "idTrilha": "t-1781292703958",
       "idCurso": "c-1781290996961",
@@ -2746,6 +2740,12 @@
       "id": "7kd0gOwKtsI",
       "idTrilha": "t-1781293679401",
       "idCurso": "c-1781291099209",
+      "ordem": 3
+    },
+    {
+      "id": "-oNezRCjTDs",
+      "idTrilha": "t-1781291745321",
+      "idCurso": "c-1781290964582",
       "ordem": 3
     }
   ],
