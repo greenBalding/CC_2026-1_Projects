@@ -1,0 +1,460 @@
+\documentclass[12pt, a4paper]{article}
+
+% ===== Pacotes =====
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tabularx}
+
+\geometry{left=2.5cm, right=2.5cm, top=3cm, bottom=3cm}
+
+% ===== Cores para listings =====
+\definecolor{codebg}{RGB}{245,245,245}
+\definecolor{codegreen}{RGB}{0,128,0}
+\definecolor{codegray}{RGB}{128,128,128}
+\definecolor{codeblue}{RGB}{0,0,180}
+
+% ===== Estilo de código Python =====
+\lstdefinestyle{python}{
+    language=Python,
+    backgroundcolor=\color{codebg},
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{codeblue}\bfseries,
+    stringstyle=\color{codegreen},
+    commentstyle=\color{codegray}\itshape,
+    numbers=left,
+    numberstyle=\tiny\color{codegray},
+    frame=single,
+    breaklines=true,
+    showstringspaces=false,
+    tabsize=4,
+    captionpos=b
+}
+
+% ===== Estilo de código Prolog =====
+\lstdefinestyle{prolog}{
+    language=Prolog,
+    backgroundcolor=\color{codebg},
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{codeblue}\bfseries,
+    stringstyle=\color{codegreen},
+    commentstyle=\color{codegray}\itshape,
+    numbers=left,
+    numberstyle=\tiny\color{codegray},
+    frame=single,
+    breaklines=true,
+    showstringspaces=false,
+    tabsize=4,
+    captionpos=b
+}
+
+% ===== Estilo de saída =====
+\lstdefinestyle{output}{
+    backgroundcolor=\color{codebg},
+    basicstyle=\ttfamily\scriptsize,
+    frame=single,
+    breaklines=true,
+    showstringspaces=false
+}
+
+\begin{document}
+
+% ===== CAPA =====
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\Large\textbf{Pontifícia Universidade Católica de Goiás}}\\[0.5cm]
+    {\large Escola Politécnica e de Artes}\\[0.3cm]
+    {\large Curso de Ciência da Computação}\\[3cm]
+    {\LARGE\textbf{Atividade Final}}\\[0.5cm]
+    {\Large Paradigmas de Linguagens de Programação}\\[0.3cm]
+    {\large Sistema de Análise de Desempenho Acadêmico}\\[3cm]
+    {\large\textbf{Alunos:}}\\[0.3cm]
+    {\large Amanda Barbosa Ferreira Agapito}\\
+    {\large Guilherme José da Silva}\\
+    {\large Matheus Silva Pains}\\[2cm]
+    {\large\textbf{Professor:} Roussian de Ramos Alves Gaioso}\\[0.5cm]
+    {\large Goiânia, Goiás}\\
+    {\large 12 de Junho de 2026}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% ===================================================================
+\section{Descrição do Problema}
+% ===================================================================
+
+O sistema recebe dados de alunos contendo nome, matrícula, três notas e frequência. A média é calculada como:
+
+\[
+\text{média} = \frac{\text{nota1} + \text{nota2} + \text{nota3}}{3}
+\]
+
+O aluno é \textbf{aprovado} se $\text{média} \geq 6{,}0$ \textbf{e} $\text{frequência} \geq 75\%$. Caso contrário, é \textbf{reprovado}.
+
+\subsection{Dados de Entrada}
+
+\begin{lstlisting}[style=output]
+Ana;2024001;8.0;7.5;9.0;85
+Bruno;2024002;5.0;6.0;4.5;80
+Carlos;2024003;7.0;6.5;8.0;60
+Daniela;2024004;9.0;9.5;10.0;95
+Eduardo;2024005;3.0;4.0;2.5;70
+Fernanda;2024006;6.0;6.0;6.0;75
+\end{lstlisting}
+
+\subsection{Resultado Esperado}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{llccccl}
+\toprule
+\textbf{Nome} & \textbf{Matrícula} & \textbf{N1} & \textbf{N2} & \textbf{N3} & \textbf{Média} & \textbf{Freq} & \textbf{Situação} \\
+\midrule
+Ana      & 2024001 & 8,0 & 7,5 & 9,0 & 8,17 & 85 & Aprovado \\
+Bruno    & 2024002 & 5,0 & 6,0 & 4,5 & 5,17 & 80 & Reprovado \\
+Carlos   & 2024003 & 7,0 & 6,5 & 8,0 & 7,17 & 60 & Reprovado \\
+Daniela  & 2024004 & 9,0 & 9,5 & 10,0 & 9,50 & 95 & Aprovado \\
+Eduardo  & 2024005 & 3,0 & 4,0 & 2,5 & 3,17 & 70 & Reprovado \\
+Fernanda & 2024006 & 6,0 & 6,0 & 6,0 & 6,00 & 75 & Aprovado \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ===================================================================
+\section{Linguagens Escolhidas}
+% ===================================================================
+
+\begin{itemize}
+    \item \textbf{Python (imperativo)} --- permite demonstrar o paradigma procedural com variáveis, laços \texttt{while}, condicionais e funções, sem uso de classes ou funções de alta ordem.
+    \item \textbf{Python (orientado a objetos)} --- suporta classes com encapsulamento (\texttt{name mangling}), herança e métodos, sendo uma das linguagens OO mais utilizadas.
+    \item \textbf{Python (funcional)} --- oferece \texttt{map}, \texttt{filter}, \texttt{reduce}, lambdas e dicionários imutáveis, permitindo um estilo predominantemente funcional.
+    \item \textbf{Prolog (lógico)} --- linguagem declarativa por excelência, baseada em fatos e regras, ideal para demonstrar o paradigma lógico.
+\end{itemize}
+
+A escolha de Python para três paradigmas permite uma comparação mais justa, isolando o efeito do paradigma sem a interferência de diferenças sintáticas entre linguagens distintas. Prolog foi mantido por ser a referência natural do paradigma lógico.
+
+% ===================================================================
+\section{Parte 1 --- Implementação Imperativa (Python)}
+% ===================================================================
+
+\lstinputlisting[style=python, caption={parte1\_imperativo.py}]{parte1_imperativo.py}
+
+\subsection{Saída da Execução}
+
+\begin{lstlisting}[style=output]
+======================================================================
+RELATÓRIO DE DESEMPENHO ACADÊMICO — VERSÃO IMPERATIVA
+======================================================================
+Nome         Matrícula    N1     N2     N3     Média    Freq   Situação
+----------------------------------------------------------------------
+Ana          2024001      8.0    7.5    9.0    8.17     85     Aprovado
+Bruno        2024002      5.0    6.0    4.5    5.17     80     Reprovado
+Carlos       2024003      7.0    6.5    8.0    7.17     60     Reprovado
+Daniela      2024004      9.0    9.5    10.0   9.50     95     Aprovado
+Eduardo      2024005      3.0    4.0    2.5    3.17     70     Reprovado
+Fernanda     2024006      6.0    6.0    6.0    6.00     75     Aprovado
+----------------------------------------------------------------------
+Total de alunos: 6
+Aprovados: 3
+Reprovados: 3
+======================================================================
+\end{lstlisting}
+
+% ===================================================================
+\section{Parte 2 --- Implementação Orientada a Objetos (Python)}
+% ===================================================================
+
+\lstinputlisting[style=python, caption={parte2\_oo.py}]{parte2_oo.py}
+
+\subsection{Saída da Execução}
+
+\begin{lstlisting}[style=output]
+======================================================================
+RELATÓRIO DE DESEMPENHO ACADÊMICO — VERSÃO ORIENTADA A OBJETOS
+======================================================================
+Nome         Matrícula    N1     N2     N3     Média    Freq   Situação
+----------------------------------------------------------------------
+Ana          2024001      8.0    7.5    9.0    8.17     85     Aprovado
+Bruno        2024002      5.0    6.0    4.5    5.17     80     Reprovado
+Carlos       2024003      7.0    6.5    8.0    7.17     60     Reprovado
+Daniela      2024004      9.0    9.5    10.0   9.50     95     Aprovado
+Eduardo      2024005      3.0    4.0    2.5    3.17     70     Reprovado
+Fernanda     2024006      6.0    6.0    6.0    6.00     75     Aprovado
+----------------------------------------------------------------------
+Total de alunos: 6
+Aprovados: 3
+Reprovados: 3
+======================================================================
+\end{lstlisting}
+
+% ===================================================================
+\section{Parte 3 --- Implementação Funcional (Python)}
+% ===================================================================
+
+\lstinputlisting[style=python, caption={parte3\_funcional.py}]{parte3_funcional.py}
+
+\subsection{Saída da Execução}
+
+\begin{lstlisting}[style=output]
+======================================================================
+RELATÓRIO DE DESEMPENHO ACADÊMICO — VERSÃO FUNCIONAL
+======================================================================
+Nome         Matrícula    N1     N2     N3     Média    Freq   Situação
+----------------------------------------------------------------------
+Ana          2024001      8.0    7.5    9.0    8.17     85     Aprovado
+Bruno        2024002      5.0    6.0    4.5    5.17     80     Reprovado
+Carlos       2024003      7.0    6.5    8.0    7.17     60     Reprovado
+Daniela      2024004      9.0    9.5    10.0   9.50     95     Aprovado
+Eduardo      2024005      3.0    4.0    2.5    3.17     70     Reprovado
+Fernanda     2024006      6.0    6.0    6.0    6.00     75     Aprovado
+----------------------------------------------------------------------
+Total de alunos: 6
+Aprovados: 3
+Reprovados: 3
+======================================================================
+
+--- Alunos Aprovados (via filter) ---
+  Ana — Média: 8.17
+  Daniela — Média: 9.50
+  Fernanda — Média: 6.00
+\end{lstlisting}
+
+% ===================================================================
+\section{Parte 4 --- Implementação Lógica (Prolog)}
+% ===================================================================
+
+\lstinputlisting[style=prolog, caption={parte4\_logico.pl}]{parte4_logico.pl}
+
+\subsection{Exemplo de Consultas e Saída}
+
+\begin{lstlisting}[style=output]
+?- aprovado(X).
+X = ana ;
+X = daniela ;
+X = fernanda.
+
+?- reprovado(X).
+X = bruno ;
+X = carlos ;
+X = eduardo.
+
+?- situacao(ana, Mat, Media, Freq, Sit).
+Mat = 2024001, Media = 8.166666666666666, Freq = 85, Sit = aprovado.
+
+?- relatorio.
+============================================
+RELATORIO - VERSAO LOGICA (PROLOG)
+============================================
+ana | 2024001 | Media: 8.17 | Freq: 85 | aprovado
+bruno | 2024002 | Media: 5.17 | Freq: 80 | reprovado
+carlos | 2024003 | Media: 7.17 | Freq: 60 | reprovado
+daniela | 2024004 | Media: 9.50 | Freq: 95 | aprovado
+eduardo | 2024005 | Media: 3.17 | Freq: 70 | reprovado
+fernanda | 2024006 | Media: 6.00 | Freq: 75 | aprovado
+============================================
+true.
+\end{lstlisting}
+
+% ===================================================================
+\section{Comparação de Legibilidade}
+% ===================================================================
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+\textbf{Critério} & \textbf{Análise} \\
+\midrule
+Clareza dos nomes & Todas as versões Python usam nomes descritivos em português. Prolog usa átomos curtos (\texttt{ana}, \texttt{aprovado}), concisos mas claros. \\
+\addlinespace
+Organização & A versão OO é a mais organizada: dados e lógica ficam encapsulados em classes. A funcional separa bem entrada/processamento/saída. A imperativa é linear e direta. \\
+\addlinespace
+Detalhes sintáticos & Prolog tem a menor quantidade de sintaxe. Python imperativo exige mais linhas por usar \texttt{while} e índices explícitos. \\
+\addlinespace
+Fluxo do programa & A imperativa é a mais fácil de seguir passo a passo. A funcional exige entender composição de funções. Prolog não tem fluxo explícito. \\
+\addlinespace
+Localização das regras & Em Prolog, cada regra é uma cláusula isolada e fácil de encontrar. Na OO, estão nos métodos da classe. Na funcional, em funções nomeadas. \\
+\bottomrule
+\end{tabularx}
+\caption{Comparação de legibilidade entre os paradigmas.}
+\end{table}
+
+\textbf{Conclusão:} Para leitores iniciantes, a versão imperativa é a mais legível. Para projetos maiores, a OO oferece melhor organização. Prolog é o mais conciso, mas exige familiaridade com o paradigma.
+
+% ===================================================================
+\section{Comparação de Facilidade de Escrita}
+% ===================================================================
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+\textbf{Critério} & \textbf{Análise} \\
+\midrule
+Quantidade de código & Prolog: $\sim$40 linhas. Funcional: $\sim$70 linhas. Imperativa: $\sim$80 linhas. OO: $\sim$100 linhas. \\
+\addlinespace
+Dificuldade sintática & Python é uniforme nos três paradigmas. Prolog exige aprender unificação e backtracking. \\
+\addlinespace
+Manipulação de listas & A funcional é a mais natural com \texttt{map}/\texttt{filter}. A imperativa usa índices manuais. A OO itera com \texttt{for}. \\
+\addlinespace
+Estruturas auxiliares & A OO exige criar classes. A funcional usa dicionários. A imperativa usa listas de listas. Prolog usa fatos diretamente. \\
+\addlinespace
+Bibliotecas & Apenas a funcional importa \texttt{functools.reduce}. As demais usam apenas a biblioteca padrão. \\
+\bottomrule
+\end{tabularx}
+\caption{Comparação de facilidade de escrita.}
+\end{table}
+
+\textbf{Conclusão:} A versão funcional Python foi a mais rápida de implementar pela expressividade de \texttt{map}/\texttt{filter}. Prolog é extremamente conciso, mas exige mudança de mentalidade.
+
+% ===================================================================
+\section{Comparação de Confiabilidade}
+% ===================================================================
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+\textbf{Critério} & \textbf{Análise} \\
+\midrule
+Verificação de tipos & Python tem tipagem dinâmica --- erros de tipo só aparecem em tempo de execução. Prolog não tem tipos explícitos. \\
+\addlinespace
+Erros em tempo de execução & A imperativa é a mais suscetível a erros de índice (\texttt{alunos[i][5]}). A OO protege dados com encapsulamento. A funcional, ao usar funções puras, reduz efeitos colaterais. \\
+\addlinespace
+Entrada inválida & Nenhuma versão trata entradas inválidas de forma robusta. Seria necessário adicionar \texttt{try/except} em Python ou validação em Prolog. \\
+\addlinespace
+Acesso à memória & Python e Prolog não permitem acesso direto à memória, eliminando riscos de buffer overflow (diferente de C). \\
+\addlinespace
+Testabilidade & A funcional é a mais testável: funções puras sem efeito colateral podem ser testadas isoladamente. A OO permite testes unitários por método. \\
+\bottomrule
+\end{tabularx}
+\caption{Comparação de confiabilidade.}
+\end{table}
+
+\textbf{Conclusão:} A versão funcional oferece maior confiabilidade por usar funções puras. A OO vem em segundo lugar pelo encapsulamento. Python e Prolog são mais seguros que C por não permitirem acesso direto à memória.
+
+% ===================================================================
+\section{Comparação sobre Nomes, Escopo e Tempo de Vida}
+% ===================================================================
+
+\subsection{Versão Imperativa}
+
+\begin{itemize}
+    \item \textbf{Nomes declarados:} \texttt{caminho\_arquivo}, \texttt{lista\_alunos} (globais); \texttt{nome}, \texttt{media}, \texttt{i} (locais em funções).
+    \item \textbf{Visibilidade:} As variáveis globais são visíveis em todo o módulo. As locais existem apenas dentro de suas funções.
+    \item \textbf{Escopo:} Funções como \texttt{calcular\_media()} têm escopo local; parâmetros e variáveis internas não vazam.
+    \item \textbf{Tempo de vida:} Variáveis locais são criadas na chamada da função e destruídas ao retornar. As globais existem durante toda a execução.
+\end{itemize}
+
+\subsection{Versão Orientada a Objetos}
+
+\begin{itemize}
+    \item \textbf{Nomes declarados:} Classes \texttt{Aluno}, \texttt{Turma}; atributos \texttt{self.\_\_nome}, \texttt{self.\_\_nota1}; métodos \texttt{calcular\_media()}.
+    \item \textbf{Visibilidade:} Atributos com \texttt{\_\_} (name mangling) são visíveis apenas dentro da classe. Métodos públicos são acessíveis externamente.
+    \item \textbf{Escopo:} Cada objeto tem seu próprio escopo de atributos. Métodos acessam \texttt{self} para dados da instância.
+    \item \textbf{Tempo de vida:} Objetos existem enquanto houver referência a eles. O garbage collector de Python os destrói quando não há mais referências.
+\end{itemize}
+
+\subsection{Versão Funcional}
+
+\begin{itemize}
+    \item \textbf{Nomes declarados:} Funções puras \texttt{calcular\_media()}, \texttt{verificar\_aprovacao()}, \texttt{gerar\_resultado()}; variável \texttt{alunos} no nível do módulo.
+    \item \textbf{Visibilidade:} Cada função vê apenas seus parâmetros e variáveis locais. Não há estado mutável compartilhado.
+    \item \textbf{Escopo:} Funções são de escopo global. Lambdas em \texttt{filter()} capturam variáveis do escopo envolvente (closure).
+    \item \textbf{Tempo de vida:} Dados são criados a cada chamada e descartados após o retorno. Listas intermediárias (\texttt{resultados}) vivem no escopo do módulo.
+\end{itemize}
+
+\subsection{Versão Lógica (Prolog)}
+
+\begin{itemize}
+    \item \textbf{Nomes declarados:} Predicados \texttt{aluno/6}, \texttt{media/2}, \texttt{aprovado/1}; variáveis lógicas \texttt{Nome}, \texttt{Media}.
+    \item \textbf{Visibilidade:} Fatos e regras são globais no programa. Variáveis lógicas existem apenas dentro de sua cláusula.
+    \item \textbf{Escopo:} Cada cláusula é independente. A variável \texttt{Nome} em \texttt{aprovado(Nome)} só existe naquela regra.
+    \item \textbf{Tempo de vida:} Variáveis são instanciadas durante a unificação e deixam de existir quando a consulta termina ou faz backtracking.
+\end{itemize}
+
+% ===================================================================
+\section{Comparação sobre Tipos de Dados}
+% ===================================================================
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\textwidth}{lXX}
+\toprule
+\textbf{Aspecto} & \textbf{Python (3 versões)} & \textbf{Prolog} \\
+\midrule
+Tipagem & Dinâmica, forte & Sem tipos explícitos \\
+\addlinespace
+Tipos primitivos & \texttt{int}, \texttt{float}, \texttt{str}, \texttt{bool} & Átomos, números, variáveis \\
+\addlinespace
+Strings & Tipo nativo \texttt{str}, imutável & Átomos (\texttt{ana}, \texttt{bruno}) \\
+\addlinespace
+Coleções & Listas, dicionários, tuplas & Listas Prolog, termos compostos \\
+\addlinespace
+Objetos & Sim (versão OO) & Não existe o conceito \\
+\addlinespace
+Conversão de tipo & Explícita: \texttt{float()}, \texttt{int()} & Automática via \texttt{is} \\
+\addlinespace
+Erros de tipo & \texttt{TypeError} em tempo de execução & Falha na unificação \\
+\bottomrule
+\end{tabularx}
+\caption{Comparação de tipos de dados.}
+\end{table}
+
+% ===================================================================
+\section{Comparação entre os Paradigmas}
+% ===================================================================
+
+\begin{enumerate}
+    \item \textbf{Como a versão imperativa organiza a solução?}\\
+    Sequencialmente: lê dados, percorre com laço \texttt{while}, calcula média, verifica condição, imprime. O programador controla cada passo.
+
+    \item \textbf{Como a versão orientada a objetos organiza a solução?}\\
+    Modela o domínio: \texttt{Aluno} encapsula dados e comportamento, \texttt{Turma} gerencia a coleção. A lógica é distribuída em métodos.
+
+    \item \textbf{Como a versão funcional organiza a solução?}\\
+    Como pipeline de transformações: \texttt{ler\_dados $\rightarrow$ map(gerar\_resultado) $\rightarrow$ imprimir\_relatorio}. Dados fluem entre funções puras.
+
+    \item \textbf{Como a versão declarativa organiza a solução?}\\
+    Declara fatos (dados dos alunos) e regras (média, aprovação). O motor de inferência de Prolog encontra as respostas.
+
+    \item \textbf{Qual versão ficou mais próxima da forma humana?}\\
+    Prolog. A regra \texttt{aprovado(Nome) :- media(Nome, M), M >= 6.0, ...} é quase linguagem natural.
+
+    \item \textbf{Qual versão ficou mais próxima da máquina?}\\
+    A imperativa. O laço \texttt{while} com índice manual e atribuições explícitas reflete como o processador executa instruções.
+
+    \item \textbf{Qual versão parece mais adequada para esse problema?}\\
+    A funcional. O problema é essencialmente uma transformação de dados (entrada $\rightarrow$ processamento $\rightarrow$ saída), que é o caso de uso ideal do paradigma funcional.
+\end{enumerate}
+
+% ===================================================================
+\section{Conclusão}
+% ===================================================================
+
+Cada paradigma demonstrou forças e limitações claras ao resolver o mesmo problema:
+
+\begin{itemize}
+    \item O \textbf{paradigma imperativo} é o mais intuitivo para iniciantes e oferece controle total sobre o fluxo, mas gera código mais verboso e propenso a erros de índice.
+
+    \item O \textbf{paradigma orientado a objetos} brilha em organização e manutenibilidade. Encapsulamento protege os dados e facilita extensões futuras (ex.: adicionar novos tipos de aluno). É o mais adequado para sistemas grandes.
+
+    \item O \textbf{paradigma funcional} produziu o código mais conciso e testável. Funções puras sem efeito colateral facilitam depuração e paralelismo. É ideal para problemas de transformação de dados.
+
+    \item O \textbf{paradigma lógico} é o mais declarativo e conciso. O programador descreve \textit{o que} quer, não \textit{como} fazer. É poderoso para regras de negócio e sistemas especialistas, mas limitado para I/O e interfaces.
+\end{itemize}
+
+Não existe paradigma universalmente ``melhor''. A escolha depende do problema: sistemas corporativos favorecem OO; pipelines de dados favorecem funcional; regras de inferência favorecem lógico; scripts simples favorecem imperativo. O programador competente domina múltiplos paradigmas e escolhe o mais adequado para cada situação.
+
+\end{document}
