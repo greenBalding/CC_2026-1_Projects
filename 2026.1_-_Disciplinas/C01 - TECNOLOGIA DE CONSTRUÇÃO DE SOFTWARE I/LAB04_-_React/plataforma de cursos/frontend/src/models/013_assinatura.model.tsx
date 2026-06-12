@@ -1,7 +1,8 @@
-import type { PlanoModel } from './plano.model.tsx';
-import type { UsuarioModel } from './usuario.model.tsx';
+import type { PlanoModel } from './012_plano.model.tsx';
+import type { UsuarioModel } from './001_usuario.model.tsx';
 
 export interface AssinaturaModel {
+
   idAssinatura: string;
   idUsuario: string;
   idPlano: string;
@@ -9,4 +10,5 @@ export interface AssinaturaModel {
   plano?: PlanoModel;
   dataInicio: string;
   dataFim: string;
+  
 }

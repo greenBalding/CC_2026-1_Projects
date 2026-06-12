@@ -1,6 +1,7 @@
-import type { AssinaturaModel } from './assinatura.model.tsx';
+import type { AssinaturaModel } from './013_assinatura.model.tsx';
 
 export interface PagamentoModel {
+
   idPagamento: string;
   idAssinatura: string;
   idUsuario: string;
@@ -9,4 +10,5 @@ export interface PagamentoModel {
   dataPagamento: string;
   metodoPagamento: string;
   transacaoId: string;
+  
 }

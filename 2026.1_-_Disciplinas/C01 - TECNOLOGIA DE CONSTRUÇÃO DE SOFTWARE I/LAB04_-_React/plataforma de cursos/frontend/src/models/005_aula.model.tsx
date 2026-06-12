@@ -1,6 +1,7 @@
-import type { ModuloModel } from './modulo.model.tsx';
+import type { ModuloModel } from './004_modulo.model.tsx';
 
 export interface AulaModel {
+
   idAula: string;
   idModulo: string;
   modulo?: ModuloModel;
@@ -9,4 +10,5 @@ export interface AulaModel {
   urlConteudo: string;
   duracaoMinutos: number;
   ordem: number;
+  
 }

@@ -1,7 +1,8 @@
-import type { CategoriaModel } from './categoria.model.tsx';
-import type { UsuarioModel } from './usuario.model.tsx';
+import type { CategoriaModel } from './002_categoria.model.tsx';
+import type { UsuarioModel } from './001_usuario.model.tsx';
 
 export interface CursoModel {
+
   idCurso: string;
   titulo: string;
   descricao: string;
@@ -14,4 +15,5 @@ export interface CursoModel {
   totalAulas: number;
   totalHoras: number;
   bannerUrl?: string;
+  
 }

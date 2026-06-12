@@ -1,8 +1,9 @@
-import type { CursoModel } from './curso.model.tsx';
-import type { TrilhaModel } from './trilha.model.tsx';
-import type { UsuarioModel } from './usuario.model.tsx';
+import type { CursoModel } from './003_curso.model.tsx';
+import type { TrilhaModel } from './009_trilha.model.tsx';
+import type { UsuarioModel } from './001_usuario.model.tsx';
 
 export interface CertificadoModel {
+
   idCertificado: string;
   idUsuario: string;
   idCurso: string;
@@ -12,4 +13,5 @@ export interface CertificadoModel {
   trilha?: TrilhaModel | null;
   codigoVerificacao: string;
   dataEmissao: string;
+  
 }

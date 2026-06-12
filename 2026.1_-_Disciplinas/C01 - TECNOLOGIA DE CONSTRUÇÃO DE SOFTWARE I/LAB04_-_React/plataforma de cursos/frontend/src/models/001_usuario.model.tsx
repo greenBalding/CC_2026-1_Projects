@@ -1,4 +1,5 @@
 export interface UsuarioModel {
+
   idUsuario: string;
   nome: string;
   email: string;
@@ -7,4 +8,5 @@ export interface UsuarioModel {
   ativo: boolean;
   dataCriacao: Date;
   dataAlteracao: Date;
+  
 }
