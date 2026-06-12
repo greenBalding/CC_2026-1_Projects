@@ -2296,6 +2296,30 @@
       "dataMatricula": "2026-06-12",
       "dataConclusao": null,
       "id": "Zz4Xx_iXuts"
+    },
+    {
+      "idMatricula": "mat-1781294892008",
+      "idUsuario": "u-1781294568901",
+      "idCurso": "c-1781290945812",
+      "dataMatricula": "2026-06-12",
+      "dataConclusao": null,
+      "id": "z4jwy-rKAuo"
+    },
+    {
+      "idMatricula": "mat-1781295028610",
+      "idUsuario": "u-1781294568901",
+      "idCurso": "c-1781290964582",
+      "dataMatricula": "2026-06-12",
+      "dataConclusao": null,
+      "id": "MI_1Lx6DQfc"
+    },
+    {
+      "idMatricula": "mat-1781295057661",
+      "idUsuario": "u-1781294568901",
+      "idCurso": "c-1781290930850",
+      "dataMatricula": "2026-06-12",
+      "dataConclusao": null,
+      "id": "jXohi9r-Voo"
     }
   ],
   "progresso_aulas": [
@@ -2459,6 +2483,146 @@
       "idAula": "lesson-mod-c-1781290945812-1-3",
       "status": "CONCLUIDO",
       "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "lgPI_d8i_0U",
+      "idUsuario": "u-1781294568901",
+      "idAula": "lesson-mod-c-1781290945812-1-1",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "id1ZSNymGHc",
+      "idUsuario": "u-1781294568901",
+      "idAula": "lesson-mod-c-1781290945812-1-2",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "dKRJeiwGeoY",
+      "idUsuario": "u-1781294568901",
+      "idAula": "lesson-mod-c-1781290945812-1-3",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "uut3zwsjTLU",
+      "idUsuario": "u-1781294568901",
+      "idAula": "lesson-mod-c-1781290945812-1-4",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "Agc1biJbXfw",
+      "idUsuario": "u-1781294568901",
+      "idAula": "lesson-mod-c-1781290945812-1-5",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "IFhHzyEXNDA",
+      "idUsuario": "u-1781294568901",
+      "idAula": "lesson-mod-c-1781290945812-2-1",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "oTgEP2JqYNQ",
+      "idUsuario": "u-1781294568901",
+      "idAula": "lesson-mod-c-1781290945812-2-2",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "f9WbHBv9fHg",
+      "idUsuario": "u-1781294568901",
+      "idAula": "lesson-mod-c-1781290945812-2-3",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "oqL0RDQgZIU",
+      "idUsuario": "u-1781294568901",
+      "idAula": "lesson-mod-c-1781290945812-2-4",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "b9DWCisuqQ0",
+      "idUsuario": "u-1781294568901",
+      "idAula": "lesson-mod-c-1781290945812-2-5",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "KF98hLVXyDA",
+      "idUsuario": "u-1781294568901",
+      "idAula": "lesson-mod-c-1781290945812-3-1",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "WtVji2FMVd0",
+      "idUsuario": "u-1781294568901",
+      "idAula": "lesson-mod-c-1781290945812-3-2",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "oa-XjNpt3tI",
+      "idUsuario": "u-1781294568901",
+      "idAula": "lesson-mod-c-1781290945812-3-3",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "UnmwYCDz4N8",
+      "idUsuario": "u-1781294568901",
+      "idAula": "lesson-mod-c-1781290945812-3-4",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "h2bFI_31Prg",
+      "idUsuario": "u-1781294568901",
+      "idAula": "lesson-mod-c-1781290945812-3-5",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "kiFISsrkl_w",
+      "idUsuario": "u-1781294568901",
+      "idAula": "lesson-mod-c-1781290945812-4-1",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "Y2FhIWXvVR4",
+      "idUsuario": "u-1781294568901",
+      "idAula": "lesson-mod-c-1781290945812-4-2",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "7bE0_KAL0Xo",
+      "idUsuario": "u-1781294568901",
+      "idAula": "lesson-mod-c-1781290945812-4-3",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "-sxmyVavFVk",
+      "idUsuario": "u-1781294568901",
+      "idAula": "lesson-mod-c-1781290945812-4-4",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
+    },
+    {
+      "id": "Xrz6E6Y7kWM",
+      "idUsuario": "u-1781294568901",
+      "idAula": "lesson-mod-c-1781290945812-4-5",
+      "status": "CONCLUIDO",
+      "dataConclusao": "2026-06-12"
     }
   ],
   "avaliacoes": [
@@ -2469,6 +2633,15 @@
       "idCurso": "c-1781290930850",
       "nota": "5",
       "comentario": "Instrutor melhor que esse não existe!",
+      "dataAvaliacao": "2026-06-12"
+    },
+    {
+      "id": "or_4mmvAGss",
+      "idAvaliacao": "ev-1781294949806",
+      "idUsuario": "u-1781294568901",
+      "idCurso": "c-1781290945812",
+      "nota": "4",
+      "comentario": "Gostei, porém faltou aulas em vídeo.",
       "dataAvaliacao": "2026-06-12"
     }
   ],
@@ -2585,6 +2758,15 @@
       "codigoVerificacao": "LEARN-2026-INT-SY6EC0",
       "dataEmissao": "2026-06-12",
       "id": "MyGW-niPF0s"
+    },
+    {
+      "idCertificado": "cert-1781294922794",
+      "idUsuario": "u-1781294568901",
+      "idCurso": "c-1781290945812",
+      "idTrilha": null,
+      "codigoVerificacao": "LEARN-2026-INT-34G84S",
+      "dataEmissao": "2026-06-12",
+      "id": "NlD28r25TCg"
     }
   ],
   "planos": [

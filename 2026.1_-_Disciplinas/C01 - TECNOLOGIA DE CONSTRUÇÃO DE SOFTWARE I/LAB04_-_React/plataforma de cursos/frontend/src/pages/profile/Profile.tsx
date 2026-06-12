@@ -4,7 +4,7 @@ import { useApp } from '../../hooks/useApp';
 
 
 export default function Profile() {
-  const { currentUser, certificados, matriculas, pagamentos, assinaturas, planos, cursos, aulas, progressoAulas } = useApp();
+  const { currentUser, certificados, matriculas, pagamentos, assinaturas, planos, cursos, aulas, progressoAulas, usuarios } = useApp();
   const navigate = useNavigate();
   const [selectedCert, setSelectedCert] = useState<any>(null);
 
@@ -210,62 +210,161 @@ export default function Profile() {
       {/* Premium Certificate Modal */}
       {selectedCert && (() => {
         const certCourse = cursos.find((c) => c.idCurso === selectedCert.idCurso);
+        const instrutorName = certCourse
+          ? (usuarios.find((u) => u.idUsuario === certCourse.idInstrutor)?.nome || 'Instrutor Principal')
+          : 'Instrutor Principal';
+
         return (
           <div className="modal fade show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(8px)', zIndex: 1050 }} role="dialog">
-            <div className="modal-dialog modal-dialog-centered modal-lg">
-              <div className="modal-content bg-black border border-warning border-opacity-50 text-white shadow-lg position-relative">
+            {/* Inject dynamic local styling for printing and previewing */}
+            <style>{`
+              @media print {
+                body {
+                  background-color: #030108 !important;
+                }
+                /* Hide everything in the page */
+                body * {
+                  visibility: hidden !important;
+                }
+                /* Only show the certificate container and its content */
+                #printable-certificate, #printable-certificate * {
+                  visibility: visible !important;
+                }
+                #printable-certificate {
+                  position: fixed !important;
+                  left: 0 !important;
+                  top: 0 !important;
+                  width: 100vw !important;
+                  height: 100vh !important;
+                  margin: 0 !important;
+                  padding: 8% !important;
+                  box-sizing: border-box !important;
+                  display: flex !important;
+                  flex-direction: column !important;
+                  justify-content: space-between !important;
+                  align-items: center !important;
+                  background: linear-gradient(135deg, #120924 0%, #030108 100%) !important;
+                  border: 18px double #ffc107 !important;
+                  -webkit-print-color-adjust: exact !important;
+                  print-color-adjust: exact !important;
+                  z-index: 9999999 !important;
+                  border-radius: 0 !important;
+                }
+                .no-print {
+                  display: none !important;
+                }
+              }
+              
+              /* Screen preview container */
+              .certificate-preview-container {
+                width: 100%;
+                max-width: 820px;
+                margin: 0 auto;
+                aspect-ratio: 1.414; /* A4 Landscape Aspect Ratio */
+                background: linear-gradient(135deg, #120924 0%, #030108 100%);
+                border: 10px double rgba(255, 193, 7, 0.45);
+                padding: 35px 40px;
+                position: relative;
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                text-align: center;
+                color: #fff;
+                border-radius: 8px;
+              }
+            `}</style>
+
+            <div className="modal-dialog modal-dialog-centered modal-xl no-print">
+              <div className="modal-content bg-black border border-secondary text-white shadow-lg position-relative">
                 
-                {/* Gold Border Ornament */}
-                <div style={{ position: 'absolute', inset: '15px', border: '2px solid rgba(255, 193, 7, 0.3)', pointerEvents: 'none', borderRadius: '4px' }}></div>
-                
-                <div className="modal-header border-0 pb-0 justify-content-end" style={{ zIndex: 10 }}>
+                <div className="modal-header border-0 pb-0 justify-content-end">
                   <button type="button" className="btn-close btn-close-white" onClick={() => setSelectedCert(null)} aria-label="Close"></button>
                 </div>
                 
-                <div className="modal-body text-center px-5 py-4" style={{ zIndex: 5 }}>
-                  <div className="mb-4">
-                    <span className="text-warning fw-bold text-uppercase tracking-widest small d-block mb-2" style={{ letterSpacing: '0.25em' }}>
-                      Certificado de Conclusão Acadêmica
-                    </span>
-                    <h1 className="display-6 fw-bold text-light my-3" style={{ fontFamily: 'Georgia, serif' }}>LearnGPT</h1>
-                  </div>
-
-                  <p className="text-muted fst-italic">Certificamos para os devidos fins que o aluno(a)</p>
+                <div className="modal-body py-4 px-md-5">
                   
-                  <h3 className="fw-bold text-warning my-3" style={{ fontFamily: 'Georgia, serif' }}>
-                    {currentUser.nome}
-                  </h3>
-                  
-                  <p className="text-muted px-4" style={{ maxWidth: '600px', margin: '0 auto', lineHeight: '1.6' }}>
-                    concluiu com êxito os requisitos acadêmicos e práticos estabelecidos para o curso de especialização profissional
-                  </p>
-                  
-                  <h4 className="fw-bold text-light my-3">
-                    "{certCourse?.titulo || 'Curso Especializado'}"
-                  </h4>
+                  {/* Visual Preview Container */}
+                  <div id="printable-certificate" className="certificate-preview-container">
+                    {/* Corner Ornaments */}
+                    <div style={{ position: 'absolute', top: '12px', left: '12px', width: '22px', height: '22px', borderTop: '2.5px solid #ffc107', borderLeft: '2.5px solid #ffc107' }}></div>
+                    <div style={{ position: 'absolute', top: '12px', right: '12px', width: '22px', height: '22px', borderTop: '2.5px solid #ffc107', borderRight: '2.5px solid #ffc107' }}></div>
+                    <div style={{ position: 'absolute', bottom: '12px', left: '12px', width: '22px', height: '22px', borderBottom: '2.5px solid #ffc107', borderLeft: '2.5px solid #ffc107' }}></div>
+                    <div style={{ position: 'absolute', bottom: '12px', right: '12px', width: '22px', height: '22px', borderBottom: '2.5px solid #ffc107', borderRight: '2.5px solid #ffc107' }}></div>
 
-                  <p className="text-muted small">
-                    emitido em {new Date(selectedCert.dataEmissao).toLocaleDateString()} com carga horária de {certCourse?.totalHoras || 40} horas.
-                  </p>
-
-                  {/* Stamp Fictitious Graphic */}
-                  <div className="d-flex justify-content-center my-4">
-                    <div className="rounded-circle d-flex flex-column align-items-center justify-content-center border border-warning text-warning" style={{ width: '90px', height: '90px', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.05em', transform: 'rotate(-5deg)', boxShadow: '0 0 15px rgba(255,193,7,0.1)' }}>
-                      <span className="fw-bold">LearnGPT</span>
-                      <hr className="my-1 border-warning w-75" />
-                      <span>OFICIAL</span>
-                      <span>VERIFICADO</span>
+                    {/* Logo/Header */}
+                    <div>
+                      <div className="d-flex justify-content-between align-items-center mb-1">
+                        <span className="text-warning fw-bold text-uppercase tracking-widest" style={{ letterSpacing: '0.22em', fontSize: '11px' }}>
+                          Certificado de Conclusão Acadêmica
+                        </span>
+                        <span className="fw-bold text-white fs-5" style={{ letterSpacing: '0.05em', fontFamily: 'Georgia, serif' }}>LearnGPT</span>
+                      </div>
+                      <hr className="my-2" style={{ borderColor: 'rgba(255, 193, 7, 0.25)' }} />
                     </div>
-                  </div>
 
-                  {/* Verification code footer */}
-                  <div className="bg-secondary bg-opacity-10 border border-secondary border-opacity-25 rounded p-2 d-inline-block small">
-                    <span className="text-muted">Código de Autenticidade: </span>
-                    <strong className="text-light font-monospace">{selectedCert.codigoVerificacao}</strong>
+                    {/* Cert Body */}
+                    <div className="my-auto py-2">
+                      <p className="text-muted fst-italic mb-1" style={{ fontSize: '13.5px' }}>Certificamos para os devidos fins que o aluno(a)</p>
+                      
+                      <h2 className="fw-bold text-warning my-2" style={{ fontFamily: 'Georgia, serif', fontSize: '32px', letterSpacing: '0.02em' }}>
+                        {currentUser.nome}
+                      </h2>
+                      
+                      <p className="text-muted px-md-4 mx-auto mb-2" style={{ maxWidth: '640px', fontSize: '13.5px', lineHeight: '1.5' }}>
+                        concluiu com êxito os requisitos acadêmicos e práticos estabelecidos para o curso de especialização profissional
+                      </p>
+                      
+                      <h3 className="fw-bold text-light my-2" style={{ fontSize: '24px', letterSpacing: '0.01em' }}>
+                        "{certCourse?.titulo || 'Curso Especializado'}"
+                      </h3>
+
+                      <p className="text-muted small mb-0" style={{ fontSize: '12.5px' }}>
+                        emitido em {new Date(selectedCert.dataEmissao).toLocaleDateString()} com carga horária de {certCourse?.totalHoras || 40} horas.
+                      </p>
+                    </div>
+
+                    {/* Stamp & Signatures row */}
+                    <div>
+                      <div className="d-flex justify-content-between align-items-center mt-3 px-4">
+                        {/* Coordinator Sig */}
+                        <div className="text-center" style={{ width: '180px' }}>
+                          <div className="border-bottom border-secondary pb-1 mb-1 font-monospace" style={{ fontSize: '12px', color: '#ddd' }}>
+                            LearnGPT Team
+                          </div>
+                          <span className="text-muted small" style={{ fontSize: '9px' }}>Coordenador Geral</span>
+                        </div>
+
+                        {/* Seal Graphic */}
+                        <div className="rounded-circle d-flex flex-column align-items-center justify-content-center border border-warning text-warning" style={{ width: '75px', height: '75px', fontSize: '8px', textTransform: 'uppercase', letterSpacing: '0.04em', transform: 'rotate(-5deg)', background: 'rgba(255,193,7,0.02)', boxShadow: '0 0 15px rgba(255,193,7,0.08)' }}>
+                          <span className="fw-bold">LearnGPT</span>
+                          <hr className="my-1 border-warning w-75" />
+                          <span>OFICIAL</span>
+                          <span>APROVADO</span>
+                        </div>
+
+                        {/* Instructor Sig */}
+                        <div className="text-center" style={{ width: '180px' }}>
+                          <div className="border-bottom border-secondary pb-1 mb-1 font-monospace" style={{ fontSize: '12px', color: '#ddd' }}>
+                            {instrutorName}
+                          </div>
+                          <span className="text-muted small" style={{ fontSize: '9px' }}>Instrutor do Curso</span>
+                        </div>
+                      </div>
+
+                      {/* Authenticity code */}
+                      <div className="mt-3 text-center">
+                        <div className="bg-secondary bg-opacity-10 border border-secondary border-opacity-25 rounded px-3 py-1 d-inline-block" style={{ fontSize: '10.5px' }}>
+                          <span className="text-muted">Chave de Autenticidade: </span>
+                          <strong className="text-light font-monospace">{selectedCert.codigoVerificacao}</strong>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
 
-                <div className="modal-footer border-0 pt-0 pb-4 justify-content-center" style={{ zIndex: 10 }}>
+                <div className="modal-footer border-0 pt-0 pb-4 justify-content-center">
                   <button
                     type="button"
                     onClick={() => window.print()}
@@ -281,6 +380,7 @@ export default function Profile() {
                     Fechar
                   </button>
                 </div>
+
               </div>
             </div>
           </div>
