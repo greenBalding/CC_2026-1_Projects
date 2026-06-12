@@ -229,17 +229,23 @@ export default function AdminDashboard() {
       showAlert('Você não pode desativar seu próprio usuário!', 'error');
       return;
     }
-    try {
-      await api.updateUsuario(user.idUsuario, {
-        ativo: !user.ativo,
-        dataAlteracao: new Date(),
-      });
-      await refreshData();
-      showAlert(`Status do usuário atualizado para ${!user.ativo ? 'Ativo' : 'Inativo'}!`, 'success');
-    } catch (err) {
-      console.error(err);
-      showAlert('Erro ao alterar status do usuário.', 'error');
-    }
+    const action = user.ativo ? 'desativar' : 'ativar';
+    showConfirm(
+      `Tem certeza de que deseja ${action} o usuário "${user.nome}"?`,
+      async () => {
+        try {
+          await api.updateUsuario(user.idUsuario, {
+            ativo: !user.ativo,
+            dataAlteracao: new Date(),
+          });
+          await refreshData();
+          showAlert(`Status do usuário atualizado para ${!user.ativo ? 'Ativo' : 'Inativo'}!`, 'success');
+        } catch (err) {
+          console.error(err);
+          showAlert('Erro ao alterar status do usuário.', 'error');
+        }
+      }
+    );
   };
 
   const handleCreatePlano = async (e: React.FormEvent) => {
