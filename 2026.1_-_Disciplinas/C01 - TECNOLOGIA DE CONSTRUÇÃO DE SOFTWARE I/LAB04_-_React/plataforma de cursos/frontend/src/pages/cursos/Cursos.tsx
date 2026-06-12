@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useApp } from '../../hooks/useApp';
-import { api } from '../../services/api';
+import { useState }         from 'react';
+import { useNavigate }      from 'react-router-dom';
+import { useApp }           from '../../hooks/useApp';
+import { api }              from '../../services/api';
 import { BookOpen, Trophy } from 'lucide-react';
 
 export default function Cursos() {

@@ -1,8 +1,8 @@
 import { createContext, useState, useEffect } from 'react';
-import type { ReactNode } from 'react';
-import { api } from '../services/api';
-import { STORAGE_KEYS } from '../utils/constants';
-import GlobalModal from '../components/ui/Modal';
+import type { ReactNode }                     from 'react';
+import { api }                                from '../services/api';
+import { STORAGE_KEYS }                       from '../utils/constants';
+import GlobalModal                            from '../components/ui/Modal';
 import type {
   UsuarioModel,
   CategoriaModel,

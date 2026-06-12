@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
+import { Link }   from 'react-router-dom';
 import { useApp } from '../../hooks/useApp';
-import { Lock } from 'lucide-react';
+import { Lock }   from 'lucide-react';
 
 export default function Trilhas() {
   const { trilhas, trilhasCursos, cursos, categorias, usuarios, modulos, aulas } = useApp();

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState }   from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useApp } from '../../hooks/useApp';
-import { api } from '../../services/api';
+import { useApp }            from '../../hooks/useApp';
+import { api }               from '../../services/api';
 
 export default function Register() {
   const { planos, setCurrentUser, refreshData, showAlert } = useApp();

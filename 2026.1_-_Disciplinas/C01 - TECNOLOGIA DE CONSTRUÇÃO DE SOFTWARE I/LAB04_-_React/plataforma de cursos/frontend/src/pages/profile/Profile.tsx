@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState }    from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useApp } from '../../hooks/useApp';
+import { useApp }      from '../../hooks/useApp';
 
 
 export default function Profile() {

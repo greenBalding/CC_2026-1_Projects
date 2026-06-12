@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useApp } from '../../hooks/useApp';
-import { Lock } from 'lucide-react';
+import { useApp }            from '../../hooks/useApp';
+import { Lock }              from 'lucide-react';
 
 export default function Dashboard() {
   const { currentUser, cursos, matriculas, progressoAulas, usuarios, modulos, aulas, avaliacoes } = useApp();

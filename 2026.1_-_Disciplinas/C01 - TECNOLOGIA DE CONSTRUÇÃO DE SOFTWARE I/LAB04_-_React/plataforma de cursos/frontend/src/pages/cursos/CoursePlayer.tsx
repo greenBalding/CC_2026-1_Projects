@@ -1,7 +1,7 @@
-import { useParams, Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { useApp } from '../../hooks/useApp';
-import { api } from '../../services/api';
+import { useParams, Link }                          from 'react-router-dom';
+import { useState, useEffect }                      from 'react';
+import { useApp }                                   from '../../hooks/useApp';
+import { api }                                      from '../../services/api';
 import { Play, HelpCircle, FileText, Video, Check } from 'lucide-react';
 
 export default function CoursePlayer() {

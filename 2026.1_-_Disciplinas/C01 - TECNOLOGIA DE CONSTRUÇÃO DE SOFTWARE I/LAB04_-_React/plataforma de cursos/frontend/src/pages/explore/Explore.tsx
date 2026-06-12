@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useApp } from '../../hooks/useApp';
-import { api } from '../../services/api';
+import { useState }           from 'react';
+import { useNavigate }        from 'react-router-dom';
+import { useApp }             from '../../hooks/useApp';
+import { api }                from '../../services/api';
 import { Play, Search, Lock } from 'lucide-react';
 
 export default function Explore() {

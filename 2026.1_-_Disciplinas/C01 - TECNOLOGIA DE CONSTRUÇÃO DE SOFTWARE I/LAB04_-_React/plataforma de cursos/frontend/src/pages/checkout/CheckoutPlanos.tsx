@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useApp } from '../../hooks/useApp';
-import { api } from '../../services/api';
-import { Check, X } from 'lucide-react';
+import { useApp }              from '../../hooks/useApp';
+import { api }                 from '../../services/api';
+import { Check, X }            from 'lucide-react';
 
 export default function CheckoutPlanos() {
   const { currentUser, planos, assinaturas, refreshData, showAlert } = useApp();

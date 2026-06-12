@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import type { ReactNode } from 'react';
-import { useApp } from '../../hooks/useApp';
+import { useState }                                     from 'react';
+import { Link, useLocation }                            from 'react-router-dom';
+import type { ReactNode }                               from 'react';
+import { useApp }                                       from '../../hooks/useApp';
 import { Home, Search, Play, Map, Star, Crown, LogOut } from 'lucide-react';
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 export default function BootstrapLayout({ children }: Props) {
   const { currentUser, setCurrentUser, assinaturas, planos } = useApp();
   const location = useLocation();
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   const userSubs = currentUser
     ? assinaturas.filter((a) => a.idUsuario === currentUser.idUsuario)
