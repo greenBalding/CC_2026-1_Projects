@@ -219,17 +219,84 @@ export default function Profile() {
             {/* Inject dynamic local styling for printing and previewing */}
             <style>{`
               @media print {
-                body {
+                /* Set A4 landscape and remove margins */
+                @page {
+                  size: landscape;
+                  margin: 0;
+                }
+                
+                /* Reset root containers to avoid layout page breaks */
+                html, body, #root {
+                  margin: 0 !important;
+                  padding: 0 !important;
+                  height: 100vh !important;
+                  overflow: hidden !important;
                   background-color: #030108 !important;
                 }
-                /* Hide everything in the page */
-                body * {
-                  visibility: hidden !important;
+
+                /* Hide navbars, sidebars, headers, and backgrounds globally */
+                nav, .navbar, .no-print, .modal-backdrop {
+                  display: none !important;
                 }
-                /* Only show the certificate container and its content */
-                #printable-certificate, #printable-certificate * {
-                  visibility: visible !important;
+                
+                /* Collapse flex layouts */
+                .d-flex {
+                  display: block !important;
                 }
+
+                main {
+                  padding: 0 !important;
+                  margin: 0 !important;
+                  background: none !important;
+                }
+
+                /* Hide all direct child elements of the profile wrapper except the modal */
+                .container-fluid > *:not(.modal) {
+                  display: none !important;
+                }
+
+                /* Expand modal wrappers to full screen height and width */
+                .modal {
+                  position: absolute !important;
+                  left: 0 !important;
+                  top: 0 !important;
+                  width: 100vw !important;
+                  height: 100vh !important;
+                  background: none !important;
+                  display: block !important;
+                  margin: 0 !important;
+                  padding: 0 !important;
+                }
+
+                .modal-dialog {
+                  max-width: 100% !important;
+                  width: 100vw !important;
+                  height: 100vh !important;
+                  margin: 0 !important;
+                  padding: 0 !important;
+                }
+
+                .modal-content {
+                  background: none !important;
+                  border: none !important;
+                  box-shadow: none !important;
+                  width: 100vw !important;
+                  height: 100vh !important;
+                  margin: 0 !important;
+                  padding: 0 !important;
+                }
+
+                .modal-header, .modal-footer {
+                  display: none !important;
+                }
+
+                .modal-body {
+                  padding: 0 !important;
+                  margin: 0 !important;
+                  width: 100vw !important;
+                  height: 100vh !important;
+                }
+
                 #printable-certificate {
                   position: fixed !important;
                   left: 0 !important;
@@ -244,14 +311,11 @@ export default function Profile() {
                   justify-content: space-between !important;
                   align-items: center !important;
                   background: linear-gradient(135deg, #120924 0%, #030108 100%) !important;
-                  border: 18px double #ffc107 !important;
+                  border: 20px double #ffc107 !important;
                   -webkit-print-color-adjust: exact !important;
                   print-color-adjust: exact !important;
                   z-index: 9999999 !important;
                   border-radius: 0 !important;
-                }
-                .no-print {
-                  display: none !important;
                 }
               }
               
