@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import type { ReactNode } from 'react';
 import { useApp } from '../../hooks/useApp';
-import { Home, Search, Play, Map, User, Star, Crown } from 'lucide-react';
+import { Home, Search, Play, Map, Star, Crown } from 'lucide-react';
 
 interface Props {
   children: ReactNode;
@@ -33,7 +33,6 @@ export default function BootstrapLayout({ children }: Props) {
         { to: '/cursos', icon: <Play size={18} />, label: 'Meus Cursos' },
         { to: '/trilhas', icon: <Map size={18} />, label: 'Trilhas' },
         { to: '/checkout', icon: <Star size={18} />, label: 'Planos & Premium' },
-        { to: '/profile', icon: <User size={18} />, label: 'Meu Perfil' },
       ];
 
   return (
@@ -79,7 +78,14 @@ export default function BootstrapLayout({ children }: Props) {
               {/* Informações do Usuário & Sair */}
               {currentUser && (
                 <div className="d-flex align-items-center gap-3">
-                  <div className="d-flex align-items-center gap-2">
+                  <Link
+                    to="/profile"
+                    className="d-flex align-items-center gap-2 text-decoration-none text-light"
+                    style={{ transition: 'opacity 0.2s', cursor: 'pointer' }}
+                    onMouseEnter={(e) => e.currentTarget.style.opacity = '0.85'}
+                    onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+                    title="Acessar Meu Perfil"
+                  >
                     <div
                       className="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold bg-primary"
                       style={{ width: '38px', height: '38px', fontSize: '14px' }}
@@ -87,12 +93,12 @@ export default function BootstrapLayout({ children }: Props) {
                       {currentUser.nome.split(' ').map((n) => n[0]).join('')}
                     </div>
                     <div className="d-none d-sm-block">
-                      <div className="fw-semibold small lh-1 text-light">{currentUser.nome}</div>
+                      <div className="fw-semibold small lh-1">{currentUser.nome}</div>
                       <div className="text-muted small mt-1 text-capitalize" style={{ fontSize: '10px' }}>
                         {isStaff ? currentUser.perfil : (activePlan ? activePlan.nome : 'Conta Gratuita')}
                       </div>
                     </div>
-                  </div>
+                  </Link>
                   <button
                     onClick={() => setCurrentUser(null)}
                     className="btn btn-sm btn-outline-danger px-2.5 py-1 fw-semibold text-nowrap"

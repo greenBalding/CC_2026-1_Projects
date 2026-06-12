@@ -12,7 +12,7 @@ import Trilhas                                  from './pages/trilhas/Trilhas';
 import CheckoutPlanos                           from './pages/checkout/CheckoutPlanos';
 import AdminDashboard                           from './pages/admin/AdminDashboard';
 import Login                                    from './pages/auth/Login';
-import Register from './pages/auth/Register';
+import Register                                 from './pages/auth/Register';
 import './index.css';
 
 function AppRoutes() {
