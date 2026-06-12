@@ -1,75 +1,38 @@
-% =============================================================
-% Parte 4 — Implementação Lógica
-% Sistema de Análise de Desempenho Acadêmico
-% Paradigma: Lógico/Declarativo (Prolog)
-% =============================================================
+% Parte 4 - Implementacao Logica (Prolog)
+% Sistema de Analise de Desempenho Academico
 
-% ----- Fatos: aluno(Nome, Matricula, Nota1, Nota2, Nota3, Frequencia) -----
+% Fatos: aluno(Nome, Matricula, Nota1, Nota2, Nota3, Frequencia)
 
-aluno(ana,      2024001, 8.0, 7.5, 9.0, 85).
-aluno(bruno,    2024002, 5.0, 6.0, 4.5, 80).
-aluno(carlos,   2024003, 7.0, 6.5, 8.0, 60).
-aluno(daniela,  2024004, 9.0, 9.5, 10.0, 95).
-aluno(eduardo,  2024005, 3.0, 4.0, 2.5, 70).
-aluno(fernanda, 2024006, 6.0, 6.0, 6.0, 75).
+aluno(ana,       2024001, 8.0, 7.5, 9.0, 85).
+aluno(bruno,     2024002, 5.0, 6.0, 4.5, 80).
+aluno(carlos,    2024003, 7.0, 6.5, 8.0, 60).
+aluno(daniela,   2024004, 9.0, 9.5, 10.0, 95).
+aluno(amanda,    2024005, 10.0, 9.0, 10.0, 100).
+aluno(guilherme, 2024006, 9.0, 10.0, 10.0, 100).
+aluno(matheus,   2024007, 10.0, 10.0, 9.0, 100).
 
-% ----- Regra: calcular média -----
-
+% Regra: calcular media
 media(Nome, Media) :-
     aluno(Nome, _, N1, N2, N3, _),
     Media is (N1 + N2 + N3) / 3.
 
-% ----- Regra: verificar frequência suficiente -----
-
-frequencia_suficiente(Nome) :-
+% Regra: verificar frequencia
+frequencia_ok(Nome) :-
     aluno(Nome, _, _, _, _, Freq),
     Freq >= 75.
 
-% ----- Regra: determinar aprovação -----
-
+% Regra: aprovado
 aprovado(Nome) :-
     media(Nome, Media),
     Media >= 6.0,
-    frequencia_suficiente(Nome).
+    frequencia_ok(Nome).
 
-% ----- Regra: determinar reprovação -----
-
+% Regra: reprovado
 reprovado(Nome) :-
     aluno(Nome, _, _, _, _, _),
     \+ aprovado(Nome).
 
-% ----- Regra: exibir situação de um aluno -----
-
-situacao(Nome, Matricula, Media, Freq, Situacao) :-
-    aluno(Nome, Matricula, _, _, _, Freq),
-    media(Nome, Media),
-    (aprovado(Nome) -> Situacao = aprovado ; Situacao = reprovado).
-
-% ----- Consultas úteis -----
-% Para consultar no interpretador Prolog:
-%
-% Listar todos os aprovados:
+% Consultas:
 %   ?- aprovado(X).
-%
-% Listar todos os reprovados:
 %   ?- reprovado(X).
-%
-% Ver situação de um aluno:
-%   ?- situacao(ana, Mat, Media, Freq, Sit).
-%
-% Ver situação de todos:
-%   ?- situacao(Nome, Mat, Media, Freq, Sit).
-
-% ----- Regra para imprimir relatório -----
-
-imprimir_aluno(Nome) :-
-    situacao(Nome, Matricula, Media, Freq, Situacao),
-    format("~w | ~w | Media: ~2f | Freq: ~w | ~w~n",
-           [Nome, Matricula, Media, Freq, Situacao]).
-
-relatorio :-
-    write('============================================'), nl,
-    write('RELATORIO - VERSAO LOGICA (PROLOG)'), nl,
-    write('============================================'), nl,
-    forall(aluno(Nome, _, _, _, _, _), imprimir_aluno(Nome)),
-    write('============================================'), nl.
+%   ?- media(ana, M).

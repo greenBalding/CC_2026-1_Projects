@@ -177,14 +177,16 @@ def gerar_pdf():
         "Bruno;2024002;5.0;6.0;4.5;80\n"
         "Carlos;2024003;7.0;6.5;8.0;60\n"
         "Daniela;2024004;9.0;9.5;10.0;95\n"
-        "Eduardo;2024005;3.0;4.0;2.5;70\n"
-        "Fernanda;2024006;6.0;6.0;6.0;75"
+        "Amanda;2024005;10;9;10;100\n"
+        "Guilherme;2024006;9;10;10;100\n"
+        "Matheus;2024007;10;10;9;100"
     )
     pdf.titulo_subsecao("Resultado Esperado")
     pdf.texto(
         "Ana: media 8.17, freq 85 -> Aprovado | Bruno: media 5.17, freq 80 -> Reprovado\n"
         "Carlos: media 7.17, freq 60 -> Reprovado | Daniela: media 9.50, freq 95 -> Aprovado\n"
-        "Eduardo: media 3.17, freq 70 -> Reprovado | Fernanda: media 6.00, freq 75 -> Aprovado"
+        "Amanda: media 9.67, freq 100 -> Aprovado | Guilherme: media 9.67, freq 100 -> Aprovado\n"
+        "Matheus: media 9.67, freq 100 -> Aprovado"
     )
 
     # ===================== SECAO 2 =====================
@@ -220,12 +222,13 @@ def gerar_pdf():
         "Bruno        2024002      5.0    6.0    4.5    5.17     80     Reprovado\n"
         "Carlos       2024003      7.0    6.5    8.0    7.17     60     Reprovado\n"
         "Daniela      2024004      9.0    9.5    10.0   9.50     95     Aprovado\n"
-        "Eduardo      2024005      3.0    4.0    2.5    3.17     70     Reprovado\n"
-        "Fernanda     2024006      6.0    6.0    6.0    6.00     75     Aprovado\n"
+        "Amanda       2024005      10.0   9.0    10.0   9.67     100    Aprovado\n"
+        "Guilherme    2024006      9.0    10.0   10.0   9.67     100    Aprovado\n"
+        "Matheus      2024007      10.0   10.0   9.0    9.67     100    Aprovado\n"
         "----------------------------------------------------------------------\n"
-        "Total de alunos: 6\n"
-        "Aprovados: 3\n"
-        "Reprovados: 3\n"
+        "Total de alunos: 7\n"
+        "Aprovados: 5\n"
+        "Reprovados: 2\n"
         "======================================================================"
     )
 
@@ -238,7 +241,7 @@ def gerar_pdf():
     pdf.titulo_subsecao("Saida da Execucao")
     pdf.saida_console(
         "======================================================================\n"
-        "RELATORIO DE DESEMPENHO ACADEMICO -- VERSAO ORIENTADA A OBJETOS\n"
+        "RELATORIO DE DESEMPENHO ACADEMICO - VERSAO OO (Python)\n"
         "======================================================================\n"
         "Nome         Matricula    N1     N2     N3     Media    Freq   Situacao\n"
         "----------------------------------------------------------------------\n"
@@ -246,12 +249,13 @@ def gerar_pdf():
         "Bruno        2024002      5.0    6.0    4.5    5.17     80     Reprovado\n"
         "Carlos       2024003      7.0    6.5    8.0    7.17     60     Reprovado\n"
         "Daniela      2024004      9.0    9.5    10.0   9.50     95     Aprovado\n"
-        "Eduardo      2024005      3.0    4.0    2.5    3.17     70     Reprovado\n"
-        "Fernanda     2024006      6.0    6.0    6.0    6.00     75     Aprovado\n"
+        "Amanda       2024005      10.0   9.0    10.0   9.67     100    Aprovado\n"
+        "Guilherme    2024006      9.0    10.0   10.0   9.67     100    Aprovado\n"
+        "Matheus      2024007      10.0   10.0   9.0    9.67     100    Aprovado\n"
         "----------------------------------------------------------------------\n"
-        "Total de alunos: 6\n"
-        "Aprovados: 3\n"
-        "Reprovados: 3\n"
+        "Total de alunos: 7\n"
+        "Aprovados: 5\n"
+        "Reprovados: 2\n"
         "======================================================================"
     )
 
@@ -264,7 +268,7 @@ def gerar_pdf():
     pdf.titulo_subsecao("Saida da Execucao")
     pdf.saida_console(
         "======================================================================\n"
-        "RELATORIO DE DESEMPENHO ACADEMICO -- VERSAO FUNCIONAL\n"
+        "RELATORIO DE DESEMPENHO ACADEMICO - VERSAO FUNCIONAL (Python)\n"
         "======================================================================\n"
         "Nome         Matricula    N1     N2     N3     Media    Freq   Situacao\n"
         "----------------------------------------------------------------------\n"
@@ -272,18 +276,21 @@ def gerar_pdf():
         "Bruno        2024002      5.0    6.0    4.5    5.17     80     Reprovado\n"
         "Carlos       2024003      7.0    6.5    8.0    7.17     60     Reprovado\n"
         "Daniela      2024004      9.0    9.5    10.0   9.50     95     Aprovado\n"
-        "Eduardo      2024005      3.0    4.0    2.5    3.17     70     Reprovado\n"
-        "Fernanda     2024006      6.0    6.0    6.0    6.00     75     Aprovado\n"
+        "Amanda       2024005      10.0   9.0    10.0   9.67     100    Aprovado\n"
+        "Guilherme    2024006      9.0    10.0   10.0   9.67     100    Aprovado\n"
+        "Matheus      2024007      10.0   10.0   9.0    9.67     100    Aprovado\n"
         "----------------------------------------------------------------------\n"
-        "Total de alunos: 6\n"
-        "Aprovados: 3\n"
-        "Reprovados: 3\n"
+        "Total de alunos: 7\n"
+        "Aprovados: 5\n"
+        "Reprovados: 2\n"
         "======================================================================\n"
         "\n"
-        "--- Alunos Aprovados (via filter) ---\n"
-        "  Ana -- Media: 8.17\n"
-        "  Daniela -- Media: 9.50\n"
-        "  Fernanda -- Media: 6.00"
+        "--- Aprovados (via filter) ---\n"
+        "  Ana - Media: 8.17\n"
+        "  Daniela - Media: 9.50\n"
+        "  Amanda - Media: 9.67\n"
+        "  Guilherme - Media: 9.67\n"
+        "  Matheus - Media: 9.67"
     )
 
     # ===================== SECAO 6: LOGICO =====================
@@ -297,29 +304,18 @@ def gerar_pdf():
         "?- aprovado(X).\n"
         "X = ana ;\n"
         "X = daniela ;\n"
-        "X = fernanda.\n"
+        "X = amanda ;\n"
+        "X = guilherme ;\n"
+        "X = matheus.\n"
         "\n"
         "?- reprovado(X).\n"
         "X = bruno ;\n"
-        "X = carlos ;\n"
-        "X = eduardo.\n"
+        "X = carlos.\n"
         "\n"
-        "?- situacao(ana, Mat, Media, Freq, Sit).\n"
-        "Mat = 2024001, Media = 8.166666666666666, Freq = 85, Sit = aprovado.\n"
-        "\n"
-        "?- relatorio.\n"
-        "============================================\n"
-        "RELATORIO - VERSAO LOGICA (PROLOG)\n"
-        "============================================\n"
-        "ana | 2024001 | Media: 8.17 | Freq: 85 | aprovado\n"
-        "bruno | 2024002 | Media: 5.17 | Freq: 80 | reprovado\n"
-        "carlos | 2024003 | Media: 7.17 | Freq: 60 | reprovado\n"
-        "daniela | 2024004 | Media: 9.50 | Freq: 95 | aprovado\n"
-        "eduardo | 2024005 | Media: 3.17 | Freq: 70 | reprovado\n"
-        "fernanda | 2024006 | Media: 6.00 | Freq: 75 | aprovado\n"
-        "============================================\n"
-        "true."
+        "?- media(ana, M).\n"
+        "M = 8.166666666666666."
     )
+
 
     # ===================== SECAO 7: LEGIBILIDADE =====================
     pdf.add_page()

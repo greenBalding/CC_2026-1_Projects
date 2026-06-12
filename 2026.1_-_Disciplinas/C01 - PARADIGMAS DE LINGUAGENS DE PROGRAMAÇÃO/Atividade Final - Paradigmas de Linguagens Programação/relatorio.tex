@@ -126,24 +126,26 @@ Ana;2024001;8.0;7.5;9.0;85
 Bruno;2024002;5.0;6.0;4.5;80
 Carlos;2024003;7.0;6.5;8.0;60
 Daniela;2024004;9.0;9.5;10.0;95
-Eduardo;2024005;3.0;4.0;2.5;70
-Fernanda;2024006;6.0;6.0;6.0;75
+Amanda;2024005;10;9;10;100
+Guilherme;2024006;9;10;10;100
+Matheus;2024007;10;10;9;100
 \end{lstlisting}
 
 \subsection{Resultado Esperado}
 
 \begin{table}[h]
 \centering
-\begin{tabular}{llccccl}
+\begin{tabular}{llcccccl}
 \toprule
 \textbf{Nome} & \textbf{Matrícula} & \textbf{N1} & \textbf{N2} & \textbf{N3} & \textbf{Média} & \textbf{Freq} & \textbf{Situação} \\
 \midrule
-Ana      & 2024001 & 8,0 & 7,5 & 9,0 & 8,17 & 85 & Aprovado \\
-Bruno    & 2024002 & 5,0 & 6,0 & 4,5 & 5,17 & 80 & Reprovado \\
-Carlos   & 2024003 & 7,0 & 6,5 & 8,0 & 7,17 & 60 & Reprovado \\
-Daniela  & 2024004 & 9,0 & 9,5 & 10,0 & 9,50 & 95 & Aprovado \\
-Eduardo  & 2024005 & 3,0 & 4,0 & 2,5 & 3,17 & 70 & Reprovado \\
-Fernanda & 2024006 & 6,0 & 6,0 & 6,0 & 6,00 & 75 & Aprovado \\
+Ana       & 2024001 & 8,0  & 7,5  & 9,0  & 8,17 & 85  & Aprovado \\
+Bruno     & 2024002 & 5,0  & 6,0  & 4,5  & 5,17 & 80  & Reprovado \\
+Carlos    & 2024003 & 7,0  & 6,5  & 8,0  & 7,17 & 60  & Reprovado \\
+Daniela   & 2024004 & 9,0  & 9,5  & 10,0 & 9,50 & 95  & Aprovado \\
+Amanda    & 2024005 & 10,0 & 9,0  & 10,0 & 9,67 & 100 & Aprovado \\
+Guilherme & 2024006 & 9,0  & 10,0 & 10,0 & 9,67 & 100 & Aprovado \\
+Matheus   & 2024007 & 10,0 & 10,0 & 9,0  & 9,67 & 100 & Aprovado \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -179,12 +181,13 @@ Ana          2024001      8.0    7.5    9.0    8.17     85     Aprovado
 Bruno        2024002      5.0    6.0    4.5    5.17     80     Reprovado
 Carlos       2024003      7.0    6.5    8.0    7.17     60     Reprovado
 Daniela      2024004      9.0    9.5    10.0   9.50     95     Aprovado
-Eduardo      2024005      3.0    4.0    2.5    3.17     70     Reprovado
-Fernanda     2024006      6.0    6.0    6.0    6.00     75     Aprovado
+Amanda       2024005      10.0   9.0    10.0   9.67     100    Aprovado
+Guilherme    2024006      9.0    10.0   10.0   9.67     100    Aprovado
+Matheus      2024007      10.0   10.0   9.0    9.67     100    Aprovado
 ----------------------------------------------------------------------
-Total de alunos: 6
-Aprovados: 3
-Reprovados: 3
+Total de alunos: 7
+Aprovados: 5
+Reprovados: 2
 ======================================================================
 \end{lstlisting}
 
@@ -198,20 +201,21 @@ Reprovados: 3
 
 \begin{lstlisting}[style=output]
 ======================================================================
-RELATÓRIO DE DESEMPENHO ACADÊMICO — VERSÃO ORIENTADA A OBJETOS
+RELATORIO DE DESEMPENHO ACADEMICO - VERSAO OO (Python)
 ======================================================================
-Nome         Matrícula    N1     N2     N3     Média    Freq   Situação
+Nome         Matricula    N1     N2     N3     Media    Freq   Situacao
 ----------------------------------------------------------------------
 Ana          2024001      8.0    7.5    9.0    8.17     85     Aprovado
 Bruno        2024002      5.0    6.0    4.5    5.17     80     Reprovado
 Carlos       2024003      7.0    6.5    8.0    7.17     60     Reprovado
 Daniela      2024004      9.0    9.5    10.0   9.50     95     Aprovado
-Eduardo      2024005      3.0    4.0    2.5    3.17     70     Reprovado
-Fernanda     2024006      6.0    6.0    6.0    6.00     75     Aprovado
+Amanda       2024005      10.0   9.0    10.0   9.67     100    Aprovado
+Guilherme    2024006      9.0    10.0   10.0   9.67     100    Aprovado
+Matheus      2024007      10.0   10.0   9.0    9.67     100    Aprovado
 ----------------------------------------------------------------------
-Total de alunos: 6
-Aprovados: 3
-Reprovados: 3
+Total de alunos: 7
+Aprovados: 5
+Reprovados: 2
 ======================================================================
 \end{lstlisting}
 
@@ -225,26 +229,29 @@ Reprovados: 3
 
 \begin{lstlisting}[style=output]
 ======================================================================
-RELATÓRIO DE DESEMPENHO ACADÊMICO — VERSÃO FUNCIONAL
+RELATORIO DE DESEMPENHO ACADEMICO - VERSAO FUNCIONAL (Python)
 ======================================================================
-Nome         Matrícula    N1     N2     N3     Média    Freq   Situação
+Nome         Matricula    N1     N2     N3     Media    Freq   Situacao
 ----------------------------------------------------------------------
 Ana          2024001      8.0    7.5    9.0    8.17     85     Aprovado
 Bruno        2024002      5.0    6.0    4.5    5.17     80     Reprovado
 Carlos       2024003      7.0    6.5    8.0    7.17     60     Reprovado
 Daniela      2024004      9.0    9.5    10.0   9.50     95     Aprovado
-Eduardo      2024005      3.0    4.0    2.5    3.17     70     Reprovado
-Fernanda     2024006      6.0    6.0    6.0    6.00     75     Aprovado
+Amanda       2024005      10.0   9.0    10.0   9.67     100    Aprovado
+Guilherme    2024006      9.0    10.0   10.0   9.67     100    Aprovado
+Matheus      2024007      10.0   10.0   9.0    9.67     100    Aprovado
 ----------------------------------------------------------------------
-Total de alunos: 6
-Aprovados: 3
-Reprovados: 3
+Total de alunos: 7
+Aprovados: 5
+Reprovados: 2
 ======================================================================
 
---- Alunos Aprovados (via filter) ---
-  Ana — Média: 8.17
-  Daniela — Média: 9.50
-  Fernanda — Média: 6.00
+--- Aprovados (via filter) ---
+  Ana - Media: 8.17
+  Daniela - Media: 9.50
+  Amanda - Media: 9.67
+  Guilherme - Media: 9.67
+  Matheus - Media: 9.67
 \end{lstlisting}
 
 % ===================================================================
@@ -259,28 +266,16 @@ Reprovados: 3
 ?- aprovado(X).
 X = ana ;
 X = daniela ;
-X = fernanda.
+X = amanda ;
+X = guilherme ;
+X = matheus.
 
 ?- reprovado(X).
 X = bruno ;
-X = carlos ;
-X = eduardo.
+X = carlos.
 
-?- situacao(ana, Mat, Media, Freq, Sit).
-Mat = 2024001, Media = 8.166666666666666, Freq = 85, Sit = aprovado.
-
-?- relatorio.
-============================================
-RELATORIO - VERSAO LOGICA (PROLOG)
-============================================
-ana | 2024001 | Media: 8.17 | Freq: 85 | aprovado
-bruno | 2024002 | Media: 5.17 | Freq: 80 | reprovado
-carlos | 2024003 | Media: 7.17 | Freq: 60 | reprovado
-daniela | 2024004 | Media: 9.50 | Freq: 95 | aprovado
-eduardo | 2024005 | Media: 3.17 | Freq: 70 | reprovado
-fernanda | 2024006 | Media: 6.00 | Freq: 75 | aprovado
-============================================
-true.
+?- media(ana, M).
+M = 8.166666666666666.
 \end{lstlisting}
 
 % ===================================================================
