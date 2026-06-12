@@ -190,28 +190,29 @@ def gerar_pdf():
     # ===================== SECAO 2 =====================
     pdf.titulo_secao("2", "Linguagens Escolhidas")
     pdf.texto(
-        "- Python (imperativo) -- demonstra o paradigma procedural com variaveis, lacos while, "
-        "condicionais e funcoes, sem classes ou funcoes de alta ordem.\n\n"
+        "- C (imperativo) -- linguagem procedural por excelencia, com controle explicito "
+        "de memoria, structs, ponteiros e funcoes. Ideal para o paradigma imperativo puro.\n\n"
         "- Python (orientado a objetos) -- classes com encapsulamento (name mangling), metodos "
         "de negocio e organizacao em objetos.\n\n"
         "- Python (funcional) -- map, filter, reduce, lambdas e dicionarios imutaveis para "
         "um estilo predominantemente funcional.\n\n"
         "- Prolog (logico) -- linguagem declarativa baseada em fatos e regras.\n\n"
-        "A escolha de Python para tres paradigmas isola o efeito do paradigma sem interferencia "
-        "de diferencas sintaticas entre linguagens distintas. Prolog foi mantido por ser a "
-        "referencia natural do paradigma logico."
+        "C foi escolhida para a versao imperativa por ser a linguagem sugerida pelo enunciado "
+        "e a mais representativa do paradigma procedural. Python foi utilizada nas versoes OO "
+        "e funcional por sua versatilidade. Prolog foi mantido por ser a referencia natural "
+        "do paradigma logico."
     )
 
     # ===================== SECAO 3: IMPERATIVO =====================
     pdf.add_page()
-    pdf.titulo_secao("3", "Parte 1 -- Implementacao Imperativa (Python)")
-    pdf.titulo_subsecao("Codigo-fonte: parte1_imperativo.py")
-    pdf.codigo(os.path.join(BASE_DIR, "parte1_imperativo.py"))
+    pdf.titulo_secao("3", "Parte 1 -- Implementacao Imperativa (C)")
+    pdf.titulo_subsecao("Codigo-fonte: parte1_imperativo.c")
+    pdf.codigo(os.path.join(BASE_DIR, "parte1_imperativo.c"))
 
     pdf.titulo_subsecao("Saida da Execucao")
     pdf.saida_console(
         "======================================================================\n"
-        "RELATORIO DE DESEMPENHO ACADEMICO -- VERSAO IMPERATIVA\n"
+        "RELATORIO DE DESEMPENHO ACADEMICO - VERSAO IMPERATIVA (C)\n"
         "======================================================================\n"
         "Nome         Matricula    N1     N2     N3     Media    Freq   Situacao\n"
         "----------------------------------------------------------------------\n"

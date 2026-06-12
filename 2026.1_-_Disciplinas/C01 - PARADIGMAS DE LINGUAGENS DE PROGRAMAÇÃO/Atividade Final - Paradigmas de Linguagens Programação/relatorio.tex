@@ -40,6 +40,23 @@
     captionpos=b
 }
 
+% ===== Estilo de código C =====
+\lstdefinestyle{clang}{
+    language=C,
+    backgroundcolor=\color{codebg},
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{codeblue}\bfseries,
+    stringstyle=\color{codegreen},
+    commentstyle=\color{codegray}\itshape,
+    numbers=left,
+    numberstyle=\tiny\color{codegray},
+    frame=single,
+    breaklines=true,
+    showstringspaces=false,
+    tabsize=4,
+    captionpos=b
+}
+
 % ===== Estilo de código Prolog =====
 \lstdefinestyle{prolog}{
     language=Prolog,
@@ -136,27 +153,27 @@ Fernanda & 2024006 & 6,0 & 6,0 & 6,0 & 6,00 & 75 & Aprovado \\
 % ===================================================================
 
 \begin{itemize}
-    \item \textbf{Python (imperativo)} --- permite demonstrar o paradigma procedural com variáveis, laços \texttt{while}, condicionais e funções, sem uso de classes ou funções de alta ordem.
+    \item \textbf{C (imperativo)} --- linguagem procedural por excelência, com controle explícito de memória, structs, ponteiros e funções. Ideal para demonstrar o paradigma imperativo puro.
     \item \textbf{Python (orientado a objetos)} --- suporta classes com encapsulamento (\texttt{name mangling}), herança e métodos, sendo uma das linguagens OO mais utilizadas.
     \item \textbf{Python (funcional)} --- oferece \texttt{map}, \texttt{filter}, \texttt{reduce}, lambdas e dicionários imutáveis, permitindo um estilo predominantemente funcional.
     \item \textbf{Prolog (lógico)} --- linguagem declarativa por excelência, baseada em fatos e regras, ideal para demonstrar o paradigma lógico.
 \end{itemize}
 
-A escolha de Python para três paradigmas permite uma comparação mais justa, isolando o efeito do paradigma sem a interferência de diferenças sintáticas entre linguagens distintas. Prolog foi mantido por ser a referência natural do paradigma lógico.
+C foi escolhida para a versão imperativa por ser a linguagem sugerida pelo enunciado e a mais representativa do paradigma procedural. Python foi utilizada nas versões OO e funcional por sua versatilidade. Prolog foi mantido por ser a referência natural do paradigma lógico.
 
 % ===================================================================
-\section{Parte 1 --- Implementação Imperativa (Python)}
+\section{Parte 1 --- Implementação Imperativa (C)}
 % ===================================================================
 
-\lstinputlisting[style=python, caption={parte1\_imperativo.py}]{parte1_imperativo.py}
+\lstinputlisting[style=clang, caption={parte1\_imperativo.c}]{parte1_imperativo.c}
 
 \subsection{Saída da Execução}
 
 \begin{lstlisting}[style=output]
 ======================================================================
-RELATÓRIO DE DESEMPENHO ACADÊMICO — VERSÃO IMPERATIVA
+RELATORIO DE DESEMPENHO ACADEMICO - VERSAO IMPERATIVA (C)
 ======================================================================
-Nome         Matrícula    N1     N2     N3     Média    Freq   Situação
+Nome         Matricula    N1     N2     N3     Media    Freq   Situacao
 ----------------------------------------------------------------------
 Ana          2024001      8.0    7.5    9.0    8.17     85     Aprovado
 Bruno        2024002      5.0    6.0    4.5    5.17     80     Reprovado
