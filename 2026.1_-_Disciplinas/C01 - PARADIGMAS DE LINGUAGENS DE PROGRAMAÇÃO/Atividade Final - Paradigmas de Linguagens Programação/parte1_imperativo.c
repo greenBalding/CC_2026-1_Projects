@@ -1,6 +1,5 @@
 /*
- * Parte 1 - Implementacao Imperativa (C)
- * Sistema de Analise de Desempenho Academico
+ * Parte 1 - Versao Imperativa em C
  */
 
 #include <stdio.h>
@@ -8,79 +7,48 @@
 #include <string.h>
 
 int main() {
-    FILE *arquivo;
+    FILE *arq;
     char linha[200];
-    char nome[50];
-    char matricula[20];
-    float nota1, nota2, nota3;
-    int frequencia;
-    float media;
-    int total = 0;
-    int aprovados = 0;
-    int reprovados = 0;
+    char nome[50], mat[20];
+    float n1, n2, n3, media;
+    int freq, aprovados = 0, reprovados = 0, total = 0;
 
-    arquivo = fopen("alunos.csv", "r");
-    if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo!\n");
+    arq = fopen("alunos.csv", "r");
+    if (arq == NULL) {
+        printf("Erro ao abrir arquivo\n");
         return 1;
     }
 
-    printf("======================================================================\n");
-    printf("RELATORIO DE DESEMPENHO ACADEMICO - VERSAO IMPERATIVA (C)\n");
-    printf("======================================================================\n");
-    printf("%-12s %-12s %-6s %-6s %-6s %-8s %-6s %s\n",
-           "Nome", "Matricula", "N1", "N2", "N3", "Media", "Freq", "Situacao");
-    printf("----------------------------------------------------------------------\n");
+    printf("Nome         Matricula    Media   Freq  Situacao\n");
+    printf("------------------------------------------------\n");
 
-    while (fgets(linha, 200, arquivo) != NULL) {
-        linha[strcspn(linha, "\r\n")] = '\0';
+    while (fgets(linha, 200, arq) != NULL) {
+        linha[strcspn(linha, "\r\n")] = 0;
+        if (strlen(linha) == 0) continue;
 
-        if (strlen(linha) == 0)
-            continue;
+        strcpy(nome, strtok(linha, ";"));
+        strcpy(mat, strtok(NULL, ";"));
+        n1 = atof(strtok(NULL, ";"));
+        n2 = atof(strtok(NULL, ";"));
+        n3 = atof(strtok(NULL, ";"));
+        freq = atoi(strtok(NULL, ";"));
 
-        /* separa os campos */
-        char *campo = strtok(linha, ";");
-        strcpy(nome, campo);
+        media = (n1 + n2 + n3) / 3;
 
-        campo = strtok(NULL, ";");
-        strcpy(matricula, campo);
-
-        campo = strtok(NULL, ";");
-        nota1 = atof(campo);
-
-        campo = strtok(NULL, ";");
-        nota2 = atof(campo);
-
-        campo = strtok(NULL, ";");
-        nota3 = atof(campo);
-
-        campo = strtok(NULL, ";");
-        frequencia = atoi(campo);
-
-        /* calcula a media */
-        media = (nota1 + nota2 + nota3) / 3.0;
-
-        /* verifica aprovacao */
-        if (media >= 6.0 && frequencia >= 75) {
-            printf("%-12s %-12s %-6.1f %-6.1f %-6.1f %-8.2f %-6d Aprovado\n",
-                   nome, matricula, nota1, nota2, nota3, media, frequencia);
+        if (media >= 6.0 && freq >= 75) {
+            printf("%-12s %-12s %-7.2f %-5d Aprovado\n", nome, mat, media, freq);
             aprovados++;
         } else {
-            printf("%-12s %-12s %-6.1f %-6.1f %-6.1f %-8.2f %-6d Reprovado\n",
-                   nome, matricula, nota1, nota2, nota3, media, frequencia);
+            printf("%-12s %-12s %-7.2f %-5d Reprovado\n", nome, mat, media, freq);
             reprovados++;
         }
-
         total++;
     }
 
-    fclose(arquivo);
+    fclose(arq);
 
-    printf("----------------------------------------------------------------------\n");
-    printf("Total de alunos: %d\n", total);
-    printf("Aprovados: %d\n", aprovados);
-    printf("Reprovados: %d\n", reprovados);
-    printf("======================================================================\n");
+    printf("------------------------------------------------\n");
+    printf("Total: %d | Aprovados: %d | Reprovados: %d\n", total, aprovados, reprovados);
 
     return 0;
 }

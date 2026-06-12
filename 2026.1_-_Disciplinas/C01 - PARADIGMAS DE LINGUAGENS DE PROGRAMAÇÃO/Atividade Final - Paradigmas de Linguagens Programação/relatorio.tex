@@ -155,10 +155,10 @@ Matheus   & 2024007 & 10,0 & 10,0 & 9,0  & 9,67 & 100 & Aprovado \\
 % ===================================================================
 
 \begin{itemize}
-    \item \textbf{C (imperativo)} --- linguagem procedural por excelência, com controle explícito de memória, structs, ponteiros e funções. Ideal para demonstrar o paradigma imperativo puro.
-    \item \textbf{Python (orientado a objetos)} --- suporta classes com encapsulamento (\texttt{name mangling}), herança e métodos, sendo uma das linguagens OO mais utilizadas.
-    \item \textbf{Python (funcional)} --- oferece \texttt{map}, \texttt{filter}, \texttt{reduce}, lambdas e dicionários imutáveis, permitindo um estilo predominantemente funcional.
-    \item \textbf{Prolog (lógico)} --- linguagem declarativa por excelência, baseada em fatos e regras, ideal para demonstrar o paradigma lógico.
+    \item \textbf{C (imperativo)}
+    \item \textbf{Python (orientado a objetos)}
+    \item \textbf{Python (funcional)}
+    \item \textbf{Prolog (lógico)}
 \end{itemize}
 
 C foi escolhida para a versão imperativa por ser a linguagem sugerida pelo enunciado e a mais representativa do paradigma procedural. Python foi utilizada nas versões OO e funcional por sua versatilidade. Prolog foi mantido por ser a referência natural do paradigma lógico.
@@ -172,23 +172,17 @@ C foi escolhida para a versão imperativa por ser a linguagem sugerida pelo enun
 \subsection{Saída da Execução}
 
 \begin{lstlisting}[style=output]
-======================================================================
-RELATORIO DE DESEMPENHO ACADEMICO - VERSAO IMPERATIVA (C)
-======================================================================
-Nome         Matricula    N1     N2     N3     Media    Freq   Situacao
-----------------------------------------------------------------------
-Ana          2024001      8.0    7.5    9.0    8.17     85     Aprovado
-Bruno        2024002      5.0    6.0    4.5    5.17     80     Reprovado
-Carlos       2024003      7.0    6.5    8.0    7.17     60     Reprovado
-Daniela      2024004      9.0    9.5    10.0   9.50     95     Aprovado
-Amanda       2024005      10.0   9.0    10.0   9.67     100    Aprovado
-Guilherme    2024006      9.0    10.0   10.0   9.67     100    Aprovado
-Matheus      2024007      10.0   10.0   9.0    9.67     100    Aprovado
-----------------------------------------------------------------------
-Total de alunos: 7
-Aprovados: 5
-Reprovados: 2
-======================================================================
+Nome         Matricula    Media   Freq  Situacao
+------------------------------------------------
+Ana          2024001      8.17    85    Aprovado
+Bruno        2024002      5.17    80    Reprovado
+Carlos       2024003      7.17    60    Reprovado
+Daniela      2024004      9.50    95    Aprovado
+Amanda       2024005      9.67    100   Aprovado
+Guilherme    2024006      9.67    100   Aprovado
+Matheus      2024007      9.67    100   Aprovado
+------------------------------------------------
+Total: 7 | Aprovados: 5 | Reprovados: 2
 \end{lstlisting}
 
 % ===================================================================

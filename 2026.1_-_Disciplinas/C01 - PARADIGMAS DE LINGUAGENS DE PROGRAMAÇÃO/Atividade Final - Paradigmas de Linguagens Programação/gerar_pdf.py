@@ -213,23 +213,17 @@ def gerar_pdf():
 
     pdf.titulo_subsecao("Saida da Execucao")
     pdf.saida_console(
-        "======================================================================\n"
-        "RELATORIO DE DESEMPENHO ACADEMICO - VERSAO IMPERATIVA (C)\n"
-        "======================================================================\n"
-        "Nome         Matricula    N1     N2     N3     Media    Freq   Situacao\n"
-        "----------------------------------------------------------------------\n"
-        "Ana          2024001      8.0    7.5    9.0    8.17     85     Aprovado\n"
-        "Bruno        2024002      5.0    6.0    4.5    5.17     80     Reprovado\n"
-        "Carlos       2024003      7.0    6.5    8.0    7.17     60     Reprovado\n"
-        "Daniela      2024004      9.0    9.5    10.0   9.50     95     Aprovado\n"
-        "Amanda       2024005      10.0   9.0    10.0   9.67     100    Aprovado\n"
-        "Guilherme    2024006      9.0    10.0   10.0   9.67     100    Aprovado\n"
-        "Matheus      2024007      10.0   10.0   9.0    9.67     100    Aprovado\n"
-        "----------------------------------------------------------------------\n"
-        "Total de alunos: 7\n"
-        "Aprovados: 5\n"
-        "Reprovados: 2\n"
-        "======================================================================"
+        "Nome         Matricula    Media   Freq  Situacao\n"
+        "------------------------------------------------\n"
+        "Ana          2024001      8.17    85    Aprovado\n"
+        "Bruno        2024002      5.17    80    Reprovado\n"
+        "Carlos       2024003      7.17    60    Reprovado\n"
+        "Daniela      2024004      9.50    95    Aprovado\n"
+        "Amanda       2024005      9.67    100   Aprovado\n"
+        "Guilherme    2024006      9.67    100   Aprovado\n"
+        "Matheus      2024007      9.67    100   Aprovado\n"
+        "------------------------------------------------\n"
+        "Total: 7 | Aprovados: 5 | Reprovados: 2"
     )
 
     # ===================== SECAO 4: OO =====================
