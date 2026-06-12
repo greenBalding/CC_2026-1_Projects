@@ -8,6 +8,14 @@ export default function Profile() {
   const navigate = useNavigate();
   const [selectedCert, setSelectedCert] = useState<any>(null);
 
+  if (!currentUser) {
+    return (
+      <div className="alert alert-warning text-center mt-4" role="alert">
+        Nenhum usuário logado. Por favor, selecione um usuário na barra superior.
+      </div>
+    );
+  }
+
   // Calculate dynamic study hours from completed lessons
   const completedProgress = progressoAulas.filter(
     (p) => p.idUsuario === currentUser.idUsuario && p.status === 'CONCLUIDO'
@@ -31,13 +39,6 @@ export default function Profile() {
     { nome: 'Felipe Deschamps', horas: 1.5 },
   ].sort((a, b) => b.horas - a.horas);
 
-  if (!currentUser) {
-    return (
-      <div className="alert alert-warning text-center mt-4" role="alert">
-        Nenhum usuário logado. Por favor, selecione um usuário na barra superior.
-      </div>
-    );
-  }
 
   const userCertificates = certificados.filter((c) => c.idUsuario === currentUser.idUsuario);
   const userMatriculasCount = matriculas.filter((m) => m.idUsuario === currentUser.idUsuario).length;
