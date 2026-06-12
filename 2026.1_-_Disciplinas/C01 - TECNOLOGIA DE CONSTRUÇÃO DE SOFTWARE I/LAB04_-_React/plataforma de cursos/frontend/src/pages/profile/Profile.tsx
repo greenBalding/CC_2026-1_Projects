@@ -8,6 +8,43 @@ export default function Profile() {
   const navigate = useNavigate();
   const [selectedCert, setSelectedCert] = useState<any>(null);
 
+  const handleDownloadPDF = () => {
+    if (!selectedCert) return;
+    const element = document.getElementById('printable-certificate');
+    if (!element) return;
+
+    const opt = {
+      margin: 0,
+      filename: `certificado-${selectedCert.codigoVerificacao || 'documento'}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { 
+        scale: 2, 
+        useCORS: true, 
+        backgroundColor: '#030108',
+        logging: false
+      },
+      jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape' }
+    };
+
+    const triggerDownload = () => {
+      const html2pdfLib = (window as any).html2pdf;
+      if (html2pdfLib) {
+        html2pdfLib().from(element).set(opt).save();
+      }
+    };
+
+    if ((window as any).html2pdf) {
+      triggerDownload();
+    } else {
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+      script.onload = () => {
+        triggerDownload();
+      };
+      document.body.appendChild(script);
+    }
+  };
+
   if (!currentUser) {
     return (
       <div className="alert alert-warning text-center mt-4" role="alert">
@@ -431,7 +468,7 @@ export default function Profile() {
                 <div className="modal-footer border-0 pt-0 pb-4 justify-content-center">
                   <button
                     type="button"
-                    onClick={() => window.print()}
+                    onClick={handleDownloadPDF}
                     className="btn btn-warning text-dark fw-bold px-4 shadow-sm"
                   >
                     Baixar PDF
