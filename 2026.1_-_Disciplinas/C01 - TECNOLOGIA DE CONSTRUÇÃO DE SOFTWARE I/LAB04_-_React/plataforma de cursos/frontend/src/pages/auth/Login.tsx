@@ -60,7 +60,7 @@ export default function Login() {
       <div className="card bg-black border border-secondary text-white shadow-lg p-4" style={{ maxWidth: '440px', width: '100%', borderRadius: '12px' }}>
         <div className="text-center mb-4">
           <h1 className="h3 fw-bold text-primary mb-1">LearnGPT</h1>
-          <p className="text-muted small">Sua plataforma completa de aprendizado online</p>
+          <p className="text-muted small">Sua plataforma de aprendizado online e tutorada por modelos de linguagem natural</p>
         </div>
 
         {errorMsg && (
