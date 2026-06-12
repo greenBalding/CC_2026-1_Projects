@@ -1,17 +1,19 @@
-import type { UsuarioModel } from '../models/001_usuario.model';
-import type { CategoriaModel } from '../models/002_categoria.model';
-import type { CursoModel } from '../models/003_curso.model';
-import type { ModuloModel } from '../models/004_modulo.model';
-import type { AulaModel } from '../models/005_aula.model';
-import type { MatriculaModel } from '../models/006_matricula.model';
-import type { ProgressoAulaModel } from '../models/007_progresso-aula.model';
-import type { AvaliacaoModel } from '../models/008_avaliacao.model';
-import type { TrilhaModel } from '../models/009_trilha.model';
-import type { TrilhaCursoModel } from '../models/010_trilha-curso.model';
-import type { CertificadoModel } from '../models/011_certificado.model';
-import type { PlanoModel } from '../models/012_plano.model';
-import type { AssinaturaModel } from '../models/013_assinatura.model';
-import type { PagamentoModel } from '../models/014_pagamento.model';
+import type {
+  UsuarioModel,
+  CategoriaModel,
+  CursoModel,
+  ModuloModel,
+  AulaModel,
+  MatriculaModel,
+  ProgressoAulaModel,
+  AvaliacaoModel,
+  TrilhaModel,
+  TrilhaCursoModel,
+  CertificadoModel,
+  PlanoModel,
+  AssinaturaModel,
+  PagamentoModel
+} from '../models/000_index';
 
 import { API_URL } from '../utils/constants';
 
