@@ -54,6 +54,28 @@
       "ativo": true,
       "dataCriacao": "2026-06-12T20:02:48.901Z",
       "dataAlteracao": "2026-06-12T20:02:48.901Z"
+    },
+    {
+      "id": "pdnJcxekV-s",
+      "idUsuario": "u-1781306570290",
+      "nome": "Aluno Apresentação da Gravação",
+      "email": "alunogravacao@dbjson.com",
+      "perfil": "aluno",
+      "senhaHash": "123456",
+      "ativo": true,
+      "dataCriacao": "2026-06-12T23:22:50.290Z",
+      "dataAlteracao": "2026-06-12T23:22:50.290Z"
+    },
+    {
+      "id": "gnpD41_MV1Q",
+      "idUsuario": "u-1781306742295",
+      "nome": "Opus 5.8",
+      "email": "claude@claude.com",
+      "perfil": "instrutor",
+      "senhaHash": "123456",
+      "ativo": true,
+      "dataCriacao": "2026-06-12T23:25:42.295Z",
+      "dataAlteracao": "2026-06-12T23:25:42.295Z"
     }
   ],
   "categorias": [
@@ -61,7 +83,7 @@
       "id": "M5jPbsGifvQ",
       "idCategoria": "cat-1781290863497",
       "nome": "Fundamentos Matemáticos",
-      "descricao": "[descrição]",
+      "descricao": "Aprenda os fundamentos da matemática por trás das novas tecnologias.",
       "ativa": true
     },
     {
@@ -214,13 +236,26 @@
       "dataPublicacao": "2026-06-12",
       "totalAulas": 20,
       "totalHoras": 30
+    },
+    {
+      "id": "dRZlo9pccSI",
+      "idCurso": "c-1781306851593",
+      "titulo": "Curso extra de Calculo 1",
+      "descricao": "Curso extra de Calculo 1",
+      "idInstrutor": "u-1781306742295",
+      "idCategoria": "cat-1781290863497",
+      "nivel": "iniciante",
+      "bannerUrl": "/banners/inter-calc-estat.png",
+      "dataPublicacao": "2026-06-12",
+      "totalAulas": 0,
+      "totalHoras": 5
     }
   ],
   "modulos": [
     {
       "id": "mod-c-1781290930850-1",
       "idModulo": "mod-c-1781290930850-1",
-      "titulo": "Lógica Proposicional e Conjuntos",
+      "titulo": "Lógica Proposicional e Conjuntos - Parte 1",
       "idCurso": "c-1781290930850",
       "ordem": 1
     },
@@ -495,8 +530,8 @@
       "id": "lesson-mod-c-1781290930850-1-3",
       "idAula": "lesson-mod-c-1781290930850-1-3",
       "titulo": "3. Leitura Complementar: Lógica Proposicional e Conjuntos",
-      "tipoConteudo": "texto",
-      "urlConteudo": "Esta unidade didática apresenta uma exploração detalhada e conceitual sobre \"Leitura Complementar: Lógica Proposicional e Conjuntos\", um elemento essencial para a formação analítica dos estudantes. A compreensão rigorosa desses conceitos matemáticos permite estruturar o pensamento abstrato de forma lógica, viabilizando a modelagem de fenômenos reais e fornecendo o suporte teórico necessário para resolver problemas complexos com exatidão.\n\nAo longo do estudo deste tópico, abordaremos demonstrações formais, definições fundamentais e exercícios resolvidos que ilustram a aplicabilidade das teorias discutidas. Incentiva-se que o aluno revise atentamente os passos das demonstrações e realize os cálculos propostos, consolidando assim a base necessária para avançar com confiança rumo a tópicos mais avançados de ciências exatas.",
+      "tipoConteudo": "video",
+      "urlConteudo": "https://music.youtube.com/playlist?list=RDCLAK5uy_m9Rw_g5eCJtMhuRgP1eqU3H-XW7UL6uWQ",
       "idModulo": "mod-c-1781290930850-1",
       "duracaoMinutos": 20,
       "ordem": 3
@@ -2290,14 +2325,6 @@
       "id": "v-cONh0fiII"
     },
     {
-      "idMatricula": "mat-1781293462433",
-      "idUsuario": "u-1781293443466",
-      "idCurso": "c-1781290964582",
-      "dataMatricula": "2026-06-12",
-      "dataConclusao": null,
-      "id": "Zz4Xx_iXuts"
-    },
-    {
       "idMatricula": "mat-1781294892008",
       "idUsuario": "u-1781294568901",
       "idCurso": "c-1781290945812",
@@ -2320,6 +2347,14 @@
       "dataMatricula": "2026-06-12",
       "dataConclusao": null,
       "id": "jXohi9r-Voo"
+    },
+    {
+      "idMatricula": "mat-1781307275770",
+      "idUsuario": "u-1781293443466",
+      "idCurso": "c-1781306851593",
+      "dataMatricula": "2026-06-12",
+      "dataConclusao": null,
+      "id": "eu516Hr_Aaw"
     }
   ],
   "progresso_aulas": [
@@ -2660,7 +2695,7 @@
       "idUsuario": "u-1781287395293",
       "idCurso": "c-1781290930850",
       "nota": "5",
-      "comentario": "Instrutor melhor que esse não existe!",
+      "comentario": "Instrutor melhor que esse não existe! Agora acabou até a minha descauculia.",
       "dataAvaliacao": "2026-06-12"
     },
     {
@@ -2701,6 +2736,13 @@
       "titulo": "Matemática Completo",
       "descricao": "Todos os cursos de fundamentos matemáticos.",
       "idCategoria": "cat-1781290863497"
+    },
+    {
+      "id": "e2MpmdpnhXg",
+      "idTrilha": "t-1781306994254",
+      "titulo": "Trilha de Demonstração",
+      "descricao": "Aqui tem todos os módulos criados",
+      "idCategoria": "cat-1781292762093"
     }
   ],
   "trilhas_cursos": [
@@ -2775,6 +2817,66 @@
       "idTrilha": "t-1781291745321",
       "idCurso": "c-1781290964582",
       "ordem": 3
+    },
+    {
+      "id": "05GYsRoF1kA",
+      "idTrilha": "t-1781306994254",
+      "idCurso": "c-1781290930850",
+      "ordem": 1
+    },
+    {
+      "id": "1_04DnnyARY",
+      "idTrilha": "t-1781306994254",
+      "idCurso": "c-1781290945812",
+      "ordem": 2
+    },
+    {
+      "id": "mX06WhYdEA0",
+      "idTrilha": "t-1781306994254",
+      "idCurso": "c-1781290964582",
+      "ordem": 3
+    },
+    {
+      "id": "h7y8xCf-kSU",
+      "idTrilha": "t-1781306994254",
+      "idCurso": "c-1781290996961",
+      "ordem": 4
+    },
+    {
+      "id": "-bBUd8s4ixY",
+      "idTrilha": "t-1781306994254",
+      "idCurso": "c-1781291026966",
+      "ordem": 5
+    },
+    {
+      "id": "CES5cp0-8L0",
+      "idTrilha": "t-1781306994254",
+      "idCurso": "c-1781291050286",
+      "ordem": 6
+    },
+    {
+      "id": "9rIQbyMkVfI",
+      "idTrilha": "t-1781306994254",
+      "idCurso": "c-1781291099209",
+      "ordem": 7
+    },
+    {
+      "id": "uSSeZal-d7A",
+      "idTrilha": "t-1781306994254",
+      "idCurso": "c-1781291121017",
+      "ordem": 8
+    },
+    {
+      "id": "NqoS8kkUu3Q",
+      "idTrilha": "t-1781306994254",
+      "idCurso": "c-1781291145535",
+      "ordem": 9
+    },
+    {
+      "id": "SPRNat7ikak",
+      "idTrilha": "t-1781306994254",
+      "idCurso": "c-1781306851593",
+      "ordem": 10
     }
   ],
   "certificados": [
@@ -2837,6 +2939,18 @@
       "vantagens": [
         "Desconto de 10% em cada mensalidade."
       ]
+    },
+    {
+      "id": "Ql3AfIziRDI",
+      "idPlano": "pl-1781307096587",
+      "nome": "DEU A LOUCA NO GERENTE",
+      "descricao": "Tudo por R$ 1,99",
+      "preco": 1.99,
+      "duracaoMeses": 1,
+      "vantagens": [
+        "Tudo que está disponível na plataforma agora por R$ 1,99.",
+        "- Você perder a promoção."
+      ]
     }
   ],
   "assinaturas": [
@@ -2871,6 +2985,30 @@
       "idPlano": "pl-1781288982774",
       "dataInicio": "2026-06-12",
       "dataFim": "2026-07-12"
+    },
+    {
+      "id": "VmmCTcDZJlo",
+      "idAssinatura": "sub-1781306570310",
+      "idUsuario": "u-1781306570290",
+      "idPlano": "pl-1781288871351",
+      "dataInicio": "2026-06-12",
+      "dataFim": "2026-07-12"
+    },
+    {
+      "id": "WVkCiGgOKCk",
+      "idAssinatura": "sub-1781306687825",
+      "idUsuario": "u-1781306570290",
+      "idPlano": "pl-1781288982774",
+      "dataInicio": "2026-06-12",
+      "dataFim": "2026-07-12"
+    },
+    {
+      "id": "Bg6AfxjOuQw",
+      "idAssinatura": "sub-1781307215481",
+      "idUsuario": "u-1781287395293",
+      "idPlano": "pl-1781307096587",
+      "dataInicio": "2026-06-12",
+      "dataFim": "2026-07-12"
     }
   ],
   "pagamentos": [
@@ -2893,6 +3031,26 @@
       "dataPagamento": "2026-06-12T20:03:27.566Z",
       "metodoPagamento": "boleto",
       "transacaoId": "tx-411350207"
+    },
+    {
+      "id": "fpKM-DI8hrE",
+      "idPagamento": "pag-1781306687843",
+      "idAssinatura": "sub-1781306687825",
+      "idUsuario": "u-1781306570290",
+      "valor": 100,
+      "dataPagamento": "2026-06-12T23:24:47.825Z",
+      "metodoPagamento": "cartao",
+      "transacaoId": "tx-478438267"
+    },
+    {
+      "id": "iT6z1nH3v9c",
+      "idPagamento": "pag-1781307215494",
+      "idAssinatura": "sub-1781307215481",
+      "idUsuario": "u-1781287395293",
+      "valor": 1.99,
+      "dataPagamento": "2026-06-12T23:33:35.481Z",
+      "metodoPagamento": "pix",
+      "transacaoId": "tx-713528832"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
