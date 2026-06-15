@@ -145,11 +145,7 @@ print(f"  -> Salvo: {path2}")
 # ==============================================================================
 print("Gerando Gráfico 3...")
 
-# Protocolos de aplicação por bytes
-app_labels = ['TLS/HTTPS', 'QUIC', 'DNS', 'ICMPv6', 'TCP (outros)', 'ICMP', 'Outros']
-# TLS: 650793, QUIC: 248210, DNS: 8408, ICMPv6: 7520, 
-# TCP headers: 26756 - already counted in TLS, so "TCP outros" = headers only
-# ICMP: 1792, Outros: ARP(728) + IGMP(704) + LLDP(200) + SSDP(1185) + Data + rest
+# Dados originais de bytes
 tls_bytes = 650793
 quic_bytes = 248210
 dns_bytes = 8408
@@ -159,30 +155,70 @@ outros_bytes = 728 + 704 + 200 + 1185 + 13286 + 160 + 82 + 45 + 90 + 200  # ARP+
 total_bytes = dados['total_bytes']
 tcp_outros = total_bytes - tls_bytes - quic_bytes - dns_bytes - icmpv6_bytes - icmp_bytes - outros_bytes
 
-app_sizes = [tls_bytes, quic_bytes, dns_bytes, icmpv6_bytes, tcp_outros, icmp_bytes, outros_bytes]
-app_colors = ['#2563EB', '#7C3AED', '#F59E0B', '#10B981', '#60A5FA', '#34D399', '#9CA3AF']
+# Lista de tuplas (tamanho, nome, cor) para ordenar decrescentemente
+dados_donut = [
+    (tls_bytes, 'TLS/HTTPS', '#2563EB'),
+    (tcp_outros, 'TCP (outros)', '#60A5FA'),
+    (quic_bytes, 'QUIC', '#7C3AED'),
+    (outros_bytes, 'Outros', '#9CA3AF'),
+    (dns_bytes, 'DNS', '#F59E0B'),
+    (icmpv6_bytes, 'ICMPv6', '#10B981'),
+    (icmp_bytes, 'ICMP', '#34D399')
+]
 
-fig, ax = plt.subplots(figsize=(8, 6))
+# Ordenar por tamanho decrescente
+dados_donut.sort(key=lambda x: x[0], reverse=True)
+
+app_sizes = [x[0] for x in dados_donut]
+app_labels = [x[1] for x in dados_donut]
+app_colors = [x[2] for x in dados_donut]
+
+# Criar figura com espaço na lateral direita para a legenda
+fig, ax = plt.subplots(figsize=(10.5, 6))
 
 wedges, texts, autotexts = ax.pie(
-    app_sizes, labels=app_labels, colors=app_colors,
-    autopct=lambda pct: f'{pct:.1f}%' if pct > 2 else '',
+    app_sizes, colors=app_colors,
+    autopct=lambda pct: f'{pct:.1f}%' if pct > 5 else '',
     pctdistance=0.78, startangle=90,
     wedgeprops=dict(width=0.45, edgecolor='white', linewidth=2),
-    textprops={'fontsize': 11, 'fontweight': '500'}
+    textprops={'fontsize': 11, 'fontweight': 'bold'}
 )
 
 for autotext in autotexts:
-    autotext.set_fontsize(10)
-    autotext.set_fontweight('bold')
     autotext.set_color('white')
 
-# Texto central
-ax.text(0, 0, f'{total_bytes/1024/1024:.1f} MB\nTotal', ha='center', va='center',
+# Texto central do donut
+ax.text(0, 0, f'{total_bytes/1024/1024:.2f} MB\nTotal', ha='center', va='center',
         fontsize=14, fontweight='bold', color='#374151')
 
+# Criar rótulos detalhados para a legenda lateral com alinhamento
+legend_labels = []
+for size, name in zip(app_sizes, app_labels):
+    pct = size / total_bytes * 100
+    if size >= 1024 * 1024:
+        size_str = f"{size / 1024 / 1024:.2f} MB"
+    elif size >= 1024:
+        size_str = f"{size / 1024:.1f} KB"
+    else:
+        size_str = f"{size} B"
+    legend_labels.append(f"{name:<15}  {size_str:>9}  ({pct:>5.1f}%)")
+
+# Adicionar a legenda na lateral
+ax.legend(
+    wedges, legend_labels, 
+    title="Protocolo            Volume      Porcentagem",
+    loc="center left", 
+    bbox_to_anchor=(0.95, 0.5), 
+    fontsize=10.5, 
+    title_fontsize=11.5,
+    frameon=True,
+    facecolor='#FAFAFA',
+    edgecolor='#E5E7EB',
+    prop={'family': 'monospace', 'size': 10}  # Fonte mono para alinhar colunas perfeitamente
+)
+
 ax.set_title('Distribuição do Tráfego por Volume (Bytes)\nProtocolos de Aplicação',
-             fontweight='bold', pad=20, fontsize=14)
+             fontweight='bold', pad=20, fontsize=14, x=0.45) # Deslocar levemente o título para a esquerda para alinhar com o donut
 
 plt.tight_layout()
 path3 = os.path.join(OUTPUT_DIR, 'grafico3_distribuicao_bytes.png')
