@@ -1,0 +1,228 @@
+{
+  "fonte": "Figura 8 - Protocol Hierarchy Statistics (Wireshark)",
+  "total_pacotes": 2275,
+  "total_bytes": 1244568,
+  "protocolo_hierarquia": {
+    "Frame": {
+      "percent_pacotes": 100.0,
+      "pacotes": 2275,
+      "percent_bytes": 100.0,
+      "bytes": 1244568
+    },
+    "Ethernet": {
+      "percent_pacotes": 100.0,
+      "pacotes": 2275,
+      "percent_bytes": 16.5,
+      "bytes": 205755
+    },
+    "Link Layer Discovery Protocol": {
+      "percent_pacotes": 0.2,
+      "pacotes": 5,
+      "percent_bytes": 0.0,
+      "bytes": 200
+    },
+    "Internet Protocol Version 6": {
+      "percent_pacotes": 74.7,
+      "pacotes": 1699,
+      "percent_bytes": 5.5,
+      "bytes": 67960
+    },
+    "IPv6 > User Datagram Protocol": {
+      "percent_pacotes": 26.9,
+      "pacotes": 611,
+      "percent_bytes": 0.4,
+      "bytes": 4888
+    },
+    "IPv6 > UDP > QUIC IETF": {
+      "percent_pacotes": 19.4,
+      "pacotes": 442,
+      "percent_bytes": 19.9,
+      "bytes": 248210
+    },
+    "IPv6 > UDP > Multicast DNS": {
+      "percent_pacotes": 0.0,
+      "pacotes": 1,
+      "percent_bytes": 0.0,
+      "bytes": 45
+    },
+    "IPv6 > UDP > Domain Name System": {
+      "percent_pacotes": 3.9,
+      "pacotes": 88,
+      "percent_bytes": 0.7,
+      "bytes": 8408
+    },
+    "IPv6 > UDP > Data": {
+      "percent_pacotes": 3.5,
+      "pacotes": 80,
+      "percent_bytes": 1.1,
+      "bytes": 13286
+    },
+    "IPv6 > Transmission Control Protocol": {
+      "percent_pacotes": 37.1,
+      "pacotes": 845,
+      "percent_bytes": 1.4,
+      "bytes": 17272
+    },
+    "IPv6 > TCP > Transport Layer Security": {
+      "percent_pacotes": 11.9,
+      "pacotes": 271,
+      "percent_bytes": 31.5,
+      "bytes": 392102
+    },
+    "IPv6 > TCP > Data": {
+      "percent_pacotes": 0.1,
+      "pacotes": 2,
+      "percent_bytes": 0.0,
+      "bytes": 2
+    },
+    "IPv6 > Malformed Packet": {
+      "percent_pacotes": 0.6,
+      "pacotes": 13,
+      "percent_bytes": 0.0,
+      "bytes": 0
+    },
+    "IPv6 > ICMPv6": {
+      "percent_pacotes": 10.1,
+      "pacotes": 230,
+      "percent_bytes": 0.6,
+      "bytes": 7520
+    },
+    "Internet Protocol Version 4": {
+      "percent_pacotes": 24.0,
+      "pacotes": 545,
+      "percent_bytes": 0.9,
+      "bytes": 11076
+    },
+    "IPv4 > User Datagram Protocol": {
+      "percent_pacotes": 0.7,
+      "pacotes": 15,
+      "percent_bytes": 0.0,
+      "bytes": 120
+    },
+    "IPv4 > UDP > SSDP": {
+      "percent_pacotes": 0.4,
+      "pacotes": 9,
+      "percent_bytes": 0.1,
+      "bytes": 1185
+    },
+    "IPv4 > UDP > NetBIOS": {
+      "percent_pacotes": 0.0,
+      "pacotes": 1,
+      "percent_bytes": 0.0,
+      "bytes": 82
+    },
+    "IPv4 > UDP > Multicast DNS": {
+      "percent_pacotes": 0.0,
+      "pacotes": 1,
+      "percent_bytes": 0.0,
+      "bytes": 45
+    },
+    "IPv4 > UDP > Data": {
+      "percent_pacotes": 0.2,
+      "pacotes": 4,
+      "percent_bytes": 0.0,
+      "bytes": 160
+    },
+    "IPv4 > Transmission Control Protocol": {
+      "percent_pacotes": 20.0,
+      "pacotes": 455,
+      "percent_bytes": 0.8,
+      "bytes": 9484
+    },
+    "IPv4 > TCP > Transport Layer Security": {
+      "percent_pacotes": 7.4,
+      "pacotes": 169,
+      "percent_bytes": 20.8,
+      "bytes": 258691
+    },
+    "IPv4 > IGMP": {
+      "percent_pacotes": 1.9,
+      "pacotes": 44,
+      "percent_bytes": 0.1,
+      "bytes": 704
+    },
+    "IPv4 > ICMP": {
+      "percent_pacotes": 1.4,
+      "pacotes": 31,
+      "percent_bytes": 0.1,
+      "bytes": 1792
+    },
+    "Address Resolution Protocol": {
+      "percent_pacotes": 1.1,
+      "pacotes": 26,
+      "percent_bytes": 0.1,
+      "bytes": 728
+    }
+  },
+  "resumo_por_transporte": {
+    "TCP": {
+      "ipv6": 845,
+      "ipv4": 455,
+      "total": 1300,
+      "percentual": 57.1,
+      "bytes_ipv6": 17272,
+      "bytes_ipv4": 9484,
+      "bytes_total": 26756
+    },
+    "UDP": {
+      "ipv6": 611,
+      "ipv4": 15,
+      "total": 626,
+      "percentual": 27.5,
+      "bytes_ipv6": 4888,
+      "bytes_ipv4": 120,
+      "bytes_total": 5008
+    },
+    "ICMPv6": {
+      "total": 230,
+      "percentual": 10.1,
+      "bytes_total": 7520
+    },
+    "ICMP": {
+      "total": 31,
+      "percentual": 1.4,
+      "bytes_total": 1792
+    },
+    "IGMP": {
+      "total": 44,
+      "percentual": 1.9,
+      "bytes_total": 704
+    },
+    "ARP": {
+      "total": 26,
+      "percentual": 1.1,
+      "bytes_total": 728
+    },
+    "LLDP": {
+      "total": 5,
+      "percentual": 0.2,
+      "bytes_total": 200
+    },
+    "Malformed": {
+      "total": 13,
+      "percentual": 0.6,
+      "bytes_total": 0
+    }
+  },
+  "resumo_tls": {
+    "TLS_ipv6": {
+      "pacotes": 271,
+      "bytes": 392102
+    },
+    "TLS_ipv4": {
+      "pacotes": 169,
+      "bytes": 258691
+    },
+    "TLS_total": {
+      "pacotes": 440,
+      "bytes": 650793
+    }
+  },
+  "resumo_aplicacao": {
+    "QUIC": { "pacotes": 442, "bytes": 248210 },
+    "TLS": { "pacotes": 440, "bytes": 650793 },
+    "DNS": { "pacotes": 88, "bytes": 8408 },
+    "SSDP": { "pacotes": 9, "bytes": 1185 },
+    "mDNS": { "pacotes": 2, "bytes": 90 }
+  }
+}
